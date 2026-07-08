@@ -1,52 +1,18 @@
 {
   "sections": {
     "hero-slideshow": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_race_day": {
-          "type": "slide",
-          "settings": {
-            "heading": "Wear the Grid.",
-            "heading_size": "h0",
-            "subheading": "Official-style team kits for Ferrari, Red Bull, Mercedes and every grid on the calendar.",
-            "button_label": "Shop All Kits",
-            "link": "\/collections\/all",
-            "button_style_secondary": false,
-            "box_align": "middle-left",
-            "show_text_box": true,
-            "text_alignment": "left",
-            "image_overlay_opacity": 30,
-            "color_scheme": "scheme-4",
-            "text_alignment_mobile": "center"
-          }
-        },
-        "slide_low_stock": {
-          "type": "slide",
-          "settings": {
-            "heading": "Limited Drops. Real Stock.",
-            "heading_size": "h1",
-            "subheading": "No reprints, no waitlists — once a size is gone from the grid, it's gone.",
-            "button_label": "Shop Bestsellers",
-            "link": "#collection-bestsellers",
-            "button_style_secondary": true,
-            "box_align": "middle-left",
-            "show_text_box": true,
-            "text_alignment": "left",
-            "image_overlay_opacity": 30,
-            "color_scheme": "scheme-3",
-            "text_alignment_mobile": "center"
-          }
-        }
-      },
-      "block_order": ["slide_race_day", "slide_low_stock"],
+      "type": "f1-hero",
       "settings": {
-        "layout": "full_bleed",
-        "slide_height": "large",
-        "slider_visual": "counter",
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "show_text_below": false,
-        "accessibility_info": "Overtake F1 team merchandise"
+        "eyebrow": "OFFICIAL-STYLE TEAM MERCHANDISE",
+        "heading": "Wear the Grid.",
+        "subheading": "<p>Official-style team kits for Ferrari, Red Bull, Mercedes and every grid on the calendar. No reprints, no waitlists — once a size is gone, it's gone.</p>",
+        "button_label": "Shop All Kits",
+        "button_link": "\/collections\/all",
+        "button_label_2": "Shop Bestsellers",
+        "button_link_2": "#collection-bestsellers",
+        "color_scheme": "scheme-4",
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     },
     "shop-by-team": {
