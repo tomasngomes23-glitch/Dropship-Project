@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_zHxFfe": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_YxH8Wq": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Williams Racing</strong>",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YxH8Wq"
+      ],
+      "custom_css": [
+        "h2 {font-family: serif;}",
+        "@media only screen and (max-width: 768px) {.rich-text {display: none; }}"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 20,
+        "padding_bottom": 12
+      }
+    },
+    "image_banner_ptzAyF": {
+      "type": "image-banner",
+      "custom_css": [
+        "@media screen and (min-width: 750px) {.banner, slideshow-component {display: none; }}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/14.jpg",
+        "image_overlay_opacity": 10,
+        "image_height": "small",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "image_banner_4TQHYP": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_7yRqDK": {
+          "type": "heading",
+          "settings": {
+            "heading": "Products",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7yRqDK"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2 {font-size: 50px; font-family: serif; color: #ffffff;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/WhatsApp_Image_2024-04-19_at_05.08.01.jpg",
+        "image_overlay_opacity": 40,
+        "image_height": "medium",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        "h3 {font-size: 14px; text-align: center; font-weight: semi-bold; font-family: Bio Rhyme;}",
+        ".price {position: relative; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 0.5;}",
+        ".button {font-family: serif; font-size: 18px;}",
+        ".button:hover {background-color: ; transform: scale(1.03); transition: 0.3s;}"
+      ],
+      "settings": {
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "rich_text_zHxFfe",
+    "image_banner_ptzAyF",
+    "banner",
+    "image_banner_4TQHYP",
+    "product-grid"
+  ]
+}

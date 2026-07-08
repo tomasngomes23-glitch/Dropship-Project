@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 88
+      }
+    },
+    "rich_text_qyhpAK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3dnhzz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Terms of Service",
+            "heading_size": "h1"
+          }
+        },
+        "text_kEPybV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Welcome to <strong>Overtake</strong>. By accessing or using our website, you agree to comply with and be bound by the following Terms of Service. Please read them carefully.</p><h3><strong>1. Acceptance of Terms</strong></h3><p>By using the Overtake website and services, you agree to these Terms of Service, our Privacy Policy, and any additional terms applicable to specific products or services. If you do not agree, please do not use our website.</p><h3><strong>2. Changes to Terms</strong></h3><p>We reserve the right to modify these Terms of Service at any time. Any changes will be posted on this page, and your continued use of the website signifies your acceptance of the updated terms.</p><h3><strong>3. Use of Our Website</strong></h3><ul><li><strong>Eligibility</strong>: You must be at least 18 years old to use our website and services.</li><li><strong>Account Information</strong>: You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</li><li><strong>Prohibited Conduct</strong>: You agree not to use our website for any unlawful purpose or in any way that could harm Overtake or its users.</li></ul><h3><strong>4. Orders and Payments</strong></h3><ul><li><strong>Order Acceptance</strong>: All orders are subject to acceptance by Overtake. We reserve the right to refuse or cancel any order for any reason.</li><li><strong>Pricing and Availability</strong>: Prices and availability of products are subject to change without notice. We strive to display accurate information, but errors may occur.</li><li><strong>Payment</strong>: By providing a payment method, you authorize us to charge the applicable fees to that method.</li></ul><h3><strong>5. Shipping and Delivery</strong></h3><ul><li><strong>Shipping Policy</strong>: We will ship products to the address provided during checkout. Shipping times may vary based on your location and the shipping method selected.</li><li><strong>Risk of Loss</strong>: All items purchased from Overtake are made pursuant to a shipment contract. The risk of loss and title for such items pass to you upon our delivery to the carrier.</li></ul><h3><strong>6. Returns and Refunds</strong></h3><ul><li><strong>Return Policy</strong>: Returns are accepted under the conditions specified in our Return Policy. Please refer to our Return Policy page for detailed information.</li><li><strong>Refunds</strong>: Refunds will be issued to the original payment method after we receive and inspect the returned item. To see the terms and conditions of a refund, please check our Return Policy page</li></ul><h3><strong>7. Intellectual Property</strong></h3><p>All content on the Overtake website, including text, graphics, logos, images, and software, is the property of Overtake or its content suppliers and is protected by intellectual property laws. You may not use any content without our express written permission.</p><h3><strong>8. Limitation of Liability</strong></h3><p>Overtake is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of our website or services, even if we have been advised of the possibility of such damages.</p><h3><strong>9. Indemnification</strong></h3><p>You agree to indemnify and hold Overtake, its affiliates, officers, directors, employees, and agents harmless from any claims, liabilities, damages, and expenses, including legal fees, arising out of your use of our website or violation of these Terms of Service.</p><h3><strong>10. Governing Law</strong></h3><p>These Terms of Service are governed by and construed in accordance with the laws of Portugal. Any disputes arising from these terms will be resolved in the courts of Portugal.</p><h3><strong>11. Contact Us</strong></h3><p>If you have any questions or concerns about these Terms of Service, please contact us at <a>support@overtake.pt</a>.</p><p>By using our website, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. Thank you for shopping with <strong>Overtake</strong>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3dnhzz",
+        "text_kEPybV"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qyhpAK"
+  ]
+}

@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 88
+      }
+    },
+    "rich_text_qyhpAK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3dnhzz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping Policy",
+            "heading_size": "h1"
+          }
+        },
+        "text_kEPybV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At <strong>Overtake</strong>, we are dedicated to providing a seamless shopping experience for our customers around the globe. We offer worldwide free shipping on all orders. Please review our shipping policy below for details on how we handle and process your orders.</p><h3><strong>Free Worldwide Shipping</strong></h3><p><strong>Eligibility</strong>: All orders placed on the Overtake website are eligible for free shipping, regardless of the destination.</p><p><strong>Shipping Carriers</strong>: We partner with reliable carriers to ensure your order reaches you safely and promptly.</p><h3><strong>Processing Time</strong></h3><p><strong>Order Processing</strong>: Orders are typically processed within 1-3 business days after the order is placed. During peak times or holidays, processing times may be slightly longer.</p><p><strong>Order Confirmation</strong>: You will receive an order confirmation email once your order has been successfully placed.</p><h3><strong>Shipping Time</strong></h3><p><strong>Estimated Delivery</strong>: Delivery times may vary , but usually takes 10-15 business days.</p><p><strong>Tracking Information</strong>: Once your order is shipped, you will receive a shipping confirmation email with a tracking number to monitor your shipment's progress.</p><h3><strong>Shipping Conditions</strong></h3><p><strong>Shipping Address</strong>: Please ensure that the shipping address provided at checkout is accurate and complete. Overtake is not responsible for delays or lost shipments due to incorrect or incomplete addresses.</p><p><strong>Delivery Issues</strong>: If your package is delayed, lost, or arrives damaged, please contact us at <a>support@overtake.pt</a>. We will work with the carrier to resolve the issue as quickly as possible.</p><h3><strong>Order Tracking</strong></h3><p><strong>Tracking Number</strong>: You will receive a tracking number via email once your order has been shipped. You can use this number to track your order on our Track Your Order page.</p><p><strong>Tracking Updates</strong>: Please allow up to 48 hours for tracking information to become available after you receive the tracking number.</p><h3><strong>Undeliverable Packages</strong></h3><p><strong>Returned to Sender</strong>: If a package is returned to us due to an incorrect address, refusal of delivery, or unclaimed at customs, we will contact you to arrange a re-shipment. Additional shipping costs may apply.</p><h3><strong>Contact Us</strong></h3><p>If you have any questions or concerns about our shipping policy, please contact our customer support team at <a>support@overtake.pt</a>. We are here to assist you and ensure your shopping experience with Overtake is enjoyable and hassle-free.</p><p>Thank you for choosing Overtake.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3dnhzz",
+        "text_kEPybV"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qyhpAK"
+  ]
+}

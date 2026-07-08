@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner_dx9CxA": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_cmjiQA": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>ABOUT US</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_hzD69e": {
+          "type": "text",
+          "settings": {
+            "text": "Welcome to Overtake, where the Formula One passion drives our dedication to offering high-quality & authentic merchandise, so you can proudly wear and support your favorite teams and drivers!",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_cmjiQA",
+        "text_hzD69e"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/M_Schumacher.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_dx9CxA"
+  ]
+}

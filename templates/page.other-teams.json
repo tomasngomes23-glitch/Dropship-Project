@@ -1,0 +1,118 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "collection_list_h4CaLw": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_qfiNmF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ferrari"
+          }
+        },
+        "featured_collection_hQK46f": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mercedes"
+          }
+        },
+        "featured_collection_bhNefH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "red-bull-racing"
+          }
+        },
+        "featured_collection_eXmfH6": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mclaren"
+          }
+        },
+        "featured_collection_8FWM69": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "aston-martin"
+          }
+        },
+        "featured_collection_8jeJPE": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "alpine"
+          }
+        },
+        "featured_collection_YQbh6A": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "alpha-romeu"
+          }
+        },
+        "featured_collection_J6LPq7": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "alpha-tauri"
+          }
+        },
+        "featured_collection_MCLikM": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "williams"
+          }
+        },
+        "featured_collection_XEyPhc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "haas"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_qfiNmF",
+        "featured_collection_hQK46f",
+        "featured_collection_bhNefH",
+        "featured_collection_eXmfH6",
+        "featured_collection_8FWM69",
+        "featured_collection_8jeJPE",
+        "featured_collection_YQbh6A",
+        "featured_collection_J6LPq7",
+        "featured_collection_MCLikM",
+        "featured_collection_XEyPhc"
+      ],
+      "custom_css": [
+        "h3 {font-size: 18px; font-family: Bai jamjuree; font-weight: semi-bold;}",
+        ".collection-list {}"
+      ],
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-3",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collection_list_h4CaLw"
+  ]
+}

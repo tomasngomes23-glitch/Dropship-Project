@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 88
+      }
+    },
+    "rich_text_qyhpAK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3dnhzz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Return and Refund Policy",
+            "heading_size": "h1"
+          }
+        },
+        "text_kEPybV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At <strong>Overtake</strong>, customer satisfaction is our top priority. If you have received a wrong, defective, or damaged product, we are here to help.</p><h3><strong>Conditions for Return</strong></h3><p>You may return your product under the following circumstances:</p><ul><li><strong>Wrong Size or Wrong Product</strong>: If the product received does not match the size or product you ordered.</li><li><strong>Defective or Damaged Product</strong>: If the product is defective or damaged upon arrival.</li></ul><h3><strong>How to Initiate a Return</strong></h3><ol><li><strong>Contact Us</strong>: Please email us at <a>support@overtake.pt</a> to report the issue. Include your order number, a description of the problem, and, if possible, photographic evidence of the issue.</li><li><strong>Verification</strong>: Our support team will review your case. If we verify that the issue is indeed from our part, we will approve the return.</li></ol><h3><strong>Return Process</strong></h3><ul><li><strong>Shipping Fees</strong>: If the return is approved, you will not be responsible for any return shipping fees. We will provide you with a prepaid return shipping label.</li><li><strong>Packaging</strong>: The product must be returned in the same condition and packaging as it was received, without any signs of use.</li><li><strong>Refund</strong>: Once we receive the returned product and verify its condition, we will process your refund.</li></ul><h3><strong>Important Notes</strong></h3><ul><li>All returns must be initiated within 14 days after receiving your order.</li><li>Returned items must be unused and in their original packaging.</li><li>Refunds will be processed to the original payment method within 7 business days after we receive the returned item.</li></ul><p>For any questions or further assistance, please feel free to contact our support team at <a>support@overtake.pt</a>.</p><p>Thank you for shopping with <strong>Overtake</strong>!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3dnhzz",
+        "text_kEPybV"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qyhpAK"
+  ]
+}

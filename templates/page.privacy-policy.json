@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 88
+      }
+    },
+    "rich_text_qyhpAK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3dnhzz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Privacy Policy",
+            "heading_size": "h1"
+          }
+        },
+        "text_kEPybV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At <strong>Overtake</strong>, we are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy outlines how we collect, use, and protect your information.</p><h3><strong>Information We Collect</strong></h3><p>We collect information to provide better services to all our customers. This includes:</p><ul><li><strong>Personal Information</strong>: When you place an order or contact us, we may collect personal information such as your name, email address, phone number, shipping address, and payment details.</li><li><strong>Usage Information</strong>: We collect information about how you interact with our website, including your IP address, browser type, and browsing behavior.</li></ul><h3><strong>How We Use Your Information</strong></h3><p>The information we collect is used in the following ways:</p><ul><li><strong>To Process Orders</strong>: We use your personal information to process and fulfill your orders, including sending confirmation emails and shipping notifications.</li><li><strong>To Improve Our Services</strong>: We analyze usage information to understand how our website is used and to improve our services.</li><li><strong>To Communicate with You</strong>: We use your contact information to send you updates, respond to your inquiries, and provide customer support.</li><li><strong>For Marketing Purposes</strong>: With your consent, we may send you promotional emails about new products, special offers, and other information that may interest you.</li></ul><h3><strong>Information Sharing</strong></h3><p>We do not sell, trade, or otherwise transfer your personal information to outside parties, except in the following circumstances:</p><ul><li><strong>Service Providers</strong>: We may share your information with third-party service providers who assist us in operating our website, processing payments, and fulfilling orders. These service providers are required to keep your information confidential and use it only for the purposes we specify.</li><li><strong>Legal Requirements</strong>: We may disclose your information if required to do so by law or in response to a valid request from a law enforcement authority.</li></ul><h3><strong>Data Security</strong></h3><p>We implement a variety of security measures to protect your personal information. This includes using encryption, secure servers, and regular security audits to prevent unauthorized access, disclosure, or destruction of your data.</p><h3><strong>Your Rights</strong></h3><p>You have the right to:</p><ul><li><strong>Access</strong>: Request a copy of the personal information we hold about you.</li><li><strong>Correction</strong>: Request that we correct any inaccuracies in your personal information.</li><li><strong>Deletion</strong>: Request that we delete your personal information, subject to certain exceptions.</li><li><strong>Withdrawal of Consent</strong>: Withdraw your consent for us to use your personal information at any time.</li></ul><p>To exercise these rights, please contact us at <a>support@overtake.pt</a>.</p><h3><strong>Cookies</strong></h3><p>We use cookies to enhance your experience on our website. Cookies are small files that are stored on your device that help us remember your preferences and track usage. You can choose to disable cookies through your browser settings, though this may affect your ability to use certain features of our website.</p><h3><strong>Changes to This Policy</strong></h3><p>We may update this Privacy Policy from time to time. Any changes will be posted on this page, and we will notify you of any significant changes by email or through a notice on our website.</p><h3><strong>Contact Us</strong></h3><p>If you have any questions or concerns about our Privacy Policy or how we handle your personal information, please contact us at support@overtake.pt.</p><p>Thank you for choosing <strong>Overtake</strong>. We value your privacy and are committed to protecting your personal information.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3dnhzz",
+        "text_kEPybV"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qyhpAK"
+  ]
+}
