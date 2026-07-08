@@ -1,139 +1,69 @@
-/* Image-free hero: gradient + diagonal speed stripes + checkered flag accent. */
+/* Editorial hero: near-black canvas, generous space, restrained red accent.
+   Inspired by the "black canvas, big type, sparse red" language of premium
+   motorsport-brand sites — no imagery required. */
 
 .f1-hero {
   position: relative;
-  overflow: hidden;
-  min-height: 72vh;
+  min-height: 82vh;
   display: flex;
   align-items: center;
-  background:
-    radial-gradient(ellipse 60% 80% at 25% 15%, rgba(225, 6, 0, 0.35), transparent 60%),
-    linear-gradient(135deg, #060606 0%, #121212 45%, #1c0505 100%);
+  background: #181818;
   color: #fff;
-  padding-bottom: 6rem;
-  clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
-}
-
-@media screen and (max-width: 749px) {
-  .f1-hero {
-    clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%);
-  }
-}
-
-@keyframes f1-stripe-drift {
-  from {
-    transform: translateX(-8%) skewX(-12deg);
-  }
-  to {
-    transform: translateX(8%) skewX(-12deg);
-  }
-}
-
-.f1-hero__stripes {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.f1-hero__stripes span {
-  position: absolute;
-  top: -20%;
-  height: 140%;
-  width: 6%;
-  background: linear-gradient(180deg, rgba(225, 6, 0, 0.55), rgba(225, 6, 0, 0));
-  animation: f1-stripe-drift 9s ease-in-out infinite alternate;
-}
-
-.f1-hero__stripes span:nth-child(1) {
-  left: 8%;
-  animation-duration: 11s;
-}
-.f1-hero__stripes span:nth-child(2) {
-  left: 24%;
-  width: 3%;
-  opacity: 0.7;
-  animation-duration: 8s;
-}
-.f1-hero__stripes span:nth-child(3) {
-  left: 55%;
-  width: 4%;
-  animation-duration: 13s;
-}
-.f1-hero__stripes span:nth-child(4) {
-  left: 72%;
-  width: 2%;
-  opacity: 0.6;
-  animation-duration: 9.5s;
-}
-.f1-hero__stripes span:nth-child(5) {
-  left: 88%;
-  width: 5%;
-  animation-duration: 10.5s;
-}
-
-.f1-hero__flag {
-  position: absolute;
-  right: -40px;
-  bottom: -40px;
-  width: 220px;
-  height: 220px;
-  opacity: 0.12;
-  transform: rotate(-8deg);
-  background-image: repeating-conic-gradient(#fff 0% 25%, transparent 0% 50%);
-  background-size: 28px 28px;
-  pointer-events: none;
 }
 
 .f1-hero__content {
   position: relative;
   z-index: 1;
-  max-width: 640px;
+  max-width: 720px;
 }
 
 .f1-hero__eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   font-size: 1.2rem;
   color: var(--f1-red, #e10600);
   font-weight: 600;
-  margin: 0 0 1.2rem;
-  animation: f1-fade-in 0.6s ease both;
+  margin: 0 0 1.6rem;
+  animation: f1-fade-in 0.7s ease both;
 }
 
 .f1-hero__heading {
-  font-size: clamp(3.6rem, 6vw, 6.4rem);
-  line-height: 1.02;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin: 0 0 1.6rem;
-  animation: f1-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) 0.1s both;
+  font-size: clamp(3.8rem, 6vw, 6.8rem);
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  margin: 0 0 2rem;
+  animation: f1-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.1s both;
+}
+
+.f1-hero__heading::after {
+  content: none;
 }
 
 .f1-hero__subheading {
   font-size: 1.7rem;
-  color: rgba(255, 255, 255, 0.78);
-  margin-bottom: 2.4rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 3rem;
   max-width: 46ch;
-  animation: f1-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) 0.25s both;
+  line-height: 1.5;
+  animation: f1-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.25s both;
 }
 
 .f1-hero__buttons {
   display: flex;
   gap: 1.2rem;
   flex-wrap: wrap;
-  animation: f1-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) 0.4s both;
+  animation: f1-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.4s both;
 }
 
 .f1-hero__buttons .button--secondary {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 @media screen and (max-width: 749px) {
   .f1-hero {
-    min-height: 62vh;
+    min-height: 68vh;
     text-align: center;
   }
   .f1-hero__content {
@@ -146,11 +76,5 @@
   .f1-hero__buttons {
     justify-content: center;
     width: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .f1-hero__stripes span {
-    animation: none;
   }
 }

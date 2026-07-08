@@ -1,8 +1,7 @@
 {% comment %}
-  Image-free hero section: bold typography over a designed racing-inspired
-  background (gradient + diagonal stripes), so the homepage never falls back
-  to Dawn's generic placeholder illustration while real photography is
-  pending.
+  Image-free editorial hero: black canvas, large display type, sparse red
+  accent — so the homepage never falls back to Dawn's generic placeholder
+  illustration while real photography is pending.
 {% endcomment %}
 {{ 'f1-hero.css' | asset_url | stylesheet_tag }}
 
@@ -14,10 +13,6 @@
 {%- endstyle -%}
 
 <div class="f1-hero color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-  <div class="f1-hero__stripes" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-  <div class="f1-hero__flag" aria-hidden="true"></div>
   <div class="f1-hero__content page-width">
     {%- if section.settings.eyebrow != blank -%}
       <p class="f1-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>

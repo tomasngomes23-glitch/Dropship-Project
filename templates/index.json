@@ -5,21 +5,14 @@
       "settings": {
         "eyebrow": "OFFICIAL-STYLE TEAM MERCHANDISE",
         "heading": "Wear the Grid.",
-        "subheading": "<p>Official-style team kits for Ferrari, Red Bull, Mercedes and every grid on the calendar. No reprints, no waitlists — once a size is gone, it's gone.</p>",
+        "subheading": "<p>Official-style team kits for Ferrari, Red Bull, Mercedes and every grid on the calendar.</p>",
         "button_label": "Shop All Kits",
         "button_link": "\/collections\/all",
         "button_label_2": "Shop Bestsellers",
         "button_link_2": "#collection-bestsellers",
         "color_scheme": "scheme-4",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "team-marquee": {
-      "type": "team-marquee",
-      "settings": {
-        "text": "FERRARI, RED BULL RACING, MERCEDES, MCLAREN, ASTON MARTIN, ALPINE, WILLIAMS, HAAS, RB, ALFA ROMEO",
-        "speed": 22
+        "padding_top": 120,
+        "padding_bottom": 120
       }
     },
     "shop-by-team": {
@@ -87,22 +80,51 @@
         "show_view_all": true,
         "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "editorial-statement": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "caption",
+          "settings": {
+            "caption": "OVERTAKE",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Built for race day.<br>Worn every day.",
+            "heading_size": "hxl"
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
     "bestsellers": {
       "type": "featured-collection-in-stock",
       "settings": {
         "collection": "all",
-        "title": "Bestsellers — In Stock Now",
+        "title": "Bestsellers",
         "heading_size": "h1",
         "show_description": false,
         "products_to_show": 8,
         "columns_desktop": 4,
         "full_width": false,
         "show_view_all": true,
-        "view_all_style": "solid",
+        "view_all_style": "link",
         "enable_desktop_slider": false,
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
@@ -113,10 +135,10 @@
         "quick_add": "standard",
         "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 48
+        "padding_top": 80,
+        "padding_bottom": 100
       }
     }
   },
-  "order": ["hero-slideshow", "team-marquee", "shop-by-team", "bestsellers"]
+  "order": ["hero-slideshow", "shop-by-team", "editorial-statement", "bestsellers"]
 }
