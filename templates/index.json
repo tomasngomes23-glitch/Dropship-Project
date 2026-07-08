@@ -1,65 +1,149 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "gp_section_516767206869042164": {
-      "type": "gp-section-516767206869042164",
+    "hero-slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_race_day": {
+          "type": "slide",
+          "settings": {
+            "heading": "Wear the Grid.",
+            "heading_size": "h0",
+            "subheading": "Official-style team kits for Ferrari, Red Bull, Mercedes and every grid on the calendar.",
+            "button_label": "Shop All Kits",
+            "link": "\/collections\/all",
+            "button_style_secondary": false,
+            "box_align": "middle-left",
+            "show_text_box": true,
+            "text_alignment": "left",
+            "image_overlay_opacity": 30,
+            "color_scheme": "scheme-4",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_low_stock": {
+          "type": "slide",
+          "settings": {
+            "heading": "Limited Drops. Real Stock.",
+            "heading_size": "h1",
+            "subheading": "No reprints, no waitlists — once a size is gone from the grid, it's gone.",
+            "button_label": "Shop Bestsellers",
+            "link": "#collection-bestsellers",
+            "button_style_secondary": true,
+            "box_align": "middle-left",
+            "show_text_box": true,
+            "text_alignment": "left",
+            "image_overlay_opacity": 30,
+            "color_scheme": "scheme-3",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": ["slide_race_day", "slide_low_stock"],
       "settings": {
-        "section_preload": "true",
-        "checksum": "3c5574762ec5d843e0c05ddb2012ffc5c2648b78338c6cc84660fd926cfa765c_1_1"
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "counter",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "show_text_below": false,
+        "accessibility_info": "Overtake F1 team merchandise"
       }
     },
-    "gp_section_516767207036814324": {
-      "type": "gp-section-516767207036814324",
+    "shop-by-team": {
+      "type": "collection-list",
+      "blocks": {
+        "team_ferrari": {
+          "type": "featured_collection",
+          "settings": { "collection": "ferrari" }
+        },
+        "team_red_bull": {
+          "type": "featured_collection",
+          "settings": { "collection": "red-bull-racing" }
+        },
+        "team_mercedes": {
+          "type": "featured_collection",
+          "settings": { "collection": "mercedes" }
+        },
+        "team_mclaren": {
+          "type": "featured_collection",
+          "settings": { "collection": "mclaren" }
+        },
+        "team_aston_martin": {
+          "type": "featured_collection",
+          "settings": { "collection": "aston-martin" }
+        },
+        "team_alpine": {
+          "type": "featured_collection",
+          "settings": { "collection": "alpine" }
+        },
+        "team_williams": {
+          "type": "featured_collection",
+          "settings": { "collection": "williams" }
+        },
+        "team_haas": {
+          "type": "featured_collection",
+          "settings": { "collection": "haas" }
+        },
+        "team_rb": {
+          "type": "featured_collection",
+          "settings": { "collection": "alpha-tauri" }
+        },
+        "team_sauber": {
+          "type": "featured_collection",
+          "settings": { "collection": "alpha-romeu" }
+        }
+      },
+      "block_order": [
+        "team_ferrari",
+        "team_red_bull",
+        "team_mercedes",
+        "team_mclaren",
+        "team_aston_martin",
+        "team_alpine",
+        "team_williams",
+        "team_haas",
+        "team_rb",
+        "team_sauber"
+      ],
       "settings": {
-        "checksum": "636ac1d3643b59e9bb6a80462a7c5b0518aa6eb30f9ebd2774c88ce2bd421635_1_1"
+        "title": "Shop by Team",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 5,
+        "color_scheme": "scheme-1",
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "gp_section_516868925904913571": {
-      "type": "gp-section-516868925904913571",
+    "bestsellers": {
+      "type": "featured-collection-in-stock",
       "settings": {
-        "checksum": "58d956d2190f32870190d2e0c80b78ebb2ad4e0123a899efdbeeb1a0c16c08c9_1_1"
-      }
-    },
-    "gp_section_516767206986482676": {
-      "type": "gp-section-516767206986482676",
-      "settings": {
-        "checksum": "64c64efa979340b5a860476d4e1ade1dfc1791ded8888ceca1c70a4ed0196d0c_1_1"
-      }
-    },
-    "gp_section_516767207003259892": {
-      "type": "gp-section-516767207003259892",
-      "settings": {
-        "checksum": "51cfb40ec8c0356ab2e80da012a4baa66d963b4a1e893721bcaa8a2920f24fab_1_1"
-      }
-    },
-    "gp_section_516767206969705460": {
-      "type": "gp-section-516767206969705460",
-      "settings": {
-        "checksum": "da996eaa329f6949d08e2928f7b444288a1b6ec68137c39fd9a439dbb9470031_1_1"
-      }
-    },
-    "gp_section_516767207087211508": {
-      "type": "gp-section-516767207087211508",
-      "settings": {
-        "checksum": "3eafce97f3ea65eaaf3c30eb1e9890610e6f749ef94cdee9332f80d1bb8a1caf_1_1"
+        "collection": "all",
+        "title": "Bestsellers — In Stock Now",
+        "heading_size": "h1",
+        "show_description": false,
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 48
       }
     }
   },
-  "order": [
-    "gp_section_516767206869042164",
-    "gp_section_516767207036814324",
-    "gp_section_516868925904913571",
-    "gp_section_516767206986482676",
-    "gp_section_516767207003259892",
-    "gp_section_516767206969705460",
-    "gp_section_516767207087211508"
-  ]
+  "order": ["hero-slideshow", "shop-by-team", "bestsellers"]
 }

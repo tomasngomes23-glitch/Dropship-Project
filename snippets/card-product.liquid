@@ -131,13 +131,21 @@
               >
                 {{- 'products.product.sold_out' | t -}}
               </span>
-            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-              >
-                {{- 'products.product.on_sale' | t -}}
-              </span>
+            {%- else -%}
+              {%- if card_product.compare_at_price > card_product.price -%}
+                <span
+                  id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
+                  class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
+                >
+                  {{- 'products.product.on_sale' | t -}}
+                </span>
+              {%- endif -%}
+              {%- assign stock_variant = card_product.selected_or_first_available_variant -%}
+              {%- if stock_variant.inventory_management == 'shopify' and stock_variant.inventory_policy == 'deny' and stock_variant.inventory_quantity > 0 and stock_variant.inventory_quantity <= 5 -%}
+                <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">
+                  {{- 'products.product.inventory_low_stock_show_count' | t: quantity: stock_variant.inventory_quantity -}}
+                </span>
+              {%- endif -%}
             {%- endif -%}
           </div>
         </div>
@@ -521,13 +529,21 @@
             >
               {{- 'products.product.sold_out' | t -}}
             </span>
-          {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-            <span
-              id="Badge-{{ section_id }}-{{ card_product.id }}"
-              class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-            >
-              {{- 'products.product.on_sale' | t -}}
-            </span>
+          {%- else -%}
+            {%- if card_product.compare_at_price > card_product.price -%}
+              <span
+                id="Badge-{{ section_id }}-{{ card_product.id }}"
+                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
+              >
+                {{- 'products.product.on_sale' | t -}}
+              </span>
+            {%- endif -%}
+            {%- assign stock_variant = card_product.selected_or_first_available_variant -%}
+            {%- if stock_variant.inventory_management == 'shopify' and stock_variant.inventory_policy == 'deny' and stock_variant.inventory_quantity > 0 and stock_variant.inventory_quantity <= 5 -%}
+              <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">
+                {{- 'products.product.inventory_low_stock_show_count' | t: quantity: stock_variant.inventory_quantity -}}
+              </span>
+            {%- endif -%}
           {%- endif -%}
         </div>
       </div>
