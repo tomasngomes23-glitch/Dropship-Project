@@ -74,6 +74,39 @@
   transform: scale(1.06);
 }
 
+/* ---------- Header / navigation ---------- */
+.header {
+  border-bottom: none !important;
+}
+
+.header__menu-item {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.3rem;
+  position: relative;
+}
+
+.header__menu-item::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.6rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.header__menu-item:hover::after {
+  transform: scaleX(1);
+}
+
+.header__heading-link {
+  letter-spacing: 0.08em;
+}
+
 /* ---------- Section headings ---------- */
 .collection-list-title,
 .collection__title .title,
@@ -163,8 +196,9 @@
   bottom: 0;
   z-index: 2;
   display: block;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
-  padding: 4rem 1.4rem 1.4rem;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.35) 65%, transparent 100%);
+  padding: 5rem 1.6rem 1.6rem;
+  transition: background 0.3s ease;
 }
 
 .card-wrapper .card > .card__content .card__heading a,
@@ -176,7 +210,13 @@
 
 .card-wrapper .card > .card__content .card__heading {
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.card-wrapper .card > .card__content .price {
   font-size: 1.5rem;
 }
 
