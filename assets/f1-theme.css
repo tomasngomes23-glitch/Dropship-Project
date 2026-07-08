@@ -114,11 +114,27 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 0;
+}
+
+.button:not(.button--tertiary)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--f1-red);
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+  z-index: -1;
+}
+
+.button:not(.button--tertiary):hover::before {
+  transform: translateX(0);
 }
 
 .button:not(.button--tertiary):hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  color: #fff;
 }
 
 /* ---------- Product & collection cards ---------- */
@@ -147,19 +163,39 @@
 .collection-list__item .card__media,
 .collection-list__item .media {
   overflow: hidden;
+  position: relative;
+}
+
+.collection-list__item .card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(225, 6, 0, 0.55), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+}
+
+.collection-list__item:hover .card__media::after {
+  opacity: 1;
 }
 
 .collection-list__item .media img {
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1), filter 0.5s ease;
 }
 
 .collection-list__item:hover .media img {
-  transform: scale(1.08);
-  filter: brightness(0.75);
+  transform: scale(1.14) rotate(-1deg);
+  filter: brightness(0.8);
 }
 
 .collection-list__item .card__heading {
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.collection-list__item:hover .card__heading {
+  color: var(--f1-red);
+  letter-spacing: 0.03em;
 }
 
 /* ---------- Urgency badges ---------- */

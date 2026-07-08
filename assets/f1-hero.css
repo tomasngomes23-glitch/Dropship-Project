@@ -10,6 +10,14 @@
     radial-gradient(ellipse 60% 80% at 25% 15%, rgba(225, 6, 0, 0.35), transparent 60%),
     linear-gradient(135deg, #060606 0%, #121212 45%, #1c0505 100%);
   color: #fff;
+  padding-bottom: 6rem;
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+}
+
+@media screen and (max-width: 749px) {
+  .f1-hero {
+    clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%);
+  }
 }
 
 @keyframes f1-stripe-drift {

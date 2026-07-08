@@ -15,6 +15,13 @@
         "padding_bottom": 96
       }
     },
+    "team-marquee": {
+      "type": "team-marquee",
+      "settings": {
+        "text": "FERRARI, RED BULL RACING, MERCEDES, MCLAREN, ASTON MARTIN, ALPINE, WILLIAMS, HAAS, RB, ALFA ROMEO",
+        "speed": 22
+      }
+    },
     "shop-by-team": {
       "type": "collection-list",
       "blocks": {
@@ -111,5 +118,5 @@
       }
     }
   },
-  "order": ["hero-slideshow", "shop-by-team", "bestsellers"]
+  "order": ["hero-slideshow", "team-marquee", "shop-by-team", "bestsellers"]
 }
