@@ -1,0 +1,190 @@
+/* Overtake F1 — custom visual layer on top of Dawn base styles.
+   Scoped to Dawn's own class names so GemPages/EComposer-controlled
+   pages (which use gp-*/ecom-* classes) are unaffected. */
+
+:root {
+  --f1-red: #e10600;
+  --f1-red-dark: #a10400;
+  --f1-ink: #0a0a0a;
+}
+
+/* ---------- Motion primitives ---------- */
+@keyframes f1-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes f1-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes f1-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(225, 6, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .f1-fade-up,
+  .f1-fade-in,
+  .badge--bottom-left {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Hero / slideshow ---------- */
+.shopify-section .slideshow__slide .banner__heading {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  position: relative;
+  animation: f1-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.shopify-section .slideshow__slide .banner__heading::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 14px;
+  background: var(--f1-red);
+  animation: f1-fade-in 0.6s ease 0.35s both;
+}
+
+.slideshow__slide .banner__text {
+  animation: f1-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.15s both;
+}
+
+.slideshow__slide .banner__buttons {
+  animation: f1-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.3s both;
+}
+
+.slideshow__media img {
+  transition: transform 6s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.slideshow__slide.is-selected .slideshow__media img,
+.slideshow__media img {
+  transform: scale(1.06);
+}
+
+/* ---------- Section headings ---------- */
+.collection-list-title,
+.collection__title .title,
+.related-products__heading {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.collection-list-title::after,
+.collection__title .title::after,
+.related-products__heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 48px;
+  height: 3px;
+  background: var(--f1-red);
+}
+
+/* ---------- Buttons ---------- */
+.button,
+.shopify-payment-button__button--unbranded {
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:not(.button--tertiary):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- Product & collection cards ---------- */
+.card-wrapper .card__media,
+.card-wrapper .media {
+  overflow: hidden;
+}
+
+.card-wrapper .media img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.card-wrapper:hover .media img {
+  transform: scale(1.07);
+}
+
+.card-wrapper .card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-wrapper:hover .card {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+.collection-list__item .card__media,
+.collection-list__item .media {
+  overflow: hidden;
+}
+
+.collection-list__item .media img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.collection-list__item:hover .media img {
+  transform: scale(1.08);
+  filter: brightness(0.75);
+}
+
+.collection-list__item .card__heading {
+  transition: color 0.2s ease;
+}
+
+/* ---------- Urgency badges ---------- */
+.card__badge .badge {
+  animation: f1-fade-in 0.3s ease both;
+}
+
+.card__badge .badge.color-background-1,
+.card__badge .badge {
+  will-change: box-shadow;
+}
+
+.card__badge .badge:last-child {
+  animation: f1-pulse 1.8s ease-in-out infinite;
+}
+
+/* ---------- Loox review stars ---------- */
+.f1-loox-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.4em 0;
+  min-height: 1.4em;
+}
+
+#looxReviews {
+  margin-top: 2rem;
+}

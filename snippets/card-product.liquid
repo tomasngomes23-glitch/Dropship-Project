@@ -211,6 +211,17 @@
               </p>
             {%- endif -%}
 
+            {%- if card_product.metafields.loox.num_reviews != blank and card_product.metafields.loox.num_reviews != '0' -%}
+              <div class="f1-loox-inline">
+                <div
+                  class="loox-rating"
+                  data-id="{{ card_product.id }}"
+                  data-rating="{{ card_product.metafields.loox.avg_rating }}"
+                  data-raters="{{ card_product.metafields.loox.num_reviews }}"
+                ></div>
+              </div>
+            {%- endif -%}
+
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants.size == 1 and quick_add == 'bulk' %}

@@ -5,6 +5,12 @@
       "type": "main-product",
       "blocks": {
         "title": { "type": "title" },
+        "loox_rating": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% if product.metafields.loox.num_reviews != blank and product.metafields.loox.num_reviews != '0' %}<div class=\"f1-loox-inline\"><div class=\"loox-rating\" data-id=\"{{ product.id }}\" data-rating=\"{{ product.metafields.loox.avg_rating }}\" data-raters=\"{{ product.metafields.loox.num_reviews }}\"></div><a href=\"#looxReviews\" class=\"link caption\">{{ product.metafields.loox.num_reviews }} reviews</a></div>{% endif %}"
+          }
+        },
         "price": { "type": "price" },
         "inventory": {
           "type": "inventory",
@@ -57,10 +63,17 @@
             "content": "<p>Team kits run true to size. Check the size chart in the product images if you're between sizes.</p>"
           }
         },
-        "share": { "type": "share" }
+        "share": { "type": "share" },
+        "loox_reviews_full": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"looxReviews\"></div>"
+          }
+        }
       },
       "block_order": [
         "title",
+        "loox_rating",
         "price",
         "inventory",
         "variant_picker",
@@ -70,7 +83,8 @@
         "description",
         "shipping_returns",
         "size_guide",
-        "share"
+        "share",
+        "loox_reviews_full"
       ],
       "settings": {
         "enable_sticky_info": true,
