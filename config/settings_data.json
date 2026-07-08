@@ -13,7 +13,7 @@
     "logo_width": 150,
     "favicon": "shopify://shop_images/icons8-formula-1-100.png",
     "type_header_font": "archivo_n7",
-    "heading_scale": 104,
+    "heading_scale": 105,
     "type_body_font": "assistant_n4",
     "body_scale": 100,
     "page_width": 1200,
@@ -284,7 +284,7 @@
         }
       },
       "type_header_font": "archivo_n7",
-      "heading_scale": 104,
+      "heading_scale": 105,
       "type_body_font": "assistant_n4",
       "body_scale": 100,
       "page_width": 1200,
