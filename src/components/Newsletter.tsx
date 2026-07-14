@@ -13,8 +13,8 @@ export function Newsletter() {
   };
 
   return (
-    <section id="sobre" className="px-5 py-16 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <section className="px-5 py-16 lg:px-8">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,21 +22,21 @@ export function Newsletter() {
           transition={{ duration: 0.6 }}
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 to-neutral-800 px-6 py-14 text-center lg:px-16 lg:py-20"
         >
-          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-lime-400/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-400/20 blur-3xl" />
           <div className="pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl" />
 
-          <h2 className="font-display text-3xl font-bold text-white lg:text-4xl">
-            -15% na tua primeira encomenda
+          <h2 className="font-display text-3xl font-semibold text-white lg:text-4xl">
+            Get 10% Off Your First Order
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm text-neutral-400">
-            Subscreve a newsletter e sê o primeiro a saber sobre novos drops,
-            promoções exclusivas e acesso antecipado.
+            Join the list for early access to restocks, new colors, and
+            exclusive discounts.
           </p>
 
           {sent ? (
-            <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-2 rounded-full bg-lime-300/10 px-6 py-3.5 text-sm font-medium text-lime-300">
+            <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-2 rounded-full bg-teal-300/10 px-6 py-3.5 text-sm font-medium text-teal-300">
               <Check size={18} />
-              Obrigado! Verifica o teu email.
+              You're in! Check your inbox for your code.
             </div>
           ) : (
             <form
@@ -48,14 +48,14 @@ export function Newsletter() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="o-teu-email@exemplo.com"
-                className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-lime-300"
+                placeholder="your-email@example.com"
+                className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
               />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime-300 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-teal-400 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03] cursor-pointer"
               >
-                Subscrever
+                Subscribe
                 <ArrowRight size={16} />
               </button>
             </form>

@@ -1,121 +1,204 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDownRight } from "lucide-react";
+import { Check, ShieldCheck, Star, Truck } from "lucide-react";
+import heroImg from "../assets/aurora/cube-hero-teal.webp";
+import { bundles, bundlePrice, formatKr, UNIT_COMPARE_AT } from "../data/aurora";
+import { useCart } from "../context/CartContext";
+
+const VALUE_PROPS = [
+  "Transform any room into a dreamy escape",
+  "16 colors to match your every mood",
+  "Instant ambiance with one click",
+];
 
 export function Hero() {
+  const [selected, setSelected] = useState(3);
+  const { addBundle } = useCart();
+  const { base, price } = bundlePrice(selected);
+
   return (
-    <section id="top" className="relative overflow-hidden px-5 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-20">
+    <section id="top" className="relative overflow-hidden px-5 pb-16 pt-10 lg:px-8 lg:pb-24 lg:pt-14">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-fuchsia-600/30 blur-3xl" />
-        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-lime-400/20 blur-3xl" />
-        <div className="absolute left-1/3 bottom-0 h-72 w-72 rounded-full bg-orange-500/20 blur-3xl" />
+        <motion.div
+          animate={{
+            background: [
+              "radial-gradient(circle, rgba(45,212,191,0.25), transparent 60%)",
+              "radial-gradient(circle, rgba(168,85,247,0.25), transparent 60%)",
+              "radial-gradient(circle, rgba(236,72,153,0.22), transparent 60%)",
+              "radial-gradient(circle, rgba(45,212,191,0.25), transparent 60%)",
+            ],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-40 -top-20 h-[32rem] w-[32rem] rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            background: [
+              "radial-gradient(circle, rgba(56,189,248,0.2), transparent 60%)",
+              "radial-gradient(circle, rgba(52,211,153,0.22), transparent 60%)",
+              "radial-gradient(circle, rgba(56,189,248,0.2), transparent 60%)",
+            ],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full blur-3xl"
+        />
       </div>
 
-      <div className="mx-auto max-w-7xl">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-neutral-300"
-            >
-              Coleção Verão 2026
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-display text-5xl font-bold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
-            >
-              Estilo que
-              <br />
-              não pede
-              <br />
-              <span className="bg-gradient-to-r from-lime-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                licença.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-6 max-w-md text-base text-neutral-400 lg:text-lg"
-            >
-              Peças pensadas para quem vive rápido. Qualidade premium,
-              envio em 24h e devolução grátis — sem complicações.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
-            >
-              <a
-                href="#destaques"
-                className="group inline-flex items-center gap-2 rounded-full bg-lime-300 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03]"
-              >
-                Ver coleção
-                <ArrowDownRight
-                  size={18}
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-                />
-              </a>
-              <a
-                href="#colecoes"
-                className="rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Explorar categorias
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-12 flex items-center gap-8 text-neutral-500"
-            >
-              <div>
-                <p className="font-display text-2xl font-bold text-white">40k+</p>
-                <p className="text-xs">clientes felizes</p>
-              </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div>
-                <p className="font-display text-2xl font-bold text-white">4.9/5</p>
-                <p className="text-xs">avaliação média</p>
-              </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div>
-                <p className="font-display text-2xl font-bold text-white">24h</p>
-                <p className="text-xs">envio expresso</p>
-              </div>
-            </motion.div>
-          </div>
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative order-1 mx-auto w-full max-w-md lg:order-2"
+        >
+          <motion.div
+            animate={{ y: [0, -14, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative overflow-hidden rounded-[2rem] shadow-[0_0_80px_-10px_rgba(45,212,191,0.4)]"
+          >
+            <img src={heroImg} alt="Aurora Cube a projetar luz teal num quarto escuro" className="w-full" />
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative mx-auto aspect-[3/4] w-full max-w-md"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="absolute -left-6 top-8 hidden rounded-2xl bg-neutral-900/90 px-4 py-3 shadow-xl backdrop-blur sm:block"
           >
-            <div className="absolute inset-0 rotate-3 rounded-[2rem] bg-gradient-to-br from-orange-400 via-rose-500 to-fuchsia-700 shadow-2xl" />
-            <div className="absolute inset-0 -rotate-2 rounded-[2rem] bg-gradient-to-tr from-neutral-900/40 to-transparent" />
-            <div className="absolute inset-6 flex flex-col justify-end rounded-3xl">
-              <p className="font-display text-3xl font-bold text-white drop-shadow-lg">
-                Drop 04
-              </p>
-              <p className="text-sm text-white/80">Edição limitada · 200 peças</p>
+            <div className="flex items-center gap-1 text-amber-400">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={13} fill="currentColor" />
+              ))}
             </div>
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-6 -left-6 rounded-2xl bg-neutral-950/90 px-5 py-4 shadow-xl backdrop-blur"
-            >
-              <p className="text-xs text-neutral-400">A partir de</p>
-              <p className="font-display text-xl font-bold text-lime-300">49,90€</p>
-            </motion.div>
+            <p className="mt-1 text-xs text-neutral-300">1,720+ compras felizes</p>
+          </motion.div>
+        </motion.div>
+
+        <div className="order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-300"
+          >
+            <div className="flex text-amber-400">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={12} fill="currentColor" />
+              ))}
+            </div>
+            4.8/5 · 10,000+ Verified Customers
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
+          >
+            Aurora Cube
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-2 text-lg text-neutral-400"
+          >
+            The crystal-glass light that turns any room into an aurora borealis.
+          </motion.p>
+
+          <motion.ul
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="mt-6 flex flex-col gap-2"
+          >
+            {VALUE_PROPS.map((v) => (
+              <li key={v} className="flex items-center gap-2 text-sm text-neutral-200">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-400/15 text-teal-300">
+                  <Check size={12} />
+                </span>
+                {v}
+              </li>
+            ))}
+          </motion.ul>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-8 flex items-baseline gap-3"
+          >
+            <span className="font-display text-3xl font-semibold text-white">
+              {formatKr(price)}
+            </span>
+            <span className="text-lg text-neutral-500 line-through">
+              {formatKr(selected === 1 ? UNIT_COMPARE_AT : base)}
+            </span>
+            <span className="rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
+              Save {selected === 1 ? 39 : bundles.find((b) => b.qty === selected)?.discountPct}%
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-5 grid grid-cols-3 gap-3"
+          >
+            {bundles.map((b) => {
+              const { price: p } = bundlePrice(b.qty);
+              const isSelected = selected === b.qty;
+              return (
+                <button
+                  key={b.qty}
+                  onClick={() => setSelected(b.qty)}
+                  className={`relative rounded-2xl border px-3 py-3 text-left transition-all cursor-pointer ${
+                    isSelected
+                      ? "border-teal-400 bg-teal-400/10 shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"
+                      : "border-white/10 bg-white/[0.03] hover:border-white/25"
+                  }`}
+                >
+                  {b.discountPct >= 30 && (
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal-400 px-2 py-0.5 text-[10px] font-bold text-neutral-950">
+                      MOST POPULAR
+                    </span>
+                  )}
+                  <p className="text-xs font-semibold text-white">{b.label}</p>
+                  <p className="mt-1 text-sm font-bold text-teal-300">{formatKr(p)}</p>
+                  {b.sublabel && (
+                    <p className="text-[11px] text-neutral-400">{b.sublabel.split("—")[0]}</p>
+                  )}
+                </button>
+              );
+            })}
+          </motion.div>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => addBundle(selected)}
+            className="mt-5 w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 shadow-[0_0_30px_-5px_rgba(45,212,191,0.6)] transition-transform hover:scale-[1.01] cursor-pointer"
+          >
+            Add to Cart — {formatKr(price)}
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-500"
+          >
+            <span className="flex items-center gap-1.5">
+              <Truck size={14} /> Free Shipping
+            </span>
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck size={14} /> 30 Day Guarantee
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Check size={14} /> 24/7 Support
+            </span>
           </motion.div>
         </div>
       </div>

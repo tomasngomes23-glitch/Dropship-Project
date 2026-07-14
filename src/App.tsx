@@ -1,31 +1,37 @@
-import { useState } from "react";
 import { CartProvider } from "./context/CartContext";
+import { AnnouncementBar } from "./components/AnnouncementBar";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import { MarqueeBar } from "./components/MarqueeBar";
-import { Categories } from "./components/Categories";
-import { ProductGrid } from "./components/ProductGrid";
+import { TransformSection } from "./components/TransformSection";
+import { HowItWorks } from "./components/HowItWorks";
+import { StatsSection } from "./components/StatsSection";
+import { Testimonials } from "./components/Testimonials";
+import { GuaranteeSection } from "./components/GuaranteeSection";
+import { FAQSection } from "./components/FAQSection";
 import { Newsletter } from "./components/Newsletter";
 import { Footer } from "./components/Footer";
 import { CartDrawer } from "./components/CartDrawer";
-import type { Category } from "./data/products";
+import { StickyBuyBar } from "./components/StickyBuyBar";
 
 function App() {
-  const [filter, setFilter] = useState<Category | null>(null);
-
   return (
     <CartProvider>
       <div className="min-h-screen bg-neutral-950">
+        <AnnouncementBar />
         <Navbar />
-        <MarqueeBar />
         <main>
           <Hero />
-          <Categories active={filter} onSelect={setFilter} />
-          <ProductGrid filter={filter} />
+          <TransformSection />
+          <HowItWorks />
+          <StatsSection />
+          <Testimonials />
+          <GuaranteeSection />
+          <FAQSection />
           <Newsletter />
         </main>
         <Footer />
         <CartDrawer />
+        <StickyBuyBar />
       </div>
     </CartProvider>
   );
