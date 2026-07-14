@@ -21,8 +21,11 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#top" className="font-display text-xl tracking-tight text-white">
-          Velory
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400" />
+          <span className="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
+            Velory
+          </span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">

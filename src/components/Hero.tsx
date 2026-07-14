@@ -17,8 +17,8 @@ export function Hero() {
   const { base, price } = bundlePrice(selected);
 
   return (
-    <section id="top" className="relative overflow-hidden px-5 pb-16 pt-10 lg:px-8 lg:pb-24 lg:pt-14">
-      <div className="pointer-events-none absolute inset-0 -z-10">
+    <section id="top" className="relative overflow-hidden px-5 pb-16 pt-6 lg:px-8 lg:pb-20 lg:pt-8">
+      <div className="pointer-events-none absolute inset-0 left-1/2 -z-10 w-screen -translate-x-1/2">
         <motion.div
           animate={{
             background: [
@@ -29,7 +29,7 @@ export function Hero() {
             ],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-40 -top-20 h-[32rem] w-[32rem] rounded-full blur-3xl"
+          className="absolute -left-20 -top-32 h-[36rem] w-[36rem] rounded-full blur-3xl xl:-left-10"
         />
         <motion.div
           animate={{
@@ -40,7 +40,18 @@ export function Hero() {
             ],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full blur-3xl"
+          className="absolute -right-20 bottom-0 h-[32rem] w-[32rem] rounded-full blur-3xl xl:-right-10"
+        />
+        <motion.div
+          animate={{
+            background: [
+              "radial-gradient(circle, rgba(217,70,239,0.14), transparent 65%)",
+              "radial-gradient(circle, rgba(45,212,191,0.14), transparent 65%)",
+              "radial-gradient(circle, rgba(217,70,239,0.14), transparent 65%)",
+            ],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          className="absolute left-1/2 top-1/3 hidden h-[40rem] w-[60rem] -translate-x-1/2 rounded-full blur-3xl 2xl:block"
         />
       </div>
 
