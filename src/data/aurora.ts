@@ -7,6 +7,7 @@ export interface BundleTier {
 
 export const UNIT_PRICE = 295.0;
 export const UNIT_COMPARE_AT = 491.0;
+export const SHOPIFY_PRODUCT_HANDLE = "aurora-cube";
 
 export const bundles: BundleTier[] = [
   { qty: 1, label: "Buy 1", discountPct: 0 },

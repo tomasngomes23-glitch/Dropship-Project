@@ -1,13 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ShieldCheck, ShoppingBag, X } from "lucide-react";
+import { Loader2, ShieldCheck, ShoppingBag, X } from "lucide-react";
 import heroImg from "../assets/aurora/cube-hero-teal.webp";
 import { bundlePrice, formatKr, UNIT_COMPARE_AT } from "../data/aurora";
 import { useCart } from "../context/CartContext";
 
 export function CartDrawer() {
-  const { isOpen, close, qty } = useCart();
-  const { base, price } = qty ? bundlePrice(qty) : { base: 0, price: 0 };
+  const { isOpen, close, qty, loading, shopifyCart } = useCart();
+  const { base, price: estimatedPrice } = qty ? bundlePrice(qty) : { base: 0, price: 0 };
   const compareAt = qty === 1 ? UNIT_COMPARE_AT : base;
+
+  const price = shopifyCart ? Number(shopifyCart.totalAmount.amount) : estimatedPrice;
   const savings = compareAt - price;
 
   return (
@@ -64,9 +66,13 @@ export function CartDrawer() {
                         {qty === 1 ? "Single" : `Bundle of ${qty}`}
                       </p>
                       <div className="mt-2 flex items-baseline gap-2">
-                        <span className="text-sm font-semibold text-white">
-                          {formatKr(price)}
-                        </span>
+                        {loading ? (
+                          <Loader2 size={16} className="animate-spin text-teal-300" />
+                        ) : (
+                          <span className="text-sm font-semibold text-white">
+                            {formatKr(price)}
+                          </span>
+                        )}
                         <span className="text-xs text-neutral-500 line-through">
                           {formatKr(compareAt)}
                         </span>
@@ -91,9 +97,21 @@ export function CartDrawer() {
                       {formatKr(price)}
                     </span>
                   </div>
-                  <button className="w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.02] cursor-pointer">
-                    Checkout
-                  </button>
+                  {shopifyCart ? (
+                    <a
+                      href={shopifyCart.checkoutUrl}
+                      className="flex w-full items-center justify-center rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.02]"
+                    >
+                      Checkout
+                    </a>
+                  ) : (
+                    <button
+                      disabled={loading}
+                      className="w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.02] cursor-pointer disabled:opacity-60"
+                    >
+                      {loading ? "Loading…" : "Checkout"}
+                    </button>
+                  )}
                   <p className="mt-3 text-center text-xs text-neutral-600">
                     Free shipping · Tracked delivery
                   </p>
