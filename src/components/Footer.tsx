@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { AtSign, Check, MessageCircle, Send } from "lucide-react";
 
 const CUSTOMER_CARE = [
-  { label: "Track Order", href: "https://velorystore.com/pages/track-order" },
-  { label: "Contact", href: "https://velorystore.com/pages/contact" },
-  { label: "Refund Policy", href: "https://velorystore.com/policies/refund-policy" },
-  { label: "Shipping Policy", href: "https://velorystore.com/policies/shipping-policy" },
+  { label: "Track Order", href: "/track-order" },
+  { label: "Contact", href: "/contact" },
+  { label: "Refund Policy", href: "/policies/refund-policy" },
+  { label: "Shipping Policy", href: "/policies/shipping-policy" },
 ];
 
 const WHY_CHOOSE_US = [
@@ -20,12 +21,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2.5">
+            <Link to="/" className="flex items-center gap-2.5">
               <span className="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400" />
               <span className="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
                 Velory
               </span>
-            </div>
+            </Link>
             <p className="mt-3 max-w-xs text-sm text-neutral-500">
               The Aurora Cube — instant ambiance for any room, anywhere.
             </p>
@@ -47,14 +48,12 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {CUSTOMER_CARE.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to={link.href}
                     className="text-sm text-neutral-500 transition-colors hover:text-white"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -76,22 +75,12 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-neutral-600 sm:flex-row">
           <p>© 2026 Velory. All rights reserved.</p>
           <div className="flex gap-5">
-            <a
-              href="https://velorystore.com/policies/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-400"
-            >
+            <Link to="/policies/privacy-policy" className="hover:text-neutral-400">
               Privacy Policy
-            </a>
-            <a
-              href="https://velorystore.com/policies/terms-of-service"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-400"
-            >
+            </Link>
+            <Link to="/policies/terms-of-service" className="hover:text-neutral-400">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

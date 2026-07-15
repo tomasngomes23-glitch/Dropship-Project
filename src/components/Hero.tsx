@@ -11,6 +11,17 @@ const VALUE_PROPS = [
   "Instant ambiance with one click",
 ];
 
+const STARS = [
+  { top: "6%", left: "8%", size: 3, delay: 0 },
+  { top: "14%", left: "88%", size: 2, delay: 0.6 },
+  { top: "28%", left: "2%", size: 2, delay: 1.2 },
+  { top: "40%", left: "94%", size: 3, delay: 0.3 },
+  { top: "58%", left: "4%", size: 2, delay: 1.8 },
+  { top: "72%", left: "90%", size: 2, delay: 0.9 },
+  { top: "86%", left: "10%", size: 3, delay: 1.5 },
+  { top: "92%", left: "80%", size: 2, delay: 0.2 },
+];
+
 export function Hero() {
   const [selected, setSelected] = useState(3);
   const { addBundle } = useCart();
@@ -60,8 +71,34 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative order-1 mx-auto w-full max-w-md lg:order-2"
+          className="relative order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-lg xl:max-w-2xl"
         >
+          {STARS.map((s, i) => (
+            <motion.span
+              key={i}
+              animate={{ opacity: [0.15, 0.9, 0.15] }}
+              transition={{ duration: 3, repeat: Infinity, delay: s.delay, ease: "easeInOut" }}
+              className="absolute hidden rounded-full bg-white lg:block"
+              style={{ top: s.top, left: s.left, width: s.size, height: s.size }}
+            />
+          ))}
+
+          <motion.div
+            animate={{ y: [0, -16, 0] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="pointer-events-none absolute -right-10 -top-16 hidden h-56 w-56 rounded-full opacity-90 lg:block lg:h-72 lg:w-72 xl:-right-16 xl:-top-20 xl:h-[22rem] xl:w-[22rem]"
+            style={{
+              background:
+                "radial-gradient(circle at 32% 30%, #fbfbf7 0%, #dfe2d9 26%, #aeb5aa 55%, #6c736b 80%, #40453f 100%)",
+              boxShadow: "0 0 100px 10px rgba(226,232,240,0.12)",
+            }}
+          >
+            <span className="absolute left-[28%] top-[42%] h-3 w-3 rounded-full bg-black/10 blur-[1px]" />
+            <span className="absolute left-[55%] top-[22%] h-5 w-5 rounded-full bg-black/10 blur-[1px]" />
+            <span className="absolute left-[62%] top-[58%] h-2.5 w-2.5 rounded-full bg-black/10 blur-[1px]" />
+            <span className="absolute left-[40%] top-[68%] h-2 w-2 rounded-full bg-black/10 blur-[1px]" />
+          </motion.div>
+
           <motion.div
             animate={{ y: [0, -14, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}

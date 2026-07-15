@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 export function Navbar() {
   const { open, qty } = useCart();
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const goToSection = (hash: string) => (e: React.MouseEvent) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate(`/${hash}`);
+    }
+  };
 
   return (
     <header
@@ -21,21 +33,29 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#top" className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center gap-2.5">
           <span className="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400" />
           <span className="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
             Velory
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#top" className="text-sm text-neutral-300 hover:text-white">
+          <Link to="/" className="text-sm text-neutral-300 hover:text-white">
             Home
-          </a>
-          <a href="#reviews" className="text-sm text-neutral-300 hover:text-white">
+          </Link>
+          <a
+            href="#reviews"
+            onClick={goToSection("#reviews")}
+            className="text-sm text-neutral-300 hover:text-white"
+          >
             Reviews
           </a>
-          <a href="#faq" className="text-sm text-neutral-300 hover:text-white">
+          <a
+            href="#faq"
+            onClick={goToSection("#faq")}
+            className="text-sm text-neutral-300 hover:text-white"
+          >
             FAQ
           </a>
         </nav>
