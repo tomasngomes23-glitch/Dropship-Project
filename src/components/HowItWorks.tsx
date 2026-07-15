@@ -52,9 +52,16 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+              whileHover={{ y: -6 }}
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-colors duration-300 hover:border-teal-400/30"
             >
-              <img src={step.img} alt={step.title} className="aspect-square w-full object-cover" />
+              <div className="overflow-hidden">
+                <img
+                  src={step.img}
+                  alt={step.title}
+                  className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
               <div className="p-5">
                 <span className="font-display text-xs font-semibold text-teal-300">
                   {step.n}

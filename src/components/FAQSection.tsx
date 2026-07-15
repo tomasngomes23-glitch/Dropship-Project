@@ -29,7 +29,9 @@ export function FAQSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.04 }}
-                className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+                className={`overflow-hidden rounded-2xl border bg-white/[0.03] transition-colors duration-200 ${
+                  isOpen ? "border-teal-400/30" : "border-white/10 hover:border-white/25"
+                }`}
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
@@ -39,6 +41,7 @@ export function FAQSection() {
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.2 }}
+                    whileHover={{ scale: 1.15 }}
                     className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/5 text-neutral-300"
                   >
                     <Plus size={14} />

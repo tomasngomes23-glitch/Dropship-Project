@@ -31,12 +31,12 @@ export function Testimonials() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="overflow-hidden rounded-[2rem]"
+            className="group overflow-hidden rounded-[2rem]"
           >
             <img
               src={collageImg}
               alt="Colagem de clientes felizes a usar o Aurora Cube em vários quartos"
-              className="w-full"
+              className="w-full transition-transform duration-500 group-hover:scale-105"
             />
           </motion.div>
 
@@ -48,7 +48,8 @@ export function Testimonials() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                whileHover={{ y: -4, scale: 1.01 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-200 hover:border-teal-400/30 hover:bg-white/[0.05]"
               >
                 <div className="flex text-amber-400">
                   {Array.from({ length: t.rating }).map((_, idx) => (

@@ -5,6 +5,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { CartDrawer } from "./CartDrawer";
 import { StickyBuyBar } from "./StickyBuyBar";
+import { CursorGlow } from "./CursorGlow";
 
 export function Layout() {
   const { pathname, hash } = useLocation();
@@ -15,6 +16,7 @@ export function Layout() {
 
   return (
     <div className="min-h-screen bg-neutral-950">
+      <CursorGlow />
       <AnnouncementBar />
       <Navbar />
       <main>

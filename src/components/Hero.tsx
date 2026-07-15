@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Check, ShieldCheck, Star, Truck } from "lucide-react";
 import heroImg from "../assets/aurora/cube-hero-teal.webp";
 import { bundles, bundlePrice, formatKr, UNIT_COMPARE_AT } from "../data/aurora";
 import { useCart } from "../context/CartContext";
+import { SparkleBurst } from "./SparkleBurst";
 
 const VALUE_PROPS = [
   "Transform any room into a dreamy escape",
@@ -24,8 +25,16 @@ const STARS = [
 
 export function Hero() {
   const [selected, setSelected] = useState(3);
+  const [bursts, setBursts] = useState<number[]>([]);
   const { addBundle } = useCart();
   const { base, price } = bundlePrice(selected);
+
+  const handleAddToCart = () => {
+    addBundle(selected);
+    const id = Date.now();
+    setBursts((b) => [...b, id]);
+    setTimeout(() => setBursts((b) => b.filter((x) => x !== id)), 700);
+  };
 
   return (
     <section id="top" className="relative overflow-hidden px-5 pb-16 pt-6 lg:px-8 lg:pb-20 lg:pt-8">
@@ -221,16 +230,25 @@ export function Hero() {
             })}
           </motion.div>
 
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => addBundle(selected)}
-            className="mt-5 w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 shadow-[0_0_30px_-5px_rgba(45,212,191,0.6)] transition-transform hover:scale-[1.01] cursor-pointer"
+            className="relative mt-5"
           >
-            Add to Cart — {formatKr(price)}
-          </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={handleAddToCart}
+              className="w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 shadow-[0_0_30px_-5px_rgba(45,212,191,0.6)] transition-transform hover:scale-[1.01] cursor-pointer"
+            >
+              Add to Cart — {formatKr(price)}
+            </motion.button>
+            <AnimatePresence>
+              {bursts.map((id) => (
+                <SparkleBurst key={id} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

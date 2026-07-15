@@ -10,12 +10,13 @@ export function TransformSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="overflow-hidden rounded-[2rem]"
+          whileHover={{ scale: 1.02 }}
+          className="overflow-hidden rounded-[2rem] shadow-[0_0_0_0_rgba(45,212,191,0)] transition-shadow duration-300 hover:shadow-[0_0_50px_-10px_rgba(45,212,191,0.35)]"
         >
           <img
             src={womanImg}
             alt="Mulher sorridente a segurar o Aurora Cube com luz rosa a projetar-se no teto"
-            className="w-full"
+            className="w-full transition-transform duration-500"
           />
         </motion.div>
 
@@ -45,7 +46,8 @@ export function TransformSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+                whileHover={{ x: 4 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-colors duration-200 hover:border-teal-400/30 hover:bg-white/[0.05]"
               >
                 <p className="font-medium text-white">{title}</p>
                 <p className="mt-0.5 text-sm text-neutral-400">{body}</p>

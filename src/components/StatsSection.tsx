@@ -55,7 +55,8 @@ export function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center"
+              whileHover={{ scale: 1.06 }}
+              className="cursor-default rounded-2xl p-3 text-center transition-colors duration-200 hover:bg-white/[0.04]"
             >
               <Counter target={s.value} />
               <p className="mt-2 text-sm text-neutral-400">"{s.label}"</p>

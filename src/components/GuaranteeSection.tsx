@@ -11,12 +11,12 @@ export function GuaranteeSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="order-2 overflow-hidden rounded-[2rem] lg:order-1"
+          className="group order-2 overflow-hidden rounded-[2rem] lg:order-1"
         >
           <img
             src={bedImg}
             alt="Rapaz na cama a admirar o brilho do Aurora Cube"
-            className="w-full"
+            className="w-full transition-transform duration-500 group-hover:scale-105"
           />
         </motion.div>
 
@@ -42,7 +42,7 @@ export function GuaranteeSection() {
           </p>
 
           <div className="mt-8 space-y-4">
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 rounded-xl p-2 -m-2 transition-colors duration-200 hover:bg-white/[0.04]">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-400/10 text-teal-300">
                 <ShieldCheck size={17} />
               </span>
@@ -51,7 +51,7 @@ export function GuaranteeSection() {
                 <p className="text-sm text-neutral-400">Risk-free, no questions asked.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 rounded-xl p-2 -m-2 transition-colors duration-200 hover:bg-white/[0.04]">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-400/10 text-teal-300">
                 <PackageCheck size={17} />
               </span>

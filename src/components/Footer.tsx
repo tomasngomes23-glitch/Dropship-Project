@@ -3,8 +3,18 @@ import { Check, MessageCircle } from "lucide-react";
 import { InstagramIcon, TikTokIcon } from "./icons";
 
 const SOCIALS = [
-  { Icon: InstagramIcon, href: "https://instagram.com/velory", label: "Instagram", external: true },
-  { Icon: TikTokIcon, href: "https://tiktok.com/@velory", label: "TikTok", external: true },
+  {
+    Icon: InstagramIcon,
+    href: "https://instagram.com/velorystore_com",
+    label: "Instagram",
+    external: true,
+  },
+  {
+    Icon: TikTokIcon,
+    href: "https://tiktok.com/@velorystore.com",
+    label: "TikTok",
+    external: true,
+  },
   { Icon: MessageCircle, href: "/contact", label: "Message us", external: false },
 ];
 
@@ -46,7 +56,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors hover:border-teal-300 hover:text-teal-300"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-all duration-200 hover:scale-110 hover:border-teal-300 hover:text-teal-300 hover:shadow-[0_0_16px_-2px_rgba(45,212,191,0.6)]"
                   >
                     <Icon size={16} />
                   </a>
@@ -55,7 +65,7 @@ export function Footer() {
                     key={label}
                     to={href}
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors hover:border-teal-300 hover:text-teal-300"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-all duration-200 hover:scale-110 hover:border-teal-300 hover:text-teal-300 hover:shadow-[0_0_16px_-2px_rgba(45,212,191,0.6)]"
                   >
                     <Icon size={16} />
                   </Link>
@@ -71,7 +81,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.href}
-                    className="text-sm text-neutral-500 transition-colors hover:text-white"
+                    className="inline-block text-sm text-neutral-500 transition-all duration-200 hover:translate-x-1 hover:text-white"
                   >
                     {link.label}
                   </Link>
