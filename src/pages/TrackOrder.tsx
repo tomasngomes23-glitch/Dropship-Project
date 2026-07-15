@@ -20,10 +20,11 @@ export function TrackOrder() {
       >
         <PackageSearch size={36} className="mx-auto text-teal-300" />
         <h1 className="mt-4 font-display text-3xl font-semibold text-white sm:text-4xl">
-          Track Your Order
+          Track your order
         </h1>
         <p className="mt-3 text-neutral-400">
-          Enter your order number and email to see the latest status.
+          Please enter you tracking number below. If your tracking number
+          doesn't work feel free to contact us.
         </p>
 
         {submitted ? (
@@ -36,20 +37,14 @@ export function TrackOrder() {
             <input
               type="text"
               required
-              placeholder="Order number (e.g. #1023)"
-              className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
-            />
-            <input
-              type="email"
-              required
-              placeholder="Email used at checkout"
+              placeholder="Tracking number"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
             />
             <button
               type="submit"
               className="mt-2 w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
             >
-              Track Order
+              Track order
             </button>
           </form>
         )}
