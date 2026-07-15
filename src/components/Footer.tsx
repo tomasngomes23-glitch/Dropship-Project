@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { AtSign, Check, MessageCircle, Send } from "lucide-react";
+import { Check, MessageCircle } from "lucide-react";
+import { InstagramIcon, TikTokIcon } from "./icons";
+
+const SOCIALS = [
+  { Icon: InstagramIcon, href: "https://instagram.com/velory", label: "Instagram", external: true },
+  { Icon: TikTokIcon, href: "https://tiktok.com/@velory", label: "TikTok", external: true },
+  { Icon: MessageCircle, href: "/contact", label: "Message us", external: false },
+];
 
 const CUSTOMER_CARE = [
   { label: "Track Order", href: "/track-order" },
@@ -31,15 +38,29 @@ export function Footer() {
               The Aurora Cube — instant ambiance for any room, anywhere.
             </p>
             <div className="mt-5 flex gap-3">
-              {[AtSign, MessageCircle, Send].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors hover:border-teal-300 hover:text-teal-300"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
+              {SOCIALS.map(({ Icon, href, label, external }) =>
+                external ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors hover:border-teal-300 hover:text-teal-300"
+                  >
+                    <Icon size={16} />
+                  </a>
+                ) : (
+                  <Link
+                    key={label}
+                    to={href}
+                    aria-label={label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors hover:border-teal-300 hover:text-teal-300"
+                  >
+                    <Icon size={16} />
+                  </Link>
+                ),
+              )}
             </div>
           </div>
 

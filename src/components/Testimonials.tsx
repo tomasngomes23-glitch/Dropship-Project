@@ -3,6 +3,12 @@ import { Star } from "lucide-react";
 import collageImg from "../assets/aurora/cube-collage-reviews.webp";
 import { testimonials } from "../data/aurora";
 
+const AVATAR_COLORS = [
+  "from-teal-300 to-emerald-500",
+  "from-fuchsia-300 to-purple-500",
+  "from-amber-300 to-orange-500",
+];
+
 export function Testimonials() {
   return (
     <section id="reviews" className="px-5 py-20 lg:px-8">
@@ -50,9 +56,16 @@ export function Testimonials() {
                   ))}
                 </div>
                 <p className="mt-3 text-sm text-neutral-200">"{t.quote}"</p>
-                <p className="mt-3 text-xs font-medium text-neutral-500">
-                  {t.name}, {t.location}
-                </p>
+                <div className="mt-3 flex items-center gap-2.5">
+                  <span
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-[11px] font-semibold text-neutral-950 ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}
+                  >
+                    {t.name.charAt(0)}
+                  </span>
+                  <p className="text-xs font-medium text-neutral-500">
+                    {t.name}, {t.location}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
