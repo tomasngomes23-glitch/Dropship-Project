@@ -12,9 +12,19 @@ export function StickyBuyBar() {
   const { price } = bundlePrice(3);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 700);
+    const onScroll = () => {
+      const pastHero = window.scrollY > 700;
+      const footer = document.querySelector("footer");
+      const overFooter = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
+      setVisible(pastHero && !overFooter);
+    };
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const handleAddToCart = () => {

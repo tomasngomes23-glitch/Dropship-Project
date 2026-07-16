@@ -68,10 +68,18 @@ export async function getProductByHandle(handle: string): Promise<ShopifyProduct
   };
 }
 
+const CART_FIELDS = `
+  id
+  checkoutUrl
+  totalQuantity
+  cost { totalAmount { amount currencyCode } }
+  lines(first: 1) { nodes { id quantity } }
+`;
+
 const CART_CREATE_MUTATION = `#graphql
   mutation CartCreate($lines: [CartLineInput!]) {
     cartCreate(input: { lines: $lines }) {
-      cart { id checkoutUrl totalQuantity cost { totalAmount { amount currencyCode } } }
+      cart { ${CART_FIELDS} }
       userErrors { field message }
     }
   }
@@ -80,7 +88,7 @@ const CART_CREATE_MUTATION = `#graphql
 const CART_LINES_UPDATE_MUTATION = `#graphql
   mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
-      cart { id checkoutUrl totalQuantity cost { totalAmount { amount currencyCode } } }
+      cart { ${CART_FIELDS} }
       userErrors { field message }
     }
   }
@@ -91,6 +99,23 @@ export interface ShopifyCart {
   checkoutUrl: string;
   totalQuantity: number;
   totalAmount: { amount: string; currencyCode: string };
+  lineId: string | null;
+}
+
+function mapCart(cart: {
+  id: string;
+  checkoutUrl: string;
+  totalQuantity: number;
+  cost: { totalAmount: { amount: string; currencyCode: string } };
+  lines: { nodes: { id: string; quantity: number }[] };
+}): ShopifyCart {
+  return {
+    id: cart.id,
+    checkoutUrl: cart.checkoutUrl,
+    totalQuantity: cart.totalQuantity,
+    totalAmount: cart.cost.totalAmount,
+    lineId: cart.lines.nodes[0]?.id ?? null,
+  };
 }
 
 export async function createCart(variantId: string, quantity: number): Promise<ShopifyCart | null> {
@@ -99,13 +124,7 @@ export async function createCart(variantId: string, quantity: number): Promise<S
     variables: { lines: [{ merchandiseId: variantId, quantity }] },
   });
   const cart = data?.cartCreate?.cart;
-  if (!cart) return null;
-  return {
-    id: cart.id,
-    checkoutUrl: cart.checkoutUrl,
-    totalQuantity: cart.totalQuantity,
-    totalAmount: cart.cost.totalAmount,
-  };
+  return cart ? mapCart(cart) : null;
 }
 
 export async function updateCartLine(
@@ -118,11 +137,5 @@ export async function updateCartLine(
     variables: { cartId, lines: [{ id: lineId, quantity }] },
   });
   const cart = data?.cartLinesUpdate?.cart;
-  if (!cart) return null;
-  return {
-    id: cart.id,
-    checkoutUrl: cart.checkoutUrl,
-    totalQuantity: cart.totalQuantity,
-    totalAmount: cart.cost.totalAmount,
-  };
+  return cart ? mapCart(cart) : null;
 }

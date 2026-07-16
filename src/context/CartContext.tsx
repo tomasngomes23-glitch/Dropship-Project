@@ -1,9 +1,17 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { bundlePrice, formatKr, SHOPIFY_PRODUCT_HANDLE } from "../data/aurora";
 import {
   createCart,
   getProductByHandle,
   isShopifyConfigured,
+  updateCartLine,
   type ShopifyCart,
 } from "../lib/shopify";
 
@@ -26,6 +34,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [variantId, setVariantId] = useState<string | null>(null);
   const [shopifyCart, setShopifyCart] = useState<ShopifyCart | null>(null);
+  const cartRef = useRef<ShopifyCart | null>(null);
+  const qtyRef = useRef<number>(0);
 
   useEffect(() => {
     if (!isShopifyConfigured) return;
@@ -35,19 +45,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const addBundle = async (newQty: number) => {
-    setQty(newQty);
+  const addBundle = async (addedQty: number) => {
+    const targetQty = qtyRef.current + addedQty;
+    qtyRef.current = targetQty;
+    setQty(targetQty);
     setIsOpen(true);
 
     if (!isShopifyConfigured || !variantId) return;
 
     setLoading(true);
     try {
-      const cart = await createCart(variantId, newQty);
+      const existing = cartRef.current;
+      const cart =
+        existing && existing.lineId
+          ? await updateCartLine(existing.id, existing.lineId, targetQty)
+          : await createCart(variantId, targetQty);
+      cartRef.current = cart;
       setShopifyCart(cart);
     } finally {
       setLoading(false);
     }
+  };
+
+  const clear = () => {
+    qtyRef.current = 0;
+    cartRef.current = null;
+    setQty(null);
+    setShopifyCart(null);
   };
 
   return (
@@ -60,10 +84,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         open: () => setIsOpen(true),
         close: () => setIsOpen(false),
         addBundle,
-        clear: () => {
-          setQty(null);
-          setShopifyCart(null);
-        },
+        clear,
       }}
     >
       {children}
