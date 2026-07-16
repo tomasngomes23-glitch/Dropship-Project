@@ -58,6 +58,9 @@ export function Navbar() {
           >
             FAQ
           </a>
+          <Link to="/track-order" className="text-sm text-neutral-300 hover:text-white">
+            Track Order
+          </Link>
         </nav>
 
         <button
