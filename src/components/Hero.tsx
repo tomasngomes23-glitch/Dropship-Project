@@ -25,28 +25,29 @@ export function Hero() {
 
   return (
     <section id="top" className="relative isolate min-h-[92vh] overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={heroImg}
-          alt="Aurora Cube a projetar luz teal num quarto escuro"
-          className="h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-neutral-950/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-950/40 to-transparent" />
-        <div
-          className="absolute inset-0 opacity-40 mix-blend-screen"
-          style={{
-            background: `radial-gradient(circle at 20% 65%, ${ACCENT_COLOR}, transparent 62%)`,
-          }}
-        />
-      </div>
+      <div className="relative mx-auto min-h-[640px] max-w-[1800px] overflow-hidden lg:min-h-[92vh]">
+        <div className="absolute inset-0 -z-10">
+          <img
+            src={heroImg}
+            alt="Aurora Cube a projetar luz teal num quarto escuro"
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-neutral-950/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-950/40 to-transparent" />
+          <div
+            className="absolute inset-0 opacity-40 mix-blend-screen"
+            style={{
+              background: `radial-gradient(circle at 20% 65%, ${ACCENT_COLOR}, transparent 62%)`,
+            }}
+          />
+        </div>
 
-      <div className="mx-auto flex min-h-[92vh] max-w-6xl items-end px-5 pb-12 pt-32 lg:items-center lg:px-8 lg:pt-24">
+        <div className="mx-auto flex h-full min-h-[640px] max-w-6xl items-end px-5 pb-12 pt-32 lg:min-h-[92vh] lg:items-center lg:px-8 lg:pt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="w-full max-w-xl rounded-[2rem] border border-white/15 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-2xl sm:p-8"
+          className="w-full max-w-xl rounded-[2rem] border border-white/15 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-2xl sm:p-8 lg:max-w-2xl lg:p-9 xl:max-w-3xl 2xl:max-w-4xl"
         >
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-300">
             <div className="flex text-amber-400">
@@ -57,16 +58,16 @@ export function Hero() {
             4.8/5 · 10,000+ Verified Customers
           </div>
 
-          <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
+          <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Aurora Cube
           </h1>
-          <p className="mt-2 text-base text-neutral-300 sm:text-lg">
+          <p className="mt-2 text-base text-neutral-300 sm:text-lg lg:text-xl">
             The crystal-glass light that turns any room into an aurora borealis.
           </p>
 
           <div className="mt-6 flex items-baseline gap-3">
             <span
-              className="font-display text-4xl font-bold sm:text-[2.75rem]"
+              className="font-display text-4xl font-bold sm:text-[2.75rem] lg:text-6xl"
               style={{ color: ACCENT_COLOR }}
             >
               {formatKr(price)}
@@ -143,6 +144,7 @@ export function Hero() {
             </span>
           </div>
         </motion.div>
+        </div>
       </div>
     </section>
   );
