@@ -166,91 +166,86 @@ export function Hero() {
           </motion.ul>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 flex items-baseline gap-3"
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-8 rounded-3xl border border-teal-400/20 bg-white/[0.04] p-5 shadow-[0_0_60px_-15px_rgba(45,212,191,0.5)] sm:p-6"
           >
-            <span className="font-display text-3xl font-semibold text-white">
-              {formatKr(price)}
-            </span>
-            <span className="text-lg text-neutral-500 line-through">
-              {formatKr(selected === 1 ? UNIT_COMPARE_AT : base)}
-            </span>
-            <span className="rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
-              Save {selected === 1 ? 39 : bundles.find((b) => b.qty === selected)?.discountPct}%
-            </span>
-          </motion.div>
+            <div className="flex items-baseline gap-3">
+              <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
+                {formatKr(price)}
+              </span>
+              <span className="text-lg text-neutral-500 line-through">
+                {formatKr(selected === 1 ? UNIT_COMPARE_AT : base)}
+              </span>
+              <span className="rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
+                Save {selected === 1 ? 39 : bundles.find((b) => b.qty === selected)?.discountPct}%
+              </span>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-5 grid grid-cols-3 gap-3"
-          >
-            {bundles.map((b) => {
-              const { price: p } = bundlePrice(b.qty);
-              const isSelected = selected === b.qty;
-              return (
-                <button
-                  key={b.qty}
-                  onClick={() => setSelected(b.qty)}
-                  className={`relative rounded-2xl border px-3 py-3 text-left transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-teal-400 bg-teal-400/10 shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"
-                      : "border-white/10 bg-white/[0.03] hover:border-white/25"
-                  }`}
-                >
-                  {b.discountPct >= 30 && (
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal-400 px-2 py-0.5 text-[10px] font-bold text-neutral-950">
-                      MOST POPULAR
-                    </span>
-                  )}
-                  <p className="text-xs font-semibold text-white">{b.label}</p>
-                  <p className="mt-1 text-sm font-bold text-teal-300">{formatKr(p)}</p>
-                  {b.sublabel && (
-                    <p className="text-[11px] text-neutral-400">{b.sublabel.split("—")[0]}</p>
-                  )}
-                </button>
-              );
-            })}
-          </motion.div>
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {bundles.map((b) => {
+                const { price: p } = bundlePrice(b.qty);
+                const isSelected = selected === b.qty;
+                return (
+                  <button
+                    key={b.qty}
+                    onClick={() => setSelected(b.qty)}
+                    className={`relative rounded-2xl border px-3 py-3 text-left transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-teal-400 bg-teal-400/10 shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"
+                        : "border-white/10 bg-white/[0.03] hover:border-white/25"
+                    }`}
+                  >
+                    {b.discountPct >= 30 && (
+                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal-400 px-2 py-0.5 text-[10px] font-bold text-neutral-950">
+                        MOST POPULAR
+                      </span>
+                    )}
+                    <p className="text-xs font-semibold text-white">{b.label}</p>
+                    <p className="mt-1 text-sm font-bold text-teal-300">{formatKr(p)}</p>
+                    {b.sublabel && (
+                      <p className="text-[11px] text-neutral-400">{b.sublabel.split("—")[0]}</p>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="relative mt-5"
-          >
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={handleAddToCart}
-              className="w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 shadow-[0_0_30px_-5px_rgba(45,212,191,0.6)] transition-transform hover:scale-[1.01] cursor-pointer"
-            >
-              Add to Cart — {formatKr(price)}
-            </motion.button>
-            <AnimatePresence>
-              {bursts.map((id) => (
-                <SparkleBurst key={id} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+            <div className="relative mt-5">
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                animate={{
+                  boxShadow: [
+                    "0 0 30px -5px rgba(45,212,191,0.6)",
+                    "0 0 44px -5px rgba(45,212,191,0.85)",
+                    "0 0 30px -5px rgba(45,212,191,0.6)",
+                  ],
+                }}
+                transition={{ boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" } }}
+                onClick={handleAddToCart}
+                className="w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
+              >
+                Add to Cart — {formatKr(price)}
+              </motion.button>
+              <AnimatePresence>
+                {bursts.map((id) => (
+                  <SparkleBurst key={id} />
+                ))}
+              </AnimatePresence>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-500"
-          >
-            <span className="flex items-center gap-1.5">
-              <Truck size={14} /> Free Shipping
-            </span>
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck size={14} /> 30 Day Guarantee
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check size={14} /> 24/7 Support
-            </span>
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-400">
+              <span className="flex items-center gap-1.5">
+                <Truck size={14} /> Free Shipping
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck size={14} /> 30 Day Guarantee
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check size={14} /> 24/7 Support
+              </span>
+            </div>
           </motion.div>
         </div>
       </div>
