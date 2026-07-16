@@ -169,21 +169,28 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-8 rounded-3xl border border-teal-400/20 bg-white/[0.04] p-5 shadow-[0_0_60px_-15px_rgba(45,212,191,0.5)] sm:p-6"
+            className="relative mt-9"
           >
+            <motion.div
+              animate={{ opacity: [0.5, 0.8, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="pointer-events-none absolute -inset-x-10 -inset-y-12 -z-10 rounded-full bg-teal-400/20 blur-[70px]"
+            />
+
             <div className="flex items-baseline gap-3">
-              <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
+              <span className="font-display text-5xl font-bold text-white sm:text-6xl">
                 {formatKr(price)}
               </span>
               <span className="text-lg text-neutral-500 line-through">
                 {formatKr(selected === 1 ? UNIT_COMPARE_AT : base)}
               </span>
-              <span className="rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
-                Save {selected === 1 ? 39 : bundles.find((b) => b.qty === selected)?.discountPct}%
-              </span>
             </div>
+            <span className="mt-2 inline-flex items-center rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
+              Save {selected === 1 ? 39 : bundles.find((b) => b.qty === selected)?.discountPct}%
+              today
+            </span>
 
-            <div className="mt-5 grid grid-cols-3 gap-3">
+            <div className="mt-6 grid grid-cols-3 gap-3">
               {bundles.map((b) => {
                 const { price: p } = bundlePrice(b.qty);
                 const isSelected = selected === b.qty;
@@ -212,19 +219,20 @@ export function Hero() {
               })}
             </div>
 
-            <div className="relative mt-5">
+            <div className="relative mt-6">
               <motion.button
-                whileTap={{ scale: 0.97 }}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
                 animate={{
                   boxShadow: [
-                    "0 0 30px -5px rgba(45,212,191,0.6)",
-                    "0 0 44px -5px rgba(45,212,191,0.85)",
-                    "0 0 30px -5px rgba(45,212,191,0.6)",
+                    "0 0 40px 0px rgba(45,212,191,0.55)",
+                    "0 0 60px 4px rgba(45,212,191,0.85)",
+                    "0 0 40px 0px rgba(45,212,191,0.55)",
                   ],
                 }}
-                transition={{ boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" } }}
+                transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
                 onClick={handleAddToCart}
-                className="w-full rounded-full bg-teal-400 py-4 text-sm font-bold uppercase tracking-wide text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
+                className="w-full rounded-full bg-teal-400 py-5 text-base font-extrabold uppercase tracking-wide text-neutral-950 cursor-pointer"
               >
                 Add to Cart — {formatKr(price)}
               </motion.button>
