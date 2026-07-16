@@ -24,25 +24,28 @@ export function Hero() {
   };
 
   return (
-    <section id="top" className="relative isolate min-h-[92vh] overflow-hidden">
-      <div className="relative mx-auto min-h-[640px] max-w-[1800px] overflow-hidden lg:min-h-[92vh]">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={heroImg}
-            alt="Aurora Cube a projetar luz teal num quarto escuro"
-            className="h-full w-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-neutral-950/10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-950/40 to-transparent" />
-          <div
-            className="absolute inset-0 opacity-40 mix-blend-screen"
-            style={{
-              background: `radial-gradient(circle at 20% 65%, ${ACCENT_COLOR}, transparent 62%)`,
-            }}
-          />
-        </div>
+    <section id="top" className="relative">
+      {/* Fixed aspect-ratio crop so the framing is identical on every screen —
+          it depends only on width, never on the viewport's height. */}
+      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1600px] overflow-hidden sm:aspect-[16/9]">
+        <img
+          src={heroImg}
+          alt="Aurora Cube a projetar luz teal num quarto escuro"
+          className="h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/90 via-neutral-950/25 to-transparent" />
+        <div
+          className="absolute inset-0 opacity-40 mix-blend-screen"
+          style={{
+            background: `radial-gradient(circle at 25% 60%, ${ACCENT_COLOR}, transparent 62%)`,
+          }}
+        />
+      </div>
 
-        <div className="mx-auto flex h-full min-h-[640px] max-w-6xl items-end px-5 pb-12 pt-32 lg:min-h-[92vh] lg:items-center lg:px-8 lg:pt-24">
+      {/* Panel overlaps the bottom of the image and grows with its own content,
+          so it never depends on the image's height either. */}
+      <div className="relative z-10 mx-auto -mt-24 max-w-6xl px-5 pb-14 sm:-mt-32 lg:px-8 lg:-mt-40">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -144,7 +147,6 @@ export function Hero() {
             </span>
           </div>
         </motion.div>
-        </div>
       </div>
     </section>
   );
