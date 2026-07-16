@@ -95,7 +95,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -16, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            className="pointer-events-none absolute -right-10 -top-16 hidden h-56 w-56 rounded-full opacity-90 lg:block lg:h-72 lg:w-72 xl:-right-16 xl:-top-20 xl:h-[22rem] xl:w-[22rem]"
+            className="pointer-events-none absolute -right-8 -top-8 hidden h-48 w-48 rounded-full opacity-90 lg:block lg:h-56 lg:w-56 xl:h-64 xl:w-64"
             style={{
               background:
                 "radial-gradient(circle at 32% 30%, #fbfbf7 0%, #dfe2d9 26%, #aeb5aa 55%, #6c736b 80%, #40453f 100%)",
@@ -114,20 +114,6 @@ export function Hero() {
             className="relative overflow-hidden rounded-[2rem] shadow-[0_0_80px_-10px_rgba(45,212,191,0.4)]"
           >
             <img src={heroImg} alt="Aurora Cube a projetar luz teal num quarto escuro" className="w-full" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="absolute -left-6 top-8 hidden rounded-2xl bg-neutral-900/90 px-4 py-3 shadow-xl backdrop-blur sm:block"
-          >
-            <div className="flex items-center gap-1 text-amber-400">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={13} fill="currentColor" />
-              ))}
-            </div>
-            <p className="mt-1 text-xs text-neutral-300">1,720+ compras felizes</p>
           </motion.div>
         </motion.div>
 
