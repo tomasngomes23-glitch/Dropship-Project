@@ -40,8 +40,12 @@ export function Hero() {
 
       {/* Sharp full-bleed image, capped at a width where the 823px source
           still holds up — beyond that width, the blurred backdrop above
-          takes over instead of stretching this one into visible mush. */}
-      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1920px] overflow-hidden sm:aspect-[16/9]">
+          takes over instead of stretching this one into visible mush.
+          Capped tighter than the section itself (which still fills 100% of
+          any screen via the glow+blur backdrop) so the crisp photo itself
+          never gets upscaled past ~1.7x, which is where the 823px source
+          starts visibly softening. */}
+      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1400px] overflow-hidden sm:aspect-[16/9]">
         <img
           src={heroImg}
           alt="Aurora Cube a projetar luz teal num quarto escuro"
@@ -55,9 +59,11 @@ export function Hero() {
           This sits on the full <section>, not the capped image above it, and
           uses % anchors — so the glow always reaches edge to edge, whether
           the screen is 1920px or 7680px wide, instead of stopping at the
-          1920px cap and leaving everything past it unlit. */}
+          1920px cap and leaving everything past it unlit. Masked out toward
+          the bottom so it eases into the plain dark page background instead
+          of cutting hard into the next section. */}
       <div
-        className="pointer-events-none absolute inset-0 z-[5] mix-blend-screen"
+        className="pointer-events-none absolute inset-0 z-[5] mix-blend-screen [mask-image:linear-gradient(to_bottom,black,black_55%,transparent_92%)]"
         style={{
           background: `
             radial-gradient(circle at 22% 58%, ${ACCENT_COLOR}, transparent 40%),
@@ -67,6 +73,11 @@ export function Hero() {
           opacity: 0.55,
         }}
       />
+
+      {/* Final fade to the page's own flat background, so the section's
+          bottom edge lands on the exact same color the next section starts
+          with — no seam between "bright hero" and "next section". */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-1/2 bg-gradient-to-b from-transparent to-neutral-950" />
 
       {/* Panel overlaps the bottom of the image and grows with its own
           content, so it never depends on the image's height. */}
