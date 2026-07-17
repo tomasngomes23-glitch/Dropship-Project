@@ -48,21 +48,25 @@ export function Hero() {
           className="h-full w-full object-cover object-center contrast-[1.05] saturate-[1.1] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
-        {/* The source photo has a large dark void to the right of the cube —
-            on wide screens that void would otherwise read as flat dead black,
-            so we spill extra light (the product's own aurora glow) into it. */}
-        <div
-          className="absolute inset-0 mix-blend-screen"
-          style={{
-            background: `
-              radial-gradient(circle at 22% 58%, ${ACCENT_COLOR}, transparent 55%),
-              radial-gradient(ellipse 55% 75% at 82% 38%, ${ACCENT_COLOR}99, transparent 70%),
-              radial-gradient(ellipse 45% 55% at 98% 85%, #a855f766, transparent 72%)
-            `,
-            opacity: 0.55,
-          }}
-        />
       </div>
+
+      {/* The source photo has a large dark void to the right of the cube —
+          on wide screens that void would otherwise read as flat dead black.
+          This sits on the full <section>, not the capped image above it, and
+          uses % anchors — so the glow always reaches edge to edge, whether
+          the screen is 1920px or 7680px wide, instead of stopping at the
+          1920px cap and leaving everything past it unlit. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[5] mix-blend-screen"
+        style={{
+          background: `
+            radial-gradient(circle at 22% 58%, ${ACCENT_COLOR}, transparent 40%),
+            radial-gradient(ellipse 70% 85% at 60% 45%, ${ACCENT_COLOR}aa, transparent 65%),
+            radial-gradient(ellipse 65% 75% at 90% 70%, #a855f788, transparent 68%)
+          `,
+          opacity: 0.55,
+        }}
+      />
 
       {/* Panel overlaps the bottom of the image and grows with its own
           content, so it never depends on the image's height. */}
