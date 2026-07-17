@@ -38,14 +38,14 @@ export function Hero() {
         <div className="absolute inset-0 bg-neutral-950/50" />
       </div>
 
-      {/* Sharp full-bleed image, capped at a width where the 823px source
+      {/* Sharp full-bleed image, capped at a width where the 1024px source
           still holds up — beyond that width, the blurred backdrop above
           takes over instead of stretching this one into visible mush.
           Capped tighter than the section itself (which still fills 100% of
           any screen via the glow+blur backdrop) so the crisp photo itself
-          never gets upscaled past ~1.7x, which is where the 823px source
+          never gets upscaled past ~1.6x, which is where the source
           starts visibly softening. */}
-      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1400px] overflow-hidden sm:aspect-[16/9]">
+      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1600px] overflow-hidden sm:aspect-[16/9]">
         <img
           src={heroImg}
           alt="Aurora Cube a projetar luz teal num quarto escuro"
