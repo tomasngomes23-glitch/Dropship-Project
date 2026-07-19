@@ -21,8 +21,8 @@ export function Home() {
   return (
     <>
       <Hero />
-      <TransformSection />
       <HowItWorks />
+      <TransformSection />
       <StatsSection />
       <Testimonials />
       <GuaranteeSection />
