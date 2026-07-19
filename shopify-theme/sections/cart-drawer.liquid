@@ -90,13 +90,34 @@
               {% render 'icon', name: 'trash-2', size: 14 %}
             </button>
           </div>
-          <p class="text-xs text-neutral-500">
+          <div class="mt-1 flex items-center justify-between gap-2">
             <span
               data-cart-qty-label
               data-single-label="{{ 'general.cart.single' | t }}"
               data-qty-label="{{ 'general.cart.qty' | t: count: '{count}' }}"
+              class="text-xs text-neutral-500"
             >{% if cart.item_count == 1 %}{{ 'general.cart.single' | t }}{% else %}{{ 'general.cart.qty' | t: count: cart.item_count }}{% endif %}</span>
-          </p>
+
+            <div class="flex items-center gap-1.5">
+              <button
+                type="button"
+                data-qty-decrease
+                aria-label="{{ 'general.cart.decrease_qty' | t }}"
+                class="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+              >
+                {% render 'icon', name: 'minus', size: 12 %}
+              </button>
+              <span data-cart-qty-number class="w-4 text-center text-xs font-medium text-white">{{ cart.item_count }}</span>
+              <button
+                type="button"
+                data-qty-increase
+                aria-label="{{ 'general.cart.increase_qty' | t }}"
+                class="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+              >
+                {% render 'icon', name: 'plus', size: 12 %}
+              </button>
+            </div>
+          </div>
           <div class="mt-2 flex items-baseline gap-2">
             <span data-cart-price class="text-sm font-semibold text-white">{{ cart.total_price | money }}</span>
             {% if cart.original_total_price > cart.total_price %}

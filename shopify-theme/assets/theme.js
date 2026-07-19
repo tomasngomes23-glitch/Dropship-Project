@@ -202,7 +202,10 @@
       document.body.style.overflow = "";
     }
 
+    var currentItemCount = 0;
+
     function renderCart(cart) {
+      currentItemCount = cart.item_count;
       var badge = document.querySelector("[data-cart-count]");
       if (badge) {
         badge.textContent = cart.item_count;
@@ -243,6 +246,9 @@
         qtyLabel.textContent =
           cart.item_count === 1 ? singleLabel : qtyTemplate.replace("{count}", cart.item_count);
       }
+
+      var qtyNumberEl = document.querySelector("[data-cart-qty-number]");
+      if (qtyNumberEl) qtyNumberEl.textContent = cart.item_count;
 
       var priceEl = document.querySelector("[data-cart-price]");
       if (priceEl) priceEl.textContent = formatMoney(cart.total_price);
@@ -296,6 +302,18 @@
         .then(renderCart);
     }
 
+    function changeQuantity(newQuantity) {
+      fetch("/cart/change.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ line: 1, quantity: newQuantity }),
+      })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(renderCart);
+    }
+
     document.addEventListener("click", function (e) {
       var addBtn = e.target.closest("[data-add-to-cart]");
       if (addBtn) {
@@ -317,6 +335,16 @@
 
       if (e.target.closest("[data-cart-clear]")) {
         clearCart();
+        return;
+      }
+
+      if (e.target.closest("[data-qty-decrease]")) {
+        changeQuantity(Math.max(currentItemCount - 1, 0));
+        return;
+      }
+
+      if (e.target.closest("[data-qty-increase]")) {
+        changeQuantity(currentItemCount + 1);
       }
     });
 
