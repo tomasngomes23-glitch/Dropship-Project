@@ -186,39 +186,6 @@
   }
 }
 
-@keyframes blob-shift-a {
-  0%,
-  100% {
-    background: radial-gradient(circle, rgba(45, 212, 191, 0.15), transparent 60%);
-  }
-  33% {
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 60%);
-  }
-  66% {
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.13), transparent 60%);
-  }
-}
-
-@keyframes blob-shift-b {
-  0%,
-  100% {
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 60%);
-  }
-  50% {
-    background: radial-gradient(circle, rgba(52, 211, 153, 0.13), transparent 60%);
-  }
-}
-
-@keyframes blob-shift-c {
-  0%,
-  100% {
-    background: radial-gradient(circle, rgba(217, 70, 239, 0.08), transparent 65%);
-  }
-  50% {
-    background: radial-gradient(circle, rgba(45, 212, 191, 0.08), transparent 65%);
-  }
-}
-
 @keyframes sparkle-out {
   0% {
     transform: translate(0, 0) scale(1);
