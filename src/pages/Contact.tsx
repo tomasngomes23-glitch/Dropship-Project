@@ -13,16 +13,18 @@ export function Contact() {
   const [sent, setSent] = useState(false);
 
   // Shopify's own /contact endpoint doesn't allow cross-origin fetch reads,
-  // so this submits as a real browser form post (opened in a new tab) —
-  // that's a plain navigation, not an AJAX call, so CORS never applies.
-  // Delivery goes to the store's "Store contact email" (Settings > General).
+  // so this submits as a real full-page browser form post — that's a plain
+  // navigation, not an AJAX call, so CORS never applies. target="_blank" was
+  // silently getting popup-blocked (JS ran in the submit handler), so this
+  // navigates the current tab away to Shopify's own confirmation page
+  // instead — less seamless, but it can't fail invisibly. Delivery goes to
+  // the store's "Store contact email" (Settings > General).
   const handleSubmit = (e: React.FormEvent) => {
     if (!isShopifyConfigured) {
       e.preventDefault();
       setSent(true);
-      return;
     }
-    setSent(true);
+    // else: let the native form submission navigate away — no preventDefault.
   };
 
   return (
@@ -49,7 +51,6 @@ export function Contact() {
             onSubmit={handleSubmit}
             action={isShopifyConfigured ? `https://${STORE_DOMAIN}/contact#ContactForm` : undefined}
             method={isShopifyConfigured ? "post" : undefined}
-            target={isShopifyConfigured ? "_blank" : undefined}
             className="mt-8 flex flex-col gap-4"
           >
             <input type="hidden" name="form_type" value="contact" />
