@@ -3,7 +3,18 @@
   "type": "footer",
   "sections": {
     "footer": {
-      "type": "footer"
+      "type": "footer",
+      "blocks": {
+        "reason-1": { "type": "reason", "settings": { "text": "Free Shipping" } },
+        "reason-2": { "type": "reason", "settings": { "text": "100% Satisfaction Guarantee" } },
+        "reason-3": { "type": "reason", "settings": { "text": "24/7 Customer Support" } },
+        "reason-4": { "type": "reason", "settings": { "text": "Secure Payments" } }
+      },
+      "block_order": ["reason-1", "reason-2", "reason-3", "reason-4"],
+      "settings": {
+        "instagram_url": "https://instagram.com/velorystore_com",
+        "tiktok_url": "https://tiktok.com/@velorystore.com"
+      }
     },
     "cart-drawer": {
       "type": "cart-drawer"
