@@ -3,6 +3,8 @@
     "name": "theme_info",
     "theme_name": "Velory",
     "theme_version": "0.1.0",
-    "theme_author": "Velory"
+    "theme_author": "Velory",
+    "theme_documentation_url": "https://velorystore.com",
+    "theme_support_url": "https://velorystore.com/pages/contact"
   }
 ]
