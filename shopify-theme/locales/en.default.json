@@ -1,0 +1,14 @@
+{
+  "general": {
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "you_save": "You save",
+      "free_shipping": "Free shipping",
+      "tracked_delivery": "Tracked delivery"
+    }
+  }
+}

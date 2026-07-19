@@ -1,0 +1,34 @@
+<div class="overflow-hidden border-b border-white/10 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-500 py-2">
+  <div class="animate-marquee flex w-max gap-10">
+    {%- for i in (1..6) -%}
+      {%- for block in section.blocks -%}
+        <span class="whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-neutral-950">
+          {{ block.settings.text }} <span class="mx-3 opacity-50">✦</span>
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "FREE SHIPPING ON ORDERS 300 KR+" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "30 DAY MONEYBACK GUARANTEE" } },
+      { "type": "message", "settings": { "text": "FREE SHIPPING ON ORDERS 300 KR+" } },
+      { "type": "message", "settings": { "text": "50% OFF TODAY ONLY" } }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* Tailwind v4 auto-detects template files by scanning nearby directories,
+   but we pin the theme's actual template folders explicitly to be safe —
+   these are .liquid files, not one of the common template extensions. */
+@source "../layout";
+@source "../templates";
+@source "../sections";
+@source "../snippets";
+
+@theme {
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-neutral-950 text-neutral-200 antialiased;
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(45, 212, 191, 0.12), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 15%, rgba(168, 85, 247, 0.08), transparent),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      100% 100%,
+      44px 44px,
+      44px 44px;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-lime-300 text-neutral-950;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
+  /* Generic scroll-reveal, replaces Framer Motion's whileInView fade+slide.
+     theme.js adds .is-visible via IntersectionObserver; delay is set per
+     element with an inline --reveal-delay custom property. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease-out var(--reveal-delay, 0s),
+      transform 0.6s ease-out var(--reveal-delay, 0s);
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-reveal="scale"] {
+    transform: scale(0.94);
+  }
+  [data-reveal="scale"].is-visible {
+    transform: scale(1);
+  }
+  [data-reveal="left"] {
+    transform: translateX(-30px);
+  }
+  [data-reveal="left"].is-visible {
+    transform: translateX(0);
+  }
+  [data-reveal="right"] {
+    transform: translateX(30px);
+  }
+  [data-reveal="right"].is-visible {
+    transform: translateX(0);
+  }
+
+  /* Slide-in panels (cart drawer, sticky buy bar), replaces AnimatePresence.
+     Toggle [data-open] on the element; transitions handle the rest. */
+  .panel-slide-x {
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .panel-slide-x[data-open] {
+    transform: translateX(0);
+  }
+
+  .panel-slide-y {
+    transform: translateY(100%);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+  .panel-slide-y[data-open] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .panel-fade {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .panel-fade[data-open] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* FAQ accordion expand/collapse without JS height measuring. */
+  .accordion-rows {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+  .accordion-rows[data-open] {
+    grid-template-rows: 1fr;
+  }
+  .accordion-rows > div {
+    overflow: hidden;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Looping ambient motion used by the hero and elsewhere — replaces Framer
+   Motion's infinite `animate` loops. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 40px 4px rgba(94, 234, 212, 0.55);
+  }
+}
+
+@keyframes blob-shift-a {
+  0%,
+  100% {
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.25), transparent 60%);
+  }
+  33% {
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.25), transparent 60%);
+  }
+  66% {
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.22), transparent 60%);
+  }
+}
+
+@keyframes blob-shift-b {
+  0%,
+  100% {
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.2), transparent 60%);
+  }
+  50% {
+    background: radial-gradient(circle, rgba(52, 211, 153, 0.22), transparent 60%);
+  }
+}
+
+@keyframes sparkle-out {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0);
+    opacity: 0;
+  }
+}

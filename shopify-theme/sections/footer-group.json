@@ -1,0 +1,15 @@
+{
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer"
+    },
+    "cart-drawer": {
+      "type": "cart-drawer"
+    },
+    "sticky-buy-bar": {
+      "type": "sticky-buy-bar"
+    }
+  },
+  "order": ["footer", "cart-drawer", "sticky-buy-bar"]
+}

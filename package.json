@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "theme:css": "tailwindcss -i ./shopify-theme/tailwind-src/input.css -o ./shopify-theme/assets/theme.css --minify",
+    "theme:css:watch": "tailwindcss -i ./shopify-theme/tailwind-src/input.css -o ./shopify-theme/assets/theme.css --watch"
   },
   "dependencies": {
     "@shopify/storefront-api-client": "^1.0.10",
@@ -18,6 +20,7 @@
     "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/vite": "^4.3.2",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
