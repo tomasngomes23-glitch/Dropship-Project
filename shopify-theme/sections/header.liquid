@@ -17,18 +17,24 @@
       <a href="/pages/track-order" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.track_order' | t }}</a>
     </nav>
 
-    <button
-      type="button"
-      data-cart-toggle
-      class="relative flex h-10 w-10 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
-      aria-label="{{ 'general.cart.open_cart' | t }}"
-    >
-      {% render 'icon', name: 'shopping-bag', size: 18 %}
-      <span
-        data-cart-count
-        class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal-400 px-1 text-[11px] font-bold text-neutral-950{% if cart.item_count == 0 %} hidden{% endif %}"
-      >{{ cart.item_count }}</span>
-    </button>
+    <div class="flex items-center gap-3">
+      {% if localization.available_countries.size > 1 %}
+        {% render 'currency-selector' %}
+      {% endif %}
+
+      <button
+        type="button"
+        data-cart-toggle
+        class="relative flex h-10 w-10 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+        aria-label="{{ 'general.cart.open_cart' | t }}"
+      >
+        {% render 'icon', name: 'shopping-bag', size: 18 %}
+        <span
+          data-cart-count
+          class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal-400 px-1 text-[11px] font-bold text-neutral-950{% if cart.item_count == 0 %} hidden{% endif %}"
+        >{{ cart.item_count }}</span>
+      </button>
+    </div>
   </div>
 </header>
 

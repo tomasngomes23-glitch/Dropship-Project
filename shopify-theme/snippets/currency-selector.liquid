@@ -1,0 +1,23 @@
+{%- comment -%}
+  Native Shopify country/currency picker — lets the customer choose their
+  own currency instead of relying only on automatic geo-detection. Only
+  shows real options once multiple countries/currencies are configured in
+  Settings > Markets; with a single market it just renders one option.
+{%- endcomment -%}
+{% form 'localization', id: 'currency-form', class: 'currency-form' %}
+  <select
+    name="country_code"
+    aria-label="Currency"
+    onchange="this.form.submit()"
+    class="cursor-pointer rounded-full border border-white/15 bg-transparent px-3 py-1.5 text-xs text-neutral-300 outline-none transition-colors hover:border-white/30 hover:text-white"
+  >
+    {% for country in localization.available_countries %}
+      <option
+        value="{{ country.iso_code }}"
+        {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+      >
+        {{ country.name }} ({{ country.currency.iso_code }})
+      </option>
+    {% endfor %}
+  </select>
+{% endform %}
