@@ -1,5 +1,8 @@
 {
   "general": {
+    "announcement": {
+      "free_shipping": "FREE SHIPPING ON ORDERS {{ amount }}+"
+    },
     "nav": {
       "home": "Home",
       "reviews": "Reviews",

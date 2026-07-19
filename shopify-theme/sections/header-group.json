@@ -6,7 +6,7 @@
       "type": "announcement-bar",
       "blocks": {
         "msg-1": { "type": "message", "settings": { "text": "30 DAY MONEYBACK GUARANTEE" } },
-        "msg-2": { "type": "message", "settings": { "text": "FREE SHIPPING ON ORDERS 300 KR+" } },
+        "msg-2": { "type": "free_shipping", "settings": { "threshold": 300 } },
         "msg-3": { "type": "message", "settings": { "text": "50% OFF TODAY ONLY" } }
       },
       "block_order": ["msg-1", "msg-2", "msg-3"]

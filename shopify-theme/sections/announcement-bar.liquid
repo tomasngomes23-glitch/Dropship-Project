@@ -3,7 +3,13 @@
     {%- for i in (1..6) -%}
       {%- for block in section.blocks -%}
         <span class="whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-neutral-950">
-          {{ block.settings.text }} <span class="mx-3 opacity-50">✦</span>
+          {%- if block.type == 'free_shipping' -%}
+            {%- assign shipping_amount = block.settings.threshold | times: 100 | money -%}
+            {{ 'general.announcement.free_shipping' | t: amount: shipping_amount }}
+          {%- else -%}
+            {{ block.settings.text }}
+          {%- endif -%}
+          <span class="mx-3 opacity-50">✦</span>
         </span>
       {%- endfor -%}
     {%- endfor -%}
@@ -19,14 +25,21 @@
       "type": "message",
       "name": "Message",
       "settings": [
-        { "type": "text", "id": "text", "label": "Text", "default": "FREE SHIPPING ON ORDERS 300 KR+" }
+        { "type": "text", "id": "text", "label": "Text", "default": "30 DAY MONEYBACK GUARANTEE" }
+      ]
+    },
+    {
+      "type": "free_shipping",
+      "name": "Free shipping message",
+      "settings": [
+        { "type": "number", "id": "threshold", "label": "Free shipping threshold (in shop's default currency)", "default": 300 }
       ]
     }
   ],
   "default": {
     "blocks": [
       { "type": "message", "settings": { "text": "30 DAY MONEYBACK GUARANTEE" } },
-      { "type": "message", "settings": { "text": "FREE SHIPPING ON ORDERS 300 KR+" } },
+      { "type": "free_shipping", "settings": { "threshold": 300 } },
       { "type": "message", "settings": { "text": "50% OFF TODAY ONLY" } }
     ]
   }
