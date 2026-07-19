@@ -302,7 +302,11 @@
         .then(renderCart);
     }
 
+    var qtyChangeInFlight = false;
+
     function changeQuantity(newQuantity) {
+      if (qtyChangeInFlight) return;
+      qtyChangeInFlight = true;
       fetch("/cart/change.js", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -311,7 +315,14 @@
         .then(function (r) {
           return r.json();
         })
-        .then(renderCart);
+        .then(function (cart) {
+          qtyChangeInFlight = false;
+          renderCart(cart);
+        })
+        .catch(function (err) {
+          qtyChangeInFlight = false;
+          console.error("Change quantity failed", err);
+        });
     }
 
     document.addEventListener("click", function (e) {
