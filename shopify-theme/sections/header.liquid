@@ -1,10 +1,10 @@
 <header
   data-header
-  class="sticky top-0 z-40 bg-transparent transition-colors duration-300"
+  class="relative bg-transparent transition-colors duration-300"
 >
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
-    <a href="{{ routes.root_url }}" class="flex items-center gap-2.5">
-      <span class="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400"></span>
+    <a href="{{ routes.root_url }}" class="group flex items-center gap-2.5">
+      <span class="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400 transition-transform duration-300 group-hover:rotate-[225deg] group-hover:scale-110"></span>
       <span class="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
         {{ section.settings.brand_name | default: 'Velory' }}
       </span>
