@@ -6,5 +6,17 @@
     "theme_author": "Velory",
     "theme_documentation_url": "https://velorystore.com",
     "theme_support_url": "https://velorystore.com/pages/contact"
+  },
+  {
+    "name": "Free shipping",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_qty",
+        "label": "Free shipping from this quantity",
+        "info": "Used by the announcement bar and the cart's free shipping progress bar — one number, kept in sync everywhere.",
+        "default": 3
+      }
+    ]
   }
 ]

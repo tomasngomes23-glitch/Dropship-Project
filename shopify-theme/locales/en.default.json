@@ -1,7 +1,7 @@
 {
   "general": {
     "announcement": {
-      "free_shipping": "FREE SHIPPING ON ORDERS {{ amount }}+"
+      "free_shipping": "FREE SHIPPING ON ORDERS OF {{ qty }}+ CUBES"
     },
     "nav": {
       "home": "Home",
@@ -23,7 +23,9 @@
       "remove": "Remove from cart",
       "guarantee": "30-day money-back guarantee",
       "open_cart": "Open cart",
-      "close_cart": "Close cart"
+      "close_cart": "Close cart",
+      "free_shipping_progress": "Add {{ count }} more for free shipping!",
+      "free_shipping_unlocked": "You've unlocked free shipping!"
     },
     "footer": {
       "customer_care": "Customer Care",

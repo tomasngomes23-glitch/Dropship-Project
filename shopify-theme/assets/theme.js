@@ -215,6 +215,26 @@
       if (filled) filled.classList.toggle("hidden", cart.item_count === 0);
       if (cart.item_count === 0) return;
 
+      var progressWrap = document.querySelector("[data-cart-shipping-progress]");
+      if (progressWrap) {
+        var freeShippingQty = parseInt(progressWrap.getAttribute("data-free-shipping-qty") || "3", 10);
+        var progressLabel = document.querySelector("[data-shipping-progress-label]");
+        if (progressLabel) {
+          if (cart.item_count >= freeShippingQty) {
+            progressLabel.textContent = progressLabel.getAttribute("data-unlocked-label") || "";
+          } else {
+            var remaining = freeShippingQty - cart.item_count;
+            var progressTemplate = progressLabel.getAttribute("data-progress-label") || "";
+            progressLabel.textContent = progressTemplate.replace("{count}", remaining);
+          }
+        }
+        var progressBar = document.querySelector("[data-shipping-progress-bar]");
+        if (progressBar) {
+          var progressPct = Math.min((cart.item_count / freeShippingQty) * 100, 100);
+          progressBar.style.width = progressPct + "%";
+        }
+      }
+
       var line = cart.items[0];
       var qtyLabel = document.querySelector("[data-cart-qty-label]");
       if (qtyLabel) {

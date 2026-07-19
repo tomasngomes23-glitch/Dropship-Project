@@ -1,5 +1,8 @@
 {%- liquid
   assign line = cart.items.first
+  assign free_shipping_qty = settings.free_shipping_qty | default: 3
+  assign remaining = free_shipping_qty | minus: cart.item_count
+  assign progress_pct = cart.item_count | times: 100.0 | divided_by: free_shipping_qty | at_most: 100
 -%}
 <div
   data-cart-backdrop
@@ -39,6 +42,32 @@
 
   <div data-cart-filled class="flex flex-1 flex-col{% if cart.item_count == 0 %} hidden{% endif %}">
     <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div
+        data-cart-shipping-progress
+        data-free-shipping-qty="{{ free_shipping_qty }}"
+        class="mb-5 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+      >
+        <p
+          data-shipping-progress-label
+          data-unlocked-label="{{ 'general.cart.free_shipping_unlocked' | t }}"
+          data-progress-label="{{ 'general.cart.free_shipping_progress' | t: count: '{count}' }}"
+          class="mb-2 text-xs text-neutral-300"
+        >
+          {% if cart.item_count >= free_shipping_qty %}
+            {{ 'general.cart.free_shipping_unlocked' | t }}
+          {% else %}
+            {{ 'general.cart.free_shipping_progress' | t: count: remaining }}
+          {% endif %}
+        </p>
+        <div class="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            data-shipping-progress-bar
+            class="h-full rounded-full bg-teal-400 transition-all duration-500"
+            style="width: {{ progress_pct }}%;"
+          ></div>
+        </div>
+      </div>
+
       <div class="flex gap-3">
         {% if line %}
           <img
