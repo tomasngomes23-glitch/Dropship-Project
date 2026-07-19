@@ -9,10 +9,16 @@ import { ShippingPolicy } from "./pages/ShippingPolicy";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 
+// On GitHub Pages the app is served from /Dropship-Project/, not the domain
+// root — react-router needs to know that prefix. Locally (base: './') this
+// stays undefined and the router behaves exactly as before.
+const base = import.meta.env.BASE_URL;
+const basename = base.startsWith("/") && base !== "/" ? base : undefined;
+
 function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
