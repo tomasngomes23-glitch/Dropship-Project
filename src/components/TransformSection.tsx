@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import womanImg from "../assets/aurora/cube-portable-hand.webp";
+import womanImg from "../assets/aurora/cube-woman-pink.webp";
 
 export function TransformSection() {
   return (
@@ -15,7 +15,7 @@ export function TransformSection() {
         >
           <img
             src={womanImg}
-            alt="Mão a segurar o Aurora Cube com luz quente a projetar-se à volta"
+            alt="Mulher sorridente a segurar o Aurora Cube com luz rosa a projetar-se no teto"
             className="w-full transition-transform duration-500"
           />
         </motion.div>
