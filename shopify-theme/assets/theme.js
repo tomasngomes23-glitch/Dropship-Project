@@ -6,6 +6,14 @@
 (function () {
   "use strict";
 
+  // Shopify CLI's live reload can re-inject/re-execute this script without a
+  // full page navigation while iterating locally. Without this guard, every
+  // re-execution would attach a second, third, ... set of event listeners,
+  // each tracking its own stale copy of the cart state — the qty stepper
+  // would then fire multiple conflicting /cart/change.js requests per click.
+  if (window.__veloryThemeJsLoaded) return;
+  window.__veloryThemeJsLoaded = true;
+
   /* ---------------------------------------------------------------------
    * Scroll-reveal: replaces Framer Motion's `whileInView` fade/slide-up.
    * Any element with [data-reveal] starts hidden (via CSS) and gets
