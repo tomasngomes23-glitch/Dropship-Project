@@ -1,25 +1,61 @@
 {%- comment -%}
-  Native Shopify country/currency picker — lets the customer choose their
-  own currency instead of relying only on automatic geo-detection. Only
-  shows real options once multiple countries/currencies are configured in
-  Settings > Markets; with a single market it just renders one option.
+  Custom-styled country/currency picker matching the site's dark theme —
+  a native <select>'s open dropdown can't be restyled by CSS, so this
+  drives a real (visually hidden) <select> via a custom button + panel,
+  keeping Shopify's native {% form 'localization' %} submission intact.
 {%- endcomment -%}
 {% form 'localization', id: 'currency-form', class: 'currency-form' %}
-  <select
-    name="country_code"
-    aria-label="Currency"
-    onchange="this.form.submit()"
-    class="cursor-pointer rounded-full border border-white/15 bg-transparent px-3 py-1.5 text-xs text-neutral-300 outline-none transition-colors hover:border-white/30 hover:text-white"
-  >
-    {% for country in localization.available_countries %}
-      {% if country.name != blank and country.currency.iso_code != blank %}
-        <option
-          value="{{ country.iso_code }}"
-          {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
-        >
-          {{ country.name }} ({{ country.currency.iso_code }})
-        </option>
-      {% endif %}
-    {% endfor %}
-  </select>
+  <div class="relative" data-currency-dropdown>
+    <select name="country_code" data-currency-native-select class="sr-only" tabindex="-1" aria-hidden="true">
+      {% for country in localization.available_countries %}
+        {% if country.name != blank and country.currency.iso_code != blank %}
+          <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+            {{ country.name }} ({{ country.currency.iso_code }})
+          </option>
+        {% endif %}
+      {% endfor %}
+    </select>
+
+    <button
+      type="button"
+      data-currency-toggle
+      aria-label="Currency"
+      class="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-white/30 hover:text-white cursor-pointer"
+    >
+      <span data-currency-current>{{ localization.country.name }} ({{ localization.country.currency.iso_code }})</span>
+      {% render 'icon', name: 'chevron-down', size: 12, class: 'transition-transform duration-200' %}
+    </button>
+
+    <div
+      data-currency-panel
+      class="invisible absolute right-0 top-full z-50 mt-2 w-64 origin-top-right scale-95 rounded-2xl border border-white/10 bg-neutral-900 opacity-0 shadow-2xl transition-all duration-150"
+    >
+      <div class="border-b border-white/10 p-2">
+        <input
+          type="text"
+          data-currency-search
+          placeholder="Search country…"
+          class="w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
+        />
+      </div>
+      <div data-currency-options class="max-h-64 overflow-y-auto p-2">
+        {% for country in localization.available_countries %}
+          {% if country.name != blank and country.currency.iso_code != blank %}
+            <button
+              type="button"
+              data-currency-option
+              data-value="{{ country.iso_code }}"
+              data-label="{{ country.name }} ({{ country.currency.iso_code }})"
+              data-search="{{ country.name | downcase }}"
+              class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs text-neutral-300 transition-colors hover:bg-white/[0.06] hover:text-white cursor-pointer{% if country.iso_code == localization.country.iso_code %} bg-teal-400/10 text-teal-300{% endif %}"
+            >
+              <span>{{ country.name }}</span>
+              <span class="text-neutral-500">{{ country.currency.iso_code }}</span>
+            </button>
+          {% endif %}
+        {% endfor %}
+        <p data-currency-no-results class="hidden px-3 py-4 text-center text-xs text-neutral-500">No matches</p>
+      </div>
+    </div>
+  </div>
 {% endform %}

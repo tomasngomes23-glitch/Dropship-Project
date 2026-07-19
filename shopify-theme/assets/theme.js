@@ -489,6 +489,86 @@
     });
   }
 
+  /* ---------------------------------------------------------------------
+   * Currency/country selector — custom-styled dropdown (with search) that
+   * drives a visually-hidden native <select> so Shopify's native
+   * {% form 'localization' %} submission keeps working unchanged.
+   * ------------------------------------------------------------------- */
+  function initCurrencySelector() {
+    var wrapper = document.querySelector("[data-currency-dropdown]");
+    if (!wrapper) return;
+
+    var toggle = wrapper.querySelector("[data-currency-toggle]");
+    var panel = wrapper.querySelector("[data-currency-panel]");
+    var select = wrapper.querySelector("[data-currency-native-select]");
+    var search = wrapper.querySelector("[data-currency-search]");
+    var options = wrapper.querySelectorAll("[data-currency-option]");
+    var noResults = wrapper.querySelector("[data-currency-no-results]");
+    var chevron = toggle.querySelector("svg");
+
+    function openPanel() {
+      panel.classList.remove("invisible", "scale-95", "opacity-0");
+      panel.classList.add("scale-100", "opacity-100");
+      if (chevron) chevron.classList.add("rotate-180");
+      if (search) {
+        search.value = "";
+        filterOptions("");
+        search.focus();
+      }
+    }
+
+    function closePanel() {
+      panel.classList.add("invisible", "scale-95", "opacity-0");
+      panel.classList.remove("scale-100", "opacity-100");
+      if (chevron) chevron.classList.remove("rotate-180");
+    }
+
+    function isOpen() {
+      return !panel.classList.contains("invisible");
+    }
+
+    function filterOptions(query) {
+      query = query.trim().toLowerCase();
+      var anyVisible = false;
+      options.forEach(function (opt) {
+        var match = !query || opt.getAttribute("data-search").indexOf(query) !== -1;
+        opt.classList.toggle("hidden", !match);
+        if (match) anyVisible = true;
+      });
+      if (noResults) noResults.classList.toggle("hidden", anyVisible);
+    }
+
+    toggle.addEventListener("click", function () {
+      if (isOpen()) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (isOpen() && !wrapper.contains(e.target)) closePanel();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen()) closePanel();
+    });
+
+    if (search) {
+      search.addEventListener("input", function () {
+        filterOptions(search.value);
+      });
+    }
+
+    options.forEach(function (opt) {
+      opt.addEventListener("click", function () {
+        select.value = opt.getAttribute("data-value");
+        select.dispatchEvent(new Event("change"));
+        select.form.submit();
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initScrollReveal();
     initCursorGlow();
@@ -499,5 +579,6 @@
     initCounters();
     initFaqAccordion();
     initTrackOrder();
+    initCurrencySelector();
   });
 })();
