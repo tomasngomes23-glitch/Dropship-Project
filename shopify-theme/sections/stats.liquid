@@ -1,0 +1,50 @@
+<section class="px-5 py-20 lg:px-8">
+  <div class="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/[0.03] px-6 py-14 lg:px-12">
+    <h2 data-reveal class="text-center font-display text-2xl font-semibold text-white sm:text-3xl">
+      {{ section.settings.heading | default: 'The Results Speak For Themselves' }}
+    </h2>
+    <p class="mx-auto mt-2 max-w-md text-center text-sm text-neutral-400">
+      {{ section.settings.subheading | default: "Thousands of happy customers across the globe can't imagine their room without it." }}
+    </p>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-3">
+      {% for block in section.blocks %}
+        <div
+          data-reveal
+          data-reveal-delay="{{ forloop.index0 | times: 100 }}"
+          class="cursor-default rounded-2xl p-3 text-center transition-all duration-200 hover:bg-white/[0.04] hover:scale-[1.06]"
+        >
+          <span data-counter data-counter-target="{{ block.settings.value }}" class="font-display text-5xl font-semibold text-teal-300">0%</span>
+          <p class="mt-2 text-sm text-neutral-400">&quot;{{ block.settings.label }}&quot;</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Results Speak For Themselves" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Thousands of happy customers across the globe can't imagine their room without it." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "number", "id": "value", "label": "Percentage", "default": 94 },
+        { "type": "text", "id": "label", "label": "Label", "default": "said it completely transformed their room" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "stat", "settings": { "value": 94, "label": "said it completely transformed their room" } },
+      { "type": "stat", "settings": { "value": 96, "label": "said they would recommend it to a friend" } },
+      { "type": "stat", "settings": { "value": 95, "label": "said it was worth every penny" } }
+    ]
+  }
+}
+{% endschema %}

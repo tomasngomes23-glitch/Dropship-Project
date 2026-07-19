@@ -1,0 +1,56 @@
+<section class="px-5 py-16 lg:px-8">
+  <div class="mx-auto max-w-6xl">
+    <div
+      data-reveal
+      class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 to-neutral-800 px-6 py-14 text-center lg:px-16 lg:py-20"
+    >
+      <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-400/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl"></div>
+
+      <h2 class="font-display text-3xl font-semibold text-white lg:text-4xl">
+        {{ section.settings.heading | default: 'Get 10% Off Your First Order' }}
+      </h2>
+      <p class="mx-auto mt-3 max-w-md text-sm text-neutral-400">
+        {{ section.settings.subheading | default: 'Join the list for early access to restocks, new colors, and exclusive discounts.' }}
+      </p>
+
+      {% form 'customer' %}
+        <input type="hidden" name="contact[tags]" value="newsletter" />
+        <input type="hidden" name="contact[accepts_marketing]" value="true" />
+        {% if form.posted_successfully? %}
+          <div class="mx-auto mt-8 flex max-w-md items-center justify-center gap-2 rounded-full bg-teal-300/10 px-6 py-3.5 text-sm font-medium text-teal-300">
+            {% render 'icon', name: 'check', size: 18 %}
+            You're in! Check your inbox for your code.
+          </div>
+        {% else %}
+          <div class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+            <input
+              type="email"
+              name="contact[email]"
+              required
+              placeholder="your-email@example.com"
+              class="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
+            />
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-teal-400 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03] cursor-pointer"
+            >
+              Subscribe
+              {% render 'icon', name: 'arrow-right', size: 16 %}
+            </button>
+          </div>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get 10% Off Your First Order" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Join the list for early access to restocks, new colors, and exclusive discounts." }
+  ]
+}
+{% endschema %}

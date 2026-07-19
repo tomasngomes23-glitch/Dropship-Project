@@ -300,11 +300,129 @@
     fetchCart().then(renderCart);
   }
 
+  /* ---------------------------------------------------------------------
+   * Hero bundle selector — clicking Buy 1/2/3 swaps the displayed price,
+   * compare-at, savings badge, and the Add to Cart button's quantity.
+   * Mirrors Hero.tsx's `selected` state, just without React re-rendering.
+   * ------------------------------------------------------------------- */
+  var SELECTED_CLASSES = ["border-teal-400", "bg-teal-400/10", "shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"];
+  var DEFAULT_CLASSES = ["border-white/10", "bg-white/[0.03]", "hover:border-white/25"];
+
+  function initBundleSelector() {
+    var buttons = document.querySelectorAll("[data-bundle-btn]");
+    if (!buttons.length) return;
+
+    var priceDisplay = document.querySelector("[data-price-display]");
+    var compareDisplay = document.querySelector("[data-compare-display]");
+    var saveBadge = document.querySelector("[data-save-badge]");
+    var ctaPrice = document.querySelector("[data-cta-price]");
+    var addToCartBtn = document.querySelector("[data-add-to-cart]");
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        buttons.forEach(function (b) {
+          b.classList.remove.apply(b.classList, SELECTED_CLASSES);
+          b.classList.add.apply(b.classList, DEFAULT_CLASSES);
+        });
+        btn.classList.remove.apply(btn.classList, DEFAULT_CLASSES);
+        btn.classList.add.apply(btn.classList, SELECTED_CLASSES);
+
+        var price = formatMoney(parseInt(btn.getAttribute("data-price"), 10));
+        if (priceDisplay) priceDisplay.textContent = price;
+        if (ctaPrice) ctaPrice.textContent = price;
+        if (compareDisplay) compareDisplay.textContent = formatMoney(parseInt(btn.getAttribute("data-compare"), 10));
+        if (saveBadge) saveBadge.textContent = btn.getAttribute("data-save-label");
+        if (addToCartBtn) addToCartBtn.setAttribute("data-quantity", btn.getAttribute("data-qty"));
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Stats count-up — replaces StatsSection.tsx's Counter (useInView + rAF,
+   * same 1200ms cubic ease-out).
+   * ------------------------------------------------------------------- */
+  function initCounters() {
+    var counters = document.querySelectorAll("[data-counter]");
+    if (!counters.length) return;
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute("data-counter-target"), 10) || 0;
+      var duration = 1200;
+      var start = performance.now();
+
+      function tick(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var value = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+        el.textContent = value + "%";
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      counters.forEach(animateCounter);
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "-40px 0px" },
+    );
+    counters.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * FAQ accordion — one item open at a time, first one open by default.
+   * Height animation is pure CSS (accordion-rows grid-template-rows
+   * trick); this just toggles data-open and the border/icon states.
+   * ------------------------------------------------------------------- */
+  function initFaqAccordion() {
+    var items = document.querySelectorAll("[data-faq-item]");
+    if (!items.length) return;
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector("[data-faq-trigger]");
+      var panel = item.querySelector("[data-faq-panel]");
+      var icon = item.querySelector("[data-faq-icon]");
+
+      trigger.addEventListener("click", function () {
+        var isOpen = panel.hasAttribute("data-open");
+
+        items.forEach(function (other) {
+          var otherPanel = other.querySelector("[data-faq-panel]");
+          var otherIcon = other.querySelector("[data-faq-icon]");
+          otherPanel.removeAttribute("data-open");
+          otherIcon.classList.remove("rotate-45");
+          other.classList.remove("border-teal-400/30");
+          other.classList.add("border-white/10");
+        });
+
+        if (!isOpen) {
+          panel.setAttribute("data-open", "");
+          icon.classList.add("rotate-45");
+          item.classList.remove("border-white/10");
+          item.classList.add("border-teal-400/30");
+        }
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initScrollReveal();
     initCursorGlow();
     initHeaderScroll();
     initStickyBar();
     initCart();
+    initBundleSelector();
+    initCounters();
+    initFaqAccordion();
   });
 })();

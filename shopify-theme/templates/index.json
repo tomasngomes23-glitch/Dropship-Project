@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "hero": { "type": "hero" },
+    "how-it-works": { "type": "how-it-works" },
+    "transform": { "type": "transform" },
+    "stats": { "type": "stats" },
+    "testimonials": { "type": "testimonials" },
+    "guarantee": { "type": "guarantee" },
+    "faq": { "type": "faq" },
+    "newsletter": { "type": "newsletter" }
+  },
+  "order": ["hero", "how-it-works", "transform", "stats", "testimonials", "guarantee", "faq", "newsletter"]
+}
