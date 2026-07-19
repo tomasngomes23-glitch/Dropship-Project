@@ -12,12 +12,14 @@
     class="cursor-pointer rounded-full border border-white/15 bg-transparent px-3 py-1.5 text-xs text-neutral-300 outline-none transition-colors hover:border-white/30 hover:text-white"
   >
     {% for country in localization.available_countries %}
-      <option
-        value="{{ country.iso_code }}"
-        {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
-      >
-        {{ country.name }} ({{ country.currency.iso_code }})
-      </option>
+      {% if country.name != blank and country.currency.iso_code != blank %}
+        <option
+          value="{{ country.iso_code }}"
+          {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+        >
+          {{ country.name }} ({{ country.currency.iso_code }})
+        </option>
+      {% endif %}
     {% endfor %}
   </select>
 {% endform %}
