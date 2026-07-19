@@ -212,18 +212,30 @@
 
     var primaryVariantId = drawer.getAttribute("data-primary-variant-id");
     var currentLineQty = 0;
+    var lastCart = null;
 
-    function findPrimaryLine(cart) {
-      if (!primaryVariantId) return cart.items[0];
+    // The bundle discount app prices each cart line's quantity against its
+    // own tier (1/2/3), so a single line can't just grow past 3 and still
+    // get the right discount. Past 3, new units go into a new line (tagged
+    // with a distinct _bundle_group property so Shopify keeps it separate
+    // instead of merging it back into the first line) and that new line
+    // fills up to 3 itself before another one starts.
+    function findBundleLines(cart) {
+      var lines = [];
+      if (!primaryVariantId) return lines;
       for (var i = 0; i < cart.items.length; i++) {
-        if (String(cart.items[i].variant_id) === String(primaryVariantId)) return cart.items[i];
+        if (String(cart.items[i].variant_id) === String(primaryVariantId)) lines.push(cart.items[i]);
       }
-      return cart.items[0];
+      return lines;
     }
 
     function renderCart(cart) {
-      var primaryLine = findPrimaryLine(cart);
-      currentLineQty = primaryLine ? primaryLine.quantity : 0;
+      lastCart = cart;
+      var bundleLines = findBundleLines(cart);
+      var primaryLine = bundleLines[0] || cart.items[0];
+      currentLineQty = bundleLines.reduce(function (sum, l) {
+        return sum + l.quantity;
+      }, 0);
       var badge = document.querySelector("[data-cart-count]");
       if (badge) {
         badge.textContent = cart.item_count;
@@ -322,13 +334,13 @@
 
     var qtyChangeInFlight = false;
 
-    function changeQuantity(newQuantity) {
-      if (qtyChangeInFlight || !primaryVariantId) return;
+    function changeLineByKey(key, newQuantity) {
+      if (qtyChangeInFlight) return;
       qtyChangeInFlight = true;
       fetch("/cart/change.js", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ id: primaryVariantId, quantity: newQuantity }),
+        body: JSON.stringify({ id: key, quantity: newQuantity }),
       })
         .then(function (r) {
           return r.json();
@@ -341,6 +353,48 @@
           qtyChangeInFlight = false;
           console.error("Change quantity failed", err);
         });
+    }
+
+    function addBundleGroup(groupNumber) {
+      if (qtyChangeInFlight || !primaryVariantId) return;
+      qtyChangeInFlight = true;
+      fetch("/cart/add.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          items: [{ id: primaryVariantId, quantity: 1, properties: { _bundle_group: String(groupNumber) } }],
+        }),
+      })
+        .then(function () {
+          return fetchCart();
+        })
+        .then(function (cart) {
+          qtyChangeInFlight = false;
+          renderCart(cart);
+        })
+        .catch(function (err) {
+          qtyChangeInFlight = false;
+          console.error("Add bundle group failed", err);
+        });
+    }
+
+    function incrementBundle() {
+      if (qtyChangeInFlight || !lastCart) return;
+      var bundleLines = findBundleLines(lastCart);
+      var lastLine = bundleLines[bundleLines.length - 1];
+      if (lastLine && lastLine.quantity < 3) {
+        changeLineByKey(lastLine.key, lastLine.quantity + 1);
+      } else {
+        addBundleGroup(bundleLines.length + 1);
+      }
+    }
+
+    function decrementBundle() {
+      if (qtyChangeInFlight || !lastCart) return;
+      var bundleLines = findBundleLines(lastCart);
+      var lastLine = bundleLines[bundleLines.length - 1];
+      if (!lastLine) return;
+      changeLineByKey(lastLine.key, Math.max(lastLine.quantity - 1, 0));
     }
 
     document.addEventListener("click", function (e) {
@@ -368,12 +422,12 @@
       }
 
       if (e.target.closest("[data-qty-decrease]")) {
-        changeQuantity(Math.max(currentLineQty - 1, 0));
+        decrementBundle();
         return;
       }
 
       if (e.target.closest("[data-qty-increase]")) {
-        changeQuantity(currentLineQty + 1);
+        incrementBundle();
       }
     });
 
