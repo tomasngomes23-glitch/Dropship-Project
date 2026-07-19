@@ -1,5 +1,7 @@
 {%- liquid
   assign line = cart.items.first
+  assign product = all_products['aurora-cube']
+  assign variant = product.selected_or_first_available_variant
   assign free_shipping_qty = settings.free_shipping_qty | default: 3
   assign remaining = free_shipping_qty | minus: cart.item_count
   assign progress_pct = cart.item_count | times: 100.0 | divided_by: free_shipping_qty | at_most: 100
@@ -11,6 +13,7 @@
 
 <aside
   data-cart-drawer
+  data-primary-variant-id="{{ variant.id }}"
   class="panel-slide-x fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-neutral-900 shadow-2xl"
 >
   <div class="flex items-center justify-between border-b border-white/10 px-6 py-5">

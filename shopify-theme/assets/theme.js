@@ -202,10 +202,20 @@
       document.body.style.overflow = "";
     }
 
-    var currentItemCount = 0;
+    var primaryVariantId = drawer.getAttribute("data-primary-variant-id");
+    var currentLineQty = 0;
+
+    function findPrimaryLine(cart) {
+      if (!primaryVariantId) return cart.items[0];
+      for (var i = 0; i < cart.items.length; i++) {
+        if (String(cart.items[i].variant_id) === String(primaryVariantId)) return cart.items[i];
+      }
+      return cart.items[0];
+    }
 
     function renderCart(cart) {
-      currentItemCount = cart.item_count;
+      var primaryLine = findPrimaryLine(cart);
+      currentLineQty = primaryLine ? primaryLine.quantity : 0;
       var badge = document.querySelector("[data-cart-count]");
       if (badge) {
         badge.textContent = cart.item_count;
@@ -238,17 +248,17 @@
         }
       }
 
-      var line = cart.items[0];
+      var line = primaryLine;
       var qtyLabel = document.querySelector("[data-cart-qty-label]");
       if (qtyLabel) {
         var singleLabel = qtyLabel.getAttribute("data-single-label") || "Single";
         var qtyTemplate = qtyLabel.getAttribute("data-qty-label") || "Bundle of __COUNT__";
         qtyLabel.textContent =
-          cart.item_count === 1 ? singleLabel : qtyTemplate.replace("__COUNT__", cart.item_count);
+          currentLineQty === 1 ? singleLabel : qtyTemplate.replace("__COUNT__", currentLineQty);
       }
 
       var qtyNumberEl = document.querySelector("[data-cart-qty-number]");
-      if (qtyNumberEl) qtyNumberEl.textContent = cart.item_count;
+      if (qtyNumberEl) qtyNumberEl.textContent = currentLineQty;
 
       var priceEl = document.querySelector("[data-cart-price]");
       if (priceEl) priceEl.textContent = formatMoney(cart.total_price);
@@ -305,12 +315,12 @@
     var qtyChangeInFlight = false;
 
     function changeQuantity(newQuantity) {
-      if (qtyChangeInFlight) return;
+      if (qtyChangeInFlight || !primaryVariantId) return;
       qtyChangeInFlight = true;
       fetch("/cart/change.js", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ line: 1, quantity: newQuantity }),
+        body: JSON.stringify({ id: primaryVariantId, quantity: newQuantity }),
       })
         .then(function (r) {
           return r.json();
@@ -350,12 +360,12 @@
       }
 
       if (e.target.closest("[data-qty-decrease]")) {
-        changeQuantity(Math.max(currentItemCount - 1, 0));
+        changeQuantity(Math.max(currentLineQty - 1, 0));
         return;
       }
 
       if (e.target.closest("[data-qty-increase]")) {
-        changeQuantity(currentItemCount + 1);
+        changeQuantity(currentLineQty + 1);
       }
     });
 
