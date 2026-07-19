@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { isShopifyConfigured } from "../lib/shopify";
 
-const shopifyDomain = import.meta.env.VITE_SHOPIFY_DOMAIN as string | undefined;
+// Submitting to the *.myshopify.com domain would normally 301-redirect to
+// the connected custom domain, which turns the POST into a GET and silently
+// drops the form fields. Posting straight to the live storefront domain
+// avoids that redirect entirely.
+const STORE_DOMAIN = "velorystore.com";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -43,7 +47,7 @@ export function Contact() {
         ) : (
           <form
             onSubmit={handleSubmit}
-            action={isShopifyConfigured ? `https://${shopifyDomain}/contact#ContactForm` : undefined}
+            action={isShopifyConfigured ? `https://${STORE_DOMAIN}/contact#ContactForm` : undefined}
             method={isShopifyConfigured ? "post" : undefined}
             target={isShopifyConfigured ? "_blank" : undefined}
             className="mt-8 flex flex-col gap-4"

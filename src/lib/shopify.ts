@@ -53,6 +53,35 @@ const PRODUCT_QUERY = `#graphql
   }
 `;
 
+export interface ShopifyPolicy {
+  title: string;
+  body: string;
+}
+
+export type PolicyKey = "privacyPolicy" | "refundPolicy" | "shippingPolicy" | "termsOfService";
+
+const SHOP_POLICIES_QUERY = `#graphql
+  query ShopPolicies {
+    shop {
+      privacyPolicy { title body }
+      refundPolicy { title body }
+      shippingPolicy { title body }
+      termsOfService { title body }
+    }
+  }
+`;
+
+export async function getShopPolicy(key: PolicyKey): Promise<ShopifyPolicy | null> {
+  if (!shopifyClient) return null;
+  try {
+    const { data, errors } = await shopifyClient.request(SHOP_POLICIES_QUERY);
+    if (errors) return null;
+    return data?.shop?.[key] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getProductByHandle(handle: string): Promise<ShopifyProduct | null> {
   if (!shopifyClient) return null;
   const { data } = await shopifyClient.request(PRODUCT_QUERY, { variables: { handle } });
