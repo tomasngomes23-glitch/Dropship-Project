@@ -415,6 +415,75 @@
     });
   }
 
+  /* ---------------------------------------------------------------------
+   * Track Order — embeds the 17TRACK widget in-page (ported from
+   * TrackOrder.tsx: lazy-load externalcall.js once, then call
+   * YQV5.trackSingle() with the entered number). Falls back to a direct
+   * 17TRACK link if the script fails to load (e.g. blocked by an
+   * ad-blocker), same as the React version.
+   * ------------------------------------------------------------------- */
+  var trackWidgetScriptPromise = null;
+
+  function loadTrackWidgetScript() {
+    if (!trackWidgetScriptPromise) {
+      trackWidgetScriptPromise = new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = "https://www.17track.net/externalcall.js";
+        script.async = true;
+        script.onload = function () {
+          resolve();
+        };
+        script.onerror = function () {
+          reject(new Error("Failed to load 17TRACK widget"));
+        };
+        document.body.appendChild(script);
+      });
+    }
+    return trackWidgetScriptPromise;
+  }
+
+  function initTrackOrder() {
+    var form = document.querySelector("[data-track-form]");
+    if (!form) return;
+    var input = form.querySelector("[data-track-input]");
+    var resultBox = document.querySelector("[data-track-result]");
+    var errorBox = document.querySelector("[data-track-error]");
+    var widgetContainer = document.querySelector("[data-track-widget]");
+    var fallbackLink = document.querySelector("[data-track-fallback-link]");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var num = input.value.trim();
+      if (!num) return;
+
+      resultBox.classList.remove("hidden");
+      errorBox.classList.add("hidden");
+      widgetContainer.classList.remove("hidden");
+
+      loadTrackWidgetScript()
+        .then(function () {
+          requestAnimationFrame(function () {
+            if (window.YQV5) {
+              window.YQV5.trackSingle({
+                YQ_ContainerId: "track-order-widget",
+                YQ_Height: 420,
+                YQ_Fc: "0",
+                YQ_Lang: "en",
+                YQ_Num: num,
+              });
+            }
+          });
+        })
+        .catch(function () {
+          widgetContainer.classList.add("hidden");
+          errorBox.classList.remove("hidden");
+          if (fallbackLink) {
+            fallbackLink.href = "https://www.17track.net/en/track?nums=" + encodeURIComponent(num);
+          }
+        });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initScrollReveal();
     initCursorGlow();
@@ -424,5 +493,6 @@
     initBundleSelector();
     initCounters();
     initFaqAccordion();
+    initTrackOrder();
   });
 })();
