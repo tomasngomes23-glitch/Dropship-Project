@@ -4,7 +4,7 @@
       {%- for block in section.blocks -%}
         <span class="whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-neutral-950">
           {%- if block.type == 'free_shipping' -%}
-            {%- assign shipping_amount = block.settings.threshold | times: 100 | money -%}
+            {%- assign shipping_amount = block.settings.threshold | times: 100 | money | strip_html -%}
             {{ 'general.announcement.free_shipping' | t: amount: shipping_amount }}
           {%- else -%}
             {{ block.settings.text }}
