@@ -4,7 +4,11 @@
       {%- for block in section.blocks -%}
         <span class="whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-neutral-950">
           {%- if block.type == 'free_shipping' -%}
-            {%- assign shipping_amount = block.settings.threshold | times: 100 | money | strip_html -%}
+            {%- if shop.metafields.custom.free_shipping_threshold != blank -%}
+              {%- assign shipping_amount = shop.metafields.custom.free_shipping_threshold | money | strip_html -%}
+            {%- else -%}
+              {%- assign shipping_amount = block.settings.threshold | times: 100 | money | strip_html -%}
+            {%- endif -%}
             {{ 'general.announcement.free_shipping' | t: amount: shipping_amount }}
           {%- else -%}
             {{ block.settings.text }}
@@ -32,7 +36,7 @@
       "type": "free_shipping",
       "name": "Free shipping message",
       "settings": [
-        { "type": "number", "id": "threshold", "label": "Free shipping threshold (in shop's default currency)", "default": 300 }
+        { "type": "number", "id": "threshold", "label": "Free shipping threshold (fallback only)", "info": "Only used if the shop.metafields.custom.free_shipping_threshold metafield isn't set — that metafield converts currency correctly, this plain number does not.", "default": 300 }
       ]
     }
   ],
