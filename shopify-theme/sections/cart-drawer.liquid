@@ -50,7 +50,7 @@
         <p
           data-shipping-progress-label
           data-unlocked-label="{{ 'general.cart.free_shipping_unlocked' | t }}"
-          data-progress-label="{{ 'general.cart.free_shipping_progress' | t: count: '{count}' }}"
+          data-progress-label="{{ 'general.cart.free_shipping_progress' | t: count: '__COUNT__' }}"
           class="mb-2 text-xs text-neutral-300"
         >
           {% if cart.item_count >= free_shipping_qty %}
@@ -94,7 +94,7 @@
             <span
               data-cart-qty-label
               data-single-label="{{ 'general.cart.single' | t }}"
-              data-qty-label="{{ 'general.cart.qty' | t: count: '{count}' }}"
+              data-qty-label="{{ 'general.cart.qty' | t: count: '__COUNT__' }}"
               class="text-xs text-neutral-500"
             >{% if cart.item_count == 1 %}{{ 'general.cart.single' | t }}{% else %}{{ 'general.cart.qty' | t: count: cart.item_count }}{% endif %}</span>
 

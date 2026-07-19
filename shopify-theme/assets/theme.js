@@ -228,7 +228,7 @@
           } else {
             var remaining = freeShippingQty - cart.item_count;
             var progressTemplate = progressLabel.getAttribute("data-progress-label") || "";
-            progressLabel.textContent = progressTemplate.replace("{count}", remaining);
+            progressLabel.textContent = progressTemplate.replace("__COUNT__", remaining);
           }
         }
         var progressBar = document.querySelector("[data-shipping-progress-bar]");
@@ -242,9 +242,9 @@
       var qtyLabel = document.querySelector("[data-cart-qty-label]");
       if (qtyLabel) {
         var singleLabel = qtyLabel.getAttribute("data-single-label") || "Single";
-        var qtyTemplate = qtyLabel.getAttribute("data-qty-label") || "Qty: {count}";
+        var qtyTemplate = qtyLabel.getAttribute("data-qty-label") || "Bundle of __COUNT__";
         qtyLabel.textContent =
-          cart.item_count === 1 ? singleLabel : qtyTemplate.replace("{count}", cart.item_count);
+          cart.item_count === 1 ? singleLabel : qtyTemplate.replace("__COUNT__", cart.item_count);
       }
 
       var qtyNumberEl = document.querySelector("[data-cart-qty-number]");
