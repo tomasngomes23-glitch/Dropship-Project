@@ -3,11 +3,15 @@ import { motion } from "framer-motion";
 import { PackageSearch } from "lucide-react";
 
 export function TrackOrder() {
-  const [submitted, setSubmitted] = useState(false);
+  const [tracking, setTracking] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!tracking.trim()) return;
+    window.open(
+      `https://www.17track.net/en/track?nums=${encodeURIComponent(tracking.trim())}`,
+      "_blank",
+    );
   };
 
   return (
@@ -27,27 +31,22 @@ export function TrackOrder() {
           doesn't work feel free to contact us.
         </p>
 
-        {submitted ? (
-          <div className="mt-8 rounded-2xl border border-teal-400/20 bg-teal-400/5 px-5 py-4 text-sm text-teal-300">
-            Order lookup will connect to Shopify once the store is linked —
-            for now, check your order confirmation email for tracking.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4 text-left">
-            <input
-              type="text"
-              required
-              placeholder="Tracking number"
-              className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
-            />
-            <button
-              type="submit"
-              className="mt-2 w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
-            >
-              Track order
-            </button>
-          </form>
-        )}
+        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4 text-left">
+          <input
+            type="text"
+            required
+            value={tracking}
+            onChange={(e) => setTracking(e.target.value)}
+            placeholder="Tracking number"
+            className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
+          />
+          <button
+            type="submit"
+            className="mt-2 w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
+          >
+            Track order
+          </button>
+        </form>
       </motion.div>
     </section>
   );

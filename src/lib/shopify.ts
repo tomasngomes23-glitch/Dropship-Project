@@ -8,7 +8,7 @@ export const isShopifyConfigured = Boolean(domain && token);
 export const shopifyClient = isShopifyConfigured
   ? createStorefrontApiClient({
       storeDomain: `https://${domain}`,
-      apiVersion: "2025-01",
+      apiVersion: "2026-07",
       publicAccessToken: token as string,
     })
   : null;
@@ -138,4 +138,33 @@ export async function updateCartLine(
   });
   const cart = data?.cartLinesUpdate?.cart;
   return cart ? mapCart(cart) : null;
+}
+
+const CUSTOMER_CREATE_MUTATION = `#graphql
+  mutation CustomerCreate($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+      customer { id }
+      customerUserErrors { field message code }
+    }
+  }
+`;
+
+// Storefront API's customerCreate requires a password even though this is
+// only ever used for newsletter capture — the customer never logs in with
+// it, so a random one-time value is fine.
+export async function subscribeToNewsletter(email: string): Promise<boolean> {
+  if (!shopifyClient) return false;
+  try {
+    const { data, errors: topLevelErrors } = await shopifyClient.request(CUSTOMER_CREATE_MUTATION, {
+      variables: {
+        input: { email, password: crypto.randomUUID(), acceptsMarketing: true },
+      },
+    });
+    if (topLevelErrors || !data?.customerCreate) return false;
+    const errors = data.customerCreate.customerUserErrors ?? [];
+    // "Email has already been taken" still means they're a subscribed customer.
+    return !errors.length || errors.some((e: { code: string }) => e.code === "TAKEN");
+  } catch {
+    return false;
+  }
 }

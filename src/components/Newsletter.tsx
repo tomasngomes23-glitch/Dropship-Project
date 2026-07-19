@@ -1,15 +1,27 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { isShopifyConfigured, subscribeToNewsletter } from "../lib/shopify";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSent(true);
+    if (!isShopifyConfigured) {
+      setSent(true);
+      return;
+    }
+    setLoading(true);
+    try {
+      const ok = await subscribeToNewsletter(email);
+      if (ok) setSent(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,10 +65,15 @@ export function Newsletter() {
               />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-teal-400 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03] cursor-pointer"
+                disabled={loading}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-teal-400 px-6 py-3.5 text-sm font-semibold text-neutral-950 transition-transform hover:scale-[1.03] cursor-pointer disabled:opacity-60"
               >
-                Subscribe
-                <ArrowRight size={16} />
+                {loading ? <Loader2 size={16} className="animate-spin" /> : (
+                  <>
+                    Subscribe
+                    <ArrowRight size={16} />
+                  </>
+                )}
               </button>
             </form>
           )}

@@ -1,12 +1,23 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { isShopifyConfigured } from "../lib/shopify";
+
+const shopifyDomain = import.meta.env.VITE_SHOPIFY_DOMAIN as string | undefined;
 
 export function Contact() {
   const [sent, setSent] = useState(false);
 
+  // Shopify's own /contact endpoint doesn't allow cross-origin fetch reads,
+  // so this submits as a real browser form post (opened in a new tab) —
+  // that's a plain navigation, not an AJAX call, so CORS never applies.
+  // Delivery goes to the store's "Store contact email" (Settings > General).
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    if (!isShopifyConfigured) {
+      e.preventDefault();
+      setSent(true);
+      return;
+    }
     setSent(true);
   };
 
@@ -30,15 +41,25 @@ export function Contact() {
             Thanks! We've received your message and will reply soon.
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+          <form
+            onSubmit={handleSubmit}
+            action={isShopifyConfigured ? `https://${shopifyDomain}/contact#ContactForm` : undefined}
+            method={isShopifyConfigured ? "post" : undefined}
+            target={isShopifyConfigured ? "_blank" : undefined}
+            className="mt-8 flex flex-col gap-4"
+          >
+            <input type="hidden" name="form_type" value="contact" />
+            <input type="hidden" name="utf8" value="✓" />
             <div className="grid gap-4 sm:grid-cols-2">
               <input
                 type="text"
+                name="contact[name]"
                 placeholder="Name"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
               />
               <input
                 type="email"
+                name="contact[email]"
                 required
                 placeholder="Email *"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
@@ -46,10 +67,12 @@ export function Contact() {
             </div>
             <input
               type="tel"
+              name="contact[phone]"
               placeholder="Phone number"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
             />
             <textarea
+              name="contact[body]"
               placeholder="Comment"
               rows={5}
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
