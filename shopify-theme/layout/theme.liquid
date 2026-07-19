@@ -17,7 +17,7 @@
     {{ 'theme.css' | asset_url | stylesheet_tag }}
 
     <script>
-      window.theme = { moneyFormat: {{ shop.money_format | json }} };
+      window.theme = { moneyFormat: {{ shop.money_format | strip_html | json }} };
     </script>
 
     {{ content_for_header }}
