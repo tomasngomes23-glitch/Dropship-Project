@@ -20,7 +20,7 @@
       />
       <div class="hidden sm:block">
         <p class="text-sm font-medium text-white">{{ product.title }}</p>
-        <p class="text-xs text-neutral-500">Bundle of {{ bundle_qty }} &middot; Save 30%</p>
+        <p class="text-xs text-neutral-500">{{ 'general.sticky_bar.bundle_of' | t: qty: bundle_qty }} &middot; {{ 'general.sticky_bar.save_30' | t }}</p>
       </div>
       <div class="ml-auto flex items-center gap-4">
         <span class="font-display text-lg font-semibold text-white">{{ bundle_price | money }}</span>
@@ -32,7 +32,7 @@
             data-quantity="{{ bundle_qty }}"
             class="rounded-full bg-teal-400 px-6 py-2.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-105 cursor-pointer"
           >
-            Add to Cart
+            {{ 'general.sticky_bar.add_to_cart' | t }}
           </button>
         </div>
       </div>

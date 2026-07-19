@@ -13,21 +13,21 @@
         type="text"
         required
         data-track-input
-        placeholder="Tracking number"
+        placeholder="{{ 'general.track_order.tracking_number' | t }}"
         class="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none focus:border-teal-300"
       />
       <button
         type="submit"
         class="mt-2 w-full rounded-full bg-teal-400 py-3.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-[1.01] cursor-pointer"
       >
-        Track order
+        {{ 'general.track_order.track_order' | t }}
       </button>
     </form>
 
     <div data-track-result class="mt-8 hidden overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] text-left">
       <div data-track-error class="hidden p-5 text-sm text-neutral-400">
-        Couldn't load the tracking widget. You can also
-        <a data-track-fallback-link href="#" target="_blank" rel="noopener noreferrer" class="text-teal-300 underline">track it directly on 17TRACK</a>.
+        {{ 'general.track_order.widget_error' | t }}
+        <a data-track-fallback-link href="#" target="_blank" rel="noopener noreferrer" class="text-teal-300 underline">{{ 'general.track_order.track_directly' | t }}</a>.
       </div>
       <div id="track-order-widget" data-track-widget></div>
     </div>

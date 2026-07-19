@@ -11,17 +11,17 @@
     </a>
 
     <nav class="hidden items-center gap-8 md:flex">
-      <a href="{{ routes.root_url }}" class="text-sm text-neutral-300 hover:text-white">Home</a>
-      <a href="{{ routes.root_url }}#reviews" class="text-sm text-neutral-300 hover:text-white">Reviews</a>
-      <a href="{{ routes.root_url }}#faq" class="text-sm text-neutral-300 hover:text-white">FAQ</a>
-      <a href="/pages/track-order" class="text-sm text-neutral-300 hover:text-white">Track Order</a>
+      <a href="{{ routes.root_url }}" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.home' | t }}</a>
+      <a href="{{ routes.root_url }}#reviews" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.reviews' | t }}</a>
+      <a href="{{ routes.root_url }}#faq" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.faq' | t }}</a>
+      <a href="/pages/track-order" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.track_order' | t }}</a>
     </nav>
 
     <button
       type="button"
       data-cart-toggle
       class="relative flex h-10 w-10 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
-      aria-label="Open cart"
+      aria-label="{{ 'general.cart.open_cart' | t }}"
     >
       {% render 'icon', name: 'shopping-bag', size: 18 %}
       <span

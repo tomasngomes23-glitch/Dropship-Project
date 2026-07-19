@@ -217,7 +217,12 @@
 
       var line = cart.items[0];
       var qtyLabel = document.querySelector("[data-cart-qty-label]");
-      if (qtyLabel) qtyLabel.textContent = cart.item_count === 1 ? "Single" : "Qty: " + cart.item_count;
+      if (qtyLabel) {
+        var singleLabel = qtyLabel.getAttribute("data-single-label") || "Single";
+        var qtyTemplate = qtyLabel.getAttribute("data-qty-label") || "Qty: {count}";
+        qtyLabel.textContent =
+          cart.item_count === 1 ? singleLabel : qtyTemplate.replace("{count}", cart.item_count);
+      }
 
       var priceEl = document.querySelector("[data-cart-price]");
       if (priceEl) priceEl.textContent = formatMoney(cart.total_price);

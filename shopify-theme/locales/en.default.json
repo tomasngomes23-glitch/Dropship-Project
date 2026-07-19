@@ -1,5 +1,11 @@
 {
   "general": {
+    "nav": {
+      "home": "Home",
+      "reviews": "Reviews",
+      "faq": "FAQ",
+      "track_order": "Track Order"
+    },
     "cart": {
       "title": "Your Cart",
       "empty": "Your cart is empty.",
@@ -8,7 +14,49 @@
       "subtotal": "Subtotal",
       "you_save": "You save",
       "free_shipping": "Free shipping",
-      "tracked_delivery": "Tracked delivery"
+      "tracked_delivery": "Tracked delivery",
+      "single": "Single",
+      "qty": "Qty: {{ count }}",
+      "remove": "Remove from cart",
+      "guarantee": "30-day money-back guarantee",
+      "open_cart": "Open cart",
+      "close_cart": "Close cart"
+    },
+    "footer": {
+      "customer_care": "Customer Care",
+      "why_choose_us": "Why Choose Us",
+      "rights": "All rights reserved.",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service",
+      "track_order": "Track Order",
+      "contact": "Contact",
+      "refund_policy": "Refund Policy",
+      "shipping_policy": "Shipping Policy",
+      "message_us": "Message us"
+    },
+    "hero": {
+      "buy_1": "Buy 1",
+      "buy_2": "Buy 2",
+      "buy_3": "Buy 3",
+      "most_popular": "MOST POPULAR",
+      "add_to_cart": "Add to Cart",
+      "free_shipping": "Free Shipping",
+      "guarantee_30": "30 Day Guarantee",
+      "support_247": "24/7 Support",
+      "save_1": "Save 39% today",
+      "save_2": "Save 20% today",
+      "save_3": "Save 30% today"
+    },
+    "sticky_bar": {
+      "bundle_of": "Bundle of {{ qty }}",
+      "save_30": "Save 30%",
+      "add_to_cart": "Add to Cart"
+    },
+    "track_order": {
+      "tracking_number": "Tracking number",
+      "track_order": "Track order",
+      "widget_error": "Couldn't load the tracking widget. You can also",
+      "track_directly": "track it directly on 17TRACK"
     }
   }
 }
