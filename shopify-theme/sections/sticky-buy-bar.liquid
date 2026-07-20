@@ -3,8 +3,7 @@
   assign bundle_qty = 3
   assign bundle_discount = 0.7
   assign variant = product.selected_or_first_available_variant
-  assign unit_compare_at = variant.compare_at_price | default: variant.price
-  assign bundle_price = unit_compare_at | times: bundle_qty | times: bundle_discount | round
+  assign bundle_price = variant.price | times: bundle_qty | times: bundle_discount | round
 -%}
 {% if product %}
   <div

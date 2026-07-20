@@ -55,9 +55,8 @@
       "free_shipping": "Free Shipping",
       "guarantee_30": "30 Day Guarantee",
       "support_247": "24/7 Support",
-      "save_1": "Save 39% today",
-      "save_2": "Save 20% today",
-      "save_3": "Save 30% today"
+      "save_today": "Save {{ percent }}% today",
+      "save_short": "Save {{ percent }}%"
     },
     "sticky_bar": {
       "bundle_of": "Bundle of {{ qty }}",
