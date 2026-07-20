@@ -40,6 +40,55 @@
     font-family: var(--font-display);
   }
 
+  /* Raw HTML from Settings > Policies has no classes of its own. */
+  .policy-body {
+    line-height: 1.75;
+  }
+  .policy-body p {
+    margin-bottom: 1.25em;
+  }
+  .policy-body h1,
+  .policy-body h2,
+  .policy-body h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: #fff;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+  .policy-body h2 {
+    font-size: 1.5rem;
+  }
+  .policy-body h3 {
+    font-size: 1.25rem;
+  }
+  .policy-body ul,
+  .policy-body ol {
+    margin-bottom: 1.25em;
+    padding-left: 1.5em;
+  }
+  .policy-body ul {
+    list-style: disc;
+  }
+  .policy-body ol {
+    list-style: decimal;
+  }
+  .policy-body li {
+    margin-bottom: 0.4em;
+  }
+  .policy-body a {
+    color: #5eead4;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .policy-body a:hover {
+    color: #99f6e4;
+  }
+  .policy-body strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
