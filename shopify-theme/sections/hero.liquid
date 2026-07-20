@@ -6,10 +6,10 @@
 
   assign price_1 = unit_price
   assign compare_1 = unit_compare_at
-  assign price_2 = unit_price | times: 2 | times: 0.8 | round
-  assign base_2 = unit_price | times: 2
-  assign price_3 = unit_price | times: 3 | times: 0.7 | round
-  assign base_3 = unit_price | times: 3
+  assign price_2 = unit_compare_at | times: 2 | times: 0.8 | round
+  assign base_2 = unit_compare_at | times: 2
+  assign price_3 = unit_compare_at | times: 3 | times: 0.7 | round
+  assign base_3 = unit_compare_at | times: 3
 -%}
 <section id="top" class="relative overflow-hidden px-5 pb-8 pt-6 lg:px-8 lg:pb-10 lg:pt-8">
   <div class="pointer-events-none absolute inset-0 left-1/2 -z-10 w-screen -translate-x-1/2">
