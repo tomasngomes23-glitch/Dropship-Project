@@ -1,8 +1,0 @@
-{
-  "sections": {
-    "policy": {
-      "type": "policy"
-    }
-  },
-  "order": ["policy"]
-}
