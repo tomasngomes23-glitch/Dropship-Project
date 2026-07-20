@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "redirect": {
+      "type": "product-redirect"
+    }
+  },
+  "order": ["redirect"]
+}
