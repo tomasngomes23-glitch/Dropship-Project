@@ -48,8 +48,6 @@ Liquid/JSON, ready to push to a real Shopify store.
   that's sorted — no licensed club crests/logos, per what we discussed).
 - Once the store exists: the **Admin API token** (step 3 above) so I can run the
   collections script and, later, help with bulk product import.
-- Your **WhatsApp number/link**, so I can wire it into the footer/contact page for manual
-  order handling.
 
 ## Notes
 

@@ -37,9 +37,10 @@ Kids                    -> /collections/kids
 ## Footer menu (optional, add under Navigation > Footer menu)
 
 ```
-Contact / WhatsApp   -> your WhatsApp link (wa.me/...)
+Contact              -> /pages/contact
 Shipping & Returns   -> /pages/shipping-returns  (create this page first)
-Track my order       -> /pages/track-order       (or your WhatsApp link)
+Size Guide           -> /pages/size-guide
+FAQ                  -> /pages/faq
 ```
 
 Tip: for the parent items ("Leagues", "Competitions", etc.) you can leave the link pointing at

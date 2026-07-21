@@ -21,8 +21,8 @@ for people who live and breathe it.
 [1-2 sentences here about why you started this — the honest version. E.g.: started posting kit
 content on Insta/TikTok, built a following, decided to sell.]
 
-Every order is handled personally — message us on WhatsApp any time with questions about
-sizing, stock, or your order.
+[How support/contact works — e.g. "Questions about sizing or your order? Reach out via the
+contact form." Fill in once you decide your support channel.]
 
 ---
 
@@ -34,12 +34,12 @@ sizing, stock, or your order.
 - Orders are processed within [X] business days.
 - Delivery time: [X–X business days domestic / X–X weeks international] — depends on your supplier's real fulfillment time, fill in once known.
 - Shipping cost: [flat rate / free over €X / calculated at checkout].
-- You'll get a tracking link by [email/WhatsApp] once your order ships.
+- You'll get a tracking link by [email] once your order ships.
 
 **Returns & exchanges**
 - [X] days from delivery to request a return/exchange.
 - Item must be unworn, unwashed, with tags attached.
-- To start a return, message us on WhatsApp with your order number.
+- To start a return, use the contact form with your order number.
 - [Who pays return shipping — you or the customer]
 
 *(Fill in the bracketed parts once you know real supplier lead times and your return policy —
@@ -52,8 +52,7 @@ don't publish shipping promises you can't back yet.)*
 **Title:** FAQ
 
 **How do I order?**
-Add items to your cart and checkout normally, or message us directly on WhatsApp if you'd
-rather order that way.
+Add items to your cart and checkout normally.
 
 **What sizes do you have?**
 Check the [Size Guide](/pages/size-guide) — most kits run slim compared to a regular t-shirt.
@@ -66,7 +65,7 @@ league, or brand.
 See our [Shipping & Returns](/pages/shipping-returns) page.
 
 **Can I track my order?**
-Yes — message us on WhatsApp with your order number any time.
+Yes — you'll receive a tracking link by email once your order ships.
 
 **Can I return or exchange an item?**
 Yes, see our [Shipping & Returns](/pages/shipping-returns) page for the full policy.
@@ -75,9 +74,6 @@ Yes, see our [Shipping & Returns](/pages/shipping-returns) page for the full pol
 
 ## Contact page
 
-Dawn's default contact page uses a contact form. Given you're handling orders/support over
-WhatsApp, either:
-- Replace the contact form's intro text with "Fastest way to reach us: WhatsApp [link]" and
-  keep the form as a backup, or
-- Swap `templates/page.contact.json`'s section from `main-page` to a simple `rich-text`
-  section pointing straight at WhatsApp — say the word and I'll wire that up.
+Dawn's default contact page (`templates/page.contact.json`) uses a standard contact form that
+emails you — that's already wired up and needs no changes. Fill in your store's contact email
+under Admin > Settings > Notifications ("Sender email") so replies land somewhere you check.
