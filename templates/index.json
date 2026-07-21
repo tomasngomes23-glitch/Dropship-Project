@@ -1,0 +1,193 @@
+{
+  "sections": {
+    "hero": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "GEAR UP FOR MATCHDAY",
+            "heading_size": "hxl"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Kits from every league, every era. New drops weekly.</p>",
+            "text_style": "body"
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all kits",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "New arrivals",
+            "button_link_2": "shopify://collections/new-arrivals",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": ["heading", "text", "buttons"],
+      "settings": {
+        "image_height": "large",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "mobile_content_alignment": "center",
+        "image_overlay_opacity": 0
+      }
+    },
+    "shop-by-league": {
+      "type": "multicolumn",
+      "blocks": {
+        "premier-league": { "type": "column", "settings": { "title": "Premier League", "link_label": "Shop now", "link": "shopify://collections/premier-league" } },
+        "la-liga": { "type": "column", "settings": { "title": "La Liga", "link_label": "Shop now", "link": "shopify://collections/la-liga" } },
+        "serie-a": { "type": "column", "settings": { "title": "Serie A", "link_label": "Shop now", "link": "shopify://collections/serie-a" } },
+        "bundesliga": { "type": "column", "settings": { "title": "Bundesliga", "link_label": "Shop now", "link": "shopify://collections/bundesliga" } },
+        "ligue-1": { "type": "column", "settings": { "title": "Ligue 1", "link_label": "Shop now", "link": "shopify://collections/ligue-1" } },
+        "primeira-liga": { "type": "column", "settings": { "title": "Primeira Liga", "link_label": "Shop now", "link": "shopify://collections/primeira-liga" } }
+      },
+      "block_order": ["premier-league", "la-liga", "serie-a", "bundesliga", "ligue-1", "primeira-liga"],
+      "settings": {
+        "title": "Shop by league",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 6,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "2",
+        "padding_top": 52,
+        "padding_bottom": 32
+      }
+    },
+    "shop-by-competition": {
+      "type": "multicolumn",
+      "blocks": {
+        "champions-league": { "type": "column", "settings": { "title": "Champions League", "link_label": "Shop now", "link": "shopify://collections/champions-league" } },
+        "world-cup": { "type": "column", "settings": { "title": "World Cup", "link_label": "Shop now", "link": "shopify://collections/world-cup" } },
+        "euro": { "type": "column", "settings": { "title": "Euro", "link_label": "Shop now", "link": "shopify://collections/euro" } },
+        "europa-league": { "type": "column", "settings": { "title": "Europa League", "link_label": "Shop now", "link": "shopify://collections/europa-league" } },
+        "copa-america": { "type": "column", "settings": { "title": "Copa America", "link_label": "Shop now", "link": "shopify://collections/copa-america" } }
+      },
+      "block_order": ["champions-league", "world-cup", "euro", "europa-league", "copa-america"],
+      "settings": {
+        "title": "Shop by competition",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 5,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "2",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "retro-and-special": {
+      "type": "multicolumn",
+      "blocks": {
+        "retro-90s": { "type": "column", "settings": { "title": "90s", "link_label": "Shop now", "link": "shopify://collections/retro-90s" } },
+        "retro-2000s": { "type": "column", "settings": { "title": "2000s", "link_label": "Shop now", "link": "shopify://collections/retro-2000s" } },
+        "retro-2010s": { "type": "column", "settings": { "title": "2010s", "link_label": "Shop now", "link": "shopify://collections/retro-2010s" } },
+        "third-kits": { "type": "column", "settings": { "title": "Third Kits", "link_label": "Shop now", "link": "shopify://collections/third-kits" } },
+        "concept-kits": { "type": "column", "settings": { "title": "Concept Kits", "link_label": "Shop now", "link": "shopify://collections/concept-kits" } },
+        "city-editions": { "type": "column", "settings": { "title": "City Editions", "link_label": "Shop now", "link": "shopify://collections/city-editions" } }
+      },
+      "block_order": ["retro-90s", "retro-2000s", "retro-2010s", "third-kits", "concept-kits", "city-editions"],
+      "settings": {
+        "title": "Retro & special editions",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 6,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "2",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "new-arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New arrivals",
+        "heading_size": "h1",
+        "collection": "new-arrivals",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "brand-story": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": { "heading": "Built by fans, for fans", "heading_size": "h1" }
+        },
+        "text": {
+          "type": "text",
+          "settings": { "text": "<p>An independent football culture brand. Not affiliated with or licensed by any club, league or federation.</p>" }
+        }
+      },
+      "block_order": ["heading", "text"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "newsletter": {
+      "type": "email-signup-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": { "heading": "Get first look at new drops", "heading_size": "h1" }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": { "paragraph": "Follow the socials for the newest kits, or drop your email below." }
+        },
+        "email_form": { "type": "email_form", "settings": {} }
+      },
+      "block_order": ["heading", "paragraph", "email_form"],
+      "settings": {
+        "image_height": "medium",
+        "show_background_image": false,
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "image_overlay_opacity": 0,
+        "mobile_content_alignment": "center"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "shop-by-league",
+    "shop-by-competition",
+    "retro-and-special",
+    "new-arrivals",
+    "brand-story",
+    "newsletter"
+  ]
+}
