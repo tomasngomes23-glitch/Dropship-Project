@@ -34,6 +34,23 @@
     ]
   },
   {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number",
+        "info": "Digits only, with country code, no spaces or symbols (e.g. 351912345678). Leave blank to hide the button."
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_default_message",
+        "label": "Default message",
+        "default": "Hi! I'd like to order a shirt."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.colors.name",
     "settings": [
       {
