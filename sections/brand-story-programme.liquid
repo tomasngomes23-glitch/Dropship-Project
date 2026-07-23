@@ -1,0 +1,80 @@
+{% comment %}
+  Matchday Programme "editor's note" — a printed-column panel inset on the pitch,
+  replacing the generic centered rich-text brand-story block.
+{% endcomment %}
+
+{%- style -%}
+  .bs-{{ section.id }} {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch-dark); padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .bs-{{ section.id }} .bs-panel {
+    position: relative; max-width: 720px; margin: 0 auto; background: var(--paper); color: var(--ink);
+    padding: 2.75rem 2.25rem; font-family: "Arial Narrow", Arial, sans-serif;
+    clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .bs-{{ section.id }} .bs-panel::before {
+    content: ""; position: absolute; left: 2.25rem; right: 2.25rem; top: 4.6rem; height: 1px;
+    background-image: repeating-linear-gradient(90deg, rgba(20,18,12,0.35) 0 6px, transparent 6px 12px);
+  }
+  .bs-{{ section.id }} .bs-eyebrow {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.5rem;
+  }
+  .bs-{{ section.id }} .bs-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--live-green); }
+  .bs-{{ section.id }} h2 {
+    font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98;
+    font-size: clamp(1.9rem, 4.2vw, 2.9rem); margin: 0.7rem 0 1.6rem;
+  }
+  .bs-{{ section.id }} .bs-body {
+    columns: 1; font-size: 1.02rem; line-height: 1.65; color: rgba(20,18,12,0.86);
+  }
+  @media screen and (min-width: 700px) {
+    .bs-{{ section.id }} .bs-body { columns: 2; column-gap: 2rem; }
+  }
+  .bs-{{ section.id }} .bs-body p { margin: 0 0 1rem; }
+  .bs-{{ section.id }} .bs-body p:first-of-type::first-letter {
+    font-size: 2.6em; font-weight: 900; float: left; line-height: 0.8; padding: 0.05em 0.08em 0 0; color: var(--gold);
+  }
+  .bs-{{ section.id }} .bs-sig {
+    margin-top: 1.75rem; padding-top: 1rem; border-top: 1px dashed rgba(20,18,12,0.3);
+    font-size: 0.85rem; font-style: italic; opacity: 0.75;
+  }
+  .bs-{{ section.id }} .bs-stamp {
+    position: absolute; bottom: 1.25rem; right: 1.5rem; width: 74px; height: 74px; border-radius: 50%;
+    border: 2px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+    transform: rotate(-12deg); opacity: 0.85; line-height: 1.1;
+  }
+{%- endstyle -%}
+
+<div class="bs-{{ section.id }}">
+  <div class="bs-panel">
+    {%- if section.settings.eyebrow != blank -%}<div class="bs-eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="bs-body">{{ section.settings.body }}</div>
+    {%- if section.settings.signature != blank -%}<div class="bs-sig">{{ section.settings.signature }}</div>{%- endif -%}
+    <div class="bs-stamp">{{ section.settings.stamp_text | default: "Not club affiliated" }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand story (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Editor's Note" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built by fans, for fans" },
+    { "type": "richtext", "id": "body", "label": "Body copy", "default": "<p>First Touch is an independent football culture brand. We're not affiliated with, licensed by, or endorsed by any club, league or federation — we just love the shirts, the terraces, and the matchday ritual, and we make prints inspired by that culture.</p><p>Every kit ships in Fan Version and Player Version, cut and printed the way you'd expect from the real thing.</p>" },
+    { "type": "text", "id": "signature", "label": "Signature line", "default": "— The First Touch crew" },
+    { "type": "text", "id": "stamp_text", "label": "Stamp text", "default": "Not club affiliated" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "presets": [ { "name": "Brand story (Matchday)" } ]
+}
+{% endschema %}

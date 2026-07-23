@@ -8,20 +8,72 @@
 {% endcomment %}
 
 {%- if mode == 'triggers' -%}
-  <div class="pg-triggers">
+  <div class="pg-triggers pg-triggers-{{ section.id }}">
     <modal-opener class="pg-triggers__opener" data-modal="#SizeGuideModal-{{ section.id }}">
-      <button type="button" class="link pg-triggers__btn" aria-haspopup="dialog">Size guide</button>
+      <button type="button" class="pg-triggers__card" aria-haspopup="dialog">
+        <span class="pg-triggers__tag">No. 01</span>
+        <span class="pg-triggers__label">Size guide</span>
+        <span class="pg-triggers__num" data-pg-roll data-target="102" data-suffix="cm chest">--</span>
+      </button>
     </modal-opener>
-    <span class="pg-triggers__dot" aria-hidden="true">&middot;</span>
     <modal-opener class="pg-triggers__opener" data-modal="#VersionGuideModal-{{ section.id }}">
-      <button type="button" class="link pg-triggers__btn" aria-haspopup="dialog">Fan vs Player Version</button>
+      <button type="button" class="pg-triggers__card" aria-haspopup="dialog">
+        <span class="pg-triggers__tag">No. 02</span>
+        <span class="pg-triggers__label">Fan vs Player</span>
+        <span class="pg-triggers__num" data-pg-roll data-target="2" data-suffix=" versions">--</span>
+      </button>
     </modal-opener>
   </div>
   {%- style -%}
-    .pg-triggers { display: flex; align-items: center; gap: 0.6rem; margin-block: 0.85rem 1.35rem; flex-wrap: wrap; }
-    .pg-triggers__btn { font-size: 0.85rem; padding: 0; background: none; border: none; cursor: pointer; color: inherit; }
-    .pg-triggers__dot { opacity: 0.4; }
+    .pg-triggers-{{ section.id }} {
+      --pitch: #0d1f16; --paper: #f2ede1; --ink: #14120c; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+      display: flex; gap: 0.85rem; margin-block: 1rem 1.5rem; flex-wrap: wrap;
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__card {
+      position: relative; flex: 1 1 150px; text-align: left; background: var(--paper); color: var(--ink);
+      border: none; cursor: pointer; padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem;
+      font-family: "Arial Narrow", Arial, sans-serif;
+      clip-path: polygon(0% 8%, 6% 0%, 94% 0%, 100% 8%, 100% 92%, 94% 100%, 6% 100%, 0% 92%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.22);
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:hover { transform: translateY(-3px) rotate(-0.6deg); box-shadow: 0 8px 0 rgba(0,0,0,0.25); }
+    .pg-triggers-{{ section.id }} .pg-triggers__tag {
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gold); font-weight: 700;
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__label { font-weight: 800; text-transform: uppercase; font-size: 0.88rem; letter-spacing: -0.005em; }
+    .pg-triggers-{{ section.id }} .pg-triggers__num {
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700; font-size: 0.98rem;
+      color: var(--ink); opacity: 0.75; font-variant-numeric: tabular-nums;
+    }
   {%- endstyle -%}
+  <script>
+    (function () {
+      var nums = document.querySelectorAll('.pg-triggers-{{ section.id }} [data-pg-roll]');
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function roll(el) {
+        var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (reduce) { el.textContent = target + suffix; return; }
+        var startTime = null, duration = 700;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var p = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(step); else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { roll(e.target); io.unobserve(e.target); } });
+        }, { threshold: 0.4 });
+        nums.forEach(function (n) { io.observe(n); });
+      } else { nums.forEach(roll); }
+    })();
+  </script>
 {%- endif -%}
 
 {%- if mode == 'modals' -%}

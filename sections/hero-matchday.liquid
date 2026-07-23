@@ -1,0 +1,197 @@
+{% comment %}
+  Matchday Programme hero — front cover of a matchday programme, not a SaaS banner.
+  Bespoke section, palette hardcoded per the "Matchday Programme" design system
+  (see PROJECT_STATUS.md / repo notes) since settings_data.json cannot be edited yet.
+{% endcomment %}
+
+{%- style -%}
+  .hero-mp-{{ section.id }} {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
+    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image:
+      radial-gradient(circle, rgba(245,241,230,0.055) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .hero-mp-{{ section.id }}::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,150,47,0.14), transparent 60%);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-inner {
+    position: relative; max-width: 1080px; margin: 0 auto; text-align: center;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-kicker {
+    display: inline-flex; align-items: center; gap: 0.55rem; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-bright);
+    border-top: 1px dashed rgba(245,241,230,0.4); border-bottom: 1px dashed rgba(245,241,230,0.4);
+    padding: 0.4rem 0; margin-bottom: 1.6rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-kicker::before,
+  .hero-mp-{{ section.id }} .hero-mp-kicker::after { content: "\2022"; color: var(--live-green); }
+  .hero-mp-{{ section.id }} h1 {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; line-height: 0.94; margin: 0; color: var(--chalk);
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+  }
+  .hero-mp-{{ section.id }} h1 em {
+    font-style: normal; color: var(--gold);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-sub {
+    max-width: 540px; margin: 1.35rem auto 0; font-size: 1.05rem; line-height: 1.5; color: rgba(245,241,230,0.82);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-actions {
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.25rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn {
+    position: relative; display: inline-block; font-family: "Arial Narrow", Arial, sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.95rem;
+    padding: 0.95rem 2.1rem 1.05rem; text-decoration: none; cursor: pointer; border: none;
+    clip-path: polygon(0% 12%, 4% 0%, 10% 9%, 16% 0%, 22% 9%, 28% 0%, 34% 9%, 40% 0%, 46% 9%,
+      52% 0%, 58% 9%, 64% 0%, 70% 9%, 76% 0%, 82% 9%, 88% 0%, 94% 9%, 100% 0%,
+      100% 88%, 96% 100%, 90% 91%, 84% 100%, 78% 91%, 72% 100%, 66% 91%, 60% 100%,
+      54% 91%, 48% 100%, 42% 91%, 36% 100%, 30% 91%, 24% 100%, 18% 91%, 12% 100%, 6% 91%, 0% 100%);
+    transition: transform 0.18s ease, filter 0.18s ease;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: var(--ink); }
+  .hero-mp-{{ section.id }} .hero-mp-btn--outline { background: var(--chalk); color: var(--ink); }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover { transform: translateY(-3px) rotate(-0.6deg); filter: brightness(1.08); }
+  .hero-mp-{{ section.id }} .hero-mp-stats {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0; margin-top: 3.25rem;
+    border-top: 1px dashed rgba(245,241,230,0.35); padding-top: 1.75rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat {
+    padding: 0 2rem; border-left: 1px dashed rgba(245,241,230,0.3);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat:first-child { border-left: none; }
+  .hero-mp-{{ section.id }} .hero-mp-stat-num {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.75rem); color: var(--gold); font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat-label {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.7; margin-top: 0.3rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-sticker {
+    position: absolute; top: 1.75rem; right: 1.75rem; background: var(--paper); color: var(--ink);
+    font-weight: 800; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.5rem 0.85rem; transform: rotate(4deg); box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+    clip-path: polygon(0% 10%, 8% 0%, 92% 0%, 100% 10%, 100% 90%, 92% 100%, 8% 100%, 0% 90%);
+  }
+  @media screen and (max-width: 749px) {
+    .hero-mp-{{ section.id }} .hero-mp-sticker { position: static; display: inline-block; margin-bottom: 1.25rem; transform: rotate(-2deg); }
+    .hero-mp-{{ section.id }} .hero-mp-stat { padding: 0 1.1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mp-{{ section.id }} .hero-mp-btn { transition: none; }
+  }
+{%- endstyle -%}
+
+<div class="hero-mp-{{ section.id }}">
+  <div class="hero-mp-sticker">{{ section.settings.sticker_text | default: "Independent · Unlicensed" }}</div>
+  <div class="hero-mp-inner">
+    <div class="hero-mp-kicker">{{ section.settings.kicker | default: "Matchday Programme · Issue No. 01" }}</div>
+    <h1>{{ section.settings.heading | default: "GEAR UP FOR <em>MATCHDAY</em>" }}</h1>
+    {%- if section.settings.subheading != blank -%}
+      <div class="hero-mp-sub">{{ section.settings.subheading }}</div>
+    {%- endif -%}
+    <div class="hero-mp-actions">
+      {%- if section.settings.button_label_1 != blank -%}
+        <a href="{{ section.settings.button_link_1 | default: '#' }}" class="hero-mp-btn hero-mp-btn--solid">{{ section.settings.button_label_1 }}</a>
+      {%- endif -%}
+      {%- if section.settings.button_label_2 != blank -%}
+        <a href="{{ section.settings.button_link_2 | default: '#' }}" class="hero-mp-btn hero-mp-btn--outline">{{ section.settings.button_label_2 }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="hero-mp-stats" data-mp-stats>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'stat' -%}
+          <div class="hero-mp-stat" {{ block.shopify_attributes }}>
+            <div class="hero-mp-stat-num" data-mp-count data-target="{{ block.settings.value | default: 0 }}" data-suffix="{{ block.settings.suffix }}">0{{ block.settings.suffix }}</div>
+            <div class="hero-mp-stat-label">{{ block.settings.label }}</div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript.previousElementSibling;
+  if (!root) return;
+  var nums = root.querySelectorAll('[data-mp-count]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function roll(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduce) { el.textContent = target + suffix; return; }
+    var start = 0;
+    var duration = 900;
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(start + (target - start) * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) { requestAnimationFrame(step); } else { el.textContent = target + suffix; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { roll(entry.target); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(function (n) { io.observe(n); });
+  } else {
+    nums.forEach(roll);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "sticker_text", "label": "Corner sticker text", "default": "Independent · Unlicensed" },
+    { "type": "text", "id": "kicker", "label": "Kicker line", "default": "Matchday Programme · Issue No. 01" },
+    { "type": "text", "id": "heading", "label": "Heading (supports <em> for gold word)", "default": "GEAR UP FOR <em>MATCHDAY</em>" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Kits from every league, every era. Fan Version and Player Version, on every shirt.</p>" },
+    { "type": "text", "id": "button_label_1", "label": "Primary button label", "default": "Shop all kits" },
+    { "type": "url", "id": "button_link_1", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "New arrivals" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "48" },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Clubs" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero (Matchday)",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "48", "suffix": "", "label": "Clubs" } },
+        { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Leagues" } },
+        { "type": "stat", "settings": { "value": "2", "suffix": "", "label": "Versions" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
