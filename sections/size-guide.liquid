@@ -1,34 +1,42 @@
 {%- style -%}
-  .sg-{{ section.id }} { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
-  .sg-{{ section.id }} .sg-wrap { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 760px; margin: 2.5rem auto 0; }
+  .sg-{{ section.id }} {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch); color: var(--chalk); font-family: "Arial Narrow", Arial, sans-serif;
+    padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px); background-size: 9px 9px;
+  }
+  .sg-{{ section.id }} h1 { font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
+  .sg-{{ section.id }} .sg-wrap { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 760px; margin: 2.5rem auto 0; background: var(--paper); color: var(--ink); padding: 2rem; clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%); }
   @media screen and (min-width: 750px) { .sg-{{ section.id }} .sg-wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
   .sg-{{ section.id }} .sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
-  .sg-{{ section.id }} .sg-tab { border: 1px solid rgba(255,255,255,0.3); background: transparent; color: inherit; padding: 0.55rem 1.1rem; border-radius: 999px; cursor: pointer; font-weight: 600; letter-spacing: 0.03em; transition: all 0.25s ease; }
-  .sg-{{ section.id }} .sg-tab:hover { border-color: rgba(255,255,255,0.7); transform: translateY(-2px); }
-  .sg-{{ section.id }} .sg-tab.is-active { background: rgb(var(--color-button)); color: rgb(var(--color-button-text)); border-color: transparent; box-shadow: 0 4px 18px rgba(0,0,0,0.35); }
+  .sg-{{ section.id }} .sg-tab { border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.25s ease; clip-path: polygon(0% 15%, 10% 0%, 90% 0%, 100% 15%, 100% 85%, 90% 100%, 10% 100%, 0% 85%); }
+  .sg-{{ section.id }} .sg-tab:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .sg-{{ section.id }} .sg-tab.is-active { background: var(--gold); color: var(--ink); border-color: transparent; border-style: solid; }
   .sg-{{ section.id }} .sg-figure { position: relative; display: flex; align-items: center; justify-content: center; }
   .sg-{{ section.id }} svg { width: 100%; max-width: 340px; height: auto; overflow: visible; }
-  .sg-{{ section.id }} .sg-shirt { fill: rgba(255,255,255,0.06); stroke: rgba(255,255,255,0.5); stroke-width: 2; transition: d 0.4s ease; }
-  .sg-{{ section.id }} .sg-dim-line { stroke: rgb(var(--color-button)); stroke-width: 2; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
-  .sg-{{ section.id }} .sg-dim-cap { stroke: rgb(var(--color-button)); stroke-width: 2; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
-  .sg-{{ section.id }} .sg-dim-label { fill: rgb(var(--color-button)); font-size: 13px; font-weight: 700; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
+  .sg-{{ section.id }} .sg-shirt { fill: rgba(20,18,12,0.05); stroke: rgba(20,18,12,0.45); stroke-width: 2; transition: d 0.4s ease; }
+  .sg-{{ section.id }} .sg-dim-line { stroke: var(--gold); stroke-width: 2; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
+  .sg-{{ section.id }} .sg-dim-cap { stroke: var(--gold); stroke-width: 2; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
+  .sg-{{ section.id }} .sg-dim-label { fill: var(--gold); font-size: 13px; font-weight: 700; transition: all 0.5s cubic-bezier(.4,0,.2,1); }
   .sg-{{ section.id }} .sg-readout { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; }
   .sg-{{ section.id }} .sg-stat { text-align: center; }
-  .sg-{{ section.id }} .sg-stat-num { font-size: 2.1rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
-  .sg-{{ section.id }} .sg-stat-label { font-size: 0.75rem; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.35rem; }
+  .sg-{{ section.id }} .sg-stat-num { font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 2.1rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .sg-{{ section.id }} .sg-stat-label { font-size: 0.75rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.35rem; }
   .sg-{{ section.id }} .sg-fit-tag { text-align: center; margin-top: 0.75rem; font-size: 0.95rem; opacity: 0.85; min-height: 1.4em; }
-  .sg-{{ section.id }} details { margin-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.25rem; }
-  .sg-{{ section.id }} summary { cursor: pointer; font-weight: 600; }
-  .sg-{{ section.id }} table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
-  .sg-{{ section.id }} th, .sg-{{ section.id }} td { text-align: center; padding: 0.6rem 0.4rem; border: 1px solid rgba(255,255,255,0.15); }
+  .sg-{{ section.id }} details { margin-top: 2.5rem; border-top: 1px dashed rgba(20,18,12,0.3); padding-top: 1.25rem; }
+  .sg-{{ section.id }} summary { cursor: pointer; font-weight: 700; text-transform: uppercase; }
+  .sg-{{ section.id }} table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; }
+  .sg-{{ section.id }} th, .sg-{{ section.id }} td { text-align: center; padding: 0.6rem 0.4rem; border: 1px dashed rgba(20,18,12,0.25); }
   .sg-{{ section.id }} th:first-child, .sg-{{ section.id }} td:first-child { text-align: left; }
-  .sg-{{ section.id }} .sg-note { margin-top: 1.5rem; opacity: 0.7; font-size: 0.88rem; text-align: center; }
+  .sg-{{ section.id }} .sg-note { margin-top: 1.5rem; opacity: 0.75; font-size: 0.88rem; text-align: center; }
   @keyframes sg-pop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   .sg-{{ section.id }} .sg-pop { animation: sg-pop 0.35s ease; }
+  @media (prefers-reduced-motion: reduce) { .sg-{{ section.id }} .sg-pop { animation: none; } }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width sg-{{ section.id }}">
+<div class="sg-{{ section.id }}">
+  <div class="page-width">
     <h1 class="{{ section.settings.heading_size }}" style="text-align:center;">{{ section.settings.heading }}</h1>
     {%- if section.settings.intro != blank -%}
       <div class="rte" style="text-align:center; max-width:520px; margin:0.75rem auto 0;">{{ section.settings.intro }}</div>
