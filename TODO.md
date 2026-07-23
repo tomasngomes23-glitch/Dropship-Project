@@ -7,12 +7,13 @@
 - [ ] Decidir logo (placeholder de texto para já, ou logo real)
 
 ## 2. Loja Shopify
-- [ ] Criar conta Shopify e escolher plano
+- [x] Criar conta Shopify e escolher plano (Basic)
 - [ ] Ligar o domínio à loja
 - [ ] Fazer upload do tema já construído (pasta deste repo)
-- [ ] Criar custom app (Admin API token) para automações
-- [ ] Correr `scripts/create-collections.js` para criar as 67 coleções
+- [x] Ligar o connector Shopify do Claude (usado em vez do custom app/token)
+- [x] Criar as 66 coleções diretamente na loja (via connector — ver `COLLECTIONS.md`)
 - [ ] Montar o menu de navegação seguindo `NAVIGATION.md`
+- [ ] Corrigir país/moeda da loja (está como Suécia/SEK, Settings > General)
 - [ ] Criar páginas de conteúdo (About, Shipping & Returns, FAQ, Size Guide) usando `STORE_COPY.md`
 - [ ] Configurar email de notificações da loja (Admin > Settings > Notifications)
 

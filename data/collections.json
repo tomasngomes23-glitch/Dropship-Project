@@ -37,9 +37,9 @@
   "special_editions": [
     { "handle": "third-kits",       "title": "Third Kits",           "tag": "type:third-kit" },
     { "handle": "concept-kits",     "title": "Concept Kits",         "tag": "type:concept" },
-    { "handle": "anniversary-kits", "title": "Anniversary Editions", "tag": "type:anniversary" },
+    { "handle": "anniversary-editions", "title": "Anniversary Editions", "tag": "type:anniversary" },
     { "handle": "city-editions",    "title": "City Editions",        "tag": "type:city-edition" },
-    { "handle": "festive-kits",     "title": "Festive Editions",     "tag": "type:festive" },
+    { "handle": "festive-editions",     "title": "Festive Editions",     "tag": "type:festive" },
     { "handle": "goalkeeper-kits",  "title": "Goalkeeper Kits",      "tag": "type:goalkeeper" },
     { "handle": "player-version",   "title": "Player Version",       "tag": "type:player-version" }
   ],
