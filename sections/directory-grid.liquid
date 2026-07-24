@@ -32,18 +32,28 @@
     position: relative; display: block; text-decoration: none; color: var(--ink); background: var(--paper);
     padding: 1.5rem 1.1rem 1.3rem; text-align: center; overflow: hidden;
     clip-path: polygon(0% 6%, 6% 0%, 94% 0%, 100% 6%, 100% 94%, 94% 100%, 6% 100%, 0% 94%);
-    transform: rotate(var(--dg-rot, -1.2deg)); transition: transform 0.42s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+    transform: perspective(900px) rotate(var(--dg-rot, -1.2deg)) rotateX(var(--dg-tilt-x, 0deg)) rotateY(var(--dg-tilt-y, 0deg)) translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
     box-shadow: 0 6px 0 rgba(0,0,0,0.28);
     opacity: 0; translate: 0 22px;
+    border: 2px solid transparent;
+    will-change: transform;
+    cursor: pointer;
   }
   .dg-{{ section.id }} .dg-card.is-visible {
-    opacity: 1; translate: 0 0; transition: opacity 0.5s ease, translate 0.5s ease, transform 0.42s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+    opacity: 1; translate: 0 0; transition: opacity 0.6s ease, translate 0.6s ease, transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
   }
   .dg-{{ section.id }} .dg-grid > *:nth-child(odd) { --dg-rot: -1.4deg; }
   .dg-{{ section.id }} .dg-grid > *:nth-child(even) { --dg-rot: 1.6deg; }
   .dg-{{ section.id }} .dg-grid > *:nth-child(3n) { --dg-rot: -2deg; }
-  .dg-{{ section.id }} .dg-card:hover {
-    transform: rotate(-3deg) translateY(-6px) scale(1.03); box-shadow: 0 14px 0 rgba(0,0,0,0.3);
+  .dg-{{ section.id }} .dg-card:hover,
+  .dg-{{ section.id }} .dg-card.dg-tilting {
+    --dg-lift: -8px; --dg-scale: 1.045;
+    box-shadow: 0 22px 34px -12px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,150,47,0.15), 0 14px 0 rgba(0,0,0,0.3);
+    border-color: rgba(201,150,47,0.65);
+  }
+  .dg-{{ section.id }} .dg-card:active {
+    --dg-lift: -3px; --dg-scale: 1.01;
   }
   .dg-{{ section.id }} .dg-card:focus-visible {
     outline: 3px solid var(--gold-bright); outline-offset: 3px;
@@ -87,7 +97,8 @@
     background-position: 0 0, 0 0, 4.5px 8px, 4.5px 8px, 0 0, 4.5px 8px;
   }
   @media (prefers-reduced-motion: reduce) {
-    .dg-{{ section.id }} .dg-card { transition: none; opacity: 1; translate: 0; }
+    .dg-{{ section.id }} .dg-card { transition: none; opacity: 1; translate: 0; transform: rotate(var(--dg-rot, -1.2deg)) !important; }
+    .dg-{{ section.id }} .dg-card:hover, .dg-{{ section.id }} .dg-card.dg-tilting { --dg-lift: 0px; --dg-scale: 1; }
     .dg-{{ section.id }} .dg-ball { transition: none; }
   }
 {%- endstyle -%}
@@ -139,6 +150,29 @@
     });
   }, { threshold: 0.15 });
   cards.forEach(function (c) { io.observe(c); });
+
+  // 3D tilt-on-mousemove — trading-card style, disabled under reduced-motion or on touch.
+  var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!reduce && supportsHover) {
+    var MAX_TILT = 10;
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width;
+        var y = (e.clientY - rect.top) / rect.height;
+        var tiltY = (x - 0.5) * (MAX_TILT * 2);
+        var tiltX = (0.5 - y) * (MAX_TILT * 2);
+        card.style.setProperty('--dg-tilt-x', tiltX.toFixed(2) + 'deg');
+        card.style.setProperty('--dg-tilt-y', tiltY.toFixed(2) + 'deg');
+        card.classList.add('dg-tilting');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.setProperty('--dg-tilt-x', '0deg');
+        card.style.setProperty('--dg-tilt-y', '0deg');
+        card.classList.remove('dg-tilting');
+      });
+    });
+  }
 })();
 </script>
 
