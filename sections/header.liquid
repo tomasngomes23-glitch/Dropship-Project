@@ -124,26 +124,45 @@
   }
 
   /* Logo / shop name */
-  .mp-header-wrapper .header__heading-link { color: var(--chalk); }
+  .mp-header-wrapper .header__heading-link { color: var(--chalk); position: relative; }
   .mp-header-wrapper .header__heading-link .h2 {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
+  }
+  /* Stadium-light glint sweeping across the logo — very slow, continuous, near-subliminal */
+  .mp-header-wrapper .header__heading-logo-wrapper,
+  .mp-header-wrapper .header__heading-link .h2 {
+    position: relative; overflow: hidden; display: inline-block;
+  }
+  .mp-header-wrapper .header__heading-logo-wrapper::after,
+  .mp-header-wrapper .header__heading-link .h2::after {
+    content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(224,179,85,0.55), transparent);
+    transform: skewX(-20deg); animation: mp-logo-glint 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes mp-logo-glint {
+    0%, 82%, 100% { left: -60%; }
+    92% { left: 130%; }
   }
 
   /* Inline nav (dropdown + mega menu) */
   .mp-header-wrapper .header__inline-menu .list-menu__item {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
+    transition: color 0.2s ease, letter-spacing 0.2s ease, text-shadow 0.2s ease;
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0.15rem; height: 2px;
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0.1rem; height: 3px;
     background: var(--gold); transform: scaleX(0); transform-origin: left;
-    transition: transform 0.18s ease;
+    transition: transform 0.22s cubic-bezier(.2,.8,.2,1);
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item:hover,
   .mp-header-wrapper .header__inline-menu summary.list-menu__item[aria-expanded="true"],
   .mp-header-wrapper .header__inline-menu details[open] > summary.list-menu__item {
     color: var(--gold-bright);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 12px rgba(224,179,85,0.65);
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item:hover::after {
     transform: scaleX(1);
@@ -277,6 +296,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     .mp-header-wrapper .header__inline-menu .list-menu__item::after { transition: none; }
+    .mp-header-wrapper .header__inline-menu .list-menu__item { transition: none; }
+    .mp-header-wrapper .header__inline-menu .list-menu__item:hover { letter-spacing: 0.04em; text-shadow: none; }
+    .mp-header-wrapper .header__heading-logo-wrapper::after,
+    .mp-header-wrapper .header__heading-link .h2::after { animation: none; display: none; }
     .mp-header-wrapper .menu-drawer__menu-item { transition: none; }
     .mp-header-wrapper .menu-drawer__menu-item:hover { transform: none; }
     .mp-header-wrapper #Details-menu-drawer-container[open] .menu-drawer__menu.has-submenu > li,
