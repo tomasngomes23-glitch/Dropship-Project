@@ -63,8 +63,91 @@
   }
 {%- endstyle -%}
 
+{% comment %}
+  Matchday Programme reskin of the search results page — reuses the collection-grid card
+  treatment (flat paper cards, gold monospace price) so results feel like part of the same
+  site. Scoped to .mp-search. Structural markup / ids / classes JS relies on (main-search,
+  predictive-search, facets, product-grid) are untouched — styling-only pass.
+{%- endcomment -%}
+{%- style -%}
+  .mp-search {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch) !important; color: var(--chalk) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .mp-search .template-search__header h1 {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--chalk) !important;
+  }
+  .mp-search .template-search__header p[role="status"] {
+    color: rgba(245,241,230,0.7) !important; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.82rem;
+  }
+  .mp-search .search .field {
+    background: var(--paper); border-radius: 0;
+    clip-path: polygon(0% 8%, 2% 0%, 98% 0%, 100% 8%, 100% 92%, 98% 100%, 2% 100%, 0% 92%);
+  }
+  .mp-search .search .field__input {
+    background: transparent !important; color: var(--ink) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+  }
+  .mp-search .search .field__label { color: rgba(20,18,12,0.55) !important; }
+  .mp-search .search__button svg,
+  .mp-search .reset__button svg { color: var(--ink); }
+
+  /* Facet / sort bar */
+  .mp-search .facet-filters__label,
+  .mp-search .product-count__text,
+  .mp-search .facets__heading,
+  .mp-search facet-filters-form .facet-filters__field label {
+    color: var(--chalk) !important; text-transform: uppercase; letter-spacing: 0.05em;
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700;
+  }
+  .mp-search .facet-filters__sort,
+  .mp-search .select {
+    background: var(--paper) !important; color: var(--ink) !important; border-radius: 0 !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+
+  /* Product result cards — same flat paper treatment as collection grid */
+  .mp-search .card-wrapper .card {
+    background: var(--paper) !important; border-radius: 0 !important; box-shadow: none !important;
+    border: none !important;
+  }
+  .mp-search .card-wrapper .card__content {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+  }
+  .mp-search .card__heading,
+  .mp-search .card__heading a {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important; font-size: 0.92rem;
+  }
+  .mp-search .price,
+  .mp-search .price__container,
+  .mp-search .price-item {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--ink) !important;
+    font-weight: 700;
+  }
+  .mp-search .price-item--sale,
+  .mp-search .price--on-sale .price-item--last {
+    color: var(--gold) !important;
+  }
+  .mp-search .card__badge .badge {
+    border-radius: 0 !important; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    clip-path: polygon(0% 12%, 8% 0%, 92% 0%, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0% 88%);
+  }
+  .mp-search .loading-overlay { background: var(--pitch) !important; }
+  .mp-search .title--primary { color: var(--chalk) !important; }
+  .mp-search .pagination__item { color: var(--chalk) !important; }
+  .mp-search .pagination__item--current { color: var(--gold) !important; }
+{%- endstyle -%}
+
 {% paginate search.results by 24 %}
-  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+  <div class="template-search mp-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
     <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       <h1 class="h2 center">
         {%- if search.performed -%}
