@@ -36,11 +36,118 @@
   }
 {%- endstyle -%}
 
+{% comment %}
+  Matchday Programme reskin. Design call: a full grid of the homepage directory cards'
+  rotated ticket-stub treatment would be too busy at product-grid scale (dozens of cards),
+  so this uses a calmer sibling — flat paper cards on the pitch, no rotation, gold price
+  in monospace, condensed uppercase titles, dashed divider between media and info, small
+  torn-edge badge/quick-add accents so it still reads as the same system. Scoped to
+  .mp-collection-grid; structural markup / classes JS relies on (facets, quick-add,
+  quantity-popover, product-form) are untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-collection-grid {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch) !important; color: var(--chalk) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+
+  /* Sort / filter bar */
+  .mp-collection-grid .facet-filters__label,
+  .mp-collection-grid .product-count__text,
+  .mp-collection-grid .facets__heading,
+  .mp-collection-grid facet-filters-form .facet-filters__field label {
+    color: var(--chalk) !important; text-transform: uppercase; letter-spacing: 0.05em;
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700;
+  }
+  .mp-collection-grid .facet-filters__sort,
+  .mp-collection-grid .select {
+    background: var(--paper) !important; color: var(--ink) !important; border-radius: 0 !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+  .mp-collection-grid .facets__disclosure summary,
+  .mp-collection-grid .facets__summary {
+    color: var(--chalk) !important;
+  }
+  .mp-collection-grid .active-facets__button,
+  .mp-collection-grid .disclosure-has-popup .button {
+    border-radius: 0 !important;
+  }
+
+  /* Product cards — flat paper, no rotation, dashed divider */
+  .mp-collection-grid .card-wrapper .card {
+    background: var(--paper) !important; border-radius: 0 !important; box-shadow: none !important;
+    border: none !important;
+  }
+  .mp-collection-grid .card-wrapper .card__inner {
+    border-radius: 0 !important;
+  }
+  .mp-collection-grid .card-wrapper .card__content {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+  }
+  .mp-collection-grid .card__heading,
+  .mp-collection-grid .card__heading a {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important; font-size: 0.92rem;
+  }
+  .mp-collection-grid .price,
+  .mp-collection-grid .price__container,
+  .mp-collection-grid .price-item {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--ink) !important;
+    font-weight: 700;
+  }
+  .mp-collection-grid .price--on-sale .price-item--regular,
+  .mp-collection-grid .price__sale .price-item--regular {
+    color: rgba(20,18,12,0.5) !important;
+  }
+  .mp-collection-grid .price-item--sale,
+  .mp-collection-grid .price--on-sale .price-item--last {
+    color: var(--gold) !important;
+  }
+  .mp-collection-grid .caption-with-letter-spacing.light {
+    color: rgba(20,18,12,0.6) !important;
+  }
+
+  /* Badge — small torn-edge stamp instead of a pill */
+  .mp-collection-grid .card__badge .badge {
+    border-radius: 0 !important; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    clip-path: polygon(0% 12%, 8% 0%, 92% 0%, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0% 88%);
+  }
+
+  /* Quick add — gold, torn-edge, matching hero buttons */
+  .mp-collection-grid .quick-add__submit {
+    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em;
+    clip-path: polygon(0% 14%, 5% 0%, 95% 0%, 100% 14%, 100% 86%, 95% 100%, 5% 100%, 0% 86%);
+  }
+  .mp-collection-grid .quick-add__submit:hover {
+    filter: brightness(1.08);
+  }
+
+  .mp-collection-grid .loading-overlay {
+    background: var(--pitch) !important;
+  }
+  .mp-collection-grid .title--primary {
+    color: var(--chalk) !important;
+  }
+  .mp-collection-grid .pagination { color: var(--chalk); }
+  .mp-collection-grid .pagination__item {
+    color: var(--chalk) !important;
+  }
+  .mp-collection-grid .pagination__item--current {
+    color: var(--gold) !important;
+  }
+{%- endstyle -%}
+
 <collection-component
   view-event-payload="{{ collection | standard_event_data: 'view' | escape }}"
   data-collection-id="{{ collection.id }}"
 >
-  <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
+  <div class="section-{{ section.id }}-padding mp-collection-grid gradient color-{{ section.settings.color_scheme }}">
     {%- paginate collection.products by section.settings.products_per_page -%}
       {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
       {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
