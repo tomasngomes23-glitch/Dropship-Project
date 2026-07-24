@@ -1,7 +1,57 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
-<div class="page-width">
+{% comment %}
+  Matchday Programme reskin of the collections index page — becomes another "directory"
+  grid in the spirit of sections/directory-grid.liquid (rotated ticket-stub cards on the
+  pitch), reusing the standard card-collection markup so filtering/pagination stay intact.
+  Scoped to .mp-list-collections. Structural markup / classes untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-list-collections-wrap {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch); color: var(--chalk);
+    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px);
+    background-size: 9px 9px; font-family: "Arial Narrow", Arial, sans-serif;
+    padding: 3.5rem 0;
+  }
+  .mp-list-collections-wrap .title--primary {
+    font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em;
+    color: var(--chalk) !important; text-align: center; margin-bottom: 2.5rem;
+  }
+  .mp-list-collections .collection-list__item .card {
+    background: var(--paper) !important; border-radius: 0 !important; box-shadow: 0 6px 0 rgba(0,0,0,0.28) !important;
+    border: none !important; transform: rotate(var(--dg-rot, -1.2deg));
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .mp-list-collections .collection-list__item:nth-child(odd) .card { --dg-rot: -1.4deg; }
+  .mp-list-collections .collection-list__item:nth-child(even) .card { --dg-rot: 1.6deg; }
+  .mp-list-collections .collection-list__item:nth-child(3n) .card { --dg-rot: -2deg; }
+  .mp-list-collections .collection-list__item .card:hover {
+    transform: rotate(0deg) translateY(-4px); box-shadow: 0 12px 0 rgba(0,0,0,0.32) !important;
+  }
+  .mp-list-collections .card__content {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+  }
+  .mp-list-collections .card__heading,
+  .mp-list-collections .card__heading a {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.005em; color: var(--ink) !important;
+  }
+  .mp-list-collections .card__caption {
+    color: rgba(20,18,12,0.7) !important;
+  }
+  .mp-list-collections .icon-wrap { color: var(--gold) !important; }
+  .mp-list-collections .pagination__item { color: var(--chalk) !important; }
+  .mp-list-collections .pagination__item--current { color: var(--gold) !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-list-collections .collection-list__item .card { transition: none; }
+  }
+{%- endstyle -%}
+
+<div class="mp-list-collections-wrap">
+<div class="page-width mp-list-collections">
   <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     {{ section.settings.title }}
   </h1>
@@ -46,6 +96,7 @@
     </ul>
     {% render 'pagination', paginate: paginate %}
   {%- endpaginate -%}
+</div>
 </div>
 {% schema %}
 {
