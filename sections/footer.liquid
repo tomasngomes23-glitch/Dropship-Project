@@ -27,7 +27,98 @@
   }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+{% comment %}
+  Matchday Programme reskin — "programme back cover". Scoped to .mp-footer so it never
+  leaks. Structural markup / classes untouched (newsletter form, localization forms,
+  payment icons, block loop) — styling-only pass.
+{%- endcomment -%}
+{%- style -%}
+  .mp-footer {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch-dark) !important; color: var(--chalk) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    position: relative;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .mp-footer::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background-image: repeating-linear-gradient(90deg, rgba(201,150,47,0.5) 0 8px, transparent 8px 16px);
+  }
+
+  .mp-footer .footer-block__heading {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.02em; color: var(--gold-bright) !important; font-size: 1rem;
+  }
+  .mp-footer .footer-block__details-content,
+  .mp-footer .footer-block__brand-info { color: rgba(245,241,230,0.82) !important; }
+  .mp-footer .footer-block--menu .list-menu__item {
+    color: var(--chalk) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;
+    font-size: 0.88rem;
+  }
+  .mp-footer .footer-block--menu .list-menu__item:hover {
+    color: var(--gold) !important;
+  }
+
+  /* Newsletter — ticket-stub input + gold arrow button, matching hero buttons */
+  .mp-footer .footer-block__newsletter .footer-block__heading { color: var(--chalk) !important; }
+  .mp-footer .newsletter-form__field-wrapper .field {
+    background: var(--paper); border-radius: 0;
+    clip-path: polygon(0% 10%, 3% 0%, 97% 0%, 100% 10%, 100% 90%, 97% 100%, 3% 100%, 0% 90%);
+  }
+  .mp-footer .newsletter-form__field-wrapper .field__input {
+    background: transparent !important; color: var(--ink) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+  .mp-footer .newsletter-form__field-wrapper .field__label { color: var(--ink) !important; }
+  .mp-footer .newsletter-form__button {
+    background: var(--gold) !important; color: var(--ink) !important;
+  }
+  .mp-footer .newsletter-form__button svg { color: var(--ink) !important; }
+
+  .mp-footer .footer__list-social .list-social__link {
+    color: var(--chalk) !important;
+  }
+  .mp-footer .footer__list-social .list-social__link:hover {
+    color: var(--gold-bright) !important;
+  }
+
+  /* Bottom bar — dashed hairline "perforation" above small print */
+  .mp-footer .footer__content-bottom {
+    border-top: 1px dashed rgba(245,241,230,0.25) !important;
+  }
+  .mp-footer .footer__copyright,
+  .mp-footer .copyright__content,
+  .mp-footer .copyright__content a {
+    color: rgba(245,241,230,0.62) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.72rem; letter-spacing: 0.02em;
+  }
+  .mp-footer .policies a:hover,
+  .mp-footer .copyright__content a:hover {
+    color: var(--gold-bright) !important;
+  }
+  .mp-footer .footer__localization h2,
+  .mp-footer .caption-large.text-body {
+    color: rgba(245,241,230,0.55) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.68rem;
+  }
+  .mp-footer .list-payment__item {
+    filter: grayscale(1) brightness(1.4) opacity(0.75);
+  }
+
+  /* Programme back-cover stamp, decorative only */
+  .mp-footer .footer__content-bottom-wrapper:last-child::after {
+    content: "END OF PROGRAMME \2014 SEE YOU AT THE NEXT MATCHDAY";
+    display: block; margin-top: 0.75rem; font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(201,150,47,0.55);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+{%- endstyle -%}
+
+<footer class="footer mp-footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   {%- liquid
     assign has_social_icons = true
     if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
