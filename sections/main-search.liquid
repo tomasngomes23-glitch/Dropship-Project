@@ -75,8 +75,10 @@
     --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
     background: var(--pitch) !important; color: var(--chalk) !important;
     font-family: "Arial Narrow", Arial, sans-serif;
-    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
-    background-size: 9px 9px;
+    background-image:
+      radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px);
+    background-size: 9px 9px, auto;
   }
   .mp-search .template-search__header h1 {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
