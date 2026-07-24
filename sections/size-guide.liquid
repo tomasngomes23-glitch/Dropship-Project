@@ -47,7 +47,13 @@
   .sg-{{ section.id }} .sg-pop { animation: sg-pop 0.35s ease; }
   @media (prefers-reduced-motion: reduce) {
     .sg-{{ section.id }} .sg-pop { animation: none; }
-    .sg-{{ section.id }} .sg-wrap { opacity: 1; transform: none; transition: none; }
+    .sg-{{ section.id }} .sg-wrap,
+    .sg-{{ section.id }} .sg-tabs.sg-reveal { opacity: 1; transform: none; transition: none; }
+    .sg-{{ section.id }} .sg-tab,
+    .sg-{{ section.id }} .sg-shirt,
+    .sg-{{ section.id }} .sg-dim-line,
+    .sg-{{ section.id }} .sg-dim-cap,
+    .sg-{{ section.id }} .sg-dim-label { transition: none; }
   }
 {%- endstyle -%}
 

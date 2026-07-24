@@ -146,6 +146,9 @@
   .mp-search .title--primary { color: var(--chalk) !important; }
   .mp-search .pagination__item { color: var(--chalk) !important; }
   .mp-search .pagination__item--current { color: var(--gold) !important; }
+  .mp-search .pagination__item:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}

@@ -47,6 +47,9 @@
   .mp-list-collections .icon-wrap { color: var(--gold) !important; }
   .mp-list-collections .pagination__item { color: var(--chalk) !important; }
   .mp-list-collections .pagination__item--current { color: var(--gold) !important; }
+  .mp-list-collections .pagination__item:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
   @media (prefers-reduced-motion: reduce) {
     .mp-list-collections .collection-list__item .card { transition: none; }
   }

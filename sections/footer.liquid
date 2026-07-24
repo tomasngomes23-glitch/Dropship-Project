@@ -64,6 +64,13 @@
   .mp-footer .footer-block--menu .list-menu__item:hover {
     color: var(--gold) !important;
   }
+  .mp-footer .footer-block--menu .list-menu__item:focus-visible,
+  .mp-footer .footer__list-social .list-social__link:focus-visible,
+  .mp-footer .newsletter-form__button:focus-visible,
+  .mp-footer .policies a:focus-visible,
+  .mp-footer .copyright__content a:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
 
   /* Newsletter — ticket-stub input + gold arrow button, matching hero buttons */
   .mp-footer .footer-block__newsletter .footer-block__heading { color: var(--chalk) !important; }

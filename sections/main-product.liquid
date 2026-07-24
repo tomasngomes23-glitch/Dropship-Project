@@ -54,7 +54,7 @@
       background: var(--pitch) !important; color: var(--chalk) !important;
       font-family: "Arial Narrow", Arial, sans-serif;
       /* Pitch stripe wash — same mown-grass pattern used on the hero and collection grid */
-      background-image: repeating-linear-gradient(18deg, rgba(255,255,255,0.02) 0 46px, rgba(0,0,0,0.035) 46px 92px) !important;
+      background-image: repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px) !important;
     }
 
     .mp-product .product__title h1,
@@ -278,6 +278,16 @@
       .mp-sticky-atc.mp-visible {
         display: flex;
       }
+    }
+
+    /* Focus-visible: the whole product page sits on a dark pitch background, so the
+       theme's default (foreground-color-based) focus ring can be near-invisible here —
+       matches the gold focus treatment used elsewhere (size/version guides, modals). */
+    .mp-product .thumbnail:focus-visible,
+    .mp-product .product-form__input--pill input[type='radio']:focus-visible + label,
+    .mp-sticky-atc__button:focus-visible {
+      outline: 3px solid var(--gold-bright);
+      outline-offset: 2px;
     }
 
     .mp-sticky-atc {

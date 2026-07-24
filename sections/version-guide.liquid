@@ -18,7 +18,7 @@
   .vg-{{ section.id }} .vg-btn:focus-visible,
   .vg-{{ section.id }} .button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
   .vg-{{ section.id }} .vg-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 420px; margin: 0 auto 2.5rem; border: 1px dashed rgba(20,18,12,0.35); padding: 4px; clip-path: polygon(0% 10%, 4% 0%, 96% 0%, 100% 10%, 100% 90%, 96% 100%, 4% 100%, 0% 90%); }
-  .vg-{{ section.id }} .vg-switch-thumb { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--gold); transition: transform 0.35s cubic-bezier(.4,0,.2,1); z-index: 0; clip-path: polygon(0% 10%, 6% 0%, 94% 0%, 100% 10%, 100% 90%, 94% 100%, 6% 100%, 0% 90%); }
+  .vg-{{ section.id }} .vg-switch-thumb { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--gold); transition: transform 0.32s cubic-bezier(.34,1.56,.64,1); z-index: 0; clip-path: polygon(0% 10%, 6% 0%, 94% 0%, 100% 10%, 100% 90%, 94% 100%, 6% 100%, 0% 90%); }
   .vg-{{ section.id }}.is-player .vg-switch-thumb { transform: translateX(100%); }
   .vg-{{ section.id }} .vg-switch button { position: relative; z-index: 1; background: transparent; border: none; padding: 0.7rem 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; cursor: pointer; color: var(--ink); transition: color 0.35s ease; }
   .vg-{{ section.id }} .vg-switch button.is-active { color: var(--ink); }
@@ -50,6 +50,10 @@
   .vg-{{ section.id }} .vg-note { margin-top: 2.25rem; opacity: 0.75; font-size: 0.88rem; text-align: center; }
   @media (prefers-reduced-motion: reduce) {
     .vg-{{ section.id }} ul.vg-list li, .vg-{{ section.id }} .vg-badge-stitch { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .vg-{{ section.id }} .vg-switch-thumb,
+    .vg-{{ section.id }} .vg-switch button,
+    .vg-{{ section.id }} .vg-badge-print,
+    .vg-{{ section.id }} .vg-wrap { transition: none; }
   }
 {%- endstyle -%}
 

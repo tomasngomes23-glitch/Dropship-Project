@@ -144,6 +144,11 @@
   .mp-collection-grid .pagination__item--current {
     color: var(--gold) !important;
   }
+  .mp-collection-grid .pagination__item:focus-visible,
+  .mp-collection-grid .facets__disclosure summary:focus-visible,
+  .mp-collection-grid .facets__summary:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
 {%- endstyle -%}
 
 <collection-component

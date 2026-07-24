@@ -154,6 +154,10 @@
   .mp-header-wrapper .header__inline-menu svg {
     color: var(--chalk);
   }
+  .mp-header-wrapper .header__inline-menu .list-menu__item:focus-visible,
+  .mp-header-wrapper .header__icon:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
 
   /* Dropdown / mega-menu popups — read like a programme insert card */
   .mp-header-wrapper .header__submenu.list-menu--disclosure,
@@ -213,7 +217,7 @@
     background: var(--pitch-dark) !important; color: var(--chalk) !important;
     background-image:
       radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
-      repeating-linear-gradient(18deg, rgba(255,255,255,0.018) 0 46px, rgba(0,0,0,0.05) 46px 92px) !important;
+      repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px) !important;
     background-size: 9px 9px, auto !important;
   }
   .mp-header-wrapper .menu-drawer__menu-item {
@@ -246,6 +250,10 @@
   }
   .mp-header-wrapper .list-social__link:hover {
     color: var(--gold-bright) !important;
+  }
+  .mp-header-wrapper .list-social__link:focus-visible,
+  .mp-header-wrapper .menu-drawer__close-button:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 2px;
   }
 
   /* Stagger-in reveal for drawer menu items when the drawer opens (CSS-only, keyed off <details open>) */

@@ -45,6 +45,9 @@
   .dg-{{ section.id }} .dg-card:hover {
     transform: rotate(-3deg) translateY(-6px) scale(1.03); box-shadow: 0 14px 0 rgba(0,0,0,0.3);
   }
+  .dg-{{ section.id }} .dg-card:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px;
+  }
   .dg-{{ section.id }} .dg-card-num {
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem; opacity: 0.55;
     letter-spacing: 0.06em; margin-bottom: 0.5rem;
