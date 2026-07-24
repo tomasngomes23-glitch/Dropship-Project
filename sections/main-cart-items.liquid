@@ -19,6 +19,86 @@
   }
 {%- endstyle -%}
 
+{% comment %}
+  Matchday Programme reskin of the standalone /cart page — "programme ticket ledger".
+  Scoped to .mp-cart-page. Structural markup / ids / classes JS relies on (cart-items,
+  #main-cart-items, quantity-popover, cart-remove-button, .js-contents, table structure)
+  are untouched — styling-only pass.
+{%- endcomment -%}
+{%- style -%}
+  .mp-cart-page {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch) !important; color: var(--chalk) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .mp-cart-page .title-wrapper-with-link .title--primary {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--chalk) !important;
+  }
+  .mp-cart-page .title-wrapper-with-link .underlined-link {
+    color: var(--gold-bright) !important; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.78rem;
+  }
+  .mp-cart-page .cart__warnings .cart__empty-text {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    color: var(--chalk) !important;
+  }
+  .mp-cart-page .cart__warnings .button {
+    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+    clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
+  }
+  .mp-cart-page .cart__login-title { color: var(--chalk) !important; }
+  .mp-cart-page .cart__login-paragraph,
+  .mp-cart-page .cart__login-paragraph a { color: rgba(245,241,230,0.75) !important; }
+
+  /* Ledger table — paper panel, dashed row dividers, ticket-stub feel */
+  .mp-cart-page .cart-items {
+    background: var(--paper); padding: 1.25rem 1.5rem; border-radius: 0;
+    clip-path: polygon(0% 1%, 1% 0%, 99% 0%, 100% 1%, 100% 99%, 99% 100%, 1% 100%, 0% 99%);
+  }
+  .mp-cart-page .cart-items thead th {
+    color: rgba(20,18,12,0.55) !important; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.68rem;
+    border-bottom: 1px dashed rgba(20,18,12,0.3);
+  }
+  .mp-cart-page .cart-item {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+  }
+  .mp-cart-page tbody .cart-item:first-child { border-top: none; }
+  .mp-cart-page .cart-item__name {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important;
+  }
+  .mp-cart-page .product-option,
+  .mp-cart-page .price,
+  .mp-cart-page .cart-item__old-price {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--ink) !important;
+  }
+  .mp-cart-page .cart-item__final-price,
+  .mp-cart-page .price.price--end {
+    color: var(--gold) !important; font-weight: 700;
+  }
+  .mp-cart-page .cart-item__old-price { color: rgba(20,18,12,0.5) !important; }
+  .mp-cart-page .quantity {
+    border: 1px dashed rgba(20,18,12,0.35) !important; border-radius: 0 !important;
+    background: transparent !important;
+  }
+  .mp-cart-page .quantity__input {
+    background: transparent !important; color: var(--ink) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+  .mp-cart-page .quantity__button svg { color: var(--ink); }
+  .mp-cart-page cart-remove-button .button {
+    color: var(--ink) !important;
+  }
+  .mp-cart-page cart-remove-button .button:hover svg { color: var(--gold); }
+  .mp-cart-page .loading-overlay { background: var(--paper) !important; }
+{%- endstyle -%}
+
 {%- unless settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
@@ -26,7 +106,7 @@
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
 <cart-items
-  class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
+  class="gradient color-{{ section.settings.color_scheme }} isolate mp-cart-page{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
   view-event-payload="{{ cart | standard_event_data: 'view', context: 'page' | escape }}"
 >
   <div class="page-width">
