@@ -1,0 +1,100 @@
+{% comment %}
+  Stadium LED perimeter ticker — a horizontally auto-scrolling marquee styled like the
+  advertising boards around a pitch. Pure CSS keyframes, pauses on hover, respects
+  prefers-reduced-motion. Self-contained/scoped to .led-ticker-{{ section.id }} so it
+  never leaks. Designed to sit just under the header (see header-group.json) or above
+  the footer.
+{% endcomment %}
+
+{%- style -%}
+  .led-ticker-{{ section.id }} {
+    --pitch-dark: #081511; --gold-bright: #e0b355; --live-green: #3ea65f;
+    position: relative; overflow: hidden; background: var(--pitch-dark);
+    border-top: 1px solid rgba(224,179,85,0.25); border-bottom: 1px solid rgba(224,179,85,0.25);
+    padding: 0.5rem 0;
+  }
+  .led-ticker-{{ section.id }}::before,
+  .led-ticker-{{ section.id }}::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 40px; z-index: 2; pointer-events: none;
+  }
+  .led-ticker-{{ section.id }}::before { left: 0; background: linear-gradient(90deg, var(--pitch-dark), transparent); }
+  .led-ticker-{{ section.id }}::after { right: 0; background: linear-gradient(-90deg, var(--pitch-dark), transparent); }
+  .led-ticker-{{ section.id }} .led-track-wrap {
+    overflow: hidden; width: 100%;
+  }
+  .led-ticker-{{ section.id }} .led-track {
+    display: flex; width: max-content; white-space: nowrap;
+    animation: led-scroll-{{ section.id }} {{ section.settings.speed | default: 28 }}s linear infinite;
+  }
+  .led-ticker-{{ section.id }}:hover .led-track {
+    animation-play-state: paused;
+  }
+  @keyframes led-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .led-ticker-{{ section.id }} .led-msg {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold-bright); padding: 0 1.5rem;
+    text-shadow: 0 0 6px rgba(224,179,85,0.45);
+  }
+  .led-ticker-{{ section.id }} .led-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--live-green); flex: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .led-ticker-{{ section.id }} .led-track { animation: none; }
+    .led-ticker-{{ section.id }} .led-track-wrap { overflow-x: auto; }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign messages = section.blocks | where: 'type', 'message'
+-%}
+{%- if messages.size > 0 -%}
+  <div class="led-ticker-{{ section.id }}" role="marquee" aria-label="{{ section.settings.aria_label | default: 'Store announcements' }}">
+    <div class="led-track-wrap">
+      <div class="led-track">
+        {%- for i in (1..2) -%}
+          {%- for block in messages -%}
+            <span class="led-msg" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %} aria-hidden="{% if i == 2 %}true{% endif %}">
+              <span class="led-dot" aria-hidden="true"></span>{{ block.settings.text }}
+            </span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LED ticker (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "aria_label", "label": "Accessible label", "default": "Store announcements" },
+    { "type": "range", "id": "speed", "label": "Scroll duration (seconds, lower = faster)", "min": 10, "max": 60, "step": 2, "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Message text", "default": "FAN VERSION OR PLAYER VERSION — YOUR CALL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LED ticker (Matchday)",
+      "blocks": [
+        { "type": "message", "settings": { "text": "FAN VERSION OR PLAYER VERSION — YOUR CALL" } },
+        { "type": "message", "settings": { "text": "48 CLUBS · 6 LEAGUES" } },
+        { "type": "message", "settings": { "text": "FREE SHIPPING OVER €60" } },
+        { "type": "message", "settings": { "text": "NOT CLUB AFFILIATED" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

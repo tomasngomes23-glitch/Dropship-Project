@@ -12,15 +12,62 @@
     padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
     font-family: "Arial Narrow", Arial, sans-serif;
     background-image:
-      radial-gradient(circle, rgba(245,241,230,0.055) 1px, transparent 1.1px);
-    background-size: 9px 9px;
+      radial-gradient(circle, rgba(245,241,230,0.055) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(255,255,255,0.028) 0 46px, rgba(0,0,0,0.05) 46px 92px);
+    background-size: 9px 9px, auto;
   }
   .hero-mp-{{ section.id }}::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(ellipse at 50% 0%, rgba(201,150,47,0.14), transparent 60%);
   }
+  /* Floodlight sweep — slow radial beam drifting across the pitch, evokes stadium lights */
+  .hero-mp-{{ section.id }} .hero-mp-floodlight {
+    position: absolute; inset: -20%; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 38% 55% at 20% -10%, rgba(245,241,230,0.16), transparent 60%);
+    animation: hero-mp-sweep-{{ section.id }} 16s ease-in-out infinite;
+  }
+  @keyframes hero-mp-sweep-{{ section.id }} {
+    0%, 100% { transform: translateX(-8%) rotate(-2deg); opacity: 0.55; }
+    50% { transform: translateX(60%) rotate(2deg); opacity: 0.95; }
+  }
+  /* Pitch markings — center circle + halfway line + penalty box corner, large & faint */
+  .hero-mp-{{ section.id }} .hero-mp-markings {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    display: flex; align-items: center; justify-content: center; opacity: 0.16;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-markings svg { width: min(900px, 130vw); height: auto; }
+  .hero-mp-{{ section.id }} .hero-mp-corner-flag {
+    position: absolute; top: 0; left: 0; width: 64px; height: 64px; z-index: 2; pointer-events: none;
+    opacity: 0.9;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-live {
+    position: absolute; top: 1.75rem; left: 1.75rem; z-index: 2;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-bright);
+    background: rgba(8,21,17,0.55); border: 1px solid rgba(245,241,230,0.2);
+    padding: 0.35rem 0.6rem 0.35rem 0.5rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-live-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--live-green); flex: none;
+    box-shadow: 0 0 0 0 rgba(62,166,95,0.6); animation: hero-mp-pulse-{{ section.id }} 1.8s ease-out infinite;
+  }
+  @keyframes hero-mp-pulse-{{ section.id }} {
+    0% { box-shadow: 0 0 0 0 rgba(62,166,95,0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(62,166,95,0); }
+    100% { box-shadow: 0 0 0 0 rgba(62,166,95,0); }
+  }
+  @media screen and (max-width: 749px) {
+    .hero-mp-{{ section.id }} .hero-mp-live { top: auto; left: 1.25rem; bottom: 1.25rem; }
+  }
   .hero-mp-{{ section.id }} .hero-mp-inner {
-    position: relative; max-width: 1080px; margin: 0 auto; text-align: center;
+    position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; text-align: center;
+  }
+  .hero-mp-{{ section.id }} [data-mp-reveal] {
+    opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .hero-mp-{{ section.id }} [data-mp-reveal].is-visible {
+    opacity: 1; transform: translateY(0);
   }
   .hero-mp-{{ section.id }} .hero-mp-kicker {
     display: inline-flex; align-items: center; gap: 0.55rem; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
@@ -85,18 +132,42 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-mp-{{ section.id }} .hero-mp-btn { transition: none; }
+    .hero-mp-{{ section.id }} .hero-mp-floodlight { animation: none; opacity: 0.7; }
+    .hero-mp-{{ section.id }} .hero-mp-live-dot { animation: none; }
+    .hero-mp-{{ section.id }} [data-mp-reveal] { opacity: 1; transform: none; transition: none; }
   }
 {%- endstyle -%}
 
 <div class="hero-mp-{{ section.id }}">
+  <div class="hero-mp-floodlight" aria-hidden="true"></div>
+  <div class="hero-mp-markings" aria-hidden="true">
+    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="392" height="292" rx="2" stroke="#f5f1e6" stroke-width="2"/>
+      <line x1="200" y1="4" x2="200" y2="296" stroke="#f5f1e6" stroke-width="2"/>
+      <circle cx="200" cy="150" r="52" stroke="#f5f1e6" stroke-width="2"/>
+      <circle cx="200" cy="150" r="2.5" fill="#f5f1e6"/>
+      <path d="M4 90 h64 v120 h-64" stroke="#f5f1e6" stroke-width="2"/>
+      <path d="M396 90 h-64 v120 h64" stroke="#f5f1e6" stroke-width="2"/>
+      <path d="M18 62 a34 34 0 0 1 0 176" stroke="#f5f1e6" stroke-width="2"/>
+    </svg>
+  </div>
+  <svg class="hero-mp-corner-flag" viewBox="0 0 64 64" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 4 Q30 22 6 34" stroke="#f5f1e6" stroke-width="2" fill="none"/>
+    <line x1="6" y1="2" x2="6" y2="58" stroke="#f5f1e6" stroke-width="2"/>
+    <path d="M6 4 L26 10 L6 20 Z" fill="#c9962f"/>
+  </svg>
+  <div class="hero-mp-live">
+    <span class="hero-mp-live-dot" aria-hidden="true"></span>
+    Matchday: Open
+  </div>
   <div class="hero-mp-sticker">{{ section.settings.sticker_text | default: "Independent · Unlicensed" }}</div>
   <div class="hero-mp-inner">
-    <div class="hero-mp-kicker">{{ section.settings.kicker | default: "Matchday Programme · Issue No. 01" }}</div>
-    <h1>{{ section.settings.heading | default: "GEAR UP FOR <em>MATCHDAY</em>" }}</h1>
+    <div class="hero-mp-kicker" data-mp-reveal>{{ section.settings.kicker | default: "Matchday Programme · Issue No. 01" }}</div>
+    <h1 data-mp-reveal style="transition-delay: 0.08s;">{{ section.settings.heading | default: "GEAR UP FOR <em>MATCHDAY</em>" }}</h1>
     {%- if section.settings.subheading != blank -%}
-      <div class="hero-mp-sub">{{ section.settings.subheading }}</div>
+      <div class="hero-mp-sub" data-mp-reveal style="transition-delay: 0.16s;">{{ section.settings.subheading }}</div>
     {%- endif -%}
-    <div class="hero-mp-actions">
+    <div class="hero-mp-actions" data-mp-reveal style="transition-delay: 0.24s;">
       {%- if section.settings.button_label_1 != blank -%}
         <a href="{{ section.settings.button_link_1 | default: '#' }}" class="hero-mp-btn hero-mp-btn--solid">{{ section.settings.button_label_1 }}</a>
       {%- endif -%}
@@ -105,7 +176,7 @@
       {%- endif -%}
     </div>
 
-    <div class="hero-mp-stats" data-mp-stats>
+    <div class="hero-mp-stats" data-mp-stats data-mp-reveal style="transition-delay: 0.32s;">
       {%- for block in section.blocks -%}
         {%- if block.type == 'stat' -%}
           <div class="hero-mp-stat" {{ block.shopify_attributes }}>
@@ -153,6 +224,18 @@
   } else {
     nums.forEach(roll);
   }
+
+  var revealEls = root.querySelectorAll('[data-mp-reveal]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  } else {
+    var revealIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealIo.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { revealIo.observe(el); });
+  }
 })();
 </script>
 
@@ -178,7 +261,7 @@
       "name": "Stat",
       "settings": [
         { "type": "text", "id": "value", "label": "Value", "default": "48" },
-        { "type": "text", "id": "suffix", "label": "Suffix", "default": "" },
+        { "type": "text", "id": "suffix", "label": "Suffix" },
         { "type": "text", "id": "label", "label": "Label", "default": "Clubs" }
       ]
     }
