@@ -14,12 +14,100 @@
   }
 {%- endstyle -%}
 
-<div class="page-width page-width--narrow section-{{ section.id }}-padding">
-  <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
-  </h1>
-  <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+{% comment %}
+  Matchday Programme reskin — generic page template used for About / Shipping & Returns /
+  FAQ / Contact. Treated as a "programme insert" column: pitch background, paper panel,
+  numbered Q&A styling for FAQ-style h3/p pairs (CSS-only, no page-content changes).
+  Scoped to .mp-page. Structural markup untouched — {{ page.content }} is rendered as-is.
+{%- endcomment -%}
+{%- style -%}
+  .mp-page-wrap {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch);
+    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+  }
+  .mp-page-wrap .mp-page {
+    font-family: "Arial Narrow", Arial, sans-serif;
+  }
+  .mp-page-wrap .mp-page-kicker {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-bright);
+    border-top: 1px dashed rgba(245,241,230,0.35); border-bottom: 1px dashed rgba(245,241,230,0.35);
+    padding: 0.4rem 0; margin-bottom: 1.25rem;
+  }
+  .mp-page-wrap .main-page-title {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--chalk) !important; line-height: 0.98;
+  }
+  .mp-page-wrap .mp-page-panel {
+    background: var(--paper); color: var(--ink); margin-top: 2rem; padding: 2.25rem clamp(1.25rem, 5vw, 3rem);
+    clip-path: polygon(0% 0.8%, 0.8% 0%, 99.2% 0%, 100% 0.8%, 100% 99.2%, 99.2% 100%, 0.8% 100%, 0% 99.2%);
+  }
+  .mp-page-wrap .mp-page-panel .rte h2 {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink); border-bottom: 1px dashed rgba(20,18,12,0.25);
+    padding-bottom: 0.5rem; margin-top: 2rem;
+  }
+  .mp-page-wrap .mp-page-panel .rte h2:first-child { margin-top: 0; }
+  /* FAQ-style h3/p pairs — numbered "Q" entries with dashed dividers, accordion-adjacent look */
+  .mp-page-wrap .mp-page-panel .rte {
+    counter-reset: mp-question;
+  }
+  .mp-page-wrap .mp-page-panel .rte h3 {
+    counter-increment: mp-question;
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink); font-size: 1.05rem;
+    border-top: 1px dashed rgba(20,18,12,0.28); padding-top: 1.1rem; margin-top: 1.4rem;
+    display: flex; gap: 0.6rem; align-items: baseline;
+  }
+  .mp-page-wrap .mp-page-panel .rte h3:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .mp-page-wrap .mp-page-panel .rte h3::before {
+    content: "Q" counter(mp-question, decimal-leading-zero);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700;
+    color: var(--gold); font-size: 0.82rem; flex-shrink: 0;
+  }
+  .mp-page-wrap .mp-page-panel .rte h3 + p {
+    margin-top: 0.5rem; padding-left: 2.15rem;
+  }
+  .mp-page-wrap .mp-page-panel .rte p,
+  .mp-page-wrap .mp-page-panel .rte li {
+    color: rgba(20,18,12,0.85); line-height: 1.6;
+  }
+  .mp-page-wrap .mp-page-panel .rte a {
+    color: var(--ink); text-decoration: none; border-bottom: 1px dashed var(--gold);
+  }
+  .mp-page-wrap .mp-page-panel .rte a:hover { color: var(--gold); }
+  .mp-page-wrap .mp-page-panel .rte ul,
+  .mp-page-wrap .mp-page-panel .rte ol {
+    padding-left: 1.4rem;
+  }
+  .mp-page-wrap .mp-page-panel .rte li::marker {
+    color: var(--gold); font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+  .mp-page-wrap .mp-page-panel .rte blockquote {
+    border-left: 2px solid var(--gold); padding-left: 1rem; font-style: normal;
+    color: rgba(20,18,12,0.7);
+  }
+  .mp-page-wrap .mp-page-panel .rte strong { color: var(--ink); }
+  .mp-page-wrap .mp-page-panel .rte hr {
+    border: none; border-top: 1px dashed rgba(20,18,12,0.3); margin: 1.75rem 0;
+  }
+{%- endstyle -%}
+
+<div class="mp-page-wrap">
+  <div class="page-width page-width--narrow section-{{ section.id }}-padding mp-page">
+    <div class="mp-page-kicker">&bull; Programme Insert &bull;</div>
+    <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {{ page.title | escape }}
+    </h1>
+    <div class="mp-page-panel{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    </div>
   </div>
 </div>
 
