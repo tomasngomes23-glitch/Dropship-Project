@@ -56,6 +56,14 @@
       radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
       repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px);
     background-size: 9px 9px, auto;
+    animation: mp-pitch-drift-{{ section.id }} 50s linear infinite;
+  }
+  @keyframes mp-pitch-drift-{{ section.id }} {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 0, 400px 230px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-collection-grid { animation: none; }
   }
 
   /* Sort / filter bar */
