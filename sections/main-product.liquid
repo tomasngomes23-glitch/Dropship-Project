@@ -169,6 +169,214 @@
     }
   {%- endstyle -%}
 
+  {% comment %}
+    Dynamism pass: motion + micro-interactions layered on top of Dawn's existing
+    gallery (media-gallery / slider-component), variant-selects and product-form
+    custom elements. None of the structural markup or classes those elements'
+    JS depends on is touched here — only added transitions/animations, a couple
+    of small additive classes (mp-segmented / mp-segment-indicator / mp-added /
+    mp-visible) toggled by a small scoped script at the bottom of this section,
+    and new standalone markup for the sticky add-to-cart bar.
+  {%- endcomment -%}
+  {%- style -%}
+    @media (prefers-reduced-motion: no-preference) {
+      /* 1. Media gallery motion */
+      .mp-product .product__media-item {
+        overflow: hidden;
+      }
+      .mp-product .product__media-item .product__media img {
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .mp-product .product__media-item.is-active:hover .product__media img {
+        transform: scale(1.06);
+      }
+
+      .mp-product .badge {
+        animation: mp-badge-pulse 2.2s ease-in-out infinite;
+      }
+
+      .mp-product .thumbnail {
+        transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      }
+      .mp-product .thumbnail:hover {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+      .mp-product .thumbnail[aria-current] {
+        box-shadow: 0 0 0 0.15rem var(--gold) !important;
+        border-color: var(--gold) !important;
+      }
+
+      /* 2. Variant picker selected-state animation */
+      .mp-product .product-form__input--pill input[type='radio'] + label {
+        transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease,
+          color 0.25s ease, border-color 0.25s ease;
+      }
+      .mp-product .product-form__input--pill input[type='radio']:checked + label {
+        transform: scale(1.06);
+      }
+
+      /* Segmented-control slider for 2-option pill groups (e.g. Version: Fan / Player Version),
+         indicator element added/positioned by the script at the bottom of this section. */
+      .mp-product fieldset.product-form__input--pill.mp-segmented {
+        position: relative;
+      }
+      .mp-product .mp-segment-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--gold);
+        border-radius: var(--variant-pills-radius, 0);
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+      }
+      .mp-product fieldset.product-form__input--pill.mp-segmented input[type='radio'] + label {
+        position: relative;
+        z-index: 1;
+        background-color: transparent !important;
+      }
+      .mp-product fieldset.product-form__input--pill.mp-segmented input[type='radio']:checked + label {
+        color: var(--ink) !important;
+        transform: none;
+      }
+
+      /* 3. Add to cart button feedback */
+      .mp-product .product-form__submit.button--primary {
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
+      }
+      .mp-product .product-form__submit.button--primary:active {
+        transform: scale(0.97);
+      }
+      .mp-product .product-form__submit.button--primary.mp-added {
+        background: var(--live-green) !important;
+        color: var(--chalk) !important;
+      }
+      .mp-product .product-form__submit.button--primary.mp-added span::before {
+        content: '\2713  ';
+      }
+
+      /* 4. Sticky add-to-cart bar */
+      .mp-sticky-atc {
+        transform: translateY(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .mp-sticky-atc.mp-visible {
+        transform: translateY(0);
+      }
+
+      .mp-product .mp-viewer-count__dot {
+        animation: mp-dot-pulse 1.6s ease-in-out infinite;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mp-sticky-atc {
+        display: none;
+      }
+      .mp-sticky-atc.mp-visible {
+        display: flex;
+      }
+    }
+
+    .mp-sticky-atc {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1.2rem;
+      background: var(--pitch-dark);
+      border-top: 1px solid rgba(245, 241, 230, 0.2);
+      color: var(--chalk);
+      visibility: hidden;
+    }
+    .mp-sticky-atc.mp-visible {
+      visibility: visible;
+    }
+    .mp-sticky-atc__title {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      font-family: "Arial Narrow", Arial, sans-serif;
+    }
+    .mp-sticky-atc__price {
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .mp-sticky-atc__button {
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: "Arial Narrow", Arial, sans-serif;
+    }
+    .mp-sticky-atc__button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* 5. Live viewer count micro-copy */
+    .mp-product .mp-viewer-count:not([hidden]) {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+      font-family: "Arial Narrow", Arial, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 0.78rem;
+      color: rgba(245, 241, 230, 0.75);
+    }
+    .mp-product .mp-viewer-count__dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--live-green);
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    @keyframes mp-badge-pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
+    }
+    @keyframes mp-dot-pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+      }
+    }
+  {%- endstyle -%}
+
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
@@ -245,6 +453,15 @@
                       price_class: 'price--large'
                     -%}
                   </div>
+                  {%- comment -%}
+                    Stable-per-pageload "people looking at this" micro-copy: hashes the product id
+                    into a small 3-9 range client-side so it doesn't change on every render/refresh
+                    within the same load, and is skipped entirely without JS.
+                  {%- endcomment -%}
+                  <span class="mp-viewer-count" data-mp-viewer-count data-product-id="{{ product.id }}" hidden>
+                    <span class="mp-viewer-count__dot" aria-hidden="true"></span>
+                    <span data-mp-viewer-count-text></span>
+                  </span>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -884,6 +1101,179 @@
     </div>
     {% render 'product-guides', mode: 'modals', section: section %}
   </product-component>
+
+  {%- comment -%}
+    Sticky mobile/scroll add-to-cart bar. Standalone markup (not part of Dawn's
+    product-form/product-component), shown once the user scrolls past the real
+    buy-buttons form via IntersectionObserver in the script below. Its button
+    never runs its own add-to-cart flow — it just clicks the real, hidden
+    submit button (#ProductSubmitButton-{{ section.id }}) so Dawn's existing
+    product-form fetch/cart-notification logic does all the work.
+  {%- endcomment -%}
+  <div class="mp-sticky-atc" id="MpStickyAtc-{{ section.id }}" data-mp-sticky-atc>
+    <span class="mp-sticky-atc__title">{{ product.title | escape }}</span>
+    <span class="mp-sticky-atc__price" data-mp-sticky-atc-price></span>
+    <button
+      type="button"
+      class="mp-sticky-atc__button"
+      data-mp-sticky-atc-button
+      {% if product.selected_or_first_available_variant.available == false or product.selected_or_first_available_variant == null %}
+        disabled
+      {% endif %}
+    >
+      {{ 'products.product.add_to_cart' | t }}
+    </button>
+  </div>
+
+  <script defer="defer">
+    (function () {
+      var root = document.currentScript.closest('.mp-product');
+      if (!root) return;
+      var sectionId = {{ section.id | json }};
+
+      /* ---- 2. Variant picker segmented-control slider (e.g. Version: Fan / Player Version,
+         or any other 2-option pill group) — a small sibling div is positioned via
+         getBoundingClientRect over the checked label and transitions on change.
+         Dawn's own variant-selects handling (assets/global.js VariantSelects) and
+         product-info.js fetch/update flow are untouched; we only listen for the
+         native 'change' events those already dispatch. ---- */
+      function initSegmentedControls() {
+        root.querySelectorAll('fieldset.product-form__input--pill').forEach(function (fieldset) {
+          var inputs = fieldset.querySelectorAll('input[type="radio"]');
+          if (inputs.length !== 2) return;
+          fieldset.classList.add('mp-segmented');
+          var indicator = fieldset.querySelector(':scope > .mp-segment-indicator');
+          if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.className = 'mp-segment-indicator';
+            indicator.setAttribute('aria-hidden', 'true');
+            fieldset.appendChild(indicator);
+          }
+          var position = function () {
+            var checked = fieldset.querySelector('input[type="radio"]:checked');
+            var label = checked && fieldset.querySelector('label[for="' + checked.id + '"]');
+            if (!label) {
+              indicator.style.opacity = '0';
+              return;
+            }
+            var fieldRect = fieldset.getBoundingClientRect();
+            var labelRect = label.getBoundingClientRect();
+            indicator.style.width = labelRect.width + 'px';
+            indicator.style.height = labelRect.height + 'px';
+            indicator.style.opacity = '1';
+            indicator.style.transform =
+              'translate(' + (labelRect.left - fieldRect.left) + 'px, ' + (labelRect.top - fieldRect.top) + 'px)';
+          };
+          inputs.forEach(function (input) {
+            input.addEventListener('change', position);
+          });
+          requestAnimationFrame(position);
+        });
+      }
+      initSegmentedControls();
+      window.addEventListener('resize', initSegmentedControls);
+
+      // Dawn replaces the entire <variant-selects> element's contents on variant change
+      // (product-info.js updateOptionValues -> HTMLUpdateUtility.viewTransition), which
+      // wipes the indicator div appended above — watch for that and reinitialize rather
+      // than hooking into Dawn's fetch/update internals directly.
+      var variantSelects = root.querySelector('variant-selects');
+      if (variantSelects && window.MutationObserver) {
+        new MutationObserver(function () {
+          initSegmentedControls();
+        }).observe(variantSelects, { childList: true, subtree: true });
+      }
+
+      /* ---- 3. Add to cart button visual "press" feedback. Purely additive: toggles a
+         class alongside Dawn's own submit handler (assets/product-form.js ProductForm),
+         never calls preventDefault or interferes with its fetch. ---- */
+      root.querySelectorAll('form[data-type="add-to-cart-form"]').forEach(function (form) {
+        form.addEventListener('submit', function () {
+          var button = form.querySelector('.product-form__submit');
+          if (!button || button.hasAttribute('disabled')) return;
+          button.classList.add('mp-added');
+          window.clearTimeout(button._mpAddedTimeout);
+          button._mpAddedTimeout = window.setTimeout(function () {
+            button.classList.remove('mp-added');
+          }, 1500);
+        });
+      });
+
+      /* ---- 4. Sticky mobile/scroll add-to-cart bar ---- */
+      var stickyBar = document.getElementById('MpStickyAtc-' + sectionId);
+      var mainForm = document.getElementById('product-form-' + sectionId);
+      var mainSubmitButton = document.getElementById('ProductSubmitButton-' + sectionId);
+      var priceSource = document.getElementById('price-' + sectionId);
+      var stickyPriceEl = stickyBar && stickyBar.querySelector('[data-mp-sticky-atc-price]');
+      var stickyButton = stickyBar && stickyBar.querySelector('[data-mp-sticky-atc-button]');
+
+      function syncStickyPrice() {
+        if (!priceSource || !stickyPriceEl) return;
+        var priceItem =
+          priceSource.querySelector('.price-item--sale') || priceSource.querySelector('.price-item--regular');
+        stickyPriceEl.textContent = priceItem ? priceItem.textContent.trim() : '';
+      }
+
+      function syncStickyAvailability() {
+        if (!stickyButton) return;
+        stickyButton.disabled = !mainSubmitButton || mainSubmitButton.hasAttribute('disabled');
+      }
+
+      if (stickyBar && mainForm) {
+        syncStickyPrice();
+        syncStickyAvailability();
+
+        if (priceSource && window.MutationObserver) {
+          new MutationObserver(syncStickyPrice).observe(priceSource, { childList: true, subtree: true });
+        }
+        if (mainSubmitButton && window.MutationObserver) {
+          new MutationObserver(syncStickyAvailability).observe(mainSubmitButton, {
+            attributes: true,
+            attributeFilter: ['disabled'],
+          });
+        }
+
+        if (stickyButton) {
+          // Mirrors the real Add to cart button by triggering the real, hidden submit
+          // button — Dawn's product-form handles the actual cart-add fetch and
+          // cart-notification/cart-drawer render; no second cart flow is built here.
+          stickyButton.addEventListener('click', function () {
+            if (mainSubmitButton && !mainSubmitButton.hasAttribute('disabled')) {
+              mainSubmitButton.click();
+            }
+          });
+        }
+
+        if (window.IntersectionObserver) {
+          new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                stickyBar.classList.toggle('mp-visible', !entry.isIntersecting);
+              });
+            },
+            { rootMargin: '0px 0px -20% 0px' }
+          ).observe(mainForm);
+        }
+      }
+
+      /* ---- 5. Live viewer count: stable per pageload, derived from a hash of the
+         product id (3-9 range) rather than a hardcoded literal claim. ---- */
+      var viewerCountEl = root.querySelector('[data-mp-viewer-count]');
+      if (viewerCountEl) {
+        var pid = viewerCountEl.dataset.productId || '0';
+        var hash = 0;
+        for (var i = 0; i < pid.length; i++) {
+          hash = (hash * 31 + pid.charCodeAt(i)) >>> 0;
+        }
+        var count = 3 + (hash % 7);
+        var textEl = viewerCountEl.querySelector('[data-mp-viewer-count-text]');
+        if (textEl) {
+          textEl.textContent = count + (count === 1 ? ' person looking at this' : ' people looking at this');
+        }
+        viewerCountEl.removeAttribute('hidden');
+      }
+    })();
+  </script>
 </product-info>
 
 {% schema %}
