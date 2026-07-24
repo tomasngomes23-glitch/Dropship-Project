@@ -109,7 +109,7 @@
       }
     },
     "newsletter": {
-      "type": "email-signup-banner",
+      "type": "newsletter",
       "blocks": {
         "heading": {
           "type": "heading",
@@ -117,20 +117,16 @@
         },
         "paragraph": {
           "type": "paragraph",
-          "settings": { "paragraph": "Follow the socials for the newest kits, or drop your email below." }
+          "settings": { "text": "<p>Follow the socials for the newest kits, or drop your email below.</p>" }
         },
-        "email_form": { "type": "email_form", "settings": {} }
+        "email_form": { "type": "email_form" }
       },
       "block_order": ["heading", "paragraph", "email_form"],
       "settings": {
-        "image_height": "medium",
-        "show_background_image": false,
-        "desktop_content_position": "middle-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
         "color_scheme": "scheme-4",
-        "image_overlay_opacity": 0,
-        "mobile_content_alignment": "center"
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
       }
     }
   },
