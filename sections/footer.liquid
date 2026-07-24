@@ -39,8 +39,12 @@
     background: var(--pitch-dark) !important; color: var(--chalk) !important;
     font-family: "Arial Narrow", Arial, sans-serif;
     position: relative;
-    background-image: radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px);
-    background-size: 9px 9px;
+    /* Boot-stud print — a low-key repeating stud pattern under the existing dot texture */
+    background-image:
+      radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
+      radial-gradient(ellipse 3px 5px at center, rgba(0,0,0,0.35) 40%, transparent 42%);
+    background-size: 9px 9px, 34px 34px;
+    background-position: 0 0, 12px 18px;
   }
   .mp-footer::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
