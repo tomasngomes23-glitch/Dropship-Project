@@ -10,14 +10,71 @@
   }
 </style>
 
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+{% comment %}
+  Matchday Programme reskin of the 404 page — "full-time whistle" empty state instead of
+  a generic error page. Scoped to .mp-404. Structural markup / routes untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-404 {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch); color: var(--chalk);
+    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px);
+    background-size: 9px 9px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    padding: 5.5rem 1.5rem !important;
+    position: relative;
+  }
+  .mp-404 .mp-404-card {
+    display: inline-block; background: var(--paper); color: var(--ink);
+    padding: 2.5rem clamp(1.5rem, 6vw, 3.5rem); max-width: 480px;
+    clip-path: polygon(0% 1.5%, 1.5% 0%, 98.5% 0%, 100% 1.5%, 100% 98.5%, 98.5% 100%, 1.5% 100%, 0% 98.5%);
+    box-shadow: 0 14px 0 rgba(0,0,0,0.3);
+  }
+  .mp-404 .mp-404-whistle {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    border-top: 1px dashed rgba(20,18,12,0.3); border-bottom: 1px dashed rgba(20,18,12,0.3);
+    padding: 0.4rem 0; margin-bottom: 1.5rem; display: inline-block;
+  }
+  .mp-404 .title {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--ink) !important; font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 0.95; margin: 0;
+  }
+  .mp-404 .mp-404-score {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700;
+    font-size: 2.5rem; color: rgba(20,18,12,0.15); letter-spacing: 0.02em; margin-top: 0.5rem;
+  }
+  .mp-404 .template-404 p {
+    color: rgba(20,18,12,0.75); margin-top: 1rem !important;
+  }
+  .mp-404 .button {
+    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+    clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
+    transition: transform 0.18s ease, filter 0.18s ease; display: inline-block;
+  }
+  .mp-404 .button:hover {
+    transform: translateY(-2px) rotate(-0.4deg); filter: brightness(1.08);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-404 .button { transition: none; }
+  }
+{%- endstyle -%}
+
+<div class="mp-404">
+  <div class="template-404 page-width page-margin center mp-404-card">
+    <div class="mp-404-whistle">&bull; Full-Time &bull; No Match Found &bull;</div>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <div class="mp-404-score">404</div>
+    <p>
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <a href="{{ routes.all_products_collection_url }}" class="button">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
 </div>
