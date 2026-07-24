@@ -1,0 +1,280 @@
+{% comment %}
+  Matchday Programme "fan mail" — reviews section. Ticket-stub cards on a pitch
+  background, matching the directory-grid / brand-story-programme system.
+  Reviews are stored as blocks so the store owner can edit copy and later
+  attach real customer photos in the theme editor.
+{% endcomment %}
+
+{%- style -%}
+  .rv-{{ section.id }} {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
+    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image:
+      radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(255,255,255,0.018) 0 46px, rgba(0,0,0,0.035) 46px 92px);
+    background-size: 9px 9px, auto;
+  }
+  .rv-{{ section.id }} .rv-head {
+    position: relative; z-index: 1; max-width: 680px; margin: 0 auto 2.25rem; text-align: center;
+  }
+  .rv-{{ section.id }} .rv-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-bright); margin-bottom: 0.6rem;
+  }
+  .rv-{{ section.id }} .rv-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--live-green); }
+  .rv-{{ section.id }} h2 {
+    font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1;
+    font-size: clamp(1.9rem, 4vw, 2.75rem); margin: 0; color: var(--chalk);
+  }
+  .rv-{{ section.id }} .rv-intro { margin-top: 0.75rem; color: rgba(245,241,230,0.78); font-size: 0.98rem; }
+
+  /* Aggregate rating strip — reads like a scoreboard line */
+  .rv-{{ section.id }} .rv-agg {
+    display: inline-flex; align-items: center; gap: 0.9rem; margin-top: 1.5rem;
+    background: rgba(8,21,17,0.5); border: 1px solid rgba(245,241,230,0.18);
+    padding: 0.7rem 1.2rem; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  }
+  .rv-{{ section.id }} .rv-agg-score {
+    font-size: 1.5rem; font-weight: 700; color: var(--gold); letter-spacing: -0.02em;
+  }
+  .rv-{{ section.id }} .rv-agg-stars { display: inline-flex; gap: 0.12rem; }
+  .rv-{{ section.id }} .rv-agg-count {
+    font-size: 0.78rem; color: rgba(245,241,230,0.7); text-align: left; letter-spacing: 0.01em;
+  }
+
+  /* Star icon — pitch-inspired pentagon/star, not a generic glyph font */
+  .rv-{{ section.id }} .rv-star { width: 15px; height: 15px; flex: none; }
+  .rv-{{ section.id }} .rv-star--on path { fill: var(--gold); }
+  .rv-{{ section.id }} .rv-star--off path { fill: rgba(245,241,230,0.22); }
+
+  /* Scroll rail of ticket-stub cards */
+  .rv-{{ section.id }} .rv-rail {
+    position: relative; z-index: 1; display: flex; gap: 1.25rem; overflow-x: auto;
+    padding: 0.75rem 0.25rem 1.75rem; margin: 0 auto; max-width: 1280px;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin; scrollbar-color: rgba(201,150,47,0.5) transparent;
+  }
+  .rv-{{ section.id }} .rv-rail::-webkit-scrollbar { height: 8px; }
+  .rv-{{ section.id }} .rv-rail::-webkit-scrollbar-thumb { background: rgba(201,150,47,0.5); }
+
+  .rv-{{ section.id }} .rv-card {
+    position: relative; flex: 0 0 300px; scroll-snap-align: start; background: var(--paper); color: var(--ink);
+    padding: 1.4rem 1.3rem 1.5rem; display: flex; flex-direction: column;
+    clip-path: polygon(0% 4%, 4% 0%, 96% 0%, 100% 4%, 100% 96%, 96% 100%, 4% 100%, 0% 96%);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.28);
+    transform: rotate(var(--rv-rot, -1deg));
+    opacity: 0; translate: 0 22px;
+    transition: opacity 0.5s ease, translate 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .rv-{{ section.id }} .rv-card.is-visible { opacity: 1; translate: 0 0; }
+  .rv-{{ section.id }} .rv-rail > *:nth-child(odd) { --rv-rot: -1.1deg; }
+  .rv-{{ section.id }} .rv-rail > *:nth-child(even) { --rv-rot: 1.3deg; }
+  .rv-{{ section.id }} .rv-rail > *:nth-child(3n) { --rv-rot: -1.7deg; }
+  .rv-{{ section.id }} .rv-card:hover {
+    transform: rotate(0deg) translateY(-6px); box-shadow: 0 16px 0 rgba(0,0,0,0.3);
+  }
+
+  /* Torn perforation edge at the top, like a ticket stub tear-line */
+  .rv-{{ section.id }} .rv-card::before {
+    content: ""; position: absolute; left: 0.9rem; right: 0.9rem; top: 0; height: 1px;
+    background-image: repeating-linear-gradient(90deg, rgba(20,18,12,0.3) 0 5px, transparent 5px 10px);
+  }
+
+  .rv-{{ section.id }} .rv-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.75rem; }
+  .rv-{{ section.id }} .rv-avatar {
+    width: 42px; height: 42px; border-radius: 50%; flex: none;
+    background: var(--gold); color: var(--ink); display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 0.85rem; letter-spacing: 0.02em;
+    border: 2px solid var(--ink);
+  }
+  .rv-{{ section.id }} .rv-who { min-width: 0; }
+  .rv-{{ section.id }} .rv-name { font-weight: 800; text-transform: uppercase; font-size: 0.92rem; letter-spacing: -0.005em; }
+  .rv-{{ section.id }} .rv-detail {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.68rem;
+    opacity: 0.65; margin-top: 0.15rem; text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .rv-{{ section.id }} .rv-stars { display: inline-flex; gap: 0.1rem; margin-bottom: 0.65rem; }
+  .rv-{{ section.id }} .rv-body { font-size: 0.9rem; line-height: 1.5; color: rgba(20,18,12,0.85); flex: 1; margin: 0; }
+  .rv-{{ section.id }} .rv-card-bottom {
+    display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;
+    padding-top: 0.65rem; border-top: 1px dashed rgba(20,18,12,0.25);
+  }
+  .rv-{{ section.id }} .rv-verified {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #2f6b40;
+  }
+  .rv-{{ section.id }} .rv-verified svg { width: 11px; height: 11px; flex: none; }
+  .rv-{{ section.id }} .rv-num {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.62rem; opacity: 0.45;
+  }
+
+  .rv-{{ section.id }} .rv-hint {
+    text-align: center; margin-top: 0.25rem; font-size: 0.72rem; color: rgba(245,241,230,0.55);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; letter-spacing: 0.04em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv-{{ section.id }} .rv-card { transition: none; opacity: 1; translate: 0; }
+  }
+{%- endstyle -%}
+
+<div class="rv-{{ section.id }}">
+  <div class="rv-head">
+    {%- if section.settings.eyebrow != blank -%}<div class="rv-eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.intro != blank -%}<div class="rv-intro">{{ section.settings.intro }}</div>{%- endif -%}
+    {%- if section.settings.show_aggregate -%}
+      <div class="rv-agg">
+        <span class="rv-agg-score">{{ section.settings.aggregate_score | default: "4.8" }}/5</span>
+        <span class="rv-agg-stars" aria-hidden="true">
+          {%- assign full_stars = section.settings.aggregate_score | times: 1.0 | round -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= full_stars -%}
+              <svg class="rv-star rv-star--on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5 L15.09 8.35 L22.5 9.11 L16.97 14.14 L18.54 21.5 L12 17.77 L5.46 21.5 L7.03 14.14 L1.5 9.11 L8.91 8.35 Z"/></svg>
+            {%- else -%}
+              <svg class="rv-star rv-star--off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5 L15.09 8.35 L22.5 9.11 L16.97 14.14 L18.54 21.5 L12 17.77 L5.46 21.5 L7.03 14.14 L1.5 9.11 L8.91 8.35 Z"/></svg>
+            {%- endif -%}
+          {%- endfor -%}
+        </span>
+        <span class="rv-agg-count">from {{ section.settings.review_count | default: "340+" }} reviews</span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="rv-rail" data-rv-rail>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review' -%}
+        {%- liquid
+          assign nm = block.settings.reviewer_name | default: 'A. Fan'
+          assign nm_parts = nm | split: ' '
+          assign initials = ''
+          for part in nm_parts
+            assign initials = initials | append: part | slice: 0, 1
+          endfor
+        -%}
+        <div class="rv-card" data-rv-reveal {{ block.shopify_attributes }}>
+          <div class="rv-card-top">
+            <div class="rv-avatar" aria-hidden="true">{{ initials | slice: 0, 2 | upcase }}</div>
+            <div class="rv-who">
+              <div class="rv-name">{{ block.settings.reviewer_name }}</div>
+              {%- if block.settings.detail != blank -%}<div class="rv-detail">{{ block.settings.detail }}</div>{%- endif -%}
+            </div>
+          </div>
+          <div class="rv-stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {%- assign rating = block.settings.rating | plus: 0 -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= rating -%}
+                <svg class="rv-star rv-star--on" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5 L15.09 8.35 L22.5 9.11 L16.97 14.14 L18.54 21.5 L12 17.77 L5.46 21.5 L7.03 14.14 L1.5 9.11 L8.91 8.35 Z"/></svg>
+              {%- else -%}
+                <svg class="rv-star rv-star--off" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5 L15.09 8.35 L22.5 9.11 L16.97 14.14 L18.54 21.5 L12 17.77 L5.46 21.5 L7.03 14.14 L1.5 9.11 L8.91 8.35 Z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <p class="rv-body">{{ block.settings.body }}</p>
+          <div class="rv-card-bottom">
+            {%- if block.settings.verified -%}
+              <span class="rv-verified">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 2 L14.5 4.5 L18 4 L18.5 7.5 L21.5 9.5 L20 12.5 L21.5 15.5 L18.5 17.5 L18 21 L14.5 20.5 L12 23 L9.5 20.5 L6 21 L5.5 17.5 L2.5 15.5 L4 12.5 L2.5 9.5 L5.5 7.5 L6 4 L9.5 4.5 Z"/><path fill="var(--paper)" d="M9.5 12.3 L11.2 14 L15 9.8" stroke="var(--paper)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Verified buyer
+              </span>
+            {%- else -%}
+              <span></span>
+            {%- endif -%}
+            <span class="rv-num">No. {{ forloop.index | prepend: '000' | slice: -3, 3 }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="rv-hint" aria-hidden="true">&larr; Swipe for more matchday mail &rarr;</div>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript.previousElementSibling;
+  if (!root) return;
+  var cards = root.querySelectorAll('[data-rv-reveal]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    cards.forEach(function (c) { c.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var delay = (Array.prototype.indexOf.call(cards, el) % 6) * 60;
+        setTimeout(function () { el.classList.add('is-visible'); }, delay);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+  cards.forEach(function (c) { io.observe(c); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Matchday Mail" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What fans are saying" },
+    { "type": "richtext", "id": "intro", "label": "Intro text", "default": "<p>Real orders, real feedback — the good and the honest.</p>" },
+    { "type": "checkbox", "id": "show_aggregate", "label": "Show aggregate rating", "default": true },
+    { "type": "text", "id": "aggregate_score", "label": "Aggregate score (e.g. 4.8)", "default": "4.8" },
+    { "type": "text", "id": "review_count", "label": "Review count text", "default": "340+" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "reviewer_name", "label": "Reviewer name", "default": "Marco T." },
+        { "type": "text", "id": "detail", "label": "Detail (size / version)", "default": "Bought: M · Player Version" },
+        { "type": "select", "id": "rating", "label": "Rating", "default": "5", "options": [
+          { "value": "3", "label": "3 stars" },
+          { "value": "4", "label": "4 stars" },
+          { "value": "5", "label": "5 stars" }
+        ] },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+        { "type": "textarea", "id": "body", "label": "Review text", "default": "Great shirt, fast shipping." },
+        { "type": "image_picker", "id": "photo", "label": "Customer photo (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews (Matchday)",
+      "blocks": [
+        { "type": "review", "settings": { "reviewer_name": "Marco T.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Print is razor sharp and the fabric feels exactly like the boxed version I've owned before. Ordered Monday, had it by Friday. Didn't expect that from an independent shop." } },
+        { "type": "review", "settings": { "reviewer_name": "Sophie K.", "detail": "Bought: L · Fan Version", "rating": "5", "verified": true, "body": "Fan Version is soft, breathable and true to size. Wore it to a five-a-side and it held up through a full wash cycle with zero cracking on the badge." } },
+        { "type": "review", "settings": { "reviewer_name": "Diego R.", "detail": "Bought: XL · Player Version", "rating": "4", "verified": true, "body": "Player cut runs slim, so go a size up from what you'd normally wear. Once I exchanged for the XL it fit great. Print quality is genuinely excellent." } },
+        { "type": "review", "settings": { "reviewer_name": "Aisha N.", "detail": "Bought: S · Fan Version", "rating": "5", "verified": true, "body": "Bought this as a birthday gift for my brother and he wore it the same day. Arrived quicker than the estimate said, packaging was tidy too." } },
+        { "type": "review", "settings": { "reviewer_name": "Tomás P.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Was honestly skeptical about an unofficial print holding up, but this is on par with shirts I've paid double for elsewhere. Stitching on the crest is clean, no loose threads." } },
+        { "type": "review", "settings": { "reviewer_name": "Harriet W.", "detail": "Bought: L · Fan Version", "rating": "3", "verified": true, "body": "Shirt itself is comfortable but the print on the sleeve badge started lifting slightly at the edge after about six washes. Support replaced it without hassle, so the service saved the experience." } },
+        { "type": "review", "settings": { "reviewer_name": "Jamal O.", "detail": "Bought: M · Fan Version", "rating": "5", "verified": true, "body": "Compared this to a kit I bought years ago from an official store and the fabric weight is nearly identical. Colours haven't faded after a month of regular wear." } },
+        { "type": "review", "settings": { "reviewer_name": "Elena V.", "detail": "Bought: S · Player Version", "rating": "5", "verified": true, "body": "Player fit is snug and athletic like it should be. If you're between sizes for the Player Version, size up — the cut is closer to a true athletic fit than the Fan Version." } },
+        { "type": "review", "settings": { "reviewer_name": "Connor B.", "detail": "Bought: L · Fan Version", "rating": "4", "verified": true, "body": "Took about nine days longer than the delivery estimate, which was frustrating, but the shirt that showed up was worth the wait. Great print, comfortable fit." } },
+        { "type": "review", "settings": { "reviewer_name": "Priya S.", "detail": "Bought: M · Player Version + Fan Version", "rating": "5", "verified": true, "body": "Ordered both versions to compare. Player Version fabric is noticeably lighter and more fitted, Fan Version is heavier cotton-feel and more relaxed. Both prints are equally sharp — just pick based on how you plan to wear it." } },
+        { "type": "review", "settings": { "reviewer_name": "Lucas F.", "detail": "Bought: XL · Fan Version", "rating": "5", "verified": true, "body": "Relaxed, comfy fit and the colours are more vivid in person than in the photos. This is my third order from them and the consistency has been solid every time." } },
+        { "type": "review", "settings": { "reviewer_name": "Grace M.", "detail": "Bought: M · Fan Version", "rating": "5", "verified": true, "body": "First time buying from an independent kit shop instead of an official store and I was nervous about print quality. No complaints at all — looks legit and feels legit." } },
+        { "type": "review", "settings": { "reviewer_name": "Noah D.", "detail": "Bought: L · Player Version", "rating": "4", "verified": true, "body": "Stitching around the collar is neat and the size chart on the product page was accurate for once. Only reason it's not five stars is the badge sits slightly off-centre on mine." } },
+        { "type": "review", "settings": { "reviewer_name": "Isabela C.", "detail": "Bought: S · Fan Version", "rating": "5", "verified": true, "body": "Bought this for my daughter and the fabric is noticeably soft, no itchy tag or scratchy print. She's worn it every weekend since it arrived." } },
+        { "type": "review", "settings": { "reviewer_name": "Ryan K.", "detail": "Bought: M · Fan Version", "rating": "3", "verified": true, "body": "Colour is a touch darker in person than the product photos showed. Still a decent shirt for the price, just wanted to flag it in case you're picky about exact shade matching." } },
+        { "type": "review", "settings": { "reviewer_name": "Fatima Z.", "detail": "Bought: L · Player Version", "rating": "5", "verified": true, "body": "About as close to a matchday shirt as you'll get from an independent brand. Breathable fabric, held up through a full 90 minutes plus extra time without clinging." } },
+        { "type": "review", "settings": { "reviewer_name": "Owen H.", "detail": "Bought: XL · Fan Version", "rating": "5", "verified": true, "body": "Messaged support before ordering with a sizing question and got a genuinely helpful reply within a couple hours, not a canned response. Shirt fits exactly as they described." } },
+        { "type": "review", "settings": { "reviewer_name": "Nadia S.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Number printing on the back is sharp with no cracking after several washes on a cold cycle. Genuinely impressed for an unofficial print." } },
+        { "type": "review", "settings": { "reviewer_name": "Ben C.", "detail": "Bought: S · Fan Version", "rating": "4", "verified": true, "body": "Runs a little large in the Fan Version, could've gone down a size. Exchange process was easy though and the second one fits well." } },
+        { "type": "review", "settings": { "reviewer_name": "Camila R.", "detail": "Bought: L · Fan Version", "rating": "5", "verified": true, "body": "Shipping was faster than expected and the shirt was a hit as a gift — everyone at the party asked where it was from. Quality genuinely surprised me." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
