@@ -38,6 +38,7 @@
       box-shadow: 0 4px 0 rgba(0,0,0,0.22);
     }
     .pg-triggers-{{ section.id }} .pg-triggers__card:hover { transform: translateY(-3px) rotate(-0.6deg); box-shadow: 0 8px 0 rgba(0,0,0,0.25); }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
     .pg-triggers-{{ section.id }} .pg-triggers__tag {
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.62rem; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--gold); font-weight: 700;
@@ -160,8 +161,14 @@
         <div class="pg-vg-panels">
           <div class="pg-vg-badge">
             <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="pg-vg-hex-{{ section.id }}" width="11" height="19" patternUnits="userSpaceOnUse">
+                  <path d="M5.5 0 L11 3.3 L11 9.9 L5.5 13.2 L0 9.9 L0 3.3 Z" fill="none" stroke="rgba(20,18,12,0.55)" stroke-width="0.6"/>
+                </pattern>
+              </defs>
               <path class="pg-vg-badge-shape" d="M50 4 L90 20 C90 60 74 92 50 106 C26 92 10 60 10 20 Z"/>
               <circle class="pg-vg-print" cx="50" cy="50" r="22"/>
+              <circle class="pg-vg-hex" cx="50" cy="50" r="22" fill="url(#pg-vg-hex-{{ section.id }})"/>
               <circle class="pg-vg-stitch" cx="50" cy="50" r="22"/>
             </svg>
           </div>
@@ -183,6 +190,9 @@
     }
     .pg-modal h1.h2 { font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
     .pg-sub { opacity: 0.75; font-size: 0.92rem; margin-top: 0.35rem; }
+    .pg-modal .pg-sg-tab:focus-visible,
+    .pg-modal .pg-vg-btn:focus-visible,
+    .pg-modal summary:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
 
     /* size guide */
     .pg-sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
@@ -234,6 +244,7 @@
     .pg-vg-badge svg { width: 130px; height: 143px; }
     .pg-vg-badge-shape { fill: rgba(20,18,12,0.06); stroke: rgba(20,18,12,0.5); stroke-width: 2; }
     .pg-vg-print { fill: var(--gold); transition: opacity 0.4s ease; }
+    .pg-vg-hex { opacity: 0.5; pointer-events: none; }
     .pg-vg-stitch { fill: none; stroke: var(--gold); stroke-width: 3; stroke-dasharray: 6 5; stroke-dashoffset: 400; opacity: 0; transition: opacity 0.3s ease; }
     .pg-vg-panels.is-player .pg-vg-print { opacity: 0; }
     .pg-vg-panels.is-player .pg-vg-stitch { opacity: 1; animation: pg-stitch 1.3s ease forwards; }
