@@ -42,10 +42,18 @@
   }
   .led-ticker-{{ section.id }} .led-dot {
     width: 5px; height: 5px; border-radius: 50%; background: var(--live-green); flex: none;
+    box-shadow: 0 0 0 0 rgba(62,166,95,0.6);
+    animation: led-dot-pulse-{{ section.id }} 1.6s ease-out infinite;
+  }
+  @keyframes led-dot-pulse-{{ section.id }} {
+    0% { box-shadow: 0 0 0 0 rgba(62,166,95,0.55); }
+    70% { box-shadow: 0 0 0 6px rgba(62,166,95,0); }
+    100% { box-shadow: 0 0 0 0 rgba(62,166,95,0); }
   }
   @media (prefers-reduced-motion: reduce) {
     .led-ticker-{{ section.id }} .led-track { animation: none; }
     .led-ticker-{{ section.id }} .led-track-wrap { overflow-x: auto; }
+    .led-ticker-{{ section.id }} .led-dot { animation: none; }
   }
 {%- endstyle -%}
 
