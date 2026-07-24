@@ -31,13 +31,24 @@
     }
     .pg-triggers-{{ section.id }} .pg-triggers__card {
       position: relative; flex: 1 1 150px; text-align: left; background: var(--paper); color: var(--ink);
-      border: none; cursor: pointer; padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem;
-      font-family: "Arial Narrow", Arial, sans-serif;
+      border: 2px solid transparent; cursor: pointer; padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem;
+      font-family: "Arial Narrow", Arial, sans-serif; overflow: hidden;
       clip-path: polygon(0% 8%, 6% 0%, 94% 0%, 100% 8%, 100% 92%, 94% 100%, 6% 100%, 0% 92%);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, border-color 0.28s ease;
       box-shadow: 0 4px 0 rgba(0,0,0,0.22);
     }
-    .pg-triggers-{{ section.id }} .pg-triggers__card:hover { transform: translateY(-3px) rotate(-0.6deg); box-shadow: 0 8px 0 rgba(0,0,0,0.25); }
+    .pg-triggers-{{ section.id }} .pg-triggers__card::after {
+      content: ""; position: absolute; top: -60%; left: -40%; width: 30%; height: 220%;
+      background: linear-gradient(100deg, transparent, rgba(201,150,47,0.35), transparent);
+      transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:hover::after { transform: skewX(-22deg) translateX(560%); }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:hover {
+      transform: translateY(-7px) scale(1.03) rotate(-0.6deg);
+      box-shadow: 0 16px 26px -10px rgba(201,150,47,0.5), 0 8px 0 rgba(0,0,0,0.25);
+      border-color: rgba(201,150,47,0.6);
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:active { transform: translateY(-3px) scale(0.99) rotate(-0.6deg); }
     .pg-triggers-{{ section.id }} .pg-triggers__card:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
     .pg-triggers-{{ section.id }} .pg-triggers__tag {
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.62rem; letter-spacing: 0.08em;
@@ -47,6 +58,11 @@
     .pg-triggers-{{ section.id }} .pg-triggers__num {
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700; font-size: 0.98rem;
       color: var(--ink); opacity: 0.75; font-variant-numeric: tabular-nums;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pg-triggers-{{ section.id }} .pg-triggers__card { transition: none; }
+      .pg-triggers-{{ section.id }} .pg-triggers__card:hover { transform: none; }
+      .pg-triggers-{{ section.id }} .pg-triggers__card::after { display: none; }
     }
   {%- endstyle -%}
   <script>
@@ -201,7 +217,7 @@
       cursor: pointer; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; transition: all 0.25s ease;
       clip-path: polygon(0% 15%, 10% 0%, 90% 0%, 100% 15%, 100% 85%, 90% 100%, 10% 100%, 0% 85%);
     }
-    .pg-sg-tab:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .pg-sg-tab:hover { border-color: var(--gold); transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 14px -6px rgba(201,150,47,0.5); }
     .pg-sg-tab.is-active { background: var(--gold); color: var(--ink); border-color: transparent; border-style: solid; }
     .pg-sg-wrap { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: center; }
     @media screen and (min-width: 550px) { .pg-sg-wrap { grid-template-columns: 1fr 1fr; } }
