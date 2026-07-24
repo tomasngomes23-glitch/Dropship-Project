@@ -10,10 +10,10 @@
 {% endcomment %}
 
 <cart-notification>
-  <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
+  <div class="cart-notification-wrapper mp-cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
     <div
       id="cart-notification"
-      class="cart-notification focus-inset{% if color_scheme %} color-{{ color_scheme }} gradient{% endif %}"
+      class="cart-notification mp-cart-notification focus-inset{% if color_scheme %} color-{{ color_scheme }} gradient{% endif %}"
       aria-modal="true"
       aria-label="{{ 'general.cart.item_added' | t }}"
       role="dialog"
@@ -58,3 +58,68 @@
     display: none;
   }
 {% endstyle %}
+
+{% comment %}
+  Matchday Programme reskin of the "added to cart" notification popup (this theme uses
+  settings.cart_type == 'notification', not the drawer). Scoped to .mp-cart-notification
+  so nothing leaks. Structural markup / ids / classes JS depends on (#cart-notification,
+  .active, .animate, cart-notification-product, cart-notification-button) are untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-cart-notification {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--paper) !important; color: var(--ink) !important;
+    border-radius: 0 !important; border: none !important;
+    box-shadow: 0 18px 0 rgba(0,0,0,0.3) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    clip-path: polygon(0% 1.5%, 1.5% 0%, 98.5% 0%, 100% 1.5%, 100% 98.5%, 98.5% 100%, 1.5% 100%, 0% 98.5%);
+  }
+  .mp-cart-notification .cart-notification__heading {
+    font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; color: var(--ink) !important;
+    border-bottom: 1px dashed rgba(20,18,12,0.25); padding-bottom: 0.75rem;
+  }
+  .mp-cart-notification .cart-notification__heading svg {
+    color: var(--live-green);
+  }
+  .mp-cart-notification .cart-notification__close svg {
+    color: var(--ink);
+  }
+
+  .mp-cart-notification .button--primary {
+    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 0 !important;
+    clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
+  }
+  .mp-cart-notification .button--secondary {
+    background: transparent !important; color: var(--ink) !important;
+    border: 1px dashed rgba(20,18,12,0.4) !important; border-radius: 0 !important;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .mp-cart-notification .button-label {
+    color: var(--ink) !important; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em;
+  }
+
+  /* Line items (sections/cart-notification-product.liquid, swapped in dynamically by
+     cart-notification.js — kept here since only the item fragment is re-fetched, not
+     this <style> block) — ticket-stub feel */
+  .mp-cart-notification .cart-notification-product .cart-item {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+    padding-top: 0.9rem; margin-top: 0.9rem;
+  }
+  .mp-cart-notification .cart-notification-product .cart-item:first-child {
+    border-top: none; margin-top: 0;
+  }
+  .mp-cart-notification .cart-notification-product__name {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important;
+  }
+  .mp-cart-notification .cart-notification-product .price,
+  .mp-cart-notification .cart-notification-product .product-option {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; color: rgba(20,18,12,0.75);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-cart-notification { transition: none; }
+  }
+{%- endstyle -%}

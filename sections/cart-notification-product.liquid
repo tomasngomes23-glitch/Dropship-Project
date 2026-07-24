@@ -1,3 +1,11 @@
+{%- comment -%}
+  Note: this section's HTML is fetched via AJAX by cart-notification.js and only the
+  per-item fragment ([id="cart-notification-product-{key}"]) is extracted, so any
+  {% style %} block here would be discarded on dynamic updates. The Matchday Programme
+  styling for these line items lives in snippets/cart-notification.liquid instead, scoped
+  under .mp-cart-notification, so it applies whether the markup was server-rendered or
+  swapped in by JS.
+{%- endcomment -%}
 {%- if cart != empty -%}
   {%- for item in cart.items -%}
     <div id="cart-notification-product-{{ item.key }}" class="cart-item">
