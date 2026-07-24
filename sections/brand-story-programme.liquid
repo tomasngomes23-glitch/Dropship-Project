@@ -26,11 +26,12 @@
     padding: 2.75rem 2.25rem; font-family: "Arial Narrow", Arial, sans-serif;
     clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-    opacity: 0; translate: 0 24px; transition: opacity 0.7s ease, translate 0.7s ease;
+    opacity: 0; translate: 0 38px; scale: 0.96; transition: opacity 0.7s cubic-bezier(.2,.8,.2,1), translate 0.7s cubic-bezier(.2,.8,.2,1), scale 0.7s cubic-bezier(.2,.8,.2,1);
   }
-  .bs-{{ section.id }} .bs-panel.is-visible { opacity: 1; translate: 0 0; }
+  .bs-{{ section.id }} .bs-panel.is-visible { opacity: 1; translate: 0 0; scale: 1; }
   @media (prefers-reduced-motion: reduce) {
-    .bs-{{ section.id }} .bs-panel { transition: none; opacity: 1; translate: 0; }
+    .bs-{{ section.id }} .bs-panel { transition: none; opacity: 1; translate: 0; scale: 1; }
+    .bs-{{ section.id }} .bs-stamp { animation: none; }
   }
   .bs-{{ section.id }} .bs-panel::before {
     content: ""; position: absolute; left: 2.25rem; right: 2.25rem; top: 4.6rem; height: 1px;
@@ -81,7 +82,12 @@
     position: absolute; bottom: 1.25rem; right: 1.5rem; width: 74px; height: 74px; border-radius: 50%;
     border: 2px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center;
     text-align: center; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
-    transform: rotate(-12deg); opacity: 0.85; line-height: 1.1; overflow: hidden;
+    opacity: 0.85; line-height: 1.1; overflow: hidden; transform-origin: center center;
+    animation: bs-stamp-breathe-{{ section.id }} 6s ease-in-out infinite;
+  }
+  @keyframes bs-stamp-breathe-{{ section.id }} {
+    0%, 100% { transform: rotate(-12deg) scale(1); }
+    50% { transform: rotate(-12deg) scale(1.08); }
   }
   /* Hex/ball-panel stitching inside the stamp — reads as a ball panel, not a plain circle */
   .bs-{{ section.id }} .bs-stamp::before {
