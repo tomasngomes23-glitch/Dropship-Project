@@ -100,6 +100,148 @@
   }
 {%- endstyle -%}
 
+{% comment %}
+  Matchday Programme reskin of Dawn's header. Scoped to .mp-header-wrapper so it never
+  leaks outside this section. Structural markup / classes / data attributes Dawn's JS
+  (header.js, header-drawer, sticky-header, predictive-search) depends on are untouched —
+  this is a styling-only pass, plus one added wrapper class.
+{%- endcomment -%}
+{%- style -%}
+  .mp-header-wrapper {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch) !important;
+    border-bottom: none !important;
+    position: relative;
+  }
+  .mp-header-wrapper::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background-image: repeating-linear-gradient(90deg, rgba(201,150,47,0.55) 0 8px, transparent 8px 16px);
+    pointer-events: none;
+  }
+  .mp-header-wrapper .header {
+    font-family: "Arial Narrow", Arial, sans-serif;
+  }
+
+  /* Logo / shop name */
+  .mp-header-wrapper .header__heading-link { color: var(--chalk); }
+  .mp-header-wrapper .header__heading-link .h2 {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
+  }
+
+  /* Inline nav (dropdown + mega menu) */
+  .mp-header-wrapper .header__inline-menu .list-menu__item {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
+  }
+  .mp-header-wrapper .header__inline-menu .list-menu__item::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0.15rem; height: 2px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.18s ease;
+  }
+  .mp-header-wrapper .header__inline-menu .list-menu__item:hover,
+  .mp-header-wrapper .header__inline-menu summary.list-menu__item[aria-expanded="true"],
+  .mp-header-wrapper .header__inline-menu details[open] > summary.list-menu__item {
+    color: var(--gold-bright);
+  }
+  .mp-header-wrapper .header__inline-menu .list-menu__item:hover::after {
+    transform: scaleX(1);
+  }
+  .mp-header-wrapper .header__active-menu-item {
+    color: var(--gold) !important;
+  }
+  .mp-header-wrapper .header__inline-menu svg {
+    color: var(--chalk);
+  }
+
+  /* Dropdown / mega-menu popups — read like a programme insert card */
+  .mp-header-wrapper .header__submenu.list-menu--disclosure,
+  .mp-header-wrapper .mega-menu__content {
+    background: var(--paper) !important; color: var(--ink) !important;
+    border: none !important; box-shadow: 0 14px 0 rgba(0,0,0,0.28) !important;
+  }
+  .mp-header-wrapper .header__submenu .list-menu__item,
+  .mp-header-wrapper .mega-menu__link {
+    color: var(--ink) !important; font-family: "Arial Narrow", Arial, sans-serif;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .mp-header-wrapper .header__submenu .list-menu__item:hover,
+  .mp-header-wrapper .mega-menu__link:hover {
+    color: var(--gold) !important;
+  }
+  .mp-header-wrapper .header__submenu li,
+  .mp-header-wrapper .mega-menu__list > li {
+    border-bottom: 1px dashed rgba(20,18,12,0.18);
+  }
+  .mp-header-wrapper .header__submenu li:last-child { border-bottom: none; }
+
+  /* Icons: search / account / cart / hamburger */
+  .mp-header-wrapper .header__icon,
+  .mp-header-wrapper .header__icon svg {
+    color: var(--chalk);
+  }
+  .mp-header-wrapper .header__icon:hover {
+    color: var(--gold-bright);
+  }
+  .mp-header-wrapper .cart-count-bubble {
+    background: var(--gold) !important; color: var(--ink) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700;
+    border-radius: 0 !important;
+    clip-path: polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%);
+    transform: rotate(6deg);
+  }
+
+  /* Search modal — paper "insert" panel */
+  .mp-header-wrapper .search-modal {
+    background: var(--paper) !important; border-top: 3px solid var(--gold) !important;
+  }
+  .mp-header-wrapper .search-modal .search__input {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; color: var(--ink) !important;
+  }
+  .mp-header-wrapper .search-modal .field__label {
+    font-family: "Arial Narrow", Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .mp-header-wrapper .search-modal .search__button svg,
+  .mp-header-wrapper .search-modal .reset__button svg,
+  .mp-header-wrapper .search-modal .search-modal__close-button svg {
+    color: var(--ink) !important;
+  }
+
+  /* Mobile menu drawer */
+  .mp-header-wrapper #menu-drawer {
+    background: var(--pitch-dark) !important; color: var(--chalk) !important;
+  }
+  .mp-header-wrapper .menu-drawer__menu-item {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.03em; color: var(--chalk) !important;
+    border-bottom: 1px dashed rgba(245,241,230,0.18);
+  }
+  .mp-header-wrapper .menu-drawer__menu-item:hover,
+  .mp-header-wrapper .menu-drawer__menu-item--active {
+    color: var(--gold-bright) !important;
+  }
+  .mp-header-wrapper .menu-drawer__submenu {
+    background: var(--pitch-dark) !important; color: var(--chalk) !important;
+  }
+  .mp-header-wrapper .menu-drawer__close-button {
+    color: var(--gold) !important; font-weight: 800; text-transform: uppercase;
+  }
+  .mp-header-wrapper .menu-drawer__navigation-container svg {
+    color: var(--chalk);
+  }
+  .mp-header-wrapper .list-social__link {
+    color: var(--chalk) !important;
+  }
+  .mp-header-wrapper .list-social__link:hover {
+    color: var(--gold-bright) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-header-wrapper .header__inline-menu .list-menu__item::after { transition: none; }
+  }
+{%- endstyle -%}
+
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -122,7 +264,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper mp-header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
