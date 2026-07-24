@@ -4,10 +4,23 @@
     --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
     background: var(--pitch); color: var(--chalk); font-family: "Arial Narrow", Arial, sans-serif;
     padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;
-    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px); background-size: 9px 9px;
+    background-image:
+      radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px);
+    background-size: 9px 9px, auto;
+    position: relative; overflow: clip;
   }
   .sg-{{ section.id }} h1 { font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
-  .sg-{{ section.id }} .sg-wrap { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 760px; margin: 2.5rem auto 0; background: var(--paper); color: var(--ink); padding: 2rem; clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%); }
+  .sg-{{ section.id }} .sg-wrap {
+    display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 760px; margin: 2.5rem auto 0; background: var(--paper); color: var(--ink); padding: 2rem; clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%);
+    opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.16,1,.3,1);
+  }
+  .sg-{{ section.id }} .sg-wrap.is-visible { opacity: 1; transform: translateY(0); }
+  .sg-{{ section.id }} .sg-tabs.sg-reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.16,1,.3,1); }
+  .sg-{{ section.id }} .sg-tabs.sg-reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .sg-{{ section.id }} .sg-tab:focus-visible,
+  .sg-{{ section.id }} summary:focus-visible,
+  .sg-{{ section.id }} .button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
   @media screen and (min-width: 750px) { .sg-{{ section.id }} .sg-wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
   .sg-{{ section.id }} .sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
   .sg-{{ section.id }} .sg-tab { border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.25s ease; clip-path: polygon(0% 15%, 10% 0%, 90% 0%, 100% 15%, 100% 85%, 90% 100%, 10% 100%, 0% 85%); }
@@ -32,7 +45,10 @@
   .sg-{{ section.id }} .sg-note { margin-top: 1.5rem; opacity: 0.75; font-size: 0.88rem; text-align: center; }
   @keyframes sg-pop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   .sg-{{ section.id }} .sg-pop { animation: sg-pop 0.35s ease; }
-  @media (prefers-reduced-motion: reduce) { .sg-{{ section.id }} .sg-pop { animation: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .sg-{{ section.id }} .sg-pop { animation: none; }
+    .sg-{{ section.id }} .sg-wrap { opacity: 1; transform: none; transition: none; }
+  }
 {%- endstyle -%}
 
 <div class="sg-{{ section.id }}">
@@ -42,7 +58,7 @@
       <div class="rte" style="text-align:center; max-width:520px; margin:0.75rem auto 0;">{{ section.settings.intro }}</div>
     {%- endif -%}
 
-    <div class="sg-tabs" role="tablist" aria-label="Select a size">
+    <div class="sg-tabs sg-reveal" role="tablist" aria-label="Select a size">
       <button type="button" class="sg-tab" data-size="S">S</button>
       <button type="button" class="sg-tab" data-size="M">M</button>
       <button type="button" class="sg-tab is-active" data-size="L">L</button>
@@ -50,7 +66,7 @@
       <button type="button" class="sg-tab" data-size="XXL">XXL</button>
     </div>
 
-    <div class="sg-wrap">
+    <div class="sg-wrap sg-reveal">
       <div class="sg-figure">
         <svg viewBox="0 0 240 260" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="sg-shirt" d="M70 20 L95 5 Q120 20 145 5 L170 20 L210 55 L188 85 L170 72 L170 235 Q120 245 70 235 L70 72 L52 85 L30 55 Z"/>
@@ -149,6 +165,19 @@
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() { apply(tab.dataset.size); });
   });
+
+  var revealEls = root.querySelectorAll('.sg-reveal');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function(el) { el.classList.add('is-visible'); });
+  } else {
+    var sgIo = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); sgIo.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function(el) { sgIo.observe(el); });
+  }
 })();
 </script>
 
