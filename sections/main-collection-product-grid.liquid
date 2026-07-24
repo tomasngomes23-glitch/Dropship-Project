@@ -82,8 +82,19 @@
 
   /* Product cards — flat paper, no rotation, dashed divider */
   .mp-collection-grid .card-wrapper .card {
-    background: var(--paper) !important; border-radius: 0 !important; box-shadow: none !important;
-    border: none !important;
+    background: var(--paper) !important; border-radius: 0 !important;
+    border: 2px solid transparent !important;
+    box-shadow: 0 0 0 rgba(0,0,0,0) !important;
+    transform: translateY(0) scale(1);
+    transition: transform 0.32s cubic-bezier(.2,.8,.2,1), box-shadow 0.32s ease, border-color 0.32s ease;
+  }
+  .mp-collection-grid .card-wrapper:hover .card {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 32px -14px rgba(0,0,0,0.5) !important;
+    border-color: rgba(201,150,47,0.6) !important;
+  }
+  .mp-collection-grid .card-wrapper:active .card {
+    transform: translateY(-3px) scale(0.995);
   }
   .mp-collection-grid .card-wrapper .card__inner {
     border-radius: 0 !important;
@@ -126,10 +137,21 @@
     background: var(--gold) !important; color: var(--ink) !important; border: none !important;
     border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em;
     clip-path: polygon(0% 14%, 5% 0%, 95% 0%, 100% 14%, 100% 86%, 95% 100%, 5% 100%, 0% 86%);
+    position: relative; overflow: hidden;
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
+  }
+  .mp-collection-grid .quick-add__submit::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 35%; height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
   }
   .mp-collection-grid .quick-add__submit:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.1);
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 14px 24px -8px rgba(201,150,47,0.6);
   }
+  .mp-collection-grid .quick-add__submit:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .mp-collection-grid .quick-add__submit:active { transform: translateY(-2px) scale(0.98); }
 
   .mp-collection-grid .loading-overlay {
     background: var(--pitch) !important;
@@ -148,6 +170,16 @@
   .mp-collection-grid .facets__disclosure summary:focus-visible,
   .mp-collection-grid .facets__summary:focus-visible {
     outline: 3px solid var(--gold-bright); outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-collection-grid .card-wrapper .card,
+    .mp-collection-grid .quick-add__submit {
+      transition: none;
+    }
+    .mp-collection-grid .card-wrapper:hover .card { transform: none; }
+    .mp-collection-grid .quick-add__submit:hover { transform: none; }
+    .mp-collection-grid .quick-add__submit::after { display: none; }
   }
 {%- endstyle -%}
 
