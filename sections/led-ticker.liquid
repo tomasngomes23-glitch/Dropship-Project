@@ -1,9 +1,11 @@
 {% comment %}
   Stadium LED perimeter ticker — a horizontally auto-scrolling marquee styled like the
-  advertising boards around a pitch. Pure CSS keyframes, pauses on hover, respects
-  prefers-reduced-motion. Self-contained/scoped to .led-ticker-{{ section.id }} so it
-  never leaks. Designed to sit just under the header (see header-group.json) or above
-  the footer.
+  advertising boards around a pitch. Pure CSS keyframes, pauses on hover. Deliberately
+  always animates regardless of prefers-reduced-motion — this is a decorative store
+  announcements strip, not essential content, and per explicit product direction it
+  must always run on its own rather than falling back to a manually-dragged scrollbar.
+  Self-contained/scoped to .led-ticker-{{ section.id }} so it never leaks. Designed to
+  sit just under the header (see header-group.json) or above the footer.
 {% endcomment %}
 
 {%- style -%}
@@ -49,11 +51,6 @@
     0% { box-shadow: 0 0 0 0 rgba(62,166,95,0.55); }
     70% { box-shadow: 0 0 0 6px rgba(62,166,95,0); }
     100% { box-shadow: 0 0 0 0 rgba(62,166,95,0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .led-ticker-{{ section.id }} .led-track { animation: none; }
-    .led-ticker-{{ section.id }} .led-track-wrap { overflow-x: auto; }
-    .led-ticker-{{ section.id }} .led-dot { animation: none; }
   }
 {%- endstyle -%}
 

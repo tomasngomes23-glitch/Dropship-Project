@@ -77,6 +77,16 @@
     border-radius: 50%; background: var(--gold-bright);
     box-shadow: 0 0 8px 3px rgba(224,179,85,0.95), 0 0 20px 6px rgba(224,179,85,0.5);
   }
+  /* Resting corner position, set unconditionally so the dots still sit correctly
+     near the corners even when prefers-reduced-motion turns the animation below off
+     — without this they only had a position while animating (the @keyframes) and
+     collapsed to an undefined spot at rest. Inset 3% from the literal edge (rather
+     than a flush 0%/100%) so the dot's own box + glow isn't half-clipped by the
+     section's overflow:hidden and lost behind the corner flag graphic. */
+  .hero-mp-{{ section.id }} .hero-mp-dot--tl { top: 3%; left: 3%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl { top: 97%; left: 3%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr { top: 3%; left: 97%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--br { top: 97%; left: 97%; }
   @media (prefers-reduced-motion: no-preference) {
     .hero-mp-{{ section.id }} .hero-mp-dot--tl { animation: hero-mp-dot-tl-{{ section.id }} 4.5s ease-in-out infinite alternate; }
     .hero-mp-{{ section.id }} .hero-mp-dot--bl { animation: hero-mp-dot-bl-{{ section.id }} 4.5s ease-in-out infinite alternate; }
@@ -84,23 +94,23 @@
     .hero-mp-{{ section.id }} .hero-mp-dot--br { animation: hero-mp-dot-br-{{ section.id }} 4.5s ease-in-out infinite alternate; }
   }
   @keyframes hero-mp-dot-tl-{{ section.id }} {
-    0% { left: 0%; top: 0%; }
-    22% { left: 0%; top: 50%; }
+    0% { left: 3%; top: 3%; }
+    22% { left: 3%; top: 50%; }
     100% { left: 50%; top: 50%; }
   }
   @keyframes hero-mp-dot-bl-{{ section.id }} {
-    0% { left: 0%; top: 100%; }
-    22% { left: 0%; top: 50%; }
+    0% { left: 3%; top: 97%; }
+    22% { left: 3%; top: 50%; }
     100% { left: 50%; top: 50%; }
   }
   @keyframes hero-mp-dot-tr-{{ section.id }} {
-    0% { left: 100%; top: 0%; }
-    22% { left: 100%; top: 50%; }
+    0% { left: 97%; top: 3%; }
+    22% { left: 97%; top: 50%; }
     100% { left: 50%; top: 50%; }
   }
   @keyframes hero-mp-dot-br-{{ section.id }} {
-    0% { left: 100%; top: 100%; }
-    22% { left: 100%; top: 50%; }
+    0% { left: 97%; top: 97%; }
+    22% { left: 97%; top: 50%; }
     100% { left: 50%; top: 50%; }
   }
   .hero-mp-{{ section.id }} .hero-mp-live {
