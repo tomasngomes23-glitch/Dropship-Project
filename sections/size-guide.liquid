@@ -23,9 +23,12 @@
   .sg-{{ section.id }} .button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
   @media screen and (min-width: 750px) { .sg-{{ section.id }} .sg-wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
   .sg-{{ section.id }} .sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
-  .sg-{{ section.id }} .sg-tab { border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.25s cubic-bezier(.2,.8,.2,1); clip-path: polygon(0% 15%, 10% 0%, 90% 0%, 100% 15%, 100% 85%, 90% 100%, 10% 100%, 0% 85%); }
-  .sg-{{ section.id }} .sg-tab:hover { border-color: var(--gold); transform: translateY(-6px) scale(1.04); box-shadow: 0 10px 18px -6px rgba(201,150,47,0.55); }
-  .sg-{{ section.id }} .sg-tab:active { transform: translateY(-2px) scale(0.98); }
+  .sg-{{ section.id }} .sg-tab { position: relative; overflow: hidden; border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.25s cubic-bezier(.2,.8,.2,1); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+  .sg-{{ section.id }} .sg-tab::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: linear-gradient(100deg, transparent, rgba(201,150,47,0.35), transparent); transform: translateX(-120%); transition: transform 0.5s ease; }
+  .sg-{{ section.id }} .sg-tab span { position: relative; z-index: 1; }
+  .sg-{{ section.id }} .sg-tab:hover { border-color: var(--gold); transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 18px -6px rgba(201,150,47,0.65), 0 0 16px rgba(224,179,85,0.45); }
+  .sg-{{ section.id }} .sg-tab:hover::before { transform: translateX(120%); }
+  .sg-{{ section.id }} .sg-tab:active { transform: translateY(-2px) scale(0.95); }
   .sg-{{ section.id }} .sg-tab.is-active { background: var(--gold); color: var(--ink); border-color: transparent; border-style: solid; }
   .sg-{{ section.id }} .sg-figure { position: relative; display: flex; align-items: center; justify-content: center; }
   .sg-{{ section.id }} svg { width: 100%; max-width: 340px; height: auto; overflow: visible; }
@@ -55,6 +58,8 @@
     .sg-{{ section.id }} .sg-dim-line,
     .sg-{{ section.id }} .sg-dim-cap,
     .sg-{{ section.id }} .sg-dim-label { transition: none; }
+    .sg-{{ section.id }} .sg-tab::before { display: none; }
+    .sg-{{ section.id }} .sg-tab:hover { transform: none; }
   }
 {%- endstyle -%}
 
@@ -66,11 +71,11 @@
     {%- endif -%}
 
     <div class="sg-tabs sg-reveal" role="tablist" aria-label="Select a size">
-      <button type="button" class="sg-tab" data-size="S">S</button>
-      <button type="button" class="sg-tab" data-size="M">M</button>
-      <button type="button" class="sg-tab is-active" data-size="L">L</button>
-      <button type="button" class="sg-tab" data-size="XL">XL</button>
-      <button type="button" class="sg-tab" data-size="XXL">XXL</button>
+      <button type="button" class="sg-tab" data-size="S"><span>S</span></button>
+      <button type="button" class="sg-tab" data-size="M"><span>M</span></button>
+      <button type="button" class="sg-tab is-active" data-size="L"><span>L</span></button>
+      <button type="button" class="sg-tab" data-size="XL"><span>XL</span></button>
+      <button type="button" class="sg-tab" data-size="XXL"><span>XXL</span></button>
     </div>
 
     <div class="sg-wrap sg-reveal">
