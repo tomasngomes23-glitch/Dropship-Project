@@ -94,7 +94,8 @@
   .mp-footer .newsletter-form__field-wrapper .field__label { color: var(--ink) !important; }
   .mp-footer .newsletter-form__button {
     background: var(--gold) !important; color: var(--ink) !important;
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; border-radius: 0 !important;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
   }
   .mp-footer .newsletter-form__button::after {
@@ -103,13 +104,19 @@
     transform: skewX(-22deg) translateX(-220%); pointer-events: none;
     transition: transform 0.6s ease;
   }
+  .mp-footer .newsletter-form__button::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: translateX(-120%); transition: transform 0.5s ease;
+  }
   .mp-footer .newsletter-form__button:hover {
     transform: translateY(-6px) scale(1.06);
-    box-shadow: 0 14px 26px -8px rgba(201,150,47,0.65);
+    box-shadow: 0 14px 26px -8px rgba(201,150,47,0.75), 0 0 22px rgba(224,179,85,0.55);
     filter: brightness(1.1);
   }
   .mp-footer .newsletter-form__button:hover::after { transform: skewX(-22deg) translateX(560%); }
-  .mp-footer .newsletter-form__button:active { transform: translateY(-2px) scale(0.98); }
+  .mp-footer .newsletter-form__button:hover::before { transform: translateX(120%); }
+  .mp-footer .newsletter-form__button:active { transform: translateY(-2px) scale(0.95); }
   .mp-footer .newsletter-form__button svg { color: var(--ink) !important; position: relative; z-index: 1; }
 
   .mp-footer .footer__list-social .list-social__link {
@@ -164,7 +171,8 @@
     }
     .mp-footer .footer-block--menu .list-menu__item:hover { transform: none; letter-spacing: 0.02em; text-shadow: none; }
     .mp-footer .newsletter-form__button:hover { transform: none; }
-    .mp-footer .newsletter-form__button::after { display: none; }
+    .mp-footer .newsletter-form__button::after,
+    .mp-footer .newsletter-form__button::before { display: none; }
     .mp-footer .footer__list-social .list-social__link:hover { transform: none; filter: none; }
   }
 {%- endstyle -%}
