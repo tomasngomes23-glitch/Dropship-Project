@@ -92,13 +92,10 @@
     display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.25rem;
   }
   .hero-mp-{{ section.id }} .hero-mp-btn {
-    position: relative; display: inline-block; font-family: "Arial Narrow", Arial, sans-serif;
+    position: relative; display: inline-flex; align-items: center; gap: 0.5rem; font-family: "Arial Narrow", Arial, sans-serif;
     font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.95rem;
     padding: 0.95rem 2.1rem 1.05rem; text-decoration: none; cursor: pointer; border: none;
-    clip-path: polygon(0% 12%, 4% 0%, 10% 9%, 16% 0%, 22% 9%, 28% 0%, 34% 9%, 40% 0%, 46% 9%,
-      52% 0%, 58% 9%, 64% 0%, 70% 9%, 76% 0%, 82% 9%, 88% 0%, 94% 9%, 100% 0%,
-      100% 88%, 96% 100%, 90% 91%, 84% 100%, 78% 91%, 72% 100%, 66% 91%, 60% 100%,
-      54% 91%, 48% 100%, 42% 91%, 36% 100%, 30% 91%, 24% 100%, 18% 91%, 12% 100%, 6% 91%, 0% 100%);
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
     transition: transform 0.28s cubic-bezier(.2,.8,.2,1), filter 0.28s ease, box-shadow 0.28s ease;
     overflow: hidden;
   }
@@ -108,15 +105,26 @@
     transform: skewX(-22deg) translateX(-220%); pointer-events: none; z-index: 1;
     transition: transform 0.6s ease;
   }
+  .hero-mp-{{ section.id }} .hero-mp-btn::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-120%); transition: transform 0.5s ease;
+  }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover::before { transform: translateX(120%); }
   .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: var(--ink); }
   .hero-mp-{{ section.id }} .hero-mp-btn--outline { background: var(--chalk); color: var(--ink); }
+  .hero-mp-{{ section.id }} .hero-mp-btn-arrow {
+    position: relative; z-index: 1; display: inline-block; transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn > span:not(.hero-mp-btn-arrow) { position: relative; z-index: 1; }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover .hero-mp-btn-arrow { transform: translateX(5px); }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover {
-    transform: translateY(-8px) scale(1.045) rotate(-0.6deg); filter: brightness(1.1);
-    box-shadow: 0 16px 30px -8px rgba(201,150,47,0.65), 0 4px 10px rgba(0,0,0,0.35);
+    transform: translateY(-6px) scale(1.045) rotate(-0.6deg); filter: brightness(1.1);
+    box-shadow: 0 16px 30px -8px rgba(201,150,47,0.75), 0 0 24px rgba(224,179,85,0.55), 0 4px 10px rgba(0,0,0,0.35);
   }
   .hero-mp-{{ section.id }} .hero-mp-btn:active {
-    transform: translateY(-3px) scale(0.99) rotate(-0.6deg);
+    transform: translateY(-2px) scale(0.97) rotate(-0.6deg);
     box-shadow: 0 8px 16px -6px rgba(201,150,47,0.55);
   }
   .hero-mp-{{ section.id }} .hero-mp-btn:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 3px; }
@@ -154,8 +162,11 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-mp-{{ section.id }} .hero-mp-btn { transition: none; }
-    .hero-mp-{{ section.id }} .hero-mp-btn::after { display: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn::after,
+    .hero-mp-{{ section.id }} .hero-mp-btn::before { display: none; }
     .hero-mp-{{ section.id }} .hero-mp-btn:hover { transform: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn-arrow { transition: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn:hover .hero-mp-btn-arrow { transform: none; }
     .hero-mp-{{ section.id }} .hero-mp-floodlight { animation: none; opacity: 0.7; }
     .hero-mp-{{ section.id }} .hero-mp-live-dot { animation: none; }
     .hero-mp-{{ section.id }} .hero-mp-sticker { animation: none; }
@@ -194,7 +205,7 @@
     {%- endif -%}
     <div class="hero-mp-actions" data-mp-reveal style="transition-delay: 0.24s;">
       {%- if section.settings.button_label_1 != blank -%}
-        <a href="{{ section.settings.button_link_1 | default: '#' }}" class="hero-mp-btn hero-mp-btn--solid">{{ section.settings.button_label_1 }}</a>
+        <a href="{{ section.settings.button_link_1 | default: '#' }}" class="hero-mp-btn hero-mp-btn--solid"><span>{{ section.settings.button_label_1 }}</span><span class="hero-mp-btn-arrow" aria-hidden="true">&rarr;</span></a>
       {%- endif -%}
       {%- if section.settings.button_label_2 != blank -%}
         <a href="{{ section.settings.button_link_2 | default: '#' }}" class="hero-mp-btn hero-mp-btn--outline">{{ section.settings.button_label_2 }}</a>
