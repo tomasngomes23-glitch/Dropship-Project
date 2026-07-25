@@ -3,14 +3,12 @@
     "hero": {
       "type": "hero-matchday",
       "blocks": {
-        "stat-1": { "type": "stat", "settings": { "value": "211", "suffix": "", "label": "FIFA Federations" } },
-        "stat-2": { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Confederations" } },
-        "stat-3": { "type": "stat", "settings": { "value": "1863", "suffix": "", "label": "Rules Codified" } }
+        "stat-1": { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Leagues" } },
+        "stat-2": { "type": "stat", "settings": { "value": "48", "suffix": "", "label": "Clubs" } },
+        "stat-3": { "type": "stat", "settings": { "value": "1000", "suffix": "+", "label": "Jerseys" } }
       },
       "block_order": ["stat-1", "stat-2", "stat-3"],
       "settings": {
-        "sticker_text": "Independent · Unlicensed",
-        "kicker": "Matchday Programme · Issue No. 01",
         "heading": "GEAR UP FOR <em>MATCHDAY</em>",
         "subheading": "<p>Kits from every league, every era. Fan Version and Player Version, on every shirt.</p>",
         "button_label_1": "Shop all kits",
