@@ -49,10 +49,24 @@
     color: var(--chalk) !important;
   }
   .mp-cart-page .cart__warnings .button {
+    position: relative; overflow: hidden;
     background: var(--gold) !important; color: var(--ink) !important; border: none !important;
     border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
-    clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
   }
+  .mp-cart-page .cart__warnings .button::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 35%; height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
+  }
+  .mp-cart-page .cart__warnings .button:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .mp-cart-page .cart__warnings .button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 14px 24px -8px rgba(201,150,47,0.7), 0 0 20px rgba(224,179,85,0.5);
+    filter: brightness(1.08);
+  }
+  .mp-cart-page .cart__warnings .button:active { transform: translateY(-1px) scale(0.97); }
   .mp-cart-page .cart__login-title { color: var(--chalk) !important; }
   .mp-cart-page .cart__login-paragraph,
   .mp-cart-page .cart__login-paragraph a { color: rgba(245,241,230,0.75) !important; }
@@ -104,6 +118,11 @@
   }
   .mp-cart-page cart-remove-button .button:hover svg { color: var(--gold); }
   .mp-cart-page .loading-overlay { background: var(--paper) !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-cart-page .cart__warnings .button { transition: none; }
+    .mp-cart-page .cart__warnings .button:hover { transform: none; }
+    .mp-cart-page .cart__warnings .button::after { display: none; }
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}

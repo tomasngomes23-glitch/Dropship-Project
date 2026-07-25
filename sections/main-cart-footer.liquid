@@ -49,13 +49,31 @@
     color: rgba(245,241,230,0.6) !important;
   }
   .mp-cart-footer .cart__checkout-button {
+    position: relative; overflow: hidden;
     background: var(--gold) !important; color: var(--ink) !important; border: none !important;
     border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-    clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
-    transition: transform 0.18s ease, filter 0.18s ease;
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
   }
+  .mp-cart-footer .cart__checkout-button::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 35%; height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
+  }
+  .mp-cart-footer .cart__checkout-button::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-120%); transition: transform 0.5s ease;
+  }
+  .mp-cart-footer .cart__checkout-button:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .mp-cart-footer .cart__checkout-button:hover::before { transform: translateX(120%); }
   .mp-cart-footer .cart__checkout-button:hover {
-    transform: translateY(-2px) rotate(-0.4deg); filter: brightness(1.08);
+    transform: translateY(-6px) scale(1.03) rotate(-0.4deg);
+    box-shadow: 0 16px 26px -10px rgba(201,150,47,0.75), 0 0 22px rgba(224,179,85,0.55);
+    filter: brightness(1.08);
+  }
+  .mp-cart-footer .cart__checkout-button:active {
+    transform: translateY(-2px) scale(0.97) rotate(-0.4deg);
   }
   .mp-cart-footer .cart__checkout-button:disabled {
     opacity: 0.5; transform: none;
@@ -65,6 +83,9 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .mp-cart-footer .cart__checkout-button { transition: none; }
+    .mp-cart-footer .cart__checkout-button:hover { transform: none; }
+    .mp-cart-footer .cart__checkout-button::after,
+    .mp-cart-footer .cart__checkout-button::before { display: none; }
   }
 {%- endstyle -%}
 
