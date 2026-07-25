@@ -33,7 +33,7 @@
       position: relative; flex: 1 1 150px; text-align: left; background: var(--paper); color: var(--ink);
       border: 2px solid transparent; cursor: pointer; padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem;
       font-family: "Arial Narrow", Arial, sans-serif; overflow: hidden;
-      clip-path: polygon(0% 8%, 6% 0%, 94% 0%, 100% 8%, 100% 92%, 94% 100%, 6% 100%, 0% 92%);
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
       transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, border-color 0.28s ease;
       box-shadow: 0 4px 0 rgba(0,0,0,0.22);
     }
@@ -42,13 +42,20 @@
       background: linear-gradient(100deg, transparent, rgba(201,150,47,0.35), transparent);
       transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
     }
+    .pg-triggers-{{ section.id }} .pg-triggers__card::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: linear-gradient(100deg, transparent, rgba(201,150,47,0.2), transparent);
+      transform: translateX(-120%); transition: transform 0.5s ease;
+    }
+    .pg-triggers-{{ section.id }} .pg-triggers__card > * { position: relative; z-index: 1; }
     .pg-triggers-{{ section.id }} .pg-triggers__card:hover::after { transform: skewX(-22deg) translateX(560%); }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:hover::before { transform: translateX(120%); }
     .pg-triggers-{{ section.id }} .pg-triggers__card:hover {
       transform: translateY(-7px) scale(1.03) rotate(-0.6deg);
-      box-shadow: 0 16px 26px -10px rgba(201,150,47,0.5), 0 8px 0 rgba(0,0,0,0.25);
+      box-shadow: 0 16px 26px -10px rgba(201,150,47,0.65), 0 0 18px rgba(224,179,85,0.45), 0 8px 0 rgba(0,0,0,0.25);
       border-color: rgba(201,150,47,0.6);
     }
-    .pg-triggers-{{ section.id }} .pg-triggers__card:active { transform: translateY(-3px) scale(0.99) rotate(-0.6deg); }
+    .pg-triggers-{{ section.id }} .pg-triggers__card:active { transform: translateY(-3px) scale(0.97) rotate(-0.6deg); }
     .pg-triggers-{{ section.id }} .pg-triggers__card:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
     .pg-triggers-{{ section.id }} .pg-triggers__tag {
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.62rem; letter-spacing: 0.08em;
@@ -62,7 +69,8 @@
     @media (prefers-reduced-motion: reduce) {
       .pg-triggers-{{ section.id }} .pg-triggers__card { transition: none; }
       .pg-triggers-{{ section.id }} .pg-triggers__card:hover { transform: none; }
-      .pg-triggers-{{ section.id }} .pg-triggers__card::after { display: none; }
+      .pg-triggers-{{ section.id }} .pg-triggers__card::after,
+      .pg-triggers-{{ section.id }} .pg-triggers__card::before { display: none; }
     }
   {%- endstyle -%}
   <script>
@@ -104,11 +112,11 @@
         <p class="pg-sub">Tap a size to see it come to life.</p>
 
         <div class="pg-sg-tabs" role="tablist">
-          <button type="button" class="pg-sg-tab" data-size="S">S</button>
-          <button type="button" class="pg-sg-tab" data-size="M">M</button>
-          <button type="button" class="pg-sg-tab is-active" data-size="L">L</button>
-          <button type="button" class="pg-sg-tab" data-size="XL">XL</button>
-          <button type="button" class="pg-sg-tab" data-size="XXL">XXL</button>
+          <button type="button" class="pg-sg-tab" data-size="S"><span>S</span></button>
+          <button type="button" class="pg-sg-tab" data-size="M"><span>M</span></button>
+          <button type="button" class="pg-sg-tab is-active" data-size="L"><span>L</span></button>
+          <button type="button" class="pg-sg-tab" data-size="XL"><span>XL</span></button>
+          <button type="button" class="pg-sg-tab" data-size="XXL"><span>XXL</span></button>
         </div>
 
         <div class="pg-sg-wrap">
@@ -213,11 +221,20 @@
     /* size guide */
     .pg-sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
     .pg-sg-tab {
+      position: relative; overflow: hidden;
       border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.5rem 1rem;
       cursor: pointer; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; transition: all 0.25s ease;
-      clip-path: polygon(0% 15%, 10% 0%, 90% 0%, 100% 15%, 100% 85%, 90% 100%, 10% 100%, 0% 85%);
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     }
-    .pg-sg-tab:hover { border-color: var(--gold); transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 14px -6px rgba(201,150,47,0.5); }
+    .pg-sg-tab::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: linear-gradient(100deg, transparent, rgba(201,150,47,0.35), transparent);
+      transform: translateX(-120%); transition: transform 0.5s ease;
+    }
+    .pg-sg-tab span { position: relative; z-index: 1; }
+    .pg-sg-tab:hover { border-color: var(--gold); transform: translateY(-5px) scale(1.06); box-shadow: 0 8px 14px -6px rgba(201,150,47,0.6), 0 0 14px rgba(224,179,85,0.4); }
+    .pg-sg-tab:hover::before { transform: translateX(120%); }
+    .pg-sg-tab:active { transform: translateY(-1px) scale(0.95); }
     .pg-sg-tab.is-active { background: var(--gold); color: var(--ink); border-color: transparent; border-style: solid; }
     .pg-sg-wrap { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: center; }
     @media screen and (min-width: 550px) { .pg-sg-wrap { grid-template-columns: 1fr 1fr; } }
@@ -244,16 +261,19 @@
     .pg-vg-switch {
       position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 340px; margin: 1.5rem 0 2rem;
       border: 1px dashed rgba(20,18,12,0.35); padding: 4px;
-      clip-path: polygon(0% 12%, 4% 0%, 96% 0%, 100% 12%, 100% 88%, 96% 100%, 4% 100%, 0% 88%);
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     }
     .pg-vg-thumb {
       position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--gold);
-      transition: transform 0.32s cubic-bezier(.34,1.56,.64,1); z-index: 0;
-      clip-path: polygon(0% 12%, 6% 0%, 94% 0%, 100% 12%, 100% 88%, 94% 100%, 6% 100%, 0% 88%);
+      transition: transform 0.32s cubic-bezier(.34,1.56,.64,1), box-shadow 0.32s ease; z-index: 0;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      box-shadow: 0 0 12px rgba(224,179,85,0.5);
     }
     .pg-vg-switch.is-player .pg-vg-thumb { transform: translateX(100%); }
-    .pg-vg-btn { position: relative; z-index: 1; background: transparent; border: none; padding: 0.6rem 0.9rem; font-weight: 800; font-size: 0.82rem; text-transform: uppercase; cursor: pointer; color: var(--ink); transition: color 0.35s ease; }
+    .pg-vg-btn { position: relative; z-index: 1; background: transparent; border: none; padding: 0.6rem 0.9rem; font-weight: 800; font-size: 0.82rem; text-transform: uppercase; cursor: pointer; color: var(--ink); transition: color 0.35s ease, letter-spacing 0.25s ease, transform 0.25s cubic-bezier(.2,.8,.2,1); }
     .pg-vg-btn.is-active { color: var(--ink); }
+    .pg-vg-btn:not(.is-active):hover { color: var(--gold); letter-spacing: 0.03em; transform: scale(1.04); }
+    .pg-vg-btn:active { transform: scale(0.96); }
     .pg-vg-panels { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: center; }
     @media screen and (min-width: 550px) { .pg-vg-panels { grid-template-columns: auto 1fr; } }
     .pg-vg-badge { display: flex; align-items: center; justify-content: center; }
@@ -283,6 +303,9 @@
       .pg-vg-list li, .pg-pop, .pg-vg-stitch { animation: none !important; opacity: 1 !important; transform: none !important; }
       .pg-vg-thumb, .pg-vg-btn, .pg-vg-print,
       .pg-sg-tab, .pg-sg-dim, .pg-sg-label { transition: none; }
+      .pg-sg-tab::before { display: none; }
+      .pg-sg-tab:hover { transform: none; }
+      .pg-vg-btn:not(.is-active):hover { transform: none; }
     }
   {%- endstyle -%}
 
