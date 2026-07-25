@@ -139,21 +139,19 @@
     .mp-product fieldset.product-form__input--pill {
       display: flex; flex-wrap: wrap; gap: 0.6rem;
     }
-    .mp-product .product-form__input--pill .product-option label,
-    .mp-product fieldset.js .product-option label {
+    .mp-product fieldset.product-form__input--pill label {
       border-radius: 0 !important; border: 1px solid rgba(245,241,230,0.35) !important;
       background: transparent !important; color: var(--chalk) !important;
       font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
       min-width: 3.4rem; min-height: 3.4rem; padding: 0.5rem 0.9rem !important;
       display: inline-flex; align-items: center; justify-content: center;
-      font-size: 0.92rem;
+      font-size: 0.92rem; margin: 0 !important;
     }
-    .mp-product input:checked + .product-option label,
-    .mp-product .product-option input:checked + label {
+    .mp-product fieldset.product-form__input--pill input:checked + label {
       background: var(--gold) !important; color: var(--ink) !important; border-color: var(--gold) !important;
     }
-    .mp-product .product-option label:has(input:disabled),
-    .mp-product .product-option input:disabled + label {
+    .mp-product fieldset.product-form__input--pill label:has(input:disabled),
+    .mp-product fieldset.product-form__input--pill input.disabled + label {
       opacity: 0.35; text-decoration: line-through;
     }
     .mp-product .select,
