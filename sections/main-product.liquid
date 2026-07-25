@@ -131,11 +131,20 @@
       color: var(--chalk);
     }
 
-    /* Add to cart / dynamic checkout — gold torn-edge, matching hero buttons */
+    /* Add to cart / dynamic checkout — chamfered gold button, matching hero buttons */
     .mp-product .product-form__submit.button--primary {
       background: var(--gold) !important; color: var(--ink) !important; border: none !important;
       border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
-      clip-path: polygon(0% 10%, 3% 0%, 97% 0%, 100% 10%, 100% 90%, 97% 100%, 3% 100%, 0% 90%);
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+    }
+    .mp-product .product-form__submit.button--primary span {
+      position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .mp-product .product-form__submit.button--primary span::after {
+      content: "\2192"; display: inline-block; transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .mp-product .product-form__submit.button--primary:hover span::after {
+      transform: translateX(5px);
     }
     .mp-product .product-form__submit.button--secondary {
       background: transparent !important; color: var(--chalk) !important;
@@ -262,16 +271,29 @@
         pointer-events: none;
         transition: transform 0.6s ease;
       }
+      .mp-product .product-form__submit.button--primary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transform: translateX(-120%);
+        pointer-events: none;
+        transition: transform 0.5s ease;
+        z-index: 0;
+      }
       .mp-product .product-form__submit.button--primary:hover {
         transform: translateY(-7px) scale(1.04);
-        box-shadow: 0 16px 28px -10px rgba(201, 150, 47, 0.65);
+        box-shadow: 0 16px 28px -10px rgba(201, 150, 47, 0.75), 0 0 26px rgba(224, 179, 85, 0.55);
         filter: brightness(1.08);
       }
       .mp-product .product-form__submit.button--primary:hover::after {
         transform: skewX(-22deg) translateX(560%);
       }
+      .mp-product .product-form__submit.button--primary:hover::before {
+        transform: translateX(120%);
+      }
       .mp-product .product-form__submit.button--primary:active {
-        transform: translateY(-2px) scale(0.97);
+        transform: translateY(-2px) scale(0.96);
       }
       .mp-product .product-form__submit.button--primary.mp-added {
         background: var(--live-green) !important;
@@ -309,6 +331,19 @@
         transform: none;
         box-shadow: none;
         filter: none;
+      }
+      .mp-product .product-form__submit.button--primary::before,
+      .mp-product .product-form__submit.button--primary::after {
+        display: none;
+      }
+      .mp-product .product-form__submit.button--primary:hover {
+        transform: none;
+      }
+      .mp-product .product-form__submit.button--primary span::after {
+        transition: none;
+      }
+      .mp-product .product-form__submit.button--primary:hover span::after {
+        transform: none;
       }
     }
 
