@@ -3,9 +3,9 @@
     "hero": {
       "type": "hero-matchday",
       "blocks": {
-        "stat-1": { "type": "stat", "settings": { "value": "48", "suffix": "", "label": "Clubs" } },
-        "stat-2": { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Leagues" } },
-        "stat-3": { "type": "stat", "settings": { "value": "2", "suffix": "", "label": "Versions" } }
+        "stat-1": { "type": "stat", "settings": { "value": "211", "suffix": "", "label": "FIFA Federations" } },
+        "stat-2": { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Confederations" } },
+        "stat-3": { "type": "stat", "settings": { "value": "1863", "suffix": "", "label": "Rules Codified" } }
       },
       "block_order": ["stat-1", "stat-2", "stat-3"],
       "settings": {
