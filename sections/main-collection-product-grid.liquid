@@ -89,12 +89,21 @@
   }
 
   /* Product cards — flat paper, no rotation, dashed divider */
+  .mp-collection-grid #product-grid {
+    isolation: isolate; /* Hovered card's z-index bump stays contained to this grid. */
+  }
   .mp-collection-grid .card-wrapper .card {
     background: var(--paper) !important; border-radius: 0 !important;
     border: 2px solid transparent !important;
     box-shadow: 0 0 0 rgba(0,0,0,0) !important;
     transform: translateY(0) scale(1);
     transition: transform 0.32s cubic-bezier(.2,.8,.2,1), box-shadow 0.32s ease, border-color 0.32s ease;
+  }
+  .mp-collection-grid .grid__item {
+    position: relative;
+  }
+  .mp-collection-grid .grid__item:hover {
+    z-index: 2; /* Raised/scaled card on hover must sit above the row it overlaps into. */
   }
   .mp-collection-grid .card-wrapper:hover .card {
     transform: translateY(-8px) scale(1.02);

@@ -97,26 +97,91 @@
       border-top: 1px dashed rgba(245,241,230,0.25); padding-top: 1.1rem; margin-top: 1.1rem;
     }
 
-    /* Variant picker — flat tabs instead of rounded pills, gold selected state */
+    /* Info column rhythm — consistent vertical spacing between every block instead of
+       Dawn's default margins, so the buy box reads as one deliberate stack, not scattered
+       floating pieces (this was the single biggest complaint: page felt cheap/empty). */
+    .mp-product .product__info-container > * {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .mp-product .product__info-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .mp-product .product__info-container > .product__title {
+      margin-bottom: 0.35rem !important;
+    }
+
+    /* Rating summary link under price — jumps straight to the reviews section, like
+       clicking the star row on Nike/CFS product pages. */
+    .mp-product .mp-rating-link {
+      display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem;
+      font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700; font-size: 0.85rem;
+      color: var(--chalk); text-decoration: none; border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .mp-product .mp-rating-link:hover { color: var(--gold-bright); border-color: var(--gold-bright); }
+    .mp-product .mp-rating-link__stars { display: inline-flex; gap: 0.08rem; }
+    .mp-product .mp-rating-link__stars svg { width: 13px; height: 13px; }
+    .mp-product .mp-rating-link__stars path { fill: var(--gold); }
+    .mp-product .mp-rating-link__count { color: rgba(245,241,230,0.6); font-weight: 600; }
+
+    /* Variant picker — real size grid instead of thin pills: square, uniform, with
+       enough tap target to feel like a proper football-store size selector. */
     .mp-product .form__label,
     .mp-product legend.form__label {
       color: var(--chalk) !important; font-family: "Arial Narrow", Arial, sans-serif;
-      font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.82rem;
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.78rem;
+      margin-bottom: 0.65rem !important; display: block;
+    }
+    .mp-product variant-selects > .product-form__input--pill,
+    .mp-product fieldset.product-form__input--pill {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
     }
     .mp-product .product-form__input--pill .product-option label,
     .mp-product fieldset.js .product-option label {
       border-radius: 0 !important; border: 1px solid rgba(245,241,230,0.35) !important;
       background: transparent !important; color: var(--chalk) !important;
-      font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700; text-transform: uppercase;
+      font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+      min-width: 3.4rem; min-height: 3.4rem; padding: 0.5rem 0.9rem !important;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.92rem;
     }
     .mp-product input:checked + .product-option label,
     .mp-product .product-option input:checked + label {
       background: var(--gold) !important; color: var(--ink) !important; border-color: var(--gold) !important;
     }
+    .mp-product .product-option label:has(input:disabled),
+    .mp-product .product-option input:disabled + label {
+      opacity: 0.35; text-decoration: line-through;
+    }
     .mp-product .select,
     .mp-product .select__select {
       background: var(--paper) !important; color: var(--ink) !important; border-radius: 0 !important;
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    }
+
+    /* Trust bar — shipping / returns / secure checkout, sits right under the buy
+       buttons. Every real kit-shop PDP (Nike, CFS, adidas) has this row; ours had
+       nothing here, which read as untrustworthy next to a full price tag. */
+    .mp-product .mp-trust-bar {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+      border-top: 1px dashed rgba(245,241,230,0.25); border-bottom: 1px dashed rgba(245,241,230,0.25);
+      padding: 1.1rem 0;
+    }
+    .mp-product .mp-trust-item {
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.4rem;
+    }
+    .mp-product .mp-trust-item svg {
+      width: 22px; height: 22px; color: var(--gold);
+    }
+    .mp-product .mp-trust-item span {
+      font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700; text-transform: uppercase;
+      font-size: 0.68rem; letter-spacing: 0.02em; color: rgba(245,241,230,0.82); line-height: 1.25;
+    }
+    @media screen and (max-width: 480px) {
+      .mp-product .mp-trust-item span { font-size: 0.62rem; }
     }
 
     .mp-product .quantity {
@@ -548,6 +613,14 @@
                     <span class="mp-viewer-count__dot" aria-hidden="true"></span>
                     <span data-mp-viewer-count-text></span>
                   </span>
+                  <a href="#product-reviews" class="mp-rating-link">
+                    <span class="mp-rating-link__stars" aria-hidden="true">
+                      {%- for i in (1..5) -%}
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5 L15.09 8.35 L22.5 9.11 L16.97 14.14 L18.54 21.5 L12 17.77 L5.46 21.5 L7.03 14.14 L1.5 9.11 L8.91 8.35 Z"/></svg>
+                      {%- endfor -%}
+                    </span>
+                    4.8 <span class="mp-rating-link__count">&middot; See all reviews</span>
+                  </a>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -934,6 +1007,20 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
+                  <div class="mp-trust-bar">
+                    <div class="mp-trust-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="6" width="14" height="11"/><path d="M15 10h4l3 3.5V17h-7"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg>
+                      <span>Tracked shipping</span>
+                    </div>
+                    <div class="mp-trust-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 12V6M4 12h6"/></svg>
+                      <span>30-day returns</span>
+                    </div>
+                    <div class="mp-trust-item">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                      <span>Secure checkout</span>
+                    </div>
+                  </div>
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">

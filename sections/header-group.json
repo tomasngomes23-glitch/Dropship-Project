@@ -63,8 +63,7 @@
     }
   },
   "order": [
-    "announcement-bar",
-    "header",
-    "led-ticker"
+    "led-ticker",
+    "header"
   ]
 }

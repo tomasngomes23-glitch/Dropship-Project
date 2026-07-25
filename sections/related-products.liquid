@@ -20,7 +20,58 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+{% comment %}
+  Matchday Programme reskin — reuses the flat-paper card treatment from the collection
+  grid (main-collection-product-grid.liquid) so "You may also like" reads as the same
+  system instead of Dawn's default rounded cards. Scoped to .mp-related; structural
+  markup / classes the recommendations JS relies on are untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-related {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    background: var(--pitch) !important; color: var(--chalk) !important;
+  }
+  .mp-related .related-products__heading {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--chalk) !important;
+    border-top: 1px dashed rgba(245,241,230,0.35); padding-top: 1.5rem; margin-bottom: 1.75rem !important;
+  }
+  .mp-related .card-wrapper .card {
+    background: var(--paper) !important; border-radius: 0 !important;
+    border: 2px solid transparent !important; box-shadow: 0 0 0 rgba(0,0,0,0) !important;
+    transform: translateY(0) scale(1);
+    transition: transform 0.32s cubic-bezier(.2,.8,.2,1), box-shadow 0.32s ease, border-color 0.32s ease;
+  }
+  .mp-related .card-wrapper:hover .card {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 32px -14px rgba(0,0,0,0.5) !important;
+    border-color: rgba(201,150,47,0.6) !important;
+  }
+  .mp-related .card-wrapper .card__inner { border-radius: 0 !important; }
+  .mp-related .card-wrapper .card__content { border-top: 1px dashed rgba(20,18,12,0.22); }
+  .mp-related .card__heading,
+  .mp-related .card__heading a {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important; font-size: 0.92rem;
+  }
+  .mp-related .price,
+  .mp-related .price__container,
+  .mp-related .price-item {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--ink) !important;
+    font-weight: 700;
+  }
+  .mp-related .price-item--sale,
+  .mp-related .price--on-sale .price-item--last {
+    color: var(--gold) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-related .card-wrapper .card { transition: none; }
+    .mp-related .card-wrapper:hover .card { transform: none; }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient mp-related">
   <product-recommendations
     class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"

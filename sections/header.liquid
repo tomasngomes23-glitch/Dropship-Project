@@ -129,6 +129,12 @@
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
   }
+  .mp-header-wrapper .mp-wordmark {
+    display: inline-flex; align-items: center;
+  }
+  .mp-header-wrapper .mp-wordmark svg {
+    height: 2.1rem; width: auto; display: block;
+  }
   /* Stadium-light glint sweeping across the logo — very slow, continuous, near-subliminal */
   .mp-header-wrapper .header__heading-logo-wrapper,
   .mp-header-wrapper .header__heading-link .h2 {
@@ -150,7 +156,7 @@
   .mp-header-wrapper .header__inline-menu .list-menu__item {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
-    transition: color 0.2s ease, letter-spacing 0.2s ease, text-shadow 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0.1rem; height: 3px;
@@ -161,7 +167,6 @@
   .mp-header-wrapper .header__inline-menu summary.list-menu__item[aria-expanded="true"],
   .mp-header-wrapper .header__inline-menu details[open] > summary.list-menu__item {
     color: var(--gold-bright);
-    letter-spacing: 0.08em;
     text-shadow: 0 0 12px rgba(224,179,85,0.65);
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item:hover::after {
@@ -382,7 +387,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="h2 mp-wordmark">{{ 'logo-first-touch.svg' | inline_asset_content }}</span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -425,7 +430,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="h2 mp-wordmark">{{ 'logo-first-touch.svg' | inline_asset_content }}</span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}

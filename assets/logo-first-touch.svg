@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-label="First Touch">
+  <g transform="translate(60,70)">
+    <circle r="46" fill="none" stroke="#f5f1e6" stroke-width="4"/>
+    <polygon points="0,-19 18,-6 11,17 -11,17 -18,-6" fill="#c9962f"/>
+  </g>
+  <text x="128" y="86" font-family="Arial Narrow, Arial, sans-serif" font-weight="900" font-size="58"
+        letter-spacing="1" fill="#f5f1e6">FIRST <tspan fill="#c9962f">TOUCH</tspan></text>
+</svg>

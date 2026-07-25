@@ -46,6 +46,35 @@
     font-size: 0.78rem; color: rgba(245,241,230,0.7); text-align: left; letter-spacing: 0.01em;
   }
 
+  /* Rating distribution — 5-star breakdown, the bit every real reviews module has
+     (CFS, Nike, Trustpilot) that a horizontal card rail alone can't show at a glance. */
+  .rv-{{ section.id }} .rv-breakdown {
+    position: relative; z-index: 1; max-width: 360px; margin: 1.5rem auto 0;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .rv-{{ section.id }} .rv-breakdown-row {
+    display: grid; grid-template-columns: 3.2rem 1fr 2.6rem; align-items: center; gap: 0.6rem;
+  }
+  .rv-{{ section.id }} .rv-breakdown-label {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.72rem;
+    color: rgba(245,241,230,0.75); text-align: left; white-space: nowrap;
+  }
+  .rv-{{ section.id }} .rv-breakdown-track {
+    height: 6px; background: rgba(245,241,230,0.12); position: relative; overflow: hidden;
+  }
+  .rv-{{ section.id }} .rv-breakdown-fill {
+    position: absolute; inset: 0; width: var(--rv-pct, 0%); background: var(--gold);
+    transform-origin: left; transform: scaleX(0); transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
+  }
+  .rv-{{ section.id }}.is-breakdown-visible .rv-breakdown-fill { transform: scaleX(1); }
+  .rv-{{ section.id }} .rv-breakdown-count {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
+    color: rgba(245,241,230,0.55); text-align: right;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rv-{{ section.id }} .rv-breakdown-fill { transition: none; transform: scaleX(1); }
+  }
+
   /* Star icon — pitch-inspired pentagon/star, not a generic glyph font */
   .rv-{{ section.id }} .rv-star { width: 15px; height: 15px; flex: none; }
   .rv-{{ section.id }} .rv-star--on path { fill: var(--gold); }
@@ -122,7 +151,7 @@
   }
 {%- endstyle -%}
 
-<div class="rv-{{ section.id }}">
+<div class="rv-{{ section.id }}" id="product-reviews" data-rv-root>
   <div class="rv-head">
     {%- if section.settings.eyebrow != blank -%}<div class="rv-eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
     <h2>{{ section.settings.heading }}</h2>
@@ -141,6 +170,48 @@
           {%- endfor -%}
         </span>
         <span class="rv-agg-count">from {{ section.settings.review_count | default: "340+" }} reviews</span>
+      </div>
+    {%- endif -%}
+    {%- liquid
+      assign review_blocks = section.blocks | where: 'type', 'review'
+      assign total_reviews = review_blocks.size
+      assign count_5 = 0
+      assign count_4 = 0
+      assign count_3 = 0
+      assign count_2 = 0
+      assign count_1 = 0
+      for rb in review_blocks
+        case rb.settings.rating
+          when '5'
+            assign count_5 = count_5 | plus: 1
+          when '4'
+            assign count_4 = count_4 | plus: 1
+          when '3'
+            assign count_3 = count_3 | plus: 1
+          when '2'
+            assign count_2 = count_2 | plus: 1
+          when '1'
+            assign count_1 = count_1 | plus: 1
+        endcase
+      endfor
+    -%}
+    {%- if total_reviews > 0 -%}
+      <div class="rv-breakdown">
+        {%- for row in (1..5) reversed -%}
+          {%- case row -%}
+            {%- when 5 -%}{%- assign row_count = count_5 -%}
+            {%- when 4 -%}{%- assign row_count = count_4 -%}
+            {%- when 3 -%}{%- assign row_count = count_3 -%}
+            {%- when 2 -%}{%- assign row_count = count_2 -%}
+            {%- when 1 -%}{%- assign row_count = count_1 -%}
+          {%- endcase -%}
+          {%- assign row_pct = row_count | times: 100 | divided_by: total_reviews -%}
+          <div class="rv-breakdown-row">
+            <span class="rv-breakdown-label">{{ row }} star</span>
+            <span class="rv-breakdown-track"><span class="rv-breakdown-fill" style="--rv-pct: {{ row_pct }}%;"></span></span>
+            <span class="rv-breakdown-count">{{ row_count }}</span>
+          </div>
+        {%- endfor -%}
       </div>
     {%- endif -%}
   </div>
@@ -199,6 +270,21 @@
   if (!root) return;
   var cards = root.querySelectorAll('[data-rv-reveal]');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    root.classList.add('is-breakdown-visible');
+  } else {
+    var breakdownIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          root.classList.add('is-breakdown-visible');
+          breakdownIo.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    breakdownIo.observe(root);
+  }
+
   if (reduce || !('IntersectionObserver' in window)) {
     cards.forEach(function (c) { c.classList.add('is-visible'); });
     return;
