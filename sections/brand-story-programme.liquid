@@ -143,6 +143,12 @@
     });
   }, { threshold: 0.2 });
   io.observe(panel);
+  /* Safety net: force visible after a short delay in case the observer never fires
+     (e.g. theme editor preview iframes). Content must never stay permanently hidden. */
+  setTimeout(function () {
+    panel.classList.add('is-visible');
+    if (line) line.classList.add('is-visible');
+  }, 1200);
 })();
 </script>
 

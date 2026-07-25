@@ -150,6 +150,11 @@
     });
   }, { threshold: 0.15 });
   cards.forEach(function (c) { io.observe(c); });
+  /* Safety net: force visible after a short delay in case the observer never fires
+     (e.g. theme editor preview iframes). Content must never stay permanently hidden. */
+  setTimeout(function () {
+    cards.forEach(function (c) { c.classList.add('is-visible'); });
+  }, 1200);
 
   // 3D tilt-on-mousemove — trading-card style, disabled under reduced-motion or on touch.
   var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;

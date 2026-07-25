@@ -184,6 +184,11 @@
       });
     }, { threshold: 0.15 });
     revealEls.forEach(function(el) { sgIo.observe(el); });
+    /* Safety net: force visible after a short delay in case the observer never fires
+       (e.g. theme editor preview iframes). Content must never stay permanently hidden. */
+    setTimeout(function () {
+      revealEls.forEach(function(el) { el.classList.add('is-visible'); });
+    }, 1200);
   }
 })();
 </script>

@@ -214,6 +214,11 @@
     });
   }, { threshold: 0.12 });
   cards.forEach(function (c) { io.observe(c); });
+  /* Safety net: force visible after a short delay in case the observer never fires
+     (e.g. theme editor preview iframes). Content must never stay permanently hidden. */
+  setTimeout(function () {
+    cards.forEach(function (c) { c.classList.add('is-visible'); });
+  }, 1200);
 })();
 </script>
 

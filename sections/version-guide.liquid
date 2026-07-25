@@ -162,6 +162,9 @@
         });
       }, { threshold: 0.15 });
       vgIo.observe(vgWrap);
+      /* Safety net: force visible after a short delay in case the observer never fires
+         (e.g. theme editor preview iframes). Content must never stay permanently hidden. */
+      setTimeout(function () { vgWrap.classList.add('is-visible'); }, 1200);
     }
   }
 })();

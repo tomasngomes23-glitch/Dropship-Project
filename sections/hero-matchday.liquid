@@ -260,6 +260,12 @@
       });
     }, { threshold: 0.15 });
     revealEls.forEach(function (el) { revealIo.observe(el); });
+    /* Safety net: some contexts (theme editor preview iframes, slow script execution)
+       never fire the observer. Force content visible after a short delay so it can
+       never stay permanently hidden. */
+    setTimeout(function () {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }, 1200);
   }
 })();
 </script>
