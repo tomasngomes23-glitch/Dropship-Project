@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "error": {
+      "type": "error-404"
+    }
+  },
+  "order": ["error"]
+}
