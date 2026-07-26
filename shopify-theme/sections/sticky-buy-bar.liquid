@@ -1,0 +1,50 @@
+{%- liquid
+  assign product = section.settings.product | default: all_products['aurora-cube']
+  assign bundle_qty = 3
+  assign bundle_discount = 0.7
+  assign variant = product.selected_or_first_available_variant
+  assign bundle_price = variant.price | times: bundle_qty | times: bundle_discount | round
+-%}
+{% if product %}
+  <div
+    data-sticky-bar
+    class="panel-slide-y fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-neutral-950/95 backdrop-blur-lg"
+  >
+    <div class="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3 lg:px-8">
+      <img
+        src="{{ 'cube-hero-teal.webp' | asset_url }}"
+        alt="{{ product.title }}"
+        width="40"
+        height="40"
+        class="h-10 w-10 rounded-lg object-cover"
+      />
+      <div class="hidden sm:block">
+        <p class="text-sm font-medium text-white">{{ product.title }}</p>
+        <p class="text-xs text-neutral-500">{{ 'general.sticky_bar.bundle_of' | t: qty: bundle_qty }} &middot; {{ 'general.sticky_bar.save_30' | t }}</p>
+      </div>
+      <div class="ml-auto flex items-center gap-4">
+        <span class="font-display text-lg font-semibold text-white">{{ bundle_price | money }}</span>
+        <div class="relative">
+          <button
+            type="button"
+            data-add-to-cart
+            data-variant-id="{{ variant.id }}"
+            data-quantity="{{ bundle_qty }}"
+            class="rounded-full bg-teal-400 px-6 py-2.5 text-sm font-bold text-neutral-950 transition-transform hover:scale-105 cursor-pointer"
+          >
+            {{ 'general.sticky_bar.add_to_cart' | t }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sticky buy bar",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" }
+  ]
+}
+{% endschema %}

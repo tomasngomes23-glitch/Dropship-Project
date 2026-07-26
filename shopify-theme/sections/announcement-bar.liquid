@@ -1,0 +1,46 @@
+<div class="overflow-hidden border-b border-white/10 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-500 py-2">
+  <div class="animate-marquee flex w-max gap-10">
+    {%- for i in (1..6) -%}
+      {%- for block in section.blocks -%}
+        <span class="whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-neutral-950">
+          {%- if block.type == 'free_shipping' -%}
+            {{ 'general.announcement.free_shipping' | t: qty: settings.free_shipping_qty }}
+          {%- else -%}
+            {{ block.settings.text }}
+          {%- endif -%}
+          <span class="mx-3 opacity-50">✦</span>
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "30 DAY MONEYBACK GUARANTEE" }
+      ]
+    },
+    {
+      "type": "free_shipping",
+      "name": "Free shipping message",
+      "settings": [
+        { "type": "paragraph", "content": "Uses the \"Free shipping from this quantity\" theme setting (Theme settings > Free shipping)." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "30 DAY MONEYBACK GUARANTEE" } },
+      { "type": "free_shipping" },
+      { "type": "message", "settings": { "text": "50% OFF TODAY ONLY" } }
+    ]
+  }
+}
+{% endschema %}

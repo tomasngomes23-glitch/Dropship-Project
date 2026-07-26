@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "redirect": {
+      "type": "redirect-home"
+    }
+  },
+  "order": ["redirect"]
+}

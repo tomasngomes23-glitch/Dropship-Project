@@ -1,0 +1,105 @@
+<footer class="border-t border-white/10 px-5 py-14 lg:px-8">
+  <div class="mx-auto max-w-6xl">
+    <div class="grid gap-10 sm:grid-cols-3">
+      <div>
+        <a href="{{ routes.root_url }}" class="flex items-center gap-2.5">
+          <span class="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400"></span>
+          <span class="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
+            {{ section.settings.brand_name | default: 'Velory' }}
+          </span>
+        </a>
+        <p class="mt-3 max-w-xs text-sm text-neutral-500">
+          {{ section.settings.tagline | default: 'The Aurora Cube — instant ambiance for any room, anywhere.' }}
+        </p>
+        <div class="mt-5 flex gap-3">
+          {% if section.settings.instagram_url != blank %}
+            <a
+              href="{{ section.settings.instagram_url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-all duration-200 hover:scale-110 hover:border-teal-300 hover:text-teal-300 hover:shadow-[0_0_16px_-2px_rgba(45,212,191,0.6)]"
+            >{% render 'icon', name: 'instagram', size: 16 %}</a>
+          {% endif %}
+          {% if section.settings.tiktok_url != blank %}
+            <a
+              href="{{ section.settings.tiktok_url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-all duration-200 hover:scale-110 hover:border-teal-300 hover:text-teal-300 hover:shadow-[0_0_16px_-2px_rgba(45,212,191,0.6)]"
+            >{% render 'icon', name: 'tiktok', size: 16 %}</a>
+          {% endif %}
+          <a
+            href="/pages/contact"
+            aria-label="{{ 'general.footer.message_us' | t }}"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-all duration-200 hover:scale-110 hover:border-teal-300 hover:text-teal-300 hover:shadow-[0_0_16px_-2px_rgba(45,212,191,0.6)]"
+          >{% render 'icon', name: 'message-circle', size: 16 %}</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-white">{{ 'general.footer.customer_care' | t }}</p>
+        <ul class="mt-4 space-y-2.5">
+          <li><a href="/pages/track-order" class="inline-block text-sm text-neutral-500 transition-all duration-200 hover:translate-x-1 hover:text-white">{{ 'general.footer.track_order' | t }}</a></li>
+          <li><a href="/pages/contact" class="inline-block text-sm text-neutral-500 transition-all duration-200 hover:translate-x-1 hover:text-white">{{ 'general.footer.contact' | t }}</a></li>
+          <li><a href="{{ shop.refund_policy.url }}" class="inline-block text-sm text-neutral-500 transition-all duration-200 hover:translate-x-1 hover:text-white">{{ 'general.footer.refund_policy' | t }}</a></li>
+          <li><a href="{{ shop.shipping_policy.url }}" class="inline-block text-sm text-neutral-500 transition-all duration-200 hover:translate-x-1 hover:text-white">{{ 'general.footer.shipping_policy' | t }}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-white">{{ 'general.footer.why_choose_us' | t }}</p>
+        <ul class="mt-4 space-y-2.5">
+          {% for block in section.blocks %}
+            <li class="flex items-center gap-2 text-sm text-neutral-500">
+              {% render 'icon', name: 'check', size: 14, class: 'shrink-0 text-teal-400' %}
+              {{ block.settings.text }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-neutral-600 sm:flex-row">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: 'Velory' }}. {{ 'general.footer.rights' | t }}</p>
+      <div class="flex gap-5">
+        <a href="{{ shop.privacy_policy.url }}" class="hover:text-neutral-400">{{ 'general.footer.privacy_policy' | t }}</a>
+        <a href="{{ shop.terms_of_service.url }}" class="hover:text-neutral-400">{{ 'general.footer.terms_of_service' | t }}</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Velory" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "The Aurora Cube — instant ambiance for any room, anywhere." },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Why choose us item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free Shipping" }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {
+      "instagram_url": "https://instagram.com/velorystore_com",
+      "tiktok_url": "https://tiktok.com/@velorystore.com"
+    },
+    "blocks": [
+      { "type": "reason", "settings": { "text": "Free Shipping" } },
+      { "type": "reason", "settings": { "text": "100% Satisfaction Guarantee" } },
+      { "type": "reason", "settings": { "text": "24/7 Customer Support" } },
+      { "type": "reason", "settings": { "text": "Secure Payments" } }
+    ]
+  }
+}
+{% endschema %}

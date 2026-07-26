@@ -1,0 +1,48 @@
+<header
+  data-header
+  class="relative bg-transparent transition-colors duration-300"
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
+    <a href="{{ routes.root_url }}" class="group flex items-center gap-2.5">
+      <span class="h-3 w-3 rotate-45 rounded-[3px] bg-gradient-to-br from-teal-300 to-fuchsia-400 transition-transform duration-300 group-hover:rotate-[225deg] group-hover:scale-110"></span>
+      <span class="font-display text-[15px] font-medium uppercase tracking-[0.2em] text-white">
+        {{ section.settings.brand_name | default: 'Velory' }}
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      <a href="{{ routes.root_url }}" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.home' | t }}</a>
+      <a href="{{ routes.root_url }}#reviews" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.reviews' | t }}</a>
+      <a href="{{ routes.root_url }}#faq" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.faq' | t }}</a>
+      <a href="/pages/track-order" class="text-sm text-neutral-300 hover:text-white">{{ 'general.nav.track_order' | t }}</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      {% if localization.available_countries.size > 1 %}
+        {% render 'currency-selector' %}
+      {% endif %}
+
+      <button
+        type="button"
+        data-cart-toggle
+        class="relative flex h-10 w-10 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+        aria-label="{{ 'general.cart.open_cart' | t }}"
+      >
+        {% render 'icon', name: 'shopping-bag', size: 18 %}
+        <span
+          data-cart-count
+          class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal-400 px-1 text-[11px] font-bold text-neutral-950{% if cart.item_count == 0 %} hidden{% endif %}"
+        >{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Velory" }
+  ]
+}
+{% endschema %}

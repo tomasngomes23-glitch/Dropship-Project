@@ -1,0 +1,17 @@
+<section class="px-5 pb-32 pt-16 lg:px-8 lg:pt-20">
+  <div class="mx-auto max-w-3xl">
+    <h1 class="font-display text-4xl font-bold text-white sm:text-5xl">
+      {{ shop.policy.title }}
+    </h1>
+    <div class="policy-body mt-8 text-neutral-300">
+      {{ shop.policy.body }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Policy page",
+  "settings": []
+}
+{% endschema %}

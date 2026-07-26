@@ -1,0 +1,715 @@
+// Velory theme JS — vanilla replacements for what Framer Motion did in the
+// React version. Each section below is self-contained; sections wire up
+// their own extra behavior (cart, accordion, counters, etc.) but share the
+// two globals here: cursor glow + scroll-reveal.
+
+(function () {
+  "use strict";
+
+  // Shopify CLI's live reload can re-inject/re-execute this script without a
+  // full page navigation while iterating locally. Without this guard, every
+  // re-execution would attach a second, third, ... set of event listeners,
+  // each tracking its own stale copy of the cart state — the qty stepper
+  // would then fire multiple conflicting /cart/change.js requests per click.
+  if (window.__veloryThemeJsLoaded) return;
+  window.__veloryThemeJsLoaded = true;
+
+  /* ---------------------------------------------------------------------
+   * Scroll-reveal: replaces Framer Motion's `whileInView` fade/slide-up.
+   * Any element with [data-reveal] starts hidden (via CSS) and gets
+   * .is-visible added the first time it scrolls into view. An optional
+   * data-reveal-delay="150" (ms) staggers entrances, matching the index*
+   * delay pattern used throughout the React components.
+   * ------------------------------------------------------------------- */
+  function initScrollReveal() {
+    var els = document.querySelectorAll("[data-reveal]");
+    if (!els.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var delay = el.getAttribute("data-reveal-delay");
+          if (delay) el.style.setProperty("--reveal-delay", delay + "ms");
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        });
+      },
+      { rootMargin: "-80px 0px", threshold: 0.05 },
+    );
+
+    els.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Cursor glow: soft radial-gradient blob that trails the mouse with lag,
+   * desktop/fine-pointer only. Ported near-verbatim from CursorGlow.tsx —
+   * same rAF + lerp technique, just direct DOM instead of a React ref.
+   * ------------------------------------------------------------------- */
+  function initCursorGlow() {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    var el = document.querySelector("[data-cursor-glow]");
+    if (!el) return;
+
+    var raf = 0;
+    var x = window.innerWidth / 2;
+    var y = window.innerHeight / 2;
+    var targetX = x;
+    var targetY = y;
+
+    function onMove(e) {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    }
+
+    function tick() {
+      x += (targetX - x) * 0.12;
+      y += (targetY - y) * 0.12;
+      el.style.transform = "translate3d(" + x + "px, " + y + "px, 0) translate(-50%, -50%)";
+      raf = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("mousemove", onMove);
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Money formatting — mirrors Shopify's shop.money_format (e.g. "{{amount}}
+   * kr"), so cart numbers rendered by JS match what Liquid renders on load.
+   * ------------------------------------------------------------------- */
+  function formatMoney(cents, format) {
+    format = format || (window.theme && window.theme.moneyFormat) || "{{amount}} kr";
+    var value = (cents / 100).toFixed(2);
+    var noDecimals = Math.round(cents / 100).toString();
+    var withComma = value.replace(".", ",");
+    var noDecimalsWithComma = noDecimals;
+    return format
+      .replace(/\{\{\s*amount_no_decimals_with_comma_separator\s*\}\}/g, noDecimalsWithComma)
+      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, withComma)
+      .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, noDecimals)
+      .replace(/\{\{\s*amount\s*\}\}/g, value);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Header: adds a blurred background past 8px of scroll — replaces the
+   * `scrolled` state + conditional className in Navbar.tsx.
+   * ------------------------------------------------------------------- */
+  function initHeaderScroll() {
+    var header = document.querySelector("[data-header]");
+    if (!header) return;
+    function onScroll() {
+      var scrolled = window.scrollY > 8;
+      header.classList.toggle("bg-neutral-950/85", scrolled);
+      header.classList.toggle("backdrop-blur-lg", scrolled);
+      header.classList.toggle("border-b", scrolled);
+      header.classList.toggle("border-white/10", scrolled);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---------------------------------------------------------------------
+   * Sticky buy bar: visible once scrolled past the hero, hidden again once
+   * the footer scrolls into view — same thresholds as StickyBuyBar.tsx.
+   * ------------------------------------------------------------------- */
+  function initStickyBar() {
+    var bar = document.querySelector("[data-sticky-bar]");
+    if (!bar) return;
+    var footer = document.querySelector("footer");
+
+    function onScroll() {
+      var pastHero = window.scrollY > 700;
+      var overFooter = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
+      var visible = pastHero && !overFooter;
+      if (visible) {
+        bar.setAttribute("data-open", "");
+      } else {
+        bar.removeAttribute("data-open");
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  }
+
+  /* ---------------------------------------------------------------------
+   * Sparkle burst — 12-particle fly-out effect on Add to Cart, ported from
+   * SparkleBurst.tsx (same trig-based random positions/colors/timing).
+   * ------------------------------------------------------------------- */
+  var SPARKLE_COLORS = ["#5eead4", "#a855f7", "#f472b6", "#facc15", "#38bdf8"];
+
+  function fireSparkleBurst(originEl) {
+    if (!originEl) return;
+    var rect = originEl.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + rect.height / 2;
+
+    for (var i = 0; i < 12; i++) {
+      var angle = (Math.PI * 2 * i) / 12 + (Math.random() - 0.5) * 0.4;
+      var distance = 60 + Math.random() * 60;
+      var tx = Math.cos(angle) * distance;
+      var ty = Math.sin(angle) * distance;
+      var delay = Math.random() * 0.15;
+      var color = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+
+      var span = document.createElement("span");
+      span.setAttribute("aria-hidden", "true");
+      span.style.cssText =
+        "position:fixed;left:" +
+        originX +
+        "px;top:" +
+        originY +
+        "px;width:6px;height:6px;border-radius:9999px;pointer-events:none;z-index:60;" +
+        "background:" +
+        color +
+        ";--tx:" +
+        tx +
+        "px;--ty:" +
+        ty +
+        "px;animation:sparkle-out 0.6s ease-out " +
+        delay +
+        "s forwards;";
+      document.body.appendChild(span);
+      span.addEventListener("animationend", function () {
+        this.remove();
+      });
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+   * Cart: native AJAX Cart API (/cart/add.js, /cart/change.js, /cart.js)
+   * replaces the entire Storefront-API CartContext.tsx. Quantity naturally
+   * accumulates per variant on repeated /cart/add.js calls, same as the
+   * React version's manual qtyRef accumulation — no extra bookkeeping
+   * needed here.
+   * ------------------------------------------------------------------- */
+  function initCart() {
+    var backdrop = document.querySelector("[data-cart-backdrop]");
+    var drawer = document.querySelector("[data-cart-drawer]");
+    if (!drawer) return;
+
+    function openCart() {
+      if (backdrop) backdrop.setAttribute("data-open", "");
+      drawer.setAttribute("data-open", "");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCart() {
+      if (backdrop) backdrop.removeAttribute("data-open");
+      drawer.removeAttribute("data-open");
+      document.body.style.overflow = "";
+    }
+
+    var primaryVariantId = drawer.getAttribute("data-primary-variant-id");
+    var currentLineQty = 0;
+    var lastCart = null;
+
+    // The bundle discount app prices each cart line's quantity against its
+    // own tier (1/2/3), so a single line can't just grow past 3 and still
+    // get the right discount. Past 3, new units go into a new line (tagged
+    // with a distinct _bundle_group property so Shopify keeps it separate
+    // instead of merging it back into the first line) and that new line
+    // fills up to 3 itself before another one starts.
+    function findBundleLines(cart) {
+      var lines = [];
+      if (!primaryVariantId) return lines;
+      for (var i = 0; i < cart.items.length; i++) {
+        if (String(cart.items[i].variant_id) === String(primaryVariantId)) lines.push(cart.items[i]);
+      }
+      return lines;
+    }
+
+    function renderCart(cart) {
+      lastCart = cart;
+      var bundleLines = findBundleLines(cart);
+      var primaryLine = bundleLines[0] || cart.items[0];
+      currentLineQty = bundleLines.reduce(function (sum, l) {
+        return sum + l.quantity;
+      }, 0);
+      var badge = document.querySelector("[data-cart-count]");
+      if (badge) {
+        badge.textContent = cart.item_count;
+        badge.classList.toggle("hidden", cart.item_count === 0);
+      }
+
+      var empty = document.querySelector("[data-cart-empty]");
+      var filled = document.querySelector("[data-cart-filled]");
+      if (empty) empty.classList.toggle("hidden", cart.item_count > 0);
+      if (filled) filled.classList.toggle("hidden", cart.item_count === 0);
+      if (cart.item_count === 0) return;
+
+      var progressWrap = document.querySelector("[data-cart-shipping-progress]");
+      if (progressWrap) {
+        var freeShippingQty = parseInt(progressWrap.getAttribute("data-free-shipping-qty") || "3", 10);
+        var progressLabel = document.querySelector("[data-shipping-progress-label]");
+        if (progressLabel) {
+          if (cart.item_count >= freeShippingQty) {
+            progressLabel.textContent = progressLabel.getAttribute("data-unlocked-label") || "";
+          } else {
+            var remaining = freeShippingQty - cart.item_count;
+            var progressTemplate = progressLabel.getAttribute("data-progress-label") || "";
+            progressLabel.textContent = progressTemplate.replace("__COUNT__", remaining);
+          }
+        }
+        var progressBar = document.querySelector("[data-shipping-progress-bar]");
+        if (progressBar) {
+          var progressPct = Math.min((cart.item_count / freeShippingQty) * 100, 100);
+          progressBar.style.width = progressPct + "%";
+        }
+      }
+
+      var line = primaryLine;
+      var qtyLabel = document.querySelector("[data-cart-qty-label]");
+      if (qtyLabel) {
+        var singleLabel = qtyLabel.getAttribute("data-single-label") || "Single";
+        var qtyTemplate = qtyLabel.getAttribute("data-qty-label") || "Bundle of __COUNT__";
+        qtyLabel.textContent =
+          currentLineQty === 1 ? singleLabel : qtyTemplate.replace("__COUNT__", currentLineQty);
+      }
+
+      var qtyNumberEl = document.querySelector("[data-cart-qty-number]");
+      if (qtyNumberEl) qtyNumberEl.textContent = currentLineQty;
+
+      var priceEl = document.querySelector("[data-cart-price]");
+      if (priceEl) priceEl.textContent = formatMoney(cart.total_price);
+
+      var subtotalEl = document.querySelector("[data-cart-subtotal]");
+      if (subtotalEl) subtotalEl.textContent = formatMoney(cart.total_price);
+
+      var hasSavings = cart.original_total_price > cart.total_price;
+      var compareEl = document.querySelector("[data-cart-compare]");
+      if (compareEl) {
+        compareEl.textContent = formatMoney(cart.original_total_price);
+        compareEl.classList.toggle("hidden", !hasSavings);
+      }
+      var savingsEl = document.querySelector("[data-cart-savings]");
+      if (savingsEl) {
+        savingsEl.textContent = formatMoney(cart.original_total_price - cart.total_price);
+        savingsEl.closest("div").classList.toggle("hidden", !hasSavings);
+      }
+    }
+
+    function fetchCart() {
+      return fetch("/cart.js").then(function (r) {
+        return r.json();
+      });
+    }
+
+    function addToCart(variantId, quantity, triggerEl) {
+      return fetch("/cart/add.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] }),
+      })
+        .then(function () {
+          if (triggerEl) fireSparkleBurst(triggerEl);
+          return fetchCart();
+        })
+        .then(function (cart) {
+          renderCart(cart);
+          openCart();
+        })
+        .catch(function (err) {
+          console.error("Add to cart failed", err);
+        });
+    }
+
+    function clearCart() {
+      fetch("/cart/clear.js", { method: "POST", headers: { Accept: "application/json" } })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(renderCart);
+    }
+
+    var qtyChangeInFlight = false;
+
+    function changeLineByKey(key, newQuantity) {
+      if (qtyChangeInFlight) return;
+      qtyChangeInFlight = true;
+      fetch("/cart/change.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ id: key, quantity: newQuantity }),
+      })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (cart) {
+          qtyChangeInFlight = false;
+          renderCart(cart);
+        })
+        .catch(function (err) {
+          qtyChangeInFlight = false;
+          console.error("Change quantity failed", err);
+        });
+    }
+
+    function addBundleGroup(groupNumber) {
+      if (qtyChangeInFlight || !primaryVariantId) return;
+      qtyChangeInFlight = true;
+      fetch("/cart/add.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          items: [{ id: primaryVariantId, quantity: 1, properties: { _bundle_group: String(groupNumber) } }],
+        }),
+      })
+        .then(function () {
+          return fetchCart();
+        })
+        .then(function (cart) {
+          qtyChangeInFlight = false;
+          renderCart(cart);
+        })
+        .catch(function (err) {
+          qtyChangeInFlight = false;
+          console.error("Add bundle group failed", err);
+        });
+    }
+
+    function incrementBundle() {
+      if (qtyChangeInFlight || !lastCart) return;
+      var bundleLines = findBundleLines(lastCart);
+      var lastLine = bundleLines[bundleLines.length - 1];
+      if (lastLine && lastLine.quantity < 3) {
+        changeLineByKey(lastLine.key, lastLine.quantity + 1);
+      } else {
+        addBundleGroup(bundleLines.length + 1);
+      }
+    }
+
+    function decrementBundle() {
+      if (qtyChangeInFlight || !lastCart) return;
+      var bundleLines = findBundleLines(lastCart);
+      var lastLine = bundleLines[bundleLines.length - 1];
+      if (!lastLine) return;
+      changeLineByKey(lastLine.key, Math.max(lastLine.quantity - 1, 0));
+    }
+
+    document.addEventListener("click", function (e) {
+      var addBtn = e.target.closest("[data-add-to-cart]");
+      if (addBtn) {
+        var variantId = addBtn.getAttribute("data-variant-id");
+        var quantity = parseInt(addBtn.getAttribute("data-quantity") || "1", 10);
+        if (variantId) addToCart(variantId, quantity, addBtn);
+        return;
+      }
+
+      if (e.target.closest("[data-cart-toggle]")) {
+        openCart();
+        return;
+      }
+
+      if (e.target.closest("[data-cart-close]") || e.target === backdrop) {
+        closeCart();
+        return;
+      }
+
+      if (e.target.closest("[data-cart-clear]")) {
+        clearCart();
+        return;
+      }
+
+      if (e.target.closest("[data-qty-decrease]")) {
+        decrementBundle();
+        return;
+      }
+
+      if (e.target.closest("[data-qty-increase]")) {
+        incrementBundle();
+      }
+    });
+
+    // Keep the header badge in sync with whatever the cart already holds
+    // when the page loads (e.g. after a full navigation/reload).
+    fetchCart().then(renderCart);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Hero bundle selector — clicking Buy 1/2/3 swaps the displayed price,
+   * compare-at, savings badge, and the Add to Cart button's quantity.
+   * Mirrors Hero.tsx's `selected` state, just without React re-rendering.
+   * ------------------------------------------------------------------- */
+  var SELECTED_CLASSES = ["border-teal-400", "bg-teal-400/10", "shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"];
+  var DEFAULT_CLASSES = ["border-white/10", "bg-white/[0.03]", "hover:border-white/25"];
+
+  function initBundleSelector() {
+    var buttons = document.querySelectorAll("[data-bundle-btn]");
+    if (!buttons.length) return;
+
+    var priceDisplay = document.querySelector("[data-price-display]");
+    var compareDisplay = document.querySelector("[data-compare-display]");
+    var saveBadge = document.querySelector("[data-save-badge]");
+    var ctaPrice = document.querySelector("[data-cta-price]");
+    var addToCartBtn = document.querySelector("[data-add-to-cart]");
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        buttons.forEach(function (b) {
+          b.classList.remove.apply(b.classList, SELECTED_CLASSES);
+          b.classList.add.apply(b.classList, DEFAULT_CLASSES);
+        });
+        btn.classList.remove.apply(btn.classList, DEFAULT_CLASSES);
+        btn.classList.add.apply(btn.classList, SELECTED_CLASSES);
+
+        var price = formatMoney(parseInt(btn.getAttribute("data-price"), 10));
+        if (priceDisplay) priceDisplay.textContent = price;
+        if (ctaPrice) ctaPrice.textContent = price;
+        if (compareDisplay) compareDisplay.textContent = formatMoney(parseInt(btn.getAttribute("data-compare"), 10));
+        if (saveBadge) saveBadge.textContent = btn.getAttribute("data-save-label");
+        if (addToCartBtn) addToCartBtn.setAttribute("data-quantity", btn.getAttribute("data-qty"));
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Stats count-up — replaces StatsSection.tsx's Counter (useInView + rAF,
+   * same 1200ms cubic ease-out).
+   * ------------------------------------------------------------------- */
+  function initCounters() {
+    var counters = document.querySelectorAll("[data-counter]");
+    if (!counters.length) return;
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute("data-counter-target"), 10) || 0;
+      var duration = 1200;
+      var start = performance.now();
+
+      function tick(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var value = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+        el.textContent = value + "%";
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      counters.forEach(animateCounter);
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "-40px 0px" },
+    );
+    counters.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * FAQ accordion — one item open at a time, first one open by default.
+   * Height animation is pure CSS (accordion-rows grid-template-rows
+   * trick); this just toggles data-open and the border/icon states.
+   * ------------------------------------------------------------------- */
+  function initFaqAccordion() {
+    var items = document.querySelectorAll("[data-faq-item]");
+    if (!items.length) return;
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector("[data-faq-trigger]");
+      var panel = item.querySelector("[data-faq-panel]");
+      var icon = item.querySelector("[data-faq-icon]");
+
+      trigger.addEventListener("click", function () {
+        var isOpen = panel.hasAttribute("data-open");
+
+        items.forEach(function (other) {
+          var otherPanel = other.querySelector("[data-faq-panel]");
+          var otherIcon = other.querySelector("[data-faq-icon]");
+          otherPanel.removeAttribute("data-open");
+          otherIcon.classList.remove("rotate-45");
+          other.classList.remove("border-teal-400/30");
+          other.classList.add("border-white/10");
+        });
+
+        if (!isOpen) {
+          panel.setAttribute("data-open", "");
+          icon.classList.add("rotate-45");
+          item.classList.remove("border-white/10");
+          item.classList.add("border-teal-400/30");
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Track Order — embeds the 17TRACK widget in-page (ported from
+   * TrackOrder.tsx: lazy-load externalcall.js once, then call
+   * YQV5.trackSingle() with the entered number). Falls back to a direct
+   * 17TRACK link if the script fails to load (e.g. blocked by an
+   * ad-blocker), same as the React version.
+   * ------------------------------------------------------------------- */
+  var trackWidgetScriptPromise = null;
+
+  function loadTrackWidgetScript() {
+    if (!trackWidgetScriptPromise) {
+      trackWidgetScriptPromise = new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = "https://www.17track.net/externalcall.js";
+        script.async = true;
+        script.onload = function () {
+          resolve();
+        };
+        script.onerror = function () {
+          reject(new Error("Failed to load 17TRACK widget"));
+        };
+        document.body.appendChild(script);
+      });
+    }
+    return trackWidgetScriptPromise;
+  }
+
+  function initTrackOrder() {
+    var form = document.querySelector("[data-track-form]");
+    if (!form) return;
+    var input = form.querySelector("[data-track-input]");
+    var resultBox = document.querySelector("[data-track-result]");
+    var errorBox = document.querySelector("[data-track-error]");
+    var widgetContainer = document.querySelector("[data-track-widget]");
+    var fallbackLink = document.querySelector("[data-track-fallback-link]");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var num = input.value.trim();
+      if (!num) return;
+
+      resultBox.classList.remove("hidden");
+      errorBox.classList.add("hidden");
+      widgetContainer.classList.remove("hidden");
+
+      loadTrackWidgetScript()
+        .then(function () {
+          requestAnimationFrame(function () {
+            if (window.YQV5) {
+              window.YQV5.trackSingle({
+                YQ_ContainerId: "track-order-widget",
+                YQ_Height: 420,
+                YQ_Fc: "0",
+                YQ_Lang: "en",
+                YQ_Num: num,
+              });
+            }
+          });
+        })
+        .catch(function () {
+          widgetContainer.classList.add("hidden");
+          errorBox.classList.remove("hidden");
+          if (fallbackLink) {
+            fallbackLink.href = "https://www.17track.net/en/track?nums=" + encodeURIComponent(num);
+          }
+        });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Currency/country selector — custom-styled dropdown (with search) that
+   * drives a visually-hidden native <select> so Shopify's native
+   * {% form 'localization' %} submission keeps working unchanged.
+   * ------------------------------------------------------------------- */
+  function initCurrencySelector() {
+    var wrapper = document.querySelector("[data-currency-dropdown]");
+    if (!wrapper) return;
+
+    var toggle = wrapper.querySelector("[data-currency-toggle]");
+    var panel = wrapper.querySelector("[data-currency-panel]");
+    var select = wrapper.querySelector("[data-currency-native-select]");
+    var search = wrapper.querySelector("[data-currency-search]");
+    var options = wrapper.querySelectorAll("[data-currency-option]");
+    var noResults = wrapper.querySelector("[data-currency-no-results]");
+    var chevron = toggle.querySelector("svg");
+
+    function openPanel() {
+      panel.classList.remove("invisible", "scale-95", "opacity-0");
+      panel.classList.add("scale-100", "opacity-100");
+      if (chevron) chevron.classList.add("rotate-180");
+      if (search) {
+        search.value = "";
+        filterOptions("");
+        search.focus();
+      }
+    }
+
+    function closePanel() {
+      panel.classList.add("invisible", "scale-95", "opacity-0");
+      panel.classList.remove("scale-100", "opacity-100");
+      if (chevron) chevron.classList.remove("rotate-180");
+    }
+
+    function isOpen() {
+      return !panel.classList.contains("invisible");
+    }
+
+    function filterOptions(query) {
+      query = query.trim().toLowerCase();
+      var anyVisible = false;
+      options.forEach(function (opt) {
+        var match = !query || opt.getAttribute("data-search").indexOf(query) !== -1;
+        opt.classList.toggle("hidden", !match);
+        if (match) anyVisible = true;
+      });
+      if (noResults) noResults.classList.toggle("hidden", anyVisible);
+    }
+
+    toggle.addEventListener("click", function () {
+      if (isOpen()) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (isOpen() && !wrapper.contains(e.target)) closePanel();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen()) closePanel();
+    });
+
+    if (search) {
+      search.addEventListener("input", function () {
+        filterOptions(search.value);
+      });
+    }
+
+    options.forEach(function (opt) {
+      opt.addEventListener("click", function () {
+        select.value = opt.getAttribute("data-value");
+        select.dispatchEvent(new Event("change"));
+        select.form.submit();
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initScrollReveal();
+    initCursorGlow();
+    initHeaderScroll();
+    initStickyBar();
+    initCart();
+    initBundleSelector();
+    initCounters();
+    initFaqAccordion();
+    initTrackOrder();
+    initCurrencySelector();
+  });
+})();

@@ -1,0 +1,203 @@
+{%- liquid
+  assign product = section.settings.product | default: all_products['aurora-cube']
+  assign variant = product.selected_or_first_available_variant
+  assign unit_price = variant.price
+  assign unit_compare_at = variant.compare_at_price | default: variant.price
+
+  assign price_1 = unit_price
+  assign compare_1 = unit_compare_at
+  assign price_2 = unit_price | times: 2 | times: 0.8 | round
+  assign base_2 = unit_compare_at | times: 2
+  assign price_3 = unit_price | times: 3 | times: 0.7 | round
+  assign base_3 = unit_compare_at | times: 3
+
+  assign save_pct_1 = compare_1 | minus: price_1 | times: 100.0 | divided_by: compare_1 | round
+  assign save_pct_2 = base_2 | minus: price_2 | times: 100.0 | divided_by: base_2 | round
+  assign save_pct_3 = base_3 | minus: price_3 | times: 100.0 | divided_by: base_3 | round
+-%}
+<section id="top" class="relative overflow-hidden px-5 pb-8 pt-6 lg:px-8 lg:pb-10 lg:pt-8">
+  <div class="pointer-events-none absolute inset-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+    <div
+      class="absolute -left-20 -top-32 h-[36rem] w-[36rem] rounded-full blur-3xl xl:-left-10"
+      style="animation: blob-shift-a 12s ease-in-out infinite;"
+    ></div>
+    <div
+      class="absolute -right-20 bottom-16 h-[32rem] w-[32rem] rounded-full blur-3xl xl:-right-10"
+      style="animation: blob-shift-b 10s ease-in-out infinite; animation-delay: 1s;"
+    ></div>
+    <div
+      class="absolute left-1/2 top-1/3 hidden h-[40rem] w-[60rem] -translate-x-1/2 rounded-full blur-3xl 2xl:block"
+      style="animation: blob-shift-c 14s ease-in-out infinite; animation-delay: 0.5s;"
+    ></div>
+  </div>
+
+  {%- comment -%}
+    The blobs above are contained within this section, so they'd otherwise
+    stop dead at its bottom edge — a hard-looking seam against the next
+    section's plain background. This fades them out first instead.
+  {%- endcomment -%}
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-neutral-950"></div>
+
+  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+    <div
+      data-reveal="scale"
+      class="relative order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-lg xl:max-w-2xl"
+    >
+      {%- assign stars = '6,8,3,0|14,88,2,0.6|28,2,2,1.2|40,94,3,0.3|58,4,2,1.8|72,90,2,0.9|86,10,3,1.5|92,80,2,0.2' | split: '|' -%}
+      {%- for s in stars -%}
+        {%- assign parts = s | split: ',' -%}
+        <span
+          class="absolute hidden rounded-full bg-white lg:block"
+          style="top: {{ parts[0] }}%; left: {{ parts[1] }}%; width: {{ parts[2] }}px; height: {{ parts[2] }}px; animation: twinkle 3s ease-in-out infinite; animation-delay: {{ parts[3] }}s;"
+        ></span>
+      {%- endfor -%}
+
+      <div
+        class="group relative overflow-hidden rounded-[2rem] shadow-[0_0_80px_-10px_rgba(45,212,191,0.4)] transition-shadow duration-300 hover:shadow-[0_0_100px_-5px_rgba(45,212,191,0.6)]"
+        style="animation: float-y 5s ease-in-out infinite; --float-distance: -14px;"
+      >
+        <img
+          src="{{ 'cube-hero-teal.webp' | asset_url }}"
+          alt="{{ product.featured_image.alt | default: 'Aurora Cube a projetar luz teal num quarto escuro' }}"
+          width="1024"
+          height="1024"
+          class="w-full transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    </div>
+
+    <div class="order-2 lg:order-1">
+      <div data-reveal class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-300">
+        <div class="flex text-amber-400">
+          {% for i in (1..5) %}{% render 'icon', name: 'star', size: 12, class: 'fill-current' %}{% endfor %}
+        </div>
+        4.8/5 &middot; 10,000+ Verified Customers
+      </div>
+
+      <h1 data-reveal data-reveal-delay="100" class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+        {{ product.title | default: 'Aurora Cube' }}
+      </h1>
+      <p data-reveal data-reveal-delay="150" class="mt-2 text-lg text-neutral-400">
+        {{ section.settings.subtitle | default: 'The crystal-glass light that turns any room into an aurora borealis.' }}
+      </p>
+
+      <ul data-reveal data-reveal-delay="300" class="mt-6 flex flex-col gap-2">
+        {% for block in section.blocks %}
+          {% if block.type == 'value_prop' %}
+            <li class="flex items-center gap-2 text-sm text-neutral-200">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-400/15 text-teal-300">
+                {% render 'icon', name: 'check', size: 12 %}
+              </span>
+              {{ block.settings.text }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div data-reveal data-reveal-delay="350" class="relative mt-9">
+        <div
+          class="pointer-events-none absolute -inset-x-10 -inset-y-12 -z-10 rounded-full bg-teal-400/20 blur-[70px]"
+          style="animation: price-glow-pulse 3s ease-in-out infinite;"
+        ></div>
+
+        <div class="flex items-baseline gap-3">
+          <span data-price-display class="font-display text-5xl font-bold text-white sm:text-6xl">{{ price_3 | money }}</span>
+          <span data-compare-display class="text-lg text-neutral-500 line-through">{{ base_3 | money }}</span>
+        </div>
+        <span data-save-badge class="mt-2 inline-flex items-center rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-semibold text-red-400">
+          {{ 'general.hero.save_today' | t: percent: save_pct_3 }}
+        </span>
+
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <button
+            type="button"
+            data-bundle-btn
+            data-qty="1"
+            data-price="{{ price_1 }}"
+            data-compare="{{ compare_1 }}"
+            data-save-label="{{ 'general.hero.save_today' | t: percent: save_pct_1 }}"
+            class="relative rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-3 text-left transition-all cursor-pointer hover:border-white/25 hover:scale-[1.03]"
+          >
+            <p class="text-xs font-semibold text-white">{{ 'general.hero.buy_1' | t }}</p>
+            <p class="mt-1 text-sm font-bold text-teal-300">{{ price_1 | money }}</p>
+          </button>
+          <button
+            type="button"
+            data-bundle-btn
+            data-qty="2"
+            data-price="{{ price_2 }}"
+            data-compare="{{ base_2 }}"
+            data-save-label="{{ 'general.hero.save_today' | t: percent: save_pct_2 }}"
+            class="relative rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-3 text-left transition-all cursor-pointer hover:border-white/25 hover:scale-[1.03]"
+          >
+            <p class="text-xs font-semibold text-white">{{ 'general.hero.buy_2' | t }}</p>
+            <p class="mt-1 text-sm font-bold text-teal-300">{{ price_2 | money }}</p>
+            <p class="text-[11px] text-neutral-400">{{ 'general.hero.save_short' | t: percent: save_pct_2 }}</p>
+          </button>
+          <button
+            type="button"
+            data-bundle-btn
+            data-qty="3"
+            data-price="{{ price_3 }}"
+            data-compare="{{ base_3 }}"
+            data-save-label="{{ 'general.hero.save_today' | t: percent: save_pct_3 }}"
+            data-selected="true"
+            class="relative rounded-2xl border border-teal-400 bg-teal-400/10 px-3 py-3 text-left transition-all cursor-pointer shadow-[0_0_0_1px_rgba(45,212,191,0.5)]"
+          >
+            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal-400 px-2 py-0.5 text-[10px] font-bold text-neutral-950">
+              {{ 'general.hero.most_popular' | t }}
+            </span>
+            <p class="text-xs font-semibold text-white">{{ 'general.hero.buy_3' | t }}</p>
+            <p class="mt-1 text-sm font-bold text-teal-300">{{ price_3 | money }}</p>
+            <p class="text-[11px] text-neutral-400">{{ 'general.hero.save_short' | t: percent: save_pct_3 }}</p>
+          </button>
+        </div>
+
+        <div class="relative mt-6">
+          <button
+            type="button"
+            data-add-to-cart
+            data-variant-id="{{ variant.id }}"
+            data-quantity="3"
+            style="animation: glow-pulse 2s ease-in-out infinite;"
+            class="w-full rounded-full bg-teal-400 py-5 text-base font-extrabold uppercase tracking-wide text-neutral-950 cursor-pointer transition-transform active:scale-[0.96] hover:scale-[1.02]"
+          >
+            {{ 'general.hero.add_to_cart' | t }} &mdash; <span data-cta-price>{{ price_3 | money }}</span>
+          </button>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-neutral-400">
+          <span class="flex items-center gap-1.5 transition-colors duration-200 hover:text-teal-300">{% render 'icon', name: 'truck', size: 14 %} {{ 'general.hero.free_shipping' | t }}</span>
+          <span class="flex items-center gap-1.5 transition-colors duration-200 hover:text-teal-300">{% render 'icon', name: 'shield-check', size: 14 %} {{ 'general.hero.guarantee_30' | t }}</span>
+          <span class="flex items-center gap-1.5 transition-colors duration-200 hover:text-teal-300">{% render 'icon', name: 'check', size: 14 %} {{ 'general.hero.support_247' | t }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "The crystal-glass light that turns any room into an aurora borealis." }
+  ],
+  "blocks": [
+    {
+      "type": "value_prop",
+      "name": "Value prop",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Transform any room into a dreamy escape" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "value_prop", "settings": { "text": "Transform any room into a dreamy escape" } },
+      { "type": "value_prop", "settings": { "text": "16 colors to match your every mood" } },
+      { "type": "value_prop", "settings": { "text": "Instant ambiance with one click" } }
+    ]
+  }
+}
+{% endschema %}

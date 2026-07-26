@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "track-order": { "type": "track-order" }
+  },
+  "order": ["track-order"]
+}
