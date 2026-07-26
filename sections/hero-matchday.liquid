@@ -89,21 +89,21 @@
   .hero-mp-{{ section.id }} .hero-mp-dot--bl { top: 97%; left: 0%; }
   .hero-mp-{{ section.id }} .hero-mp-dot--tr { top: 3%; left: 100%; }
   .hero-mp-{{ section.id }} .hero-mp-dot--br { top: 97%; left: 100%; }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-mp-{{ section.id }} .hero-mp-dot--tl {
-      animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
-    }
-    .hero-mp-{{ section.id }} .hero-mp-dot--bl {
-      animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
-      animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BL corner */
-    }
-    .hero-mp-{{ section.id }} .hero-mp-dot--tr {
-      animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
-    }
-    .hero-mp-{{ section.id }} .hero-mp-dot--br {
-      animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
-      animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BR corner */
-    }
+  /* Always animate regardless of prefers-reduced-motion, same explicit direction as
+     the LED ticker — this is decorative motion, not essential content. */
+  .hero-mp-{{ section.id }} .hero-mp-dot--tl {
+    animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl {
+    animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
+    animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BL corner */
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr {
+    animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--br {
+    animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
+    animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BR corner */
   }
   /* Left-half loop: TL corner -> top-mid -> center -> bottom-mid -> BL corner -> back to TL. */
   @keyframes hero-mp-dot-left-{{ section.id }} {
