@@ -3287,63 +3287,58 @@ details-disclosure > details {
       transform: rotate(360deg) translateX(1em) rotate(-360deg) scale(1.2);
     }
   }
-}
 
-/* Section reveal-on-scroll: always animate regardless of prefers-reduced-motion,
-   same explicit direction already applied to the LED ticker and hero corner
-   lights — this is decorative motion, not essential content, so it should run
-   unconditionally instead of every section just sitting fully visible with no
-   reveal effect when reduced motion is set. */
-.scroll-trigger.animate--fade-in,
-.scroll-trigger.animate--slide-in {
-  opacity: 0.01;
-}
+  .scroll-trigger.animate--fade-in,
+  .scroll-trigger.animate--slide-in {
+    opacity: 0.01;
+  }
 
-.scroll-trigger.animate--slide-in {
-  transform: translateY(2rem);
-}
-
-.scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
-  opacity: 1;
-  animation: var(--animation-fade-in);
-}
-
-.scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
-  animation: var(--animation-slide-in);
-  animation-delay: calc(var(--animation-order) * 75ms);
-}
-
-.scroll-trigger.scroll-trigger--design-mode.animate--fade-in,
-.scroll-trigger.scroll-trigger--design-mode.animate--slide-in,
-.scroll-trigger.scroll-trigger--design-mode .slider,
-.scroll-trigger:not(.scroll-trigger--offscreen).scroll-trigger--cancel {
-  opacity: 1;
-  animation: none;
-  transition: none;
-  transform: none;
-}
-
-.scroll-trigger.scroll-trigger--design-mode.animate--slide-in {
-  transform: translateY(0);
-}
-
-@keyframes slideIn {
-  from {
+  .scroll-trigger.animate--slide-in {
     transform: translateY(2rem);
-    opacity: 0.01;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0.01;
-  }
-  to {
+  .scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
     opacity: 1;
+    animation: var(--animation-fade-in);
+  }
+
+  .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
+    animation: var(--animation-slide-in);
+    animation-delay: calc(var(--animation-order) * 75ms);
+  }
+
+  .scroll-trigger.scroll-trigger--design-mode.animate--fade-in,
+  .scroll-trigger.scroll-trigger--design-mode.animate--slide-in,
+  .scroll-trigger.scroll-trigger--design-mode .slider,
+  .scroll-trigger:not(.scroll-trigger--offscreen).scroll-trigger--cancel {
+    opacity: 1;
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+
+  .scroll-trigger.scroll-trigger--design-mode.animate--slide-in {
+    transform: translateY(0);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(2rem);
+      opacity: 0.01;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0.01;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
