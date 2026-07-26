@@ -46,7 +46,7 @@
      above) so it's always a true circle, never squashed into an oval. */
   .hero-mp-{{ section.id }} .hero-mp-circle {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: clamp(180px, 24vw, 320px); aspect-ratio: 1; border-radius: 50%;
+    width: clamp(180px, 24vw, 320px); height: clamp(180px, 24vw, 320px); border-radius: 50%;
     border: 3px solid rgba(245,241,230,0.55); z-index: 0;
   }
   .hero-mp-{{ section.id }} .hero-mp-circle::after {
