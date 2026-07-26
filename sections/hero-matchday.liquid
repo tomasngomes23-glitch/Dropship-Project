@@ -67,61 +67,60 @@
   .hero-mp-{{ section.id }} .hero-mp-flag--bl { bottom: 0; left: 0; transform: scaleY(-1); }
   .hero-mp-{{ section.id }} .hero-mp-flag--br { bottom: 0; right: 0; transform: scale(-1, -1); }
 
-  /* Corner light dots — one point of light per corner, each continuously circling
-     its half of the pitch: corner → top edge → down the halfway line → center →
-     down the halfway line → bottom edge → the near goal line → back to the same
-     corner. That single closed loop visits every drawn line (both long edges, its
-     goal line, and the halfway line) and passes through the crossing point at
-     center once per lap. The bl/br dots share the exact same loop as tl/tr (just
-     started at a different point in it via a negative animation-delay) so the
-     "two dots per side" always stay evenly spaced and pass through center together
-     on a regular rhythm rather than needing a second, subtly-different keyframe set. */
+  /* Corner light dots — one shared perimeter loop (TL -> TR -> BR -> BL -> TL),
+     detouring into each penalty box along the two goal-line edges (TR->BR hugs the
+     right box, BL->TL hugs the left box) so both big areas get traced every lap.
+     TL and BR play it forward (clockwise) a half-lap apart, chasing each other;
+     TR and BL play the exact same keyframes with animation-direction: reverse
+     (counter-clockwise), also a half-lap apart. Reverse is a perfect mirror of
+     forward, so on every edge one clockwise and one counter-clockwise dot cross
+     paths moving in opposite directions — two heading right, two heading left. */
   .hero-mp-{{ section.id }} .hero-mp-dot {
     position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; z-index: 1;
     border-radius: 50%; background: var(--gold-bright);
     box-shadow: 0 0 8px 3px rgba(224,179,85,0.95), 0 0 20px 6px rgba(224,179,85,0.5);
   }
-  /* Resting position for when prefers-reduced-motion turns the loop off — without
-     this they only had a position while animating and collapsed to an undefined
-     spot at rest. Slightly inset from the literal corner pixel so the dot isn't
-     fully swallowed by the corner flag graphic sitting on the same spot. */
-  .hero-mp-{{ section.id }} .hero-mp-dot--tl { top: 3%; left: 0%; }
-  .hero-mp-{{ section.id }} .hero-mp-dot--bl { top: 97%; left: 0%; }
-  .hero-mp-{{ section.id }} .hero-mp-dot--tr { top: 3%; left: 100%; }
-  .hero-mp-{{ section.id }} .hero-mp-dot--br { top: 97%; left: 100%; }
+  /* Resting position for when the animation is unavailable — matches each dot's
+     corner on the loop below. */
+  .hero-mp-{{ section.id }} .hero-mp-dot--tl { top: 0%; left: 0%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr { top: 0%; left: 100%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--br { top: 100%; left: 100%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl { top: 100%; left: 0%; }
   /* Always animate regardless of prefers-reduced-motion, same explicit direction as
      the LED ticker — this is decorative motion, not essential content. */
   .hero-mp-{{ section.id }} .hero-mp-dot--tl {
-    animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
-  }
-  .hero-mp-{{ section.id }} .hero-mp-dot--bl {
-    animation: hero-mp-dot-left-{{ section.id }} 11s linear infinite;
-    animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BL corner */
-  }
-  .hero-mp-{{ section.id }} .hero-mp-dot--tr {
-    animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
+    animation: hero-mp-dot-loop-{{ section.id }} 16s linear infinite;
   }
   .hero-mp-{{ section.id }} .hero-mp-dot--br {
-    animation: hero-mp-dot-right-{{ section.id }} 11s linear infinite;
-    animation-delay: -8.8s; /* starts 80% into the loop, i.e. right at the BR corner */
+    animation: hero-mp-dot-loop-{{ section.id }} 16s linear infinite;
+    animation-delay: -8s; /* half a lap ahead/behind TL, chasing it clockwise */
   }
-  /* Left-half loop: TL corner -> top-mid -> center -> bottom-mid -> BL corner -> back to TL. */
-  @keyframes hero-mp-dot-left-{{ section.id }} {
-    0%   { left: 0%;  top: 0%; }
-    15%  { left: 50%; top: 0%; }
-    40%  { left: 50%; top: 50%; }
-    65%  { left: 50%; top: 100%; }
-    80%  { left: 0%;  top: 100%; }
-    100% { left: 0%;  top: 0%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr {
+    animation: hero-mp-dot-loop-{{ section.id }} 16s linear infinite reverse;
+    animation-delay: -12s; /* same loop, mirrored direction, starting at the TR corner */
   }
-  /* Right-half loop: mirror image, TR corner -> top-mid -> center -> bottom-mid -> BR corner -> back to TR. */
-  @keyframes hero-mp-dot-right-{{ section.id }} {
-    0%   { left: 100%; top: 0%; }
-    15%  { left: 50%;  top: 0%; }
-    40%  { left: 50%;  top: 50%; }
-    65%  { left: 50%;  top: 100%; }
-    80%  { left: 100%; top: 100%; }
-    100% { left: 100%; top: 0%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl {
+    animation: hero-mp-dot-loop-{{ section.id }} 16s linear infinite reverse;
+    animation-delay: -20s; /* mirrored direction, half a lap from the tr dot */
+  }
+  /* Clockwise perimeter: TL(0%) -> TR(25%, detour into the right box) -> BR(50%)
+     -> BL(75%, detour into the left box) -> TL(100%). Box coordinates match the
+     pitch SVG's own normalized space (viewBox 0 0 1000 300), so they line up with
+     the drawn penalty-box lines regardless of the section's actual pixel size. */
+  @keyframes hero-mp-dot-loop-{{ section.id }} {
+    0%   { left: 0%;    top: 0%; }
+    25%  { left: 100%;  top: 0%; }
+    31%  { left: 100%;  top: 27.33%; }
+    37%  { left: 90.8%; top: 27.33%; }
+    43%  { left: 90.8%; top: 72.67%; }
+    49%  { left: 100%;  top: 72.67%; }
+    50%  { left: 100%;  top: 100%; }
+    75%  { left: 0%;    top: 100%; }
+    81%  { left: 0%;    top: 72.67%; }
+    87%  { left: 9.2%;  top: 72.67%; }
+    93%  { left: 9.2%;  top: 27.33%; }
+    99%  { left: 0%;    top: 27.33%; }
+    100% { left: 0%;    top: 0%; }
   }
   .hero-mp-{{ section.id }} .hero-mp-live {
     position: absolute; top: 1.75rem; left: 1.75rem; z-index: 2;
