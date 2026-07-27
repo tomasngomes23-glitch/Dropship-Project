@@ -30,7 +30,8 @@
   }
   .dg-{{ section.id }} .dg-card {
     position: relative; display: block; text-decoration: none; color: var(--ink); background: var(--paper);
-    padding: 2rem 1.1rem 1.6rem; text-align: center; overflow: hidden;
+    padding: 2.6rem 1.3rem 2.2rem; text-align: center; overflow: hidden;
+    min-height: 132px;
     border-radius: 18px;
     transform: perspective(900px) rotateX(var(--dg-tilt-x, 0deg)) rotateY(var(--dg-tilt-y, 0deg)) translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
     transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -103,7 +104,7 @@
     outline: 3px solid var(--gold-bright); outline-offset: 3px;
   }
   .dg-{{ section.id }} .dg-card-title {
-    font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; font-size: 1.1rem; line-height: 1.15;
+    font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; font-size: 1.2rem; line-height: 1.18;
   }
   /* Hex/ball-panel badge — classic football stitching look instead of a flat sticker */
   .dg-{{ section.id }} .dg-badge {
