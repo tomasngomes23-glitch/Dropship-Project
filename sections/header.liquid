@@ -124,14 +124,17 @@
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
   }
-  /* Wordmark — plain bold type, no icon. Arial Black for real heft (Arial Narrow's
-     900-weight still reads thin at this size); a gold underline sweeps through on a
-     slow loop, like a scoreboard cursor. */
+  /* Wordmark — plain bold type, no icon. Arial Rounded MT Bold (falling back to Arial
+     Black) for real chunky heft — Arial Narrow's 900-weight still reads thin at this
+     size — plus a hairline text-stroke to bulk the letterforms out further. A gold
+     underline slides continuously underneath, no dwell/pause, like a scoreboard cursor
+     that never stops moving. */
   .mp-header-wrapper .mp-wordmark {
     display: inline-block; position: relative; overflow: hidden;
-    font-family: "Arial Black", "Arial Narrow", Arial, sans-serif;
+    font-family: "Arial Rounded MT Bold", "Arial Black", "Arial Narrow", Arial, sans-serif;
     font-weight: 900; text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    -webkit-text-stroke: 0.4px currentColor;
   }
   .mp-header-wrapper .mp-wordmark em {
     font-style: normal; color: var(--gold);
@@ -140,13 +143,14 @@
     content: ""; position: absolute; left: 0; bottom: -0.08em; width: 28%; height: 3px;
     background: var(--gold); pointer-events: none;
     /* transform (not left) so the sweep is GPU-composited and never stutters/stalls
-       from layout recalculation elsewhere on the page. */
-    animation: mp-wordmark-sweep 4.5s ease-in-out infinite;
+       from layout recalculation elsewhere on the page. Linear, no dwell keyframe, so
+       the line is always visibly in motion instead of sitting off-screen for a beat. */
+    animation: mp-wordmark-sweep 2.4s linear infinite;
     will-change: transform;
   }
   @keyframes mp-wordmark-sweep {
-    0%, 60% { transform: translateX(-140%); }
-    100% { transform: translateX(500%); }
+    0% { transform: translateX(-140%); }
+    100% { transform: translateX(480%); }
   }
   .mp-header-wrapper .header__heading-logo-wrapper {
     position: relative; overflow: hidden; display: inline-block;
@@ -162,10 +166,13 @@
     92% { left: 130%; }
   }
 
-  /* Inline nav (dropdown + mega menu) */
+  /* Inline nav (dropdown + mega menu) — Dawn's base .link class always underlines
+     (text-decoration: underline), which was stacking with our own gold ::after bar
+     into a double-line hover. Kill the native underline so only our bar shows. */
   .mp-header-wrapper .header__inline-menu .list-menu__item {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
+    text-decoration: none !important;
     transition: color 0.2s ease, text-shadow 0.2s ease;
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item::after {
