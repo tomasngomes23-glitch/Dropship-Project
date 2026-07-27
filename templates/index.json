@@ -22,12 +22,12 @@
     "shop-by-league": {
       "type": "directory-grid",
       "blocks": {
-        "premier-league": { "type": "entry", "settings": { "title": "Premier League", "meta": "In stock", "link": "shopify://collections/premier-league" } },
-        "la-liga": { "type": "entry", "settings": { "title": "La Liga", "meta": "In stock", "link": "shopify://collections/la-liga" } },
-        "serie-a": { "type": "entry", "settings": { "title": "Serie A", "meta": "In stock", "link": "shopify://collections/serie-a" } },
-        "bundesliga": { "type": "entry", "settings": { "title": "Bundesliga", "meta": "In stock", "link": "shopify://collections/bundesliga" } },
-        "ligue-1": { "type": "entry", "settings": { "title": "Ligue 1", "meta": "In stock", "link": "shopify://collections/ligue-1" } },
-        "primeira-liga": { "type": "entry", "settings": { "title": "Primeira Liga", "meta": "In stock", "link": "shopify://collections/primeira-liga" } }
+        "premier-league": { "type": "entry", "settings": { "title": "Premier League", "meta": "In stock", "flag": "🇬🇧", "link": "shopify://collections/premier-league" } },
+        "la-liga": { "type": "entry", "settings": { "title": "La Liga", "meta": "In stock", "flag": "🇪🇸", "link": "shopify://collections/la-liga" } },
+        "serie-a": { "type": "entry", "settings": { "title": "Serie A", "meta": "In stock", "flag": "🇮🇹", "link": "shopify://collections/serie-a" } },
+        "bundesliga": { "type": "entry", "settings": { "title": "Bundesliga", "meta": "In stock", "flag": "🇩🇪", "link": "shopify://collections/bundesliga" } },
+        "ligue-1": { "type": "entry", "settings": { "title": "Ligue 1", "meta": "In stock", "flag": "🇫🇷", "link": "shopify://collections/ligue-1" } },
+        "primeira-liga": { "type": "entry", "settings": { "title": "Primeira Liga", "meta": "In stock", "flag": "🇵🇹", "link": "shopify://collections/primeira-liga" } }
       },
       "block_order": ["premier-league", "la-liga", "serie-a", "bundesliga", "ligue-1", "primeira-liga"],
       "settings": {
