@@ -33,22 +33,38 @@
     0%, 100% { transform: translateX(-8%) rotate(-2deg); opacity: 0.55; }
     50% { transform: translateX(60%) rotate(2deg); opacity: 0.95; }
   }
-  /* Pitch markings — the rect/halfway-line/penalty-box layer stretches non-uniformly
-     (preserveAspectRatio: none) so the goal lines (the short left/right edges) always
-     sit flush against the true edges of the section on any screen size, with nothing
-     ever cropped off. Straight lines don't visibly distort when stretched non-uniformly
-     — only the circle would, so that's built separately below as its own fixed-aspect
-     element instead of living inside this stretched SVG. */
+  /* Pitch markings — plain CSS borders/positioning instead of a stretched SVG. An SVG with
+     preserveAspectRatio: none stretches non-uniformly on wide screens, and stroke-width
+     stretches with it — horizontal and vertical lines end up visibly different thicknesses.
+     CSS border-width is real, unscaled pixels, so every line stays the same thickness
+     regardless of the section's aspect ratio. */
   .hero-mp-{{ section.id }} .hero-mp-markings {
     position: absolute; inset: 0; pointer-events: none; z-index: 0;
   }
-  .hero-mp-{{ section.id }} .hero-mp-markings > svg { width: 100%; height: 100%; display: block; }
-  .hero-mp-{{ section.id }} .hero-mp-pitch-line { stroke: rgba(245,241,230,0.22); fill: none; }
+  .hero-mp-{{ section.id }} .hero-mp-outline {
+    position: absolute; inset: 0; border: 2px solid rgba(245,241,230,0.22);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-halfway {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px;
+    background: rgba(245,241,230,0.22);
+  }
   /* Penalty boxes ("grandes áreas") — real pitch markings, same white as the rest of the
      lines (not gold) but a touch brighter/thicker so the 18-yard box, 6-yard box and
-     penalty spot read clearly as a deliberate feature. */
-  .hero-mp-{{ section.id }} .hero-mp-box-line { stroke: rgba(245,241,230,0.4); fill: none; }
-  .hero-mp-{{ section.id }} .hero-mp-spot { fill: rgba(245,241,230,0.5); stroke: none; }
+     penalty spot read clearly as a deliberate feature. Percentages match the old 1000x300
+     viewBox coordinates (e.g. 27.33% = 82/300, 9% = 90/1000). */
+  .hero-mp-{{ section.id }} .hero-mp-box {
+    position: absolute; border-style: solid; border-color: rgba(245,241,230,0.4);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-box--big { top: 27.33%; height: 45.33%; width: 9%; border-width: 3.5px; }
+  .hero-mp-{{ section.id }} .hero-mp-box--small { top: 42.5%; height: 15%; width: 3%; border-width: 2.5px; }
+  .hero-mp-{{ section.id }} .hero-mp-box--l { left: 0; border-left: none; }
+  .hero-mp-{{ section.id }} .hero-mp-box--r { right: 0; border-right: none; }
+  .hero-mp-{{ section.id }} .hero-mp-spot {
+    position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+    background: rgba(245,241,230,0.5); top: 50%;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-spot--l { left: 6.2%; }
+  .hero-mp-{{ section.id }} .hero-mp-spot--r { left: 93.8%; }
 
   /* Center circle — a separate fixed-aspect element (not inside the stretched SVG
      above) so it's always a true circle, never squashed into an oval. */
@@ -249,16 +265,14 @@
 <div class="hero-mp-{{ section.id }}">
   <span class="hero-mp-floodlight" aria-hidden="true"></span>
   <div class="hero-mp-markings" aria-hidden="true">
-    <svg viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect class="hero-mp-pitch-line" x="2" y="2" width="996" height="296" rx="2" stroke-width="2"/>
-      <line class="hero-mp-pitch-line" x1="500" y1="2" x2="500" y2="298" stroke-width="2"/>
-      <path class="hero-mp-box-line" d="M2 82 h90 v136 h-90 Z" stroke-width="3.5"/>
-      <path class="hero-mp-box-line" d="M2 127.5 h30 v45 h-30 Z" stroke-width="2.5"/>
-      <circle class="hero-mp-spot" cx="62" cy="150" r="3"/>
-      <path class="hero-mp-box-line" d="M998 82 h-90 v136 h90 Z" stroke-width="3.5"/>
-      <path class="hero-mp-box-line" d="M998 127.5 h-30 v45 h30 Z" stroke-width="2.5"/>
-      <circle class="hero-mp-spot" cx="938" cy="150" r="3"/>
-    </svg>
+    <span class="hero-mp-outline"></span>
+    <span class="hero-mp-halfway"></span>
+    <span class="hero-mp-box hero-mp-box--big hero-mp-box--l"></span>
+    <span class="hero-mp-box hero-mp-box--small hero-mp-box--l"></span>
+    <span class="hero-mp-spot hero-mp-spot--l"></span>
+    <span class="hero-mp-box hero-mp-box--big hero-mp-box--r"></span>
+    <span class="hero-mp-box hero-mp-box--small hero-mp-box--r"></span>
+    <span class="hero-mp-spot hero-mp-spot--r"></span>
     <span class="hero-mp-circle"></span>
     <div class="hero-mp-flag hero-mp-flag--tl">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
