@@ -41,10 +41,11 @@
   }
   .hero-mp-{{ section.id }} .hero-mp-markings > svg { width: 100%; height: 100%; display: block; }
   .hero-mp-{{ section.id }} .hero-mp-pitch-line { stroke: rgba(245,241,230,0.22); fill: none; }
-  /* Penalty boxes ("grandes áreas") get their own brighter, thicker treatment so they
-     read as a deliberate feature — not just more faint pitch-line clutter — and match
-     the gold the corner lights glow when they detour through here. */
-  .hero-mp-{{ section.id }} .hero-mp-box-line { stroke: rgba(224,179,85,0.55); fill: rgba(224,179,85,0.05); }
+  /* Penalty boxes ("grandes áreas") — real pitch markings, same white as the rest of the
+     lines (not gold) but a touch brighter/thicker so the 18-yard box, 6-yard box and
+     penalty spot read clearly as a deliberate feature. */
+  .hero-mp-{{ section.id }} .hero-mp-box-line { stroke: rgba(245,241,230,0.4); fill: none; }
+  .hero-mp-{{ section.id }} .hero-mp-spot { fill: rgba(245,241,230,0.5); stroke: none; }
 
   /* Center circle — a separate fixed-aspect element (not inside the stretched SVG
      above) so it's always a true circle, never squashed into an oval. */
@@ -249,7 +250,11 @@
       <rect class="hero-mp-pitch-line" x="2" y="2" width="996" height="296" rx="2" stroke-width="2"/>
       <line class="hero-mp-pitch-line" x1="500" y1="2" x2="500" y2="298" stroke-width="2"/>
       <path class="hero-mp-box-line" d="M2 82 h90 v136 h-90 Z" stroke-width="3.5"/>
+      <path class="hero-mp-box-line" d="M2 127.5 h30 v45 h-30 Z" stroke-width="2.5"/>
+      <circle class="hero-mp-spot" cx="62" cy="150" r="3"/>
       <path class="hero-mp-box-line" d="M998 82 h-90 v136 h90 Z" stroke-width="3.5"/>
+      <path class="hero-mp-box-line" d="M998 127.5 h-30 v45 h30 Z" stroke-width="2.5"/>
+      <circle class="hero-mp-spot" cx="938" cy="150" r="3"/>
     </svg>
     <span class="hero-mp-circle"></span>
     <div class="hero-mp-flag hero-mp-flag--tl">
