@@ -143,7 +143,6 @@
   .mp-header-wrapper .mp-wordmark::after {
     content: ""; position: absolute; left: 0; bottom: -0.1em; width: 26%; height: 3px;
     background: var(--gold-bright); pointer-events: none;
-    box-shadow: 0 0 6px 1px rgba(224,179,85,0.9), 0 0 14px 3px rgba(224,179,85,0.5);
     /* transform (not left) so the sweep is GPU-composited and never stutters/stalls
        from layout recalculation elsewhere on the page. Linear, no dwell keyframe, so
        the line is always visibly in motion instead of sitting off-screen for a beat. */
@@ -183,8 +182,11 @@
     letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
     transition: color 0.2s ease, text-shadow 0.2s ease;
   }
+  /* Inset to the item's own padding (1.2rem, from Dawn's .header__menu-item) so the bar
+     sits under the text itself, not the whole padded hit-box — otherwise it stretches
+     nearly to the neighbouring nav item and looks like it's touching it. */
   .mp-header-wrapper .header__inline-menu .list-menu__item::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0.1rem; height: 3px;
+    content: ""; position: absolute; left: 1.2rem; right: 1.2rem; bottom: 0.1rem; height: 3px;
     background: var(--gold); transform: scaleX(0); transform-origin: left;
     transition: transform 0.22s cubic-bezier(.2,.8,.2,1);
   }
