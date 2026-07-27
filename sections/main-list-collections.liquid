@@ -24,14 +24,11 @@
   }
   .mp-list-collections .collection-list__item .card {
     background: var(--paper) !important; border-radius: 0 !important; box-shadow: 0 6px 0 rgba(0,0,0,0.28) !important;
-    border: none !important; transform: rotate(var(--dg-rot, -1.2deg));
+    border: none !important;
     transition: transform 0.22s ease, box-shadow 0.22s ease;
   }
-  .mp-list-collections .collection-list__item:nth-child(odd) .card { --dg-rot: -1.4deg; }
-  .mp-list-collections .collection-list__item:nth-child(even) .card { --dg-rot: 1.6deg; }
-  .mp-list-collections .collection-list__item:nth-child(3n) .card { --dg-rot: -2deg; }
   .mp-list-collections .collection-list__item .card:hover {
-    transform: rotate(0deg) translateY(-4px); box-shadow: 0 12px 0 rgba(0,0,0,0.32) !important;
+    transform: translateY(-4px); box-shadow: 0 12px 0 rgba(0,0,0,0.32) !important;
   }
   .mp-list-collections .card__content {
     border-top: 1px dashed rgba(20,18,12,0.22);

@@ -290,6 +290,12 @@
       Loaded right after base.css so it wins the cascade on equal-specificity selectors.
     {% endcomment %}
     <style>
+      /* Slows the shared --animation-fade-in/--animation-slide-in vars (base.css:
+         slideIn/fadeIn var(--duration-extra-long) ...) — --duration-extra-long has no
+         other consumer in base.css, so raising it here only affects this reveal. */
+      :root {
+        --duration-extra-long: 1400ms;
+      }
       .scroll-trigger.animate--fade-in,
       .scroll-trigger.animate--slide-in {
         opacity: 0.01;
@@ -333,8 +339,8 @@
           transform: translateY(4.5rem);
         }
         .template-index .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
-          animation: mpHomeSlideIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: calc(var(--animation-order, 0) * 90ms);
+          animation: mpHomeSlideIn 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-delay: calc(var(--animation-order, 0) * 110ms);
         }
         @keyframes mpHomeSlideIn {
           from { transform: translateY(4.5rem); opacity: 0.01; }

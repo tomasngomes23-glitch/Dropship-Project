@@ -95,16 +95,12 @@
     padding: 1.4rem 1.3rem 1.5rem; display: flex; flex-direction: column;
     clip-path: polygon(0% 4%, 4% 0%, 96% 0%, 100% 4%, 100% 96%, 96% 100%, 4% 100%, 0% 96%);
     box-shadow: 0 8px 0 rgba(0,0,0,0.28);
-    transform: rotate(var(--rv-rot, -1deg));
     opacity: 0; translate: 0 22px;
     transition: opacity 0.5s ease, translate 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
   .rv-{{ section.id }} .rv-card.is-visible { opacity: 1; translate: 0 0; }
-  .rv-{{ section.id }} .rv-rail > *:nth-child(odd) { --rv-rot: -1.1deg; }
-  .rv-{{ section.id }} .rv-rail > *:nth-child(even) { --rv-rot: 1.3deg; }
-  .rv-{{ section.id }} .rv-rail > *:nth-child(3n) { --rv-rot: -1.7deg; }
   .rv-{{ section.id }} .rv-card:hover {
-    transform: rotate(0deg) translateY(-6px); box-shadow: 0 16px 0 rgba(0,0,0,0.3);
+    transform: translateY(-6px); box-shadow: 0 16px 0 rgba(0,0,0,0.3);
   }
 
   /* Torn perforation edge at the top, like a ticket stub tear-line */
@@ -270,6 +266,38 @@
   if (!root) return;
   var cards = root.querySelectorAll('[data-rv-reveal]');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Auto-play the rail: always runs regardless of prefers-reduced-motion, same
+     direction as the LED ticker and hero corner lights. Pauses on hover/touch so
+     it never fights a reader who's actually swiping through, and loops back to
+     the start once it reaches the end. */
+  var rail = root.querySelector('[data-rv-rail]');
+  if (rail) {
+    var rvPaused = false;
+    var rvResumeTimer = null;
+    rail.addEventListener('mouseenter', function () { rvPaused = true; });
+    rail.addEventListener('mouseleave', function () { rvPaused = false; });
+    rail.addEventListener('touchstart', function () {
+      rvPaused = true;
+      if (rvResumeTimer) clearTimeout(rvResumeTimer);
+    }, { passive: true });
+    rail.addEventListener('touchend', function () {
+      rvResumeTimer = setTimeout(function () { rvPaused = false; }, 2500);
+    }, { passive: true });
+    (function rvStep() {
+      if (!rvPaused) {
+        var maxScroll = rail.scrollWidth - rail.clientWidth;
+        if (maxScroll > 0) {
+          if (rail.scrollLeft >= maxScroll - 1) {
+            rail.scrollLeft = 0;
+          } else {
+            rail.scrollLeft += 0.6;
+          }
+        }
+      }
+      requestAnimationFrame(rvStep);
+    })();
+  }
 
   if (reduce || !('IntersectionObserver' in window)) {
     root.classList.add('is-breakdown-visible');
