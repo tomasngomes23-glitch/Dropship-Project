@@ -98,30 +98,33 @@
   }
   .hero-mp-{{ section.id }} .hero-mp-dot--tr {
     animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite reverse;
-    animation-delay: -33s; /* same loop, mirrored direction, starting at the TR corner */
+    animation-delay: -29.18s; /* same loop, mirrored direction, starting at the TR corner */
   }
   .hero-mp-{{ section.id }} .hero-mp-dot--bl {
     animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite reverse;
-    animation-delay: -55s; /* mirrored direction, half a lap from the tr dot */
+    animation-delay: -7.18s; /* mirrored direction, half a lap from the tr dot */
   }
-  /* Clockwise perimeter: TL(0%) -> TR(25%, detour into the right box) -> BR(50%)
-     -> BL(75%, detour into the left box) -> TL(100%). Box coordinates match the
-     pitch SVG's own normalized space (viewBox 0 0 1000 300), so they line up with
-     the drawn penalty-box lines regardless of the section's actual pixel size. */
+  /* Clockwise perimeter: TL -> TR (detour into the right box) -> BR -> BL (detour
+     into the left box) -> TL. Keyframe percentages are NOT evenly spaced — each
+     one is sized proportionally to how far that segment actually travels in the
+     pitch SVG's own coordinate space (viewBox 0 0 1000 300: the long edges are
+     1000 units, the box detour legs are 82/92/136/92/82 units), so the dot moves
+     at one constant speed the whole lap instead of visibly speeding up on the
+     short box legs and crawling on the long edges. */
   @keyframes hero-mp-dot-loop-{{ section.id }} {
-    0%   { left: 0%;    top: 0%; }
-    25%  { left: 100%;  top: 0%; }
-    31%  { left: 100%;  top: 27.33%; }
-    37%  { left: 90.8%; top: 27.33%; }
-    43%  { left: 90.8%; top: 72.67%; }
-    49%  { left: 100%;  top: 72.67%; }
-    50%  { left: 100%;  top: 100%; }
-    75%  { left: 0%;    top: 100%; }
-    81%  { left: 0%;    top: 72.67%; }
-    87%  { left: 9.2%;  top: 72.67%; }
-    93%  { left: 9.2%;  top: 27.33%; }
-    99%  { left: 0%;    top: 27.33%; }
-    100% { left: 0%;    top: 0%; }
+    0%      { left: 0%;    top: 0%; }
+    33.69%  { left: 100%;  top: 0%; }
+    36.46%  { left: 100%;  top: 27.33%; }
+    39.56%  { left: 90.8%; top: 27.33%; }
+    44.14%  { left: 90.8%; top: 72.67%; }
+    47.24%  { left: 100%;  top: 72.67%; }
+    50%     { left: 100%;  top: 100%; }
+    83.69%  { left: 0%;    top: 100%; }
+    86.46%  { left: 0%;    top: 72.67%; }
+    89.56%  { left: 9.2%;  top: 72.67%; }
+    94.14%  { left: 9.2%;  top: 27.33%; }
+    97.24%  { left: 0%;    top: 27.33%; }
+    100%    { left: 0%;    top: 0%; }
   }
   .hero-mp-{{ section.id }} .hero-mp-live {
     position: absolute; top: 1.75rem; left: 1.75rem; z-index: 2;

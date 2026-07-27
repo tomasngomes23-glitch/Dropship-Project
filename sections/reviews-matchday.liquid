@@ -84,14 +84,17 @@
   .rv-{{ section.id }} .rv-rail {
     position: relative; z-index: 1; display: flex; gap: 1.25rem; overflow-x: auto;
     padding: 0.75rem 0.25rem 1.75rem; margin: 0 auto; max-width: 1280px;
-    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: thin; scrollbar-color: rgba(201,150,47,0.5) transparent;
   }
+  /* No scroll-snap here on purpose: it fights the auto-play JS below — every tiny
+     programmatic scrollLeft nudge got treated as a completed scroll gesture and
+     snapped straight back to the nearest card, so the rail never visibly moved. */
   .rv-{{ section.id }} .rv-rail::-webkit-scrollbar { height: 8px; }
   .rv-{{ section.id }} .rv-rail::-webkit-scrollbar-thumb { background: rgba(201,150,47,0.5); }
 
   .rv-{{ section.id }} .rv-card {
-    position: relative; flex: 0 0 300px; scroll-snap-align: start; background: var(--paper); color: var(--ink);
+    position: relative; flex: 0 0 300px; background: var(--paper); color: var(--ink);
     padding: 1.4rem 1.3rem 1.5rem; display: flex; flex-direction: column;
     clip-path: polygon(0% 4%, 4% 0%, 96% 0%, 100% 4%, 100% 96%, 96% 100%, 4% 100%, 0% 96%);
     box-shadow: 0 8px 0 rgba(0,0,0,0.28);
