@@ -45,25 +45,38 @@
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background-image: repeating-linear-gradient(45deg, rgba(20,18,12,0.035) 0 2px, transparent 2px 6px);
   }
-  /* Giant ghost-monogram behind the title, like a stadium programme's oversized
-     initials treatment — derived from the entry title, no extra data entry needed.
-     Sits behind the title (declared first in markup, painted after ::before). */
-  .dg-{{ section.id }} .dg-card-mono {
-    position: absolute; right: -0.3rem; bottom: -0.9rem; z-index: 0;
-    font-family: "Arial Black", "Arial Narrow", Arial, sans-serif; font-weight: 900;
-    font-size: 4.6rem; line-height: 1; color: var(--ink); opacity: 0.055;
-    letter-spacing: -0.04em; pointer-events: none; user-select: none;
-    transition: opacity 0.3s ease, color 0.3s ease;
+  /* Full-bleed country flag, faded behind the whole card — real per-league identity
+     without using any club/league's trademarked crest (this store is explicitly not
+     affiliated with any of them). Drawn in pure CSS gradients instead of emoji so it
+     always renders correctly and stays crisp at any size. */
+  .dg-{{ section.id }} .dg-card-flag-bg {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.22; pointer-events: none;
+    transition: opacity 0.3s ease;
   }
-  .dg-{{ section.id }} .dg-card:hover .dg-card-mono,
-  .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-mono {
-    opacity: 0.16; color: var(--gold);
+  .dg-{{ section.id }} .dg-card:hover .dg-card-flag-bg,
+  .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-flag-bg {
+    opacity: 0.32;
   }
-  /* Country flag chip — real per-league identity without using any club/league's
-     trademarked crest (this store is explicitly not affiliated with any of them). */
-  .dg-{{ section.id }} .dg-card-flag {
-    position: absolute; top: 0.7rem; right: 0.8rem; z-index: 1;
-    font-size: 1.3rem; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+  .dg-{{ section.id }} .dg-flag--england {
+    background-color: #fff;
+    background-image:
+      linear-gradient(to right, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%),
+      linear-gradient(to bottom, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%);
+  }
+  .dg-{{ section.id }} .dg-flag--spain {
+    background: linear-gradient(to bottom, #c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--italy {
+    background: linear-gradient(to right, #008c45 0 33.33%, #f4f5f0 33.33% 66.66%, #cd212a 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--germany {
+    background: linear-gradient(to bottom, #000 0 33.33%, #dd0000 33.33% 66.66%, #ffce00 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--france {
+    background: linear-gradient(to right, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--portugal {
+    background: linear-gradient(to right, #006600 0 40%, #ff0000 40% 100%);
   }
   .dg-{{ section.id }} .dg-card-title {
     position: relative; z-index: 1;
@@ -118,17 +131,9 @@
   <div class="dg-grid">
     {%- for block in section.blocks -%}
       {%- if block.type == 'entry' -%}
-        {%- liquid
-          assign dg_words = block.settings.title | split: ' '
-          assign dg_initials = ''
-          for dg_word in dg_words limit: 2
-            assign dg_initials = dg_initials | append: dg_word | slice: 0, 1
-          endfor
-        -%}
         <a href="{{ block.settings.link | default: '#' }}" class="dg-card" data-dg-reveal {{ block.shopify_attributes }}>
           {%- if block.settings.badge != blank -%}<span class="dg-badge">{{ block.settings.badge }}</span>{%- endif -%}
-          {%- if block.settings.flag != blank -%}<span class="dg-card-flag" aria-hidden="true">{{ block.settings.flag }}</span>{%- endif -%}
-          <div class="dg-card-mono" aria-hidden="true">{{ dg_initials }}</div>
+          {%- if block.settings.flag_country != blank -%}<span class="dg-card-flag-bg dg-flag--{{ block.settings.flag_country }}" aria-hidden="true"></span>{%- endif -%}
           <div class="dg-card-title">{{ block.settings.title }}</div>
         </a>
       {%- endif -%}
@@ -208,7 +213,22 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Premier League" },
         { "type": "text", "id": "meta", "label": "Meta line", "default": "In stock" },
         { "type": "text", "id": "badge", "label": "Badge (optional)" },
-        { "type": "text", "id": "flag", "label": "Country flag emoji (optional)", "info": "e.g. 🇬🇧 — leave blank for international competitions" },
+        {
+          "type": "select",
+          "id": "flag_country",
+          "label": "Country flag background (optional)",
+          "info": "Leave as None for international competitions",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "england", "label": "England" },
+            { "value": "spain", "label": "Spain" },
+            { "value": "italy", "label": "Italy" },
+            { "value": "germany", "label": "Germany" },
+            { "value": "france", "label": "France" },
+            { "value": "portugal", "label": "Portugal" }
+          ],
+          "default": ""
+        },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
