@@ -137,13 +137,16 @@
     font-style: normal; color: var(--gold);
   }
   .mp-header-wrapper .mp-wordmark::after {
-    content: ""; position: absolute; left: -8%; bottom: -0.08em; width: 28%; height: 3px;
+    content: ""; position: absolute; left: 0; bottom: -0.08em; width: 28%; height: 3px;
     background: var(--gold); pointer-events: none;
+    /* transform (not left) so the sweep is GPU-composited and never stutters/stalls
+       from layout recalculation elsewhere on the page. */
     animation: mp-wordmark-sweep 4.5s ease-in-out infinite;
+    will-change: transform;
   }
   @keyframes mp-wordmark-sweep {
-    0%, 60% { left: -8%; }
-    100% { left: 108%; }
+    0%, 60% { transform: translateX(-140%); }
+    100% { transform: translateX(500%); }
   }
   .mp-header-wrapper .header__heading-logo-wrapper {
     position: relative; overflow: hidden; display: inline-block;
