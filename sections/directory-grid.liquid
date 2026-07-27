@@ -31,7 +31,7 @@
   .dg-{{ section.id }} .dg-card {
     position: relative; display: block; text-decoration: none; color: var(--ink); background: var(--paper);
     padding: 2rem 1.1rem 1.6rem; text-align: center; overflow: hidden;
-    clip-path: polygon(0% 6%, 6% 0%, 94% 0%, 100% 6%, 100% 94%, 94% 100%, 6% 100%, 0% 94%);
+    border-radius: 18px;
     transform: perspective(900px) rotateX(var(--dg-tilt-x, 0deg)) rotateY(var(--dg-tilt-y, 0deg)) translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
     transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
     box-shadow: 0 6px 0 rgba(0,0,0,0.28);
@@ -50,12 +50,12 @@
      affiliated with any of them). Drawn in pure CSS gradients instead of emoji so it
      always renders correctly and stays crisp at any size. */
   .dg-{{ section.id }} .dg-card-flag-bg {
-    position: absolute; inset: 0; z-index: 0; opacity: 0.22; pointer-events: none;
+    position: absolute; inset: 0; z-index: 0; opacity: 0.24; pointer-events: none;
     transition: opacity 0.3s ease;
   }
   .dg-{{ section.id }} .dg-card:hover .dg-card-flag-bg,
   .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-flag-bg {
-    opacity: 0.32;
+    opacity: 1;
   }
   .dg-{{ section.id }} .dg-flag--england {
     background-color: #fff;
@@ -76,7 +76,12 @@
     background: linear-gradient(to right, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66% 100%);
   }
   .dg-{{ section.id }} .dg-flag--portugal {
-    background: linear-gradient(to right, #006600 0 40%, #ff0000 40% 100%);
+    background-color: #006600;
+    background-image:
+      radial-gradient(circle at 40% 50%, #f0c40a 0 9%, #f0c40a 9.3%, transparent 9.6%),
+      radial-gradient(circle at 40% 50%, #fff 0 6.5%, transparent 6.8%),
+      radial-gradient(circle at 40% 50%, #ff0000 0 4%, transparent 4.3%),
+      linear-gradient(to right, transparent 40%, #ff0000 40%, #ff0000 100%);
   }
   .dg-{{ section.id }} .dg-card-title {
     position: relative; z-index: 1;
