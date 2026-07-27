@@ -124,19 +124,31 @@
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
   }
+  /* Wordmark — plain bold type, no icon. Arial Black for real heft (Arial Narrow's
+     900-weight still reads thin at this size); a gold underline sweeps through on a
+     slow loop, like a scoreboard cursor. */
   .mp-header-wrapper .mp-wordmark {
-    display: inline-flex; align-items: center;
+    display: inline-block; position: relative; overflow: hidden;
+    font-family: "Arial Black", "Arial Narrow", Arial, sans-serif;
+    font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
-  .mp-header-wrapper .mp-wordmark svg {
-    height: 2.1rem; width: auto; display: block;
+  .mp-header-wrapper .mp-wordmark em {
+    font-style: normal; color: var(--gold);
   }
-  /* Stadium-light glint sweeping across the logo — very slow, continuous, near-subliminal */
-  .mp-header-wrapper .header__heading-logo-wrapper,
-  .mp-header-wrapper .header__heading-link .h2 {
+  .mp-header-wrapper .mp-wordmark::after {
+    content: ""; position: absolute; left: -8%; bottom: -0.08em; width: 28%; height: 3px;
+    background: var(--gold); pointer-events: none;
+    animation: mp-wordmark-sweep 4.5s ease-in-out infinite;
+  }
+  @keyframes mp-wordmark-sweep {
+    0%, 60% { left: -8%; }
+    100% { left: 108%; }
+  }
+  .mp-header-wrapper .header__heading-logo-wrapper {
     position: relative; overflow: hidden; display: inline-block;
   }
-  .mp-header-wrapper .header__heading-logo-wrapper::after,
-  .mp-header-wrapper .header__heading-link .h2::after {
+  .mp-header-wrapper .header__heading-logo-wrapper::after {
     content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
     background: linear-gradient(100deg, transparent, rgba(224,179,85,0.55), transparent);
     transform: skewX(-20deg); animation: mp-logo-glint 7s ease-in-out infinite;
@@ -298,8 +310,7 @@
     .mp-header-wrapper .header__inline-menu .list-menu__item::after { transition: none; }
     .mp-header-wrapper .header__inline-menu .list-menu__item { transition: none; }
     .mp-header-wrapper .header__inline-menu .list-menu__item:hover { letter-spacing: 0.04em; text-shadow: none; }
-    .mp-header-wrapper .header__heading-logo-wrapper::after,
-    .mp-header-wrapper .header__heading-link .h2::after { animation: none; display: none; }
+    .mp-header-wrapper .header__heading-logo-wrapper::after { animation: none; display: none; }
     .mp-header-wrapper .menu-drawer__menu-item { transition: none; }
     .mp-header-wrapper .menu-drawer__menu-item:hover { transform: none; }
     .mp-header-wrapper #Details-menu-drawer-container[open] .menu-drawer__menu.has-submenu > li,
@@ -382,7 +393,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2 mp-wordmark">{{ 'logo-first-touch.svg' | inline_asset_content }}</span>
+          <span class="h2 mp-wordmark">First <em>Touch</em></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -425,7 +436,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2 mp-wordmark">{{ 'logo-first-touch.svg' | inline_asset_content }}</span>
+          <span class="h2 mp-wordmark">First <em>Touch</em></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
