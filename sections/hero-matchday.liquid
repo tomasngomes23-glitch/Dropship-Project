@@ -41,6 +41,10 @@
   }
   .hero-mp-{{ section.id }} .hero-mp-markings > svg { width: 100%; height: 100%; display: block; }
   .hero-mp-{{ section.id }} .hero-mp-pitch-line { stroke: rgba(245,241,230,0.22); fill: none; }
+  /* Penalty boxes ("grandes áreas") get their own brighter, thicker treatment so they
+     read as a deliberate feature — not just more faint pitch-line clutter — and match
+     the gold the corner lights glow when they detour through here. */
+  .hero-mp-{{ section.id }} .hero-mp-box-line { stroke: rgba(224,179,85,0.55); fill: rgba(224,179,85,0.05); }
 
   /* Center circle — a separate fixed-aspect element (not inside the stretched SVG
      above) so it's always a true circle, never squashed into an oval. */
@@ -244,8 +248,8 @@
     <svg viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect class="hero-mp-pitch-line" x="2" y="2" width="996" height="296" rx="2" stroke-width="2"/>
       <line class="hero-mp-pitch-line" x1="500" y1="2" x2="500" y2="298" stroke-width="2"/>
-      <path class="hero-mp-pitch-line" d="M2 82 h90 v136 h-90" stroke-width="2"/>
-      <path class="hero-mp-pitch-line" d="M998 82 h-90 v136 h90" stroke-width="2"/>
+      <path class="hero-mp-box-line" d="M2 82 h90 v136 h-90 Z" stroke-width="3.5"/>
+      <path class="hero-mp-box-line" d="M998 82 h-90 v136 h90 Z" stroke-width="3.5"/>
     </svg>
     <span class="hero-mp-circle"></span>
     <div class="hero-mp-flag hero-mp-flag--tl">
