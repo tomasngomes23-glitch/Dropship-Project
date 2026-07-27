@@ -9,7 +9,10 @@
     --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
     --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
     position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
-    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    /* Base padding comes from the theme editor setting, but on very large screens that
+       fixed px amount reads as a thin letterboxed strip against the full viewport width —
+       add a vw-scaled amount on top so the pitch keeps growing taller as the screen widens. */
+    padding: calc({{ section.settings.padding_top }}px + 5vw) 1.5rem calc({{ section.settings.padding_bottom }}px + 5vw);
     font-family: "Arial Narrow", Arial, sans-serif;
     background-image:
       radial-gradient(circle, rgba(245,241,230,0.055) 1px, transparent 1.1px),
@@ -51,7 +54,7 @@
      above) so it's always a true circle, never squashed into an oval. */
   .hero-mp-{{ section.id }} .hero-mp-circle {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: clamp(180px, 24vw, 320px); height: clamp(180px, 24vw, 320px); border-radius: 50%;
+    width: clamp(180px, 20vw, 420px); height: clamp(180px, 20vw, 420px); border-radius: 50%;
     border: 3px solid rgba(245,241,230,0.55); z-index: 0;
   }
   .hero-mp-{{ section.id }} .hero-mp-circle::after {
