@@ -31,7 +31,7 @@
         "msg-1": { "type": "message", "settings": { "text": "FAN VERSION OR PLAYER VERSION — YOUR CALL" } },
         "msg-2": { "type": "message", "settings": { "text": "48 CLUBS · 6 LEAGUES" } },
         "msg-3": { "type": "message", "settings": { "text": "FREE SHIPPING OVER €60" } },
-        "msg-4": { "type": "message", "settings": { "text": "NOT CLUB AFFILIATED" } }
+        "msg-4": { "type": "message", "settings": { "text": "NEW DROPS EVERY WEEK" } }
       },
       "block_order": ["msg-1", "msg-2", "msg-3", "msg-4"]
     }
