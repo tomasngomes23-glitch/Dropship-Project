@@ -30,7 +30,7 @@
   }
   .dg-{{ section.id }} .dg-card {
     position: relative; display: block; text-decoration: none; color: var(--ink); background: var(--paper);
-    padding: 1.5rem 1.1rem 1.3rem; text-align: center; overflow: hidden;
+    padding: 2.4rem 1.1rem 1.3rem; text-align: center; overflow: hidden;
     clip-path: polygon(0% 6%, 6% 0%, 94% 0%, 100% 6%, 100% 94%, 94% 100%, 6% 100%, 0% 94%);
     transform: perspective(900px) rotateX(var(--dg-tilt-x, 0deg)) rotateY(var(--dg-tilt-y, 0deg)) translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
     transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -39,6 +39,44 @@
     border: 2px solid transparent;
     will-change: transform;
     cursor: pointer;
+  }
+  /* Faint knit/fabric texture — reads as jersey material instead of flat paper */
+  .dg-{{ section.id }} .dg-card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(20,18,12,0.035) 0 2px, transparent 2px 6px);
+  }
+  /* Giant ghost-monogram behind the title, like a stadium programme's oversized
+     initials treatment — derived from the entry title, no extra data entry needed.
+     Sits behind the title (declared first in markup, painted after ::before). */
+  .dg-{{ section.id }} .dg-card-mono {
+    position: absolute; right: -0.3rem; bottom: -0.9rem; z-index: 0;
+    font-family: "Arial Black", "Arial Narrow", Arial, sans-serif; font-weight: 900;
+    font-size: 4.6rem; line-height: 1; color: var(--ink); opacity: 0.055;
+    letter-spacing: -0.04em; pointer-events: none; user-select: none;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .dg-{{ section.id }} .dg-card:hover .dg-card-mono,
+  .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-mono {
+    opacity: 0.16; color: var(--gold);
+  }
+  /* Squad-number badge replacing the flat "No. 01" caption — a jersey-number tag
+     pinned to the corner instead of inline text. */
+  .dg-{{ section.id }} .dg-card-num {
+    position: absolute; top: 0.85rem; left: 0.85rem; z-index: 1;
+    width: 1.9rem; height: 1.9rem; border-radius: 50%;
+    border: 2px solid var(--gold); background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.7rem; font-weight: 700; color: var(--ink);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .dg-{{ section.id }} .dg-card:hover .dg-card-num,
+  .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-num {
+    border-color: var(--gold-bright); transform: scale(1.08) rotate(-6deg);
+  }
+  .dg-{{ section.id }} .dg-card-title,
+  .dg-{{ section.id }} .dg-card-meta {
+    position: relative; z-index: 1;
   }
   .dg-{{ section.id }} .dg-card.is-visible {
     opacity: 1; translate: 0 0; transition: opacity 0.6s ease, translate 0.6s ease, transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -55,10 +93,6 @@
   }
   .dg-{{ section.id }} .dg-card:focus-visible {
     outline: 3px solid var(--gold-bright); outline-offset: 3px;
-  }
-  .dg-{{ section.id }} .dg-card-num {
-    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem; opacity: 0.55;
-    letter-spacing: 0.06em; margin-bottom: 0.5rem;
   }
   .dg-{{ section.id }} .dg-card-title {
     font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; font-size: 1.1rem; line-height: 1.15;
@@ -100,9 +134,17 @@
   <div class="dg-grid">
     {%- for block in section.blocks -%}
       {%- if block.type == 'entry' -%}
+        {%- liquid
+          assign dg_words = block.settings.title | split: ' '
+          assign dg_initials = ''
+          for dg_word in dg_words limit: 2
+            assign dg_initials = dg_initials | append: dg_word | slice: 0, 1
+          endfor
+        -%}
         <a href="{{ block.settings.link | default: '#' }}" class="dg-card" data-dg-reveal {{ block.shopify_attributes }}>
           {%- if block.settings.badge != blank -%}<span class="dg-badge">{{ block.settings.badge }}</span>{%- endif -%}
-          <div class="dg-card-num">No. {{ forloop.index | prepend: '00' | slice: -2, 2 }}</div>
+          <div class="dg-card-mono" aria-hidden="true">{{ dg_initials }}</div>
+          <div class="dg-card-num">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</div>
           <div class="dg-card-title">{{ block.settings.title }}</div>
           {%- if block.settings.meta != blank -%}
             <div class="dg-card-meta"><span class="dg-dot" aria-hidden="true"></span>{{ block.settings.meta }}</div>
