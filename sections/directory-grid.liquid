@@ -74,6 +74,12 @@
   .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-num {
     border-color: var(--gold-bright); transform: scale(1.08) rotate(-6deg);
   }
+  /* Country flag chip — real per-league identity without using any club/league's
+     trademarked crest (this store is explicitly not affiliated with any of them). */
+  .dg-{{ section.id }} .dg-card-flag {
+    position: absolute; top: 0.7rem; right: 0.8rem; z-index: 1;
+    font-size: 1.3rem; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+  }
   .dg-{{ section.id }} .dg-card-title,
   .dg-{{ section.id }} .dg-card-meta {
     position: relative; z-index: 1;
@@ -143,6 +149,7 @@
         -%}
         <a href="{{ block.settings.link | default: '#' }}" class="dg-card" data-dg-reveal {{ block.shopify_attributes }}>
           {%- if block.settings.badge != blank -%}<span class="dg-badge">{{ block.settings.badge }}</span>{%- endif -%}
+          {%- if block.settings.flag != blank -%}<span class="dg-card-flag" aria-hidden="true">{{ block.settings.flag }}</span>{%- endif -%}
           <div class="dg-card-mono" aria-hidden="true">{{ dg_initials }}</div>
           <div class="dg-card-num">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</div>
           <div class="dg-card-title">{{ block.settings.title }}</div>
@@ -227,6 +234,7 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Premier League" },
         { "type": "text", "id": "meta", "label": "Meta line", "default": "In stock" },
         { "type": "text", "id": "badge", "label": "Badge (optional)" },
+        { "type": "text", "id": "flag", "label": "Country flag emoji (optional)", "info": "e.g. 🇬🇧 — leave blank for international competitions" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
