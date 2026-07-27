@@ -125,22 +125,23 @@
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
   }
   /* Wordmark — plain bold type, no icon. Arial Rounded MT Bold (falling back to Arial
-     Black) for real chunky heft — Arial Narrow's 900-weight still reads thin at this
-     size — plus a hairline text-stroke to bulk the letterforms out further. A gold
-     underline slides continuously underneath, no dwell/pause, like a scoreboard cursor
-     that never stops moving. */
+     Black) for real chunky heft. Dropped the text-stroke from the last pass — it was
+     smearing the letterforms at this size instead of bulking them. A flat print-press
+     drop-shadow gives it depth without blurring the edges, and a gold underline slides
+     continuously underneath, no dwell/pause, like a scoreboard cursor that never stops
+     moving. */
   .mp-header-wrapper .mp-wordmark {
     display: inline-block; position: relative; overflow: hidden;
     font-family: "Arial Rounded MT Bold", "Arial Black", "Arial Narrow", Arial, sans-serif;
     font-weight: 900; text-transform: uppercase;
-    letter-spacing: -0.01em;
-    -webkit-text-stroke: 0.4px currentColor;
+    letter-spacing: -0.015em; font-size: 1.65rem;
+    text-shadow: 0 2px 0 rgba(8,21,17,0.4);
   }
   .mp-header-wrapper .mp-wordmark em {
     font-style: normal; color: var(--gold);
   }
   .mp-header-wrapper .mp-wordmark::after {
-    content: ""; position: absolute; left: 0; bottom: -0.08em; width: 28%; height: 3px;
+    content: ""; position: absolute; left: 0; bottom: -0.1em; width: 26%; height: 3px;
     background: var(--gold-bright); pointer-events: none;
     box-shadow: 0 0 6px 1px rgba(224,179,85,0.9), 0 0 14px 3px rgba(224,179,85,0.5);
     /* transform (not left) so the sweep is GPU-composited and never stutters/stalls
@@ -167,13 +168,19 @@
     92% { left: 130%; }
   }
 
-  /* Inline nav (dropdown + mega menu) — Dawn's base .link class always underlines
-     (text-decoration: underline), which was stacking with our own gold ::after bar
-     into a double-line hover. Kill the native underline so only our bar shows. */
+  /* Inline nav (dropdown + mega menu) — Dawn's base.css underlines the *inner <span>*
+     directly on hover (.header__menu-item:hover span) and permanently on the current
+     page (.header__active-menu-item), completely independent of the outer <a>'s own
+     text-decoration. Killing it on the <a> alone doesn't reach that span — both need
+     the override, or the native line stacks with our own gold ::after bar into a
+     double-line hover/active state. */
+  .mp-header-wrapper .header__inline-menu .list-menu__item,
+  .mp-header-wrapper .header__inline-menu .list-menu__item span {
+    text-decoration: none !important;
+  }
   .mp-header-wrapper .header__inline-menu .list-menu__item {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.04em; font-size: 0.92rem; color: var(--chalk); position: relative;
-    text-decoration: none !important;
     transition: color 0.2s ease, text-shadow 0.2s ease;
   }
   .mp-header-wrapper .header__inline-menu .list-menu__item::after {
@@ -192,10 +199,12 @@
   }
   .mp-header-wrapper .header__active-menu-item {
     color: var(--gold) !important;
-    text-decoration: none !important;
   }
-  .mp-header-wrapper .header__inline-menu .list-menu__item--active {
-    text-decoration: none !important;
+  /* Current-page indicator — one single gold bar (our own ::after, always on for the
+     active item) replacing Dawn's native underline rather than stacking with it. */
+  .mp-header-wrapper .header__inline-menu .list-menu__item:has(.header__active-menu-item)::after,
+  .mp-header-wrapper .header__inline-menu .list-menu__item--active::after {
+    transform: scaleX(1);
   }
   .mp-header-wrapper .header__inline-menu svg {
     color: var(--chalk);
