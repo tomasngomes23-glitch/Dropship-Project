@@ -6,8 +6,8 @@
 
 {%- style -%}
   .hero-mp-{{ section.id }} {
-    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
     position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
     /* Base padding comes from the theme editor setting, but on very large screens that
        fixed px amount reads as a thin letterboxed strip against the full viewport width —
@@ -15,18 +15,30 @@
     padding: calc({{ section.settings.padding_top }}px + 5vw) 1.5rem calc({{ section.settings.padding_bottom }}px + 5vw);
     font-family: "Arial Narrow", Arial, sans-serif;
     background-image:
-      radial-gradient(circle, rgba(245,241,230,0.055) 1px, transparent 1.1px),
-      repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px);
+      radial-gradient(circle, rgba(20,18,12,0.05) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(20,18,12,0.02) 0 46px, rgba(20,18,12,0.035) 46px 92px);
     background-size: 9px 9px, auto;
   }
   .hero-mp-{{ section.id }}::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(ellipse at 50% 0%, rgba(201,150,47,0.14), transparent 60%);
   }
+  /* Optional merchant photo background — fills the hero edge-to-edge behind the pitch
+     markings, with a paper-tint scrim so the dark ink headline stays legible over any photo. */
+  .hero-mp-{{ section.id }} .hero-mp-photo {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(251,250,245,0.55), rgba(251,250,245,0.88) 55%, rgba(251,250,245,0.96));
+  }
   /* Floodlight sweep — slow radial beam drifting across the pitch, evokes stadium lights */
   .hero-mp-{{ section.id }} .hero-mp-floodlight {
     position: absolute; inset: -20%; pointer-events: none; z-index: 0;
-    background: radial-gradient(ellipse 38% 55% at 20% -10%, rgba(245,241,230,0.16), transparent 60%);
+    background: radial-gradient(ellipse 38% 55% at 20% -10%, rgba(217,161,63,0.22), transparent 60%);
     animation: hero-mp-sweep-{{ section.id }} 16s ease-in-out infinite;
   }
   @keyframes hero-mp-sweep-{{ section.id }} {
@@ -42,18 +54,18 @@
     position: absolute; inset: 0; pointer-events: none; z-index: 0;
   }
   .hero-mp-{{ section.id }} .hero-mp-outline {
-    position: absolute; inset: 0; border: 2px solid rgba(245,241,230,0.22);
+    position: absolute; inset: 0; border: 2px solid rgba(20,18,12,0.16);
   }
   .hero-mp-{{ section.id }} .hero-mp-halfway {
     position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px;
-    background: rgba(245,241,230,0.22);
+    background: rgba(20,18,12,0.16);
   }
   /* Penalty boxes ("grandes áreas") — real pitch markings, same white as the rest of the
      lines (not gold) but a touch brighter/thicker so the 18-yard box, 6-yard box and
      penalty spot read clearly as a deliberate feature. Percentages match the old 1000x300
      viewBox coordinates (e.g. 27.33% = 82/300, 9% = 90/1000). */
   .hero-mp-{{ section.id }} .hero-mp-box {
-    position: absolute; border-style: solid; border-color: rgba(245,241,230,0.4);
+    position: absolute; border-style: solid; border-color: rgba(20,18,12,0.22);
   }
   .hero-mp-{{ section.id }} .hero-mp-box--big { top: 27.33%; height: 45.33%; width: 9%; border-width: 3.5px; }
   .hero-mp-{{ section.id }} .hero-mp-box--small { top: 42.5%; height: 15%; width: 3%; border-width: 2.5px; }
@@ -61,7 +73,7 @@
   .hero-mp-{{ section.id }} .hero-mp-box--r { right: 0; border-right: none; }
   .hero-mp-{{ section.id }} .hero-mp-spot {
     position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
-    background: rgba(245,241,230,0.5); top: 50%;
+    background: rgba(20,18,12,0.3); top: 50%;
   }
   .hero-mp-{{ section.id }} .hero-mp-spot--l { left: 6.2%; }
   .hero-mp-{{ section.id }} .hero-mp-spot--r { left: 93.8%; }
@@ -71,11 +83,11 @@
   .hero-mp-{{ section.id }} .hero-mp-circle {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: clamp(180px, 20vw, 420px); height: clamp(180px, 20vw, 420px); border-radius: 50%;
-    border: 3px solid rgba(245,241,230,0.55); z-index: 0;
+    border: 3px solid rgba(20,18,12,0.25); z-index: 0;
   }
   .hero-mp-{{ section.id }} .hero-mp-circle::after {
     content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 8px; height: 8px; border-radius: 50%; background: rgba(245,241,230,0.6);
+    width: 8px; height: 8px; border-radius: 50%; background: rgba(20,18,12,0.35);
   }
 
   /* Corner flags — four small fixed-size icons pinned exactly to the section's four
@@ -155,7 +167,7 @@
     display: inline-flex; align-items: center; gap: 0.45rem;
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
     font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-bright);
-    background: rgba(8,21,17,0.55); border: 1px solid rgba(245,241,230,0.2);
+    background: rgba(20,18,12,0.88); border: 1px solid rgba(20,18,12,0.12);
     padding: 0.35rem 0.6rem 0.35rem 0.5rem;
   }
   .hero-mp-{{ section.id }} .hero-mp-live-dot {
@@ -188,7 +200,7 @@
     font-style: normal; color: var(--gold);
   }
   .hero-mp-{{ section.id }} .hero-mp-sub {
-    max-width: 540px; margin: 1.35rem auto 0; font-size: 1.05rem; line-height: 1.5; color: rgba(245,241,230,0.82);
+    max-width: 540px; margin: 1.35rem auto 0; font-size: 1.05rem; line-height: 1.5; color: rgba(20,18,12,0.72);
   }
   .hero-mp-{{ section.id }} .hero-mp-actions {
     display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.25rem;
@@ -214,8 +226,8 @@
   }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover::after { transform: skewX(-22deg) translateX(560%); }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover::before { transform: translateX(120%); }
-  .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: var(--ink); }
-  .hero-mp-{{ section.id }} .hero-mp-btn--outline { background: var(--chalk); color: var(--ink); }
+  .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: #fff; }
+  .hero-mp-{{ section.id }} .hero-mp-btn--outline { background: #fff; color: var(--ink); border: 2px solid var(--gold); }
   .hero-mp-{{ section.id }} .hero-mp-btn-arrow {
     position: relative; z-index: 1; display: inline-block; transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
   }
@@ -235,7 +247,7 @@
     padding-top: 1.75rem;
   }
   .hero-mp-{{ section.id }} .hero-mp-stat {
-    padding: 0 2rem; border-left: 1px solid rgba(245,241,230,0.18);
+    padding: 0 2rem; border-left: 1px solid rgba(20,18,12,0.15);
   }
   .hero-mp-{{ section.id }} .hero-mp-stat:first-child { border-left: none; }
   .hero-mp-{{ section.id }} .hero-mp-stat-num {
@@ -263,6 +275,18 @@
 {%- endstyle -%}
 
 <div class="hero-mp-{{ section.id }}">
+  {%- if section.settings.background_image != blank -%}
+    <span class="hero-mp-photo" aria-hidden="true">
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1800 }}"
+        srcset="{{ section.settings.background_image | image_url: width: 900 }} 900w, {{ section.settings.background_image | image_url: width: 1400 }} 1400w, {{ section.settings.background_image | image_url: width: 1800 }} 1800w"
+        sizes="100vw"
+        alt=""
+        width="{{ section.settings.background_image.width }}"
+        height="{{ section.settings.background_image.height }}"
+      >
+    </span>
+  {%- endif -%}
   <span class="hero-mp-floodlight" aria-hidden="true"></span>
   <div class="hero-mp-markings" aria-hidden="true">
     <span class="hero-mp-outline"></span>
@@ -276,25 +300,25 @@
     <span class="hero-mp-circle"></span>
     <div class="hero-mp-flag hero-mp-flag--tl">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="2" y1="18" x2="2" y2="2" stroke="#f5f1e6" stroke-width="1.6"/>
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
         <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--tr">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="2" y1="18" x2="2" y2="2" stroke="#f5f1e6" stroke-width="1.6"/>
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
         <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--bl">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="2" y1="18" x2="2" y2="2" stroke="#f5f1e6" stroke-width="1.6"/>
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
         <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--br">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="2" y1="18" x2="2" y2="2" stroke="#f5f1e6" stroke-width="1.6"/>
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
         <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
       </svg>
     </div>
@@ -401,6 +425,7 @@
     { "type": "url", "id": "button_link_1", "label": "Primary button link" },
     { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "New arrivals" },
     { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "background_image", "label": "Background photo (optional)", "info": "Sits behind the pitch markings with a light scrim" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
   ],

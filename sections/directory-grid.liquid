@@ -1,27 +1,27 @@
 {% comment %}
   Matchday Programme "directory" grid — used for Shop by League, Shop by Competition,
-  and Retro & Special Editions. One shared component so all three read as one system:
-  ticket-stub / sticker cards instead of a generic image grid.
+  and Retro & Special Editions. Editorial photo-tile system: each entry shows a real
+  merchant-uploaded photo full-bleed, with a text label on a scrim at the bottom.
+  White/gold theme.
 {% endcomment %}
 
 {%- style -%}
   .dg-{{ section.id }} {
-    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
-    background: var(--pitch); color: var(--chalk); padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
-    background-image: radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px);
-    background-size: 9px 9px; font-family: "Arial Narrow", Arial, sans-serif;
+    --paper: #fbfaf5; --paper-alt: #f2ede0; --ink: #16140d; --sub: #6b6553;
+    --gold: #b8862c; --gold-bright: #d9a13f; --line: #e6e0cf;
+    background: var(--paper); color: var(--ink); padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    font-family: "Arial Narrow", Arial, sans-serif;
   }
   .dg-{{ section.id }} .dg-head { max-width: 640px; margin: 0 auto 2.5rem; text-align: center; }
   .dg-{{ section.id }} .dg-eyebrow {
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-bright); margin-bottom: 0.6rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
   }
   .dg-{{ section.id }} h2 {
     font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1;
-    font-size: clamp(1.9rem, 4vw, 2.75rem); margin: 0; color: var(--chalk);
+    font-size: clamp(1.9rem, 4vw, 2.75rem); margin: 0; color: var(--ink);
   }
-  .dg-{{ section.id }} .dg-intro { margin-top: 0.75rem; color: rgba(245,241,230,0.78); font-size: 0.98rem; }
+  .dg-{{ section.id }} .dg-intro { margin-top: 0.75rem; color: var(--sub); font-size: 0.98rem; }
   .dg-{{ section.id }} .dg-grid {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; max-width: 1200px; margin: 0 auto;
   }
@@ -29,102 +29,65 @@
     .dg-{{ section.id }} .dg-grid { grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr); }
   }
   .dg-{{ section.id }} .dg-card {
-    position: relative; display: block; text-decoration: none; color: var(--ink); background: var(--paper);
-    padding: 2.6rem 1.3rem 2.2rem; text-align: center; overflow: hidden;
-    min-height: 132px;
-    border-radius: 18px;
-    transform: perspective(900px) rotateX(var(--dg-tilt-x, 0deg)) rotateY(var(--dg-tilt-y, 0deg)) translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
-    transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 6px 0 rgba(0,0,0,0.28);
+    position: relative; display: block; text-decoration: none; color: var(--ink);
+    background: var(--paper-alt); overflow: hidden; aspect-ratio: 3/4;
+    border-radius: 14px; border: 1px solid var(--line);
+    transform: translateY(var(--dg-lift, 0px)) scale(var(--dg-scale, 1));
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 6px rgba(20,18,12,0.06);
     opacity: 0; translate: 0 22px;
-    border: 2px solid transparent;
     will-change: transform;
     cursor: pointer;
   }
-  /* Faint knit/fabric texture — reads as jersey material instead of flat paper */
-  .dg-{{ section.id }} .dg-card::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image: repeating-linear-gradient(45deg, rgba(20,18,12,0.035) 0 2px, transparent 2px 6px);
-  }
-  /* Full-bleed country flag, faded behind the whole card — real per-league identity
-     without using any club/league's trademarked crest (this store is explicitly not
-     affiliated with any of them). Drawn in pure CSS gradients instead of emoji so it
-     always renders correctly and stays crisp at any size. */
-  .dg-{{ section.id }} .dg-card-flag-bg {
-    position: absolute; inset: 0; z-index: 0; opacity: 0.24; pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .dg-{{ section.id }} .dg-card:hover .dg-card-flag-bg,
-  .dg-{{ section.id }} .dg-card.dg-tilting .dg-card-flag-bg {
-    opacity: 1;
-  }
-  .dg-{{ section.id }} .dg-flag--england {
-    background-color: #fff;
-    background-image:
-      linear-gradient(to right, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%),
-      linear-gradient(to bottom, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%);
-  }
-  .dg-{{ section.id }} .dg-flag--spain {
-    background: linear-gradient(to bottom, #c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
-  }
-  .dg-{{ section.id }} .dg-flag--italy {
-    background: linear-gradient(to right, #008c45 0 33.33%, #f4f5f0 33.33% 66.66%, #cd212a 66.66% 100%);
-  }
-  .dg-{{ section.id }} .dg-flag--germany {
-    background: linear-gradient(to bottom, #000 0 33.33%, #dd0000 33.33% 66.66%, #ffce00 66.66% 100%);
-  }
-  .dg-{{ section.id }} .dg-flag--france {
-    background: linear-gradient(to right, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66% 100%);
-  }
-  .dg-{{ section.id }} .dg-flag--portugal {
-    background-color: #006600;
-    background-image:
-      radial-gradient(circle at 40% 50%, #f0c40a 0 9%, #f0c40a 9.3%, transparent 9.6%),
-      radial-gradient(circle at 40% 50%, #fff 0 6.5%, transparent 6.8%),
-      radial-gradient(circle at 40% 50%, #ff0000 0 4%, transparent 4.3%),
-      linear-gradient(to right, transparent 40%, #ff0000 40%, #ff0000 100%);
-  }
-  .dg-{{ section.id }} .dg-card-title {
-    position: relative; z-index: 1;
-  }
   .dg-{{ section.id }} .dg-card.is-visible {
-    opacity: 1; translate: 0 0; transition: opacity 0.6s ease, translate 0.6s ease, transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+    opacity: 1; translate: 0 0; transition: opacity 0.6s ease, translate 0.6s ease, transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease;
   }
   .dg-{{ section.id }} .dg-card:hover,
   .dg-{{ section.id }} .dg-card.dg-tilting {
-    --dg-lift: -8px; --dg-scale: 1.045;
-    box-shadow: 0 22px 34px -12px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,150,47,0.25),
-      0 14px 0 rgba(0,0,0,0.3), 0 0 30px rgba(224,179,85,0.4);
-    border-color: rgba(201,150,47,0.8);
-  }
-  .dg-{{ section.id }} .dg-card:active {
-    --dg-lift: -3px; --dg-scale: 1.01;
+    --dg-lift: -6px; --dg-scale: 1.02;
+    box-shadow: 0 20px 30px -14px rgba(20,18,12,0.28), 0 0 0 1px var(--gold);
+    border-color: var(--gold);
   }
   .dg-{{ section.id }} .dg-card:focus-visible {
-    outline: 3px solid var(--gold-bright); outline-offset: 3px;
+    outline: 3px solid var(--gold); outline-offset: 3px;
+  }
+  /* Merchant photo — fills the tile completely, no padding, no letterboxing */
+  .dg-{{ section.id }} .dg-card-photo {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .dg-{{ section.id }} .dg-card-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .dg-{{ section.id }} .dg-card:hover .dg-card-photo img {
+    transform: scale(1.06);
+  }
+  /* Placeholder state when no photo has been uploaded yet — plain warm panel, no icon box */
+  .dg-{{ section.id }} .dg-card-photo--empty {
+    background: linear-gradient(155deg, var(--paper-alt), #e9e2cd);
+  }
+  .dg-{{ section.id }} .dg-scrim {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    padding: 2.4rem 1.1rem 1rem;
+    background: linear-gradient(to top, rgba(15,13,8,0.82), rgba(15,13,8,0));
   }
   .dg-{{ section.id }} .dg-card-title {
-    font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; font-size: 1.2rem; line-height: 1.18;
+    color: #fbfaf5; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em;
+    font-size: 1.05rem; line-height: 1.18; text-shadow: 0 1px 3px rgba(0,0,0,0.4);
   }
-  /* Hex/ball-panel badge — classic football stitching look instead of a flat sticker */
+  .dg-{{ section.id }} .dg-card-meta {
+    color: var(--gold-bright); font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.3rem;
+  }
   .dg-{{ section.id }} .dg-badge {
-    position: absolute; top: -0.6rem; right: -0.5rem; background: var(--gold); color: var(--ink);
+    position: absolute; z-index: 2; top: 0.85rem; right: 0.85rem; background: var(--gold); color: #fff;
     font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-    padding: 0.3rem 0.55rem; transform: rotate(6deg);
-    clip-path: polygon(0% 12%, 10% 0%, 90% 0%, 100% 12%, 100% 88%, 90% 100%, 10% 100%, 0% 88%);
-    background-image:
-      linear-gradient(30deg, rgba(20,18,12,0.16) 12%, transparent 12.5%, transparent 87%, rgba(20,18,12,0.16) 87.5%, rgba(20,18,12,0.16)),
-      linear-gradient(150deg, rgba(20,18,12,0.16) 12%, transparent 12.5%, transparent 87%, rgba(20,18,12,0.16) 87.5%, rgba(20,18,12,0.16)),
-      linear-gradient(30deg, rgba(20,18,12,0.16) 12%, transparent 12.5%, transparent 87%, rgba(20,18,12,0.16) 87.5%, rgba(20,18,12,0.16)),
-      linear-gradient(150deg, rgba(20,18,12,0.16) 12%, transparent 12.5%, transparent 87%, rgba(20,18,12,0.16) 87.5%, rgba(20,18,12,0.16)),
-      linear-gradient(60deg, rgba(20,18,12,0.1) 25%, transparent 25.5%, transparent 75%, rgba(20,18,12,0.1) 75%, rgba(20,18,12,0.1)),
-      linear-gradient(60deg, rgba(20,18,12,0.1) 25%, transparent 25.5%, transparent 75%, rgba(20,18,12,0.1) 75%, rgba(20,18,12,0.1));
-    background-size: 9px 16px;
-    background-position: 0 0, 0 0, 4.5px 8px, 4.5px 8px, 0 0, 4.5px 8px;
+    padding: 0.3rem 0.6rem; border-radius: 999px;
   }
   @media (prefers-reduced-motion: reduce) {
     .dg-{{ section.id }} .dg-card { transition: none; opacity: 1; translate: 0; transform: none !important; }
     .dg-{{ section.id }} .dg-card:hover, .dg-{{ section.id }} .dg-card.dg-tilting { --dg-lift: 0px; --dg-scale: 1; }
+    .dg-{{ section.id }} .dg-card:hover .dg-card-photo img { transform: none; }
   }
 {%- endstyle -%}
 
@@ -139,8 +102,25 @@
       {%- if block.type == 'entry' -%}
         <a href="{{ block.settings.link | default: '#' }}" class="dg-card" data-dg-reveal {{ block.shopify_attributes }}>
           {%- if block.settings.badge != blank -%}<span class="dg-badge">{{ block.settings.badge }}</span>{%- endif -%}
-          {%- if block.settings.flag_country != blank -%}<span class="dg-card-flag-bg dg-flag--{{ block.settings.flag_country }}" aria-hidden="true"></span>{%- endif -%}
-          <div class="dg-card-title">{{ block.settings.title }}</div>
+          {%- if block.settings.image != blank -%}
+            <span class="dg-card-photo">
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                srcset="{{ block.settings.image | image_url: width: 500 }} 500w, {{ block.settings.image | image_url: width: 800 }} 800w, {{ block.settings.image | image_url: width: 1100 }} 1100w"
+                sizes="(min-width: 750px) 25vw, 50vw"
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            </span>
+          {%- else -%}
+            <span class="dg-card-photo dg-card-photo--empty" aria-hidden="true"></span>
+          {%- endif -%}
+          <span class="dg-scrim">
+            <span class="dg-card-title">{{ block.settings.title }}</span>
+            {%- if block.settings.meta != blank -%}<span class="dg-card-meta">{{ block.settings.meta }}</span>{%- endif -%}
+          </span>
         </a>
       {%- endif -%}
     {%- endfor -%}
@@ -177,7 +157,7 @@
   // 3D tilt-on-mousemove — trading-card style, disabled under reduced-motion or on touch.
   var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!reduce && supportsHover) {
-    var MAX_TILT = 10;
+    var MAX_TILT = 6;
     cards.forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var rect = card.getBoundingClientRect();
@@ -219,22 +199,7 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Premier League" },
         { "type": "text", "id": "meta", "label": "Meta line", "default": "In stock" },
         { "type": "text", "id": "badge", "label": "Badge (optional)" },
-        {
-          "type": "select",
-          "id": "flag_country",
-          "label": "Country flag background (optional)",
-          "info": "Leave as None for international competitions",
-          "options": [
-            { "value": "", "label": "None" },
-            { "value": "england", "label": "England" },
-            { "value": "spain", "label": "Spain" },
-            { "value": "italy", "label": "Italy" },
-            { "value": "germany", "label": "Germany" },
-            { "value": "france", "label": "France" },
-            { "value": "portugal", "label": "Portugal" }
-          ],
-          "default": ""
-        },
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Upload your own photo for this collection tile" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }

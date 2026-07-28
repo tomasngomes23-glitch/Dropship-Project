@@ -46,14 +46,14 @@
 {%- endcomment -%}
 {%- style -%}
   .mp-collection-grid {
-    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
     background: var(--pitch) !important; color: var(--chalk) !important;
     font-family: "Arial Narrow", Arial, sans-serif;
     /* Pitch stripe wash under the dot texture — same mown-grass pattern as the hero */
     background-image:
-      radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
-      repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px);
+      radial-gradient(circle, rgba(20,18,12,0.045) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(20,18,12,0.018) 0 46px, rgba(20,18,12,0.032) 46px 92px);
     background-size: 9px 9px, auto;
     animation: mp-pitch-drift-{{ section.id }} 50s linear infinite;
   }
@@ -92,7 +92,7 @@
     isolation: isolate; /* Hovered card's z-index bump stays contained to this grid. */
   }
   .mp-collection-grid .card-wrapper .card {
-    background: #12281c !important; border-radius: 14px !important;
+    background: #ffffff !important; border-radius: 14px !important;
     border: 2px solid transparent !important;
     box-shadow: 0 6px 0 rgba(0,0,0,0.28) !important;
     transform: translateY(0) scale(1);
@@ -117,7 +117,7 @@
   }
   .mp-collection-grid .card-wrapper .card__media {
     border-radius: 14px 14px 0 0 !important;
-    background: linear-gradient(155deg, #16321f, #0d1f16) !important;
+    background: linear-gradient(155deg, #f2ede0, #e6dfc9) !important;
   }
   /* Shopify's placeholder icon ships on its own light box — hide it and let the dark
      media panel read as a deliberate "photo coming soon" fill instead of a broken image.
@@ -126,7 +126,7 @@
     display: none;
   }
   .mp-collection-grid .card-wrapper .card__content {
-    border-top: 1px dashed rgba(245,241,230,0.18);
+    border-top: 1px dashed rgba(20,18,12,0.14);
   }
   .mp-collection-grid .card__heading,
   .mp-collection-grid .card__heading a {
@@ -141,14 +141,14 @@
   }
   .mp-collection-grid .price--on-sale .price-item--regular,
   .mp-collection-grid .price__sale .price-item--regular {
-    color: rgba(245,241,230,0.5) !important;
+    color: rgba(20,18,12,0.45) !important;
   }
   .mp-collection-grid .price-item--sale,
   .mp-collection-grid .price--on-sale .price-item--last {
     color: var(--gold) !important;
   }
   .mp-collection-grid .caption-with-letter-spacing.light {
-    color: rgba(245,241,230,0.6) !important;
+    color: rgba(20,18,12,0.55) !important;
   }
 
   /* Badge — small torn-edge stamp instead of a pill */
@@ -160,7 +160,7 @@
 
   /* Quick add — gold, chamfered corners, matching hero buttons */
   .mp-collection-grid .quick-add__submit {
-    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    background: var(--gold) !important; color: #fff !important; border: none !important;
     border-radius: 0 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     position: relative; overflow: hidden;
