@@ -227,7 +227,14 @@
   .hero-mp-{{ section.id }} .hero-mp-btn:hover::after { transform: skewX(-22deg) translateX(560%); }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover::before { transform: translateX(120%); }
   .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: #fff; }
-  .hero-mp-{{ section.id }} .hero-mp-btn--outline { background: #fff; color: var(--ink); border: 2px solid var(--gold); }
+  /* border-2px + clip-path chamfered corners don't mix — a plain CSS border is a
+     rectangle stroke and doesn't bend at the cut corners, so it renders broken at
+     the notch. Layering two backgrounds (one padding-box, one border-box) follows
+     the clipped shape cleanly instead, since backgrounds always respect clip-path. */
+  .hero-mp-{{ section.id }} .hero-mp-btn--outline {
+    background: linear-gradient(#fff, #fff) padding-box, linear-gradient(var(--gold), var(--gold)) border-box;
+    border: 2px solid transparent; color: var(--ink);
+  }
   .hero-mp-{{ section.id }} .hero-mp-btn-arrow {
     position: relative; z-index: 1; display: inline-block; transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
   }
