@@ -1,6 +1,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo+Black&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -127,18 +127,16 @@
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
     letter-spacing: -0.01em; color: var(--chalk); font-size: 1.5rem;
   }
-  /* Wordmark — plain bold type, no icon. Arial Rounded MT Bold (falling back to Arial
-     Black) for real chunky heft. Dropped the text-stroke from the last pass — it was
-     smearing the letterforms at this size instead of bulking them. A flat print-press
-     drop-shadow gives it depth without blurring the edges, and a gold underline slides
-     continuously underneath, no dwell/pause, like a scoreboard cursor that never stops
-     moving. */
+  /* Wordmark — Alfa Slab One, a true ultra-heavy slab display face, webfont-embedded so
+     the weight never depends on what's installed locally. Archivo Black/Arial Black stay
+     as fallbacks only if the webfont fails to load. Stroke kept modest since the face
+     itself is already maximally heavy — extra stroke on top just smears the slab serifs. */
   .mp-header-wrapper .mp-wordmark {
     display: inline-block; position: relative; overflow: hidden;
-    font-family: "Archivo Black", "Arial Black", "Arial Rounded MT Bold", Arial, sans-serif;
+    font-family: "Alfa Slab One", "Archivo Black", "Arial Black", Arial, sans-serif;
     font-weight: 900; text-transform: uppercase;
-    letter-spacing: -0.01em; font-size: 1.65rem;
-    -webkit-text-stroke: 0.8px currentColor;
+    letter-spacing: -0.01em; font-size: 1.75rem;
+    -webkit-text-stroke: 0.4px currentColor;
     text-shadow: 0 2px 0 rgba(8,21,17,0.4);
   }
   .mp-header-wrapper .mp-wordmark em {
