@@ -37,13 +37,12 @@
 {%- endstyle -%}
 
 {% comment %}
-  Matchday Programme reskin. Design call: a full grid of the homepage directory cards'
-  rotated ticket-stub treatment would be too busy at product-grid scale (dozens of cards),
-  so this uses a calmer sibling — flat paper cards on the pitch, no rotation, gold price
-  in monospace, condensed uppercase titles, dashed divider between media and info, small
-  torn-edge badge/quick-add accents so it still reads as the same system. Scoped to
-  .mp-collection-grid; structural markup / classes JS relies on (facets, quick-add,
-  quantity-popover, product-form) are untouched.
+  Matchday Programme reskin. Design call: dark "programme" cards on the pitch — the photo
+  fills the media area edge-to-edge (no image padding, no boxed-in placeholder), rounded
+  corners, gold glow on hover. Until real product photos are uploaded, the media area shows
+  a plain dark panel instead of Shopify's default placeholder icon, so there is no visible
+  white box/border mismatch. Scoped to .mp-collection-grid; structural markup / classes JS
+  relies on (facets, quick-add, quantity-popover, product-form) are untouched.
 {%- endcomment -%}
 {%- style -%}
   .mp-collection-grid {
@@ -88,14 +87,14 @@
     border-radius: 0 !important;
   }
 
-  /* Product cards — flat paper, no rotation, dashed divider */
+  /* Product cards — dark programme tile, photo fills edge-to-edge, gold glow on hover */
   .mp-collection-grid #product-grid {
     isolation: isolate; /* Hovered card's z-index bump stays contained to this grid. */
   }
   .mp-collection-grid .card-wrapper .card {
-    background: var(--paper) !important; border-radius: 0 !important;
+    background: #12281c !important; border-radius: 14px !important;
     border: 2px solid transparent !important;
-    box-shadow: 0 0 0 rgba(0,0,0,0) !important;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.28) !important;
     transform: translateY(0) scale(1);
     transition: transform 0.32s cubic-bezier(.2,.8,.2,1), box-shadow 0.32s ease, border-color 0.32s ease;
   }
@@ -107,39 +106,49 @@
   }
   .mp-collection-grid .card-wrapper:hover .card {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 32px -14px rgba(0,0,0,0.5) !important;
-    border-color: rgba(201,150,47,0.6) !important;
+    box-shadow: 0 20px 32px -14px rgba(0,0,0,0.5), 0 0 26px rgba(224,179,85,0.32) !important;
+    border-color: rgba(201,150,47,0.75) !important;
   }
   .mp-collection-grid .card-wrapper:active .card {
     transform: translateY(-3px) scale(0.995);
   }
   .mp-collection-grid .card-wrapper .card__inner {
-    border-radius: 0 !important;
+    border-radius: 14px !important;
+  }
+  .mp-collection-grid .card-wrapper .card__media {
+    border-radius: 14px 14px 0 0 !important;
+    background: linear-gradient(155deg, #16321f, #0d1f16) !important;
+  }
+  /* Shopify's placeholder icon ships on its own light box — hide it and let the dark
+     media panel read as a deliberate "photo coming soon" fill instead of a broken image.
+     Real product photos (an <img>, not this SVG) are unaffected and still cover the area. */
+  .mp-collection-grid .card__media .placeholder-svg {
+    display: none;
   }
   .mp-collection-grid .card-wrapper .card__content {
-    border-top: 1px dashed rgba(20,18,12,0.22);
+    border-top: 1px dashed rgba(245,241,230,0.18);
   }
   .mp-collection-grid .card__heading,
   .mp-collection-grid .card__heading a {
     font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.01em; color: var(--ink) !important; font-size: 0.92rem;
+    letter-spacing: 0.01em; color: var(--chalk) !important; font-size: 0.92rem;
   }
   .mp-collection-grid .price,
   .mp-collection-grid .price__container,
   .mp-collection-grid .price-item {
-    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--ink) !important;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace !important; color: var(--gold-bright) !important;
     font-weight: 700;
   }
   .mp-collection-grid .price--on-sale .price-item--regular,
   .mp-collection-grid .price__sale .price-item--regular {
-    color: rgba(20,18,12,0.5) !important;
+    color: rgba(245,241,230,0.5) !important;
   }
   .mp-collection-grid .price-item--sale,
   .mp-collection-grid .price--on-sale .price-item--last {
     color: var(--gold) !important;
   }
   .mp-collection-grid .caption-with-letter-spacing.light {
-    color: rgba(20,18,12,0.6) !important;
+    color: rgba(245,241,230,0.6) !important;
   }
 
   /* Badge — small torn-edge stamp instead of a pill */
