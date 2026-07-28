@@ -1,0 +1,153 @@
+{% comment %}
+  Matchday Programme "collage" — asymmetric photo grid (one large tile + a 2x2 of
+  smaller tiles), each tile a real merchant photo with a bottom-left text overlay.
+  White/gold theme. Ships with no images by default; merchant adds their own via the
+  editor and each tile falls back to a plain warm panel until then.
+{% endcomment %}
+
+{%- style -%}
+  .cm-{{ section.id }} {
+    --ink: #14120c; --sub: #6b6553; --gold: #b8862c; --gold-bright: #d9a13f; --line: #e6e0cf;
+    background: #fbfaf5; color: var(--ink); padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+  }
+  .cm-{{ section.id }} .cm-head {
+    max-width: 1200px; margin: 0 auto 1.75rem; display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .cm-{{ section.id }} .cm-eyebrow {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .cm-{{ section.id }} h2 {
+    font-weight: 800; letter-spacing: -0.02em; line-height: 0.98; margin: 0;
+    font-size: clamp(1.9rem, 4vw, 2.75rem); color: var(--ink);
+  }
+  .cm-{{ section.id }} .cm-all {
+    font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .cm-{{ section.id }} .cm-all:hover { color: var(--gold); border-color: var(--gold); }
+
+  .cm-{{ section.id }} .cm-grid {
+    max-width: 1200px; margin: 0 auto; display: grid; gap: 0.9rem;
+    grid-template-columns: 1fr; grid-template-rows: auto;
+  }
+  @media screen and (min-width: 750px) {
+    .cm-{{ section.id }} .cm-grid {
+      grid-template-columns: 1.1fr 1fr 1fr;
+      grid-template-rows: repeat(2, minmax(220px, 1fr));
+    }
+    .cm-{{ section.id }} .cm-tile--lg { grid-column: 1; grid-row: 1 / span 2; }
+  }
+
+  .cm-{{ section.id }} .cm-tile {
+    position: relative; display: block; text-decoration: none; color: inherit;
+    overflow: hidden; border-radius: 10px; background: #f2ede0;
+    min-height: 260px;
+  }
+  .cm-{{ section.id }} .cm-tile-photo { position: absolute; inset: 0; z-index: 0; }
+  .cm-{{ section.id }} .cm-tile-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;
+  }
+  .cm-{{ section.id }} .cm-tile:hover .cm-tile-photo img { transform: scale(1.05); }
+  .cm-{{ section.id }} .cm-tile-photo--empty { background: linear-gradient(155deg, #f2ede0, #e6dfc9); }
+  .cm-{{ section.id }} .cm-tile::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(15,13,8,0.78), rgba(15,13,8,0) 55%);
+  }
+  .cm-{{ section.id }} .cm-tile-body {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 1.4rem;
+  }
+  .cm-{{ section.id }} .cm-tile--lg .cm-tile-body { padding: 2rem; }
+  .cm-{{ section.id }} .cm-tile-title {
+    color: #fbfaf5; font-weight: 900; font-size: 1.4rem; line-height: 1.05; margin: 0 0 0.4rem;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+  }
+  .cm-{{ section.id }} .cm-tile--lg .cm-tile-title { font-size: clamp(1.9rem, 3vw, 2.4rem); }
+  .cm-{{ section.id }} .cm-tile-sub {
+    color: rgba(251,250,245,0.85); font-size: 0.85rem; line-height: 1.4; max-width: 34ch;
+  }
+  .cm-{{ section.id }} .cm-tile:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px;
+  }
+{%- endstyle -%}
+
+<div class="cm-{{ section.id }}">
+  <div class="cm-head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<div class="cm-eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.all_label != blank -%}
+      <a href="{{ section.settings.all_link | default: '#' }}" class="cm-all">{{ section.settings.all_label }} &rarr;</a>
+    {%- endif -%}
+  </div>
+  <div class="cm-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'tile' -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="cm-tile{% if forloop.index == 1 %} cm-tile--lg{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <span class="cm-tile-photo">
+              <img
+                src="{{ block.settings.image | image_url: width: 900 }}"
+                srcset="{{ block.settings.image | image_url: width: 500 }} 500w, {{ block.settings.image | image_url: width: 900 }} 900w, {{ block.settings.image | image_url: width: 1300 }} 1300w"
+                sizes="(min-width: 750px) 40vw, 100vw"
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            </span>
+          {%- else -%}
+            <span class="cm-tile-photo cm-tile-photo--empty" aria-hidden="true"></span>
+          {%- endif -%}
+          <span class="cm-tile-body">
+            <span class="cm-tile-title">{{ block.settings.title }}</span>
+            {%- if block.settings.subtitle != blank -%}<span class="cm-tile-sub">{{ block.settings.subtitle }}</span>{%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collage (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Curated" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built around moments." },
+    { "type": "text", "id": "all_label", "label": "\"All\" link label", "default": "All collections" },
+    { "type": "url", "id": "all_link", "label": "\"All\" link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Boots" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collage (Matchday)",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "Boots", "subtitle": "Mercurial, T90, Predator Mania. Drop I of iconic boots." } },
+        { "type": "tile", "settings": { "title": "Tracksuits & Jackets", "subtitle": "Pre-match warm-ups. Manager touchlines. Tour drip." } },
+        { "type": "tile", "settings": { "title": "Long Sleeves", "subtitle": "Cold-weather classics. Goalkeeper specials. The way it was." } },
+        { "type": "tile", "settings": { "title": "Balls", "subtitle": "Teamgeist, Jabulani, Brazuca. Drop I of iconic balls." } },
+        { "type": "tile", "settings": { "title": "Kids", "subtitle": "The first shirts. The smallest sizes. The biggest memories." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

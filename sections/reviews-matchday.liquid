@@ -7,13 +7,13 @@
 
 {%- style -%}
   .rv-{{ section.id }} {
-    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #ffffff; --ink: #14120c;
+    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
     position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
     padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
     font-family: "Arial Narrow", Arial, sans-serif;
     background-image:
-      radial-gradient(circle, rgba(245,241,230,0.05) 1px, transparent 1.1px),
+      radial-gradient(circle, rgba(20,18,12,0.05) 1px, transparent 1.1px),
       repeating-linear-gradient(18deg, rgba(255,255,255,0.018) 0 46px, rgba(0,0,0,0.035) 46px 92px);
     background-size: 9px 9px, auto;
   }
@@ -30,12 +30,12 @@
     font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1;
     font-size: clamp(1.9rem, 4vw, 2.75rem); margin: 0; color: var(--chalk);
   }
-  .rv-{{ section.id }} .rv-intro { margin-top: 0.75rem; color: rgba(245,241,230,0.78); font-size: 0.98rem; }
+  .rv-{{ section.id }} .rv-intro { margin-top: 0.75rem; color: rgba(20,18,12,0.68); font-size: 0.98rem; }
 
   /* Aggregate rating strip — reads like a scoreboard line */
   .rv-{{ section.id }} .rv-agg {
     display: inline-flex; align-items: center; gap: 0.9rem; margin-top: 1.5rem;
-    background: rgba(8,21,17,0.5); border: 1px solid rgba(245,241,230,0.18);
+    background: rgba(20,18,12,0.5); border: 1px solid rgba(20,18,12,0.15);
     padding: 0.7rem 1.2rem; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
   }
   .rv-{{ section.id }} .rv-agg-score {
@@ -43,7 +43,7 @@
   }
   .rv-{{ section.id }} .rv-agg-stars { display: inline-flex; gap: 0.12rem; }
   .rv-{{ section.id }} .rv-agg-count {
-    font-size: 0.78rem; color: rgba(245,241,230,0.7); text-align: left; letter-spacing: 0.01em;
+    font-size: 0.78rem; color: rgba(20,18,12,0.7); text-align: left; letter-spacing: 0.01em;
   }
 
   /* Rating distribution — 5-star breakdown, the bit every real reviews module has
@@ -57,10 +57,10 @@
   }
   .rv-{{ section.id }} .rv-breakdown-label {
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.72rem;
-    color: rgba(245,241,230,0.75); text-align: left; white-space: nowrap;
+    color: rgba(20,18,12,0.75); text-align: left; white-space: nowrap;
   }
   .rv-{{ section.id }} .rv-breakdown-track {
-    height: 6px; background: rgba(245,241,230,0.12); position: relative; overflow: hidden;
+    height: 6px; background: rgba(20,18,12,0.12); position: relative; overflow: hidden;
   }
   .rv-{{ section.id }} .rv-breakdown-fill {
     position: absolute; inset: 0; width: var(--rv-pct, 0%); background: var(--gold);
@@ -69,7 +69,7 @@
   .rv-{{ section.id }}.is-breakdown-visible .rv-breakdown-fill { transform: scaleX(1); }
   .rv-{{ section.id }} .rv-breakdown-count {
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-size: 0.7rem;
-    color: rgba(245,241,230,0.55); text-align: right;
+    color: rgba(20,18,12,0.5); text-align: right;
   }
   @media (prefers-reduced-motion: reduce) {
     .rv-{{ section.id }} .rv-breakdown-fill { transition: none; transform: scaleX(1); }
@@ -78,7 +78,7 @@
   /* Star icon — pitch-inspired pentagon/star, not a generic glyph font */
   .rv-{{ section.id }} .rv-star { width: 15px; height: 15px; flex: none; }
   .rv-{{ section.id }} .rv-star--on path { fill: var(--gold); }
-  .rv-{{ section.id }} .rv-star--off path { fill: rgba(245,241,230,0.22); }
+  .rv-{{ section.id }} .rv-star--off path { fill: rgba(20,18,12,0.22); }
 
   /* Scroll rail of ticket-stub cards */
   .rv-{{ section.id }} .rv-rail {
@@ -141,7 +141,7 @@
   }
 
   .rv-{{ section.id }} .rv-hint {
-    text-align: center; margin-top: 0.25rem; font-size: 0.72rem; color: rgba(245,241,230,0.55);
+    text-align: center; margin-top: 0.25rem; font-size: 0.72rem; color: rgba(20,18,12,0.5);
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; letter-spacing: 0.04em;
   }
 

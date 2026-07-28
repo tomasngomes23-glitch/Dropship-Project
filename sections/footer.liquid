@@ -34,14 +34,14 @@
 {%- endcomment -%}
 {%- style -%}
   .mp-footer {
-    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #ffffff; --ink: #14120c;
+    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
     background: var(--pitch-dark) !important; color: var(--chalk) !important;
     font-family: "Arial Narrow", Arial, sans-serif;
     position: relative;
     /* Boot-stud print — a low-key repeating stud pattern under the existing dot texture */
     background-image:
-      radial-gradient(circle, rgba(245,241,230,0.045) 1px, transparent 1.1px),
+      radial-gradient(circle, rgba(20,18,12,0.045) 1px, transparent 1.1px),
       radial-gradient(ellipse 3px 5px at center, rgba(0,0,0,0.35) 40%, transparent 42%);
     background-size: 9px 9px, 34px 34px;
     background-position: 0 0, 12px 18px;
@@ -56,7 +56,7 @@
     letter-spacing: 0.02em; color: var(--gold-bright) !important; font-size: 1rem;
   }
   .mp-footer .footer-block__details-content,
-  .mp-footer .footer-block__brand-info { color: rgba(245,241,230,0.82) !important; }
+  .mp-footer .footer-block__brand-info { color: rgba(20,18,12,0.72) !important; }
   .mp-footer .footer-block--menu .list-menu__item {
     color: var(--chalk) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;
     font-size: 0.88rem; position: relative; display: inline-block;
@@ -132,12 +132,12 @@
 
   /* Bottom bar — dashed hairline "perforation" above small print */
   .mp-footer .footer__content-bottom {
-    border-top: 1px dashed rgba(245,241,230,0.25) !important;
+    border-top: 1px dashed rgba(20,18,12,0.18) !important;
   }
   .mp-footer .footer__copyright,
   .mp-footer .copyright__content,
   .mp-footer .copyright__content a {
-    color: rgba(245,241,230,0.62) !important;
+    color: rgba(20,18,12,0.55) !important;
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
     font-size: 0.72rem; letter-spacing: 0.02em;
   }
@@ -147,7 +147,7 @@
   }
   .mp-footer .footer__localization h2,
   .mp-footer .caption-large.text-body {
-    color: rgba(245,241,230,0.55) !important;
+    color: rgba(20,18,12,0.5) !important;
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
     text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.68rem;
   }

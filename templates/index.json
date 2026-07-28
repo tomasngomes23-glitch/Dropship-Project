@@ -143,11 +143,31 @@
         "padding_bottom": 52
       }
     }
+    "collage-moments": {
+      "type": "collage-moments",
+      "blocks": {
+        "tile-1": { "type": "tile", "settings": { "title": "Boots", "subtitle": "Mercurial, T90, Predator Mania. Drop I of iconic boots." } },
+        "tile-2": { "type": "tile", "settings": { "title": "Tracksuits & Jackets", "subtitle": "Pre-match warm-ups. Manager touchlines. Tour drip." } },
+        "tile-3": { "type": "tile", "settings": { "title": "Long Sleeves", "subtitle": "Cold-weather classics. Goalkeeper specials. The way it was." } },
+        "tile-4": { "type": "tile", "settings": { "title": "Balls", "subtitle": "Teamgeist, Jabulani, Brazuca. Drop I of iconic balls." } },
+        "tile-5": { "type": "tile", "settings": { "title": "Kids", "subtitle": "The first shirts. The smallest sizes. The biggest memories." } }
+      },
+      "block_order": ["tile-1", "tile-2", "tile-3", "tile-4", "tile-5"],
+      "settings": {
+        "eyebrow": "Curated",
+        "heading": "Built around moments.",
+        "all_label": "All collections",
+        "all_link": "shopify://collections/all",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
   },
   "order": [
     "hero",
     "shop-by-league",
     "shop-by-competition",
+    "collage-moments",
     "retro-and-special",
     "reviews",
     "brand-story",
