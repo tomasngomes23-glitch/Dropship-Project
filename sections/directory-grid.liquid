@@ -66,6 +66,39 @@
   .dg-{{ section.id }} .dg-card-photo--empty {
     background: linear-gradient(155deg, var(--paper-alt), #e9e2cd);
   }
+  /* Full-bleed country flag — used as the fallback tile background when no merchant photo
+     has been uploaded yet. Real per-league identity, drawn in pure CSS gradients (never
+     a club/league's trademarked crest — this store is explicitly not affiliated with any
+     of them), so it always renders crisp at any size with no image request. */
+  .dg-{{ section.id }} .dg-card-flag-bg {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  }
+  .dg-{{ section.id }} .dg-flag--england {
+    background-color: #fff;
+    background-image:
+      linear-gradient(to right, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%),
+      linear-gradient(to bottom, transparent 40%, #ce1124 40%, #ce1124 60%, transparent 60%);
+  }
+  .dg-{{ section.id }} .dg-flag--spain {
+    background: linear-gradient(to bottom, #c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--italy {
+    background: linear-gradient(to right, #008c45 0 33.33%, #f4f5f0 33.33% 66.66%, #cd212a 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--germany {
+    background: linear-gradient(to bottom, #000 0 33.33%, #dd0000 33.33% 66.66%, #ffce00 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--france {
+    background: linear-gradient(to right, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66% 100%);
+  }
+  .dg-{{ section.id }} .dg-flag--portugal {
+    background-color: #006600;
+    background-image:
+      radial-gradient(circle at 40% 50%, #f0c40a 0 9%, #f0c40a 9.3%, transparent 9.6%),
+      radial-gradient(circle at 40% 50%, #fff 0 6.5%, transparent 6.8%),
+      radial-gradient(circle at 40% 50%, #ff0000 0 4%, transparent 4.3%),
+      linear-gradient(to right, transparent 40%, #ff0000 40%, #ff0000 100%);
+  }
   .dg-{{ section.id }} .dg-scrim {
     position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
     padding: 2.4rem 1.1rem 1rem;
@@ -114,6 +147,8 @@
                 height="{{ block.settings.image.height }}"
               >
             </span>
+          {%- elsif block.settings.flag_country != blank -%}
+            <span class="dg-card-photo dg-card-flag-bg dg-flag--{{ block.settings.flag_country }}" aria-hidden="true"></span>
           {%- else -%}
             <span class="dg-card-photo dg-card-photo--empty" aria-hidden="true"></span>
           {%- endif -%}
@@ -200,6 +235,22 @@
         { "type": "text", "id": "meta", "label": "Meta line", "default": "In stock" },
         { "type": "text", "id": "badge", "label": "Badge (optional)" },
         { "type": "image_picker", "id": "image", "label": "Photo", "info": "Upload your own photo for this collection tile" },
+        {
+          "type": "select",
+          "id": "flag_country",
+          "label": "Country flag background (used if no photo is set)",
+          "info": "Leave as None for international competitions",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "england", "label": "England" },
+            { "value": "spain", "label": "Spain" },
+            { "value": "italy", "label": "Italy" },
+            { "value": "germany", "label": "Germany" },
+            { "value": "france", "label": "France" },
+            { "value": "portugal", "label": "Portugal" }
+          ],
+          "default": ""
+        },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
