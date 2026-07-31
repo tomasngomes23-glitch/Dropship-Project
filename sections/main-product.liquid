@@ -49,12 +49,12 @@
   {%- endcomment -%}
   {%- style -%}
     .mp-product {
-      --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-      --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+      --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #f2ede1; --ink: #14120c;
+      --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
       background: var(--pitch) !important; color: var(--chalk) !important;
       font-family: "Arial Narrow", Arial, sans-serif;
       /* Pitch stripe wash — same mown-grass pattern used on the hero and collection grid */
-      background-image: repeating-linear-gradient(18deg, rgba(255,255,255,0.022) 0 46px, rgba(0,0,0,0.04) 46px 92px) !important;
+      background-image: repeating-linear-gradient(18deg, rgba(20,18,12,0.018) 0 46px, rgba(20,18,12,0.032) 46px 92px) !important;
     }
 
     .mp-product .product__title h1,
@@ -73,18 +73,18 @@
       color: var(--gold) !important; font-weight: 700;
     }
     .mp-product .price--on-sale .price-item--regular {
-      color: rgba(245,241,230,0.5) !important;
+      color: rgba(20,18,12,0.5) !important;
     }
     .mp-product .price-item--sale {
       color: var(--gold-bright) !important;
     }
     .mp-product .product__tax,
     .mp-product .installment {
-      color: rgba(245,241,230,0.65) !important;
+      color: rgba(20,18,12,0.65) !important;
     }
 
     .mp-product .product__sku {
-      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; color: rgba(245,241,230,0.6) !important;
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; color: rgba(20,18,12,0.6) !important;
       letter-spacing: 0.04em;
     }
     .mp-product .product__inventory {
@@ -93,8 +93,8 @@
     }
 
     .mp-product .product__description {
-      color: rgba(245,241,230,0.85) !important;
-      border-top: 1px dashed rgba(245,241,230,0.25); padding-top: 1.1rem; margin-top: 1.1rem;
+      color: rgba(20,18,12,0.85) !important;
+      border-top: 1px dashed rgba(20,18,12,0.25); padding-top: 1.1rem; margin-top: 1.1rem;
     }
 
     /* Info column rhythm — consistent vertical spacing between every block instead of
@@ -125,7 +125,7 @@
     .mp-product .mp-rating-link__stars { display: inline-flex; gap: 0.08rem; }
     .mp-product .mp-rating-link__stars svg { width: 13px; height: 13px; }
     .mp-product .mp-rating-link__stars path { fill: var(--gold); }
-    .mp-product .mp-rating-link__count { color: rgba(245,241,230,0.6); font-weight: 600; }
+    .mp-product .mp-rating-link__count { color: rgba(20,18,12,0.6); font-weight: 600; }
 
     /* Variant picker — real size grid instead of thin pills: square, uniform, with
        enough tap target to feel like a proper football-store size selector. */
@@ -140,7 +140,7 @@
       display: flex; flex-wrap: wrap; gap: 0.6rem;
     }
     .mp-product fieldset.product-form__input--pill label {
-      border-radius: 0 !important; border: 1px solid rgba(245,241,230,0.35) !important;
+      border-radius: 0 !important; border: 1px solid rgba(20,18,12,0.35) !important;
       background: transparent !important; color: var(--chalk) !important;
       font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
       min-width: 3.4rem; min-height: 3.4rem; padding: 0.5rem 0.9rem !important;
@@ -165,7 +165,7 @@
        nothing here, which read as untrustworthy next to a full price tag. */
     .mp-product .mp-trust-bar {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
-      border-top: 1px dashed rgba(245,241,230,0.25); border-bottom: 1px dashed rgba(245,241,230,0.25);
+      border-top: 1px dashed rgba(20,18,12,0.25); border-bottom: 1px dashed rgba(20,18,12,0.25);
       padding: 1.1rem 0;
     }
     .mp-product .mp-trust-item {
@@ -176,14 +176,14 @@
     }
     .mp-product .mp-trust-item span {
       font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700; text-transform: uppercase;
-      font-size: 0.68rem; letter-spacing: 0.02em; color: rgba(245,241,230,0.82); line-height: 1.25;
+      font-size: 0.68rem; letter-spacing: 0.02em; color: rgba(20,18,12,0.82); line-height: 1.25;
     }
     @media screen and (max-width: 480px) {
       .mp-product .mp-trust-item span { font-size: 0.62rem; }
     }
 
     .mp-product .quantity {
-      border: 1px dashed rgba(245,241,230,0.35) !important; border-radius: 0 !important;
+      border: 1px dashed rgba(20,18,12,0.35) !important; border-radius: 0 !important;
       background: transparent !important;
     }
     .mp-product .quantity__input {
@@ -211,7 +211,7 @@
     }
     .mp-product .product-form__submit.button--secondary {
       background: transparent !important; color: var(--chalk) !important;
-      border: 1px dashed rgba(245,241,230,0.45) !important; border-radius: 0 !important;
+      border: 1px dashed rgba(20,18,12,0.45) !important; border-radius: 0 !important;
       font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
     }
     .mp-product shopify-accelerated-checkout,
@@ -222,14 +222,14 @@
     /* Accordions / disclosures — dashed hairline dividers, condensed uppercase headings */
     .mp-product .product__accordion,
     .mp-product .accordion {
-      border-top: 1px dashed rgba(245,241,230,0.25);
+      border-top: 1px dashed rgba(20,18,12,0.25);
     }
     .mp-product .accordion__title {
       color: var(--chalk) !important; font-family: "Arial Narrow", Arial, sans-serif;
       font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em;
     }
     .mp-product .accordion__content {
-      color: rgba(245,241,230,0.8) !important;
+      color: rgba(20,18,12,0.8) !important;
     }
     .mp-product .product-popup-modal__button,
     .mp-product .product__view-details {
@@ -360,7 +360,7 @@
       }
       .mp-product .product-form__submit.button--primary.mp-added {
         background: var(--live-green) !important;
-        color: var(--chalk) !important;
+        color: #fff !important;
       }
       .mp-product .product-form__submit.button--primary.mp-added span::before {
         content: '\2713  ';
@@ -431,8 +431,9 @@
       gap: 1rem;
       padding: 0.7rem 1.2rem;
       background: var(--pitch-dark);
-      border-top: 1px solid rgba(245, 241, 230, 0.2);
+      border-top: 1px solid rgba(20, 18, 12, 0.14);
       color: var(--chalk);
+      box-shadow: 0 -4px 16px rgba(20, 18, 12, 0.12);
       visibility: hidden;
     }
     .mp-sticky-atc.mp-visible {
@@ -495,7 +496,7 @@
       text-transform: uppercase;
       letter-spacing: 0.02em;
       font-size: 0.78rem;
-      color: rgba(245, 241, 230, 0.75);
+      color: rgba(20, 18, 12, 0.65);
     }
     .mp-product .mp-viewer-count__dot {
       width: 0.5rem;
