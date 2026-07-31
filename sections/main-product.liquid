@@ -55,6 +55,13 @@
       font-family: "Arial Narrow", Arial, sans-serif;
       /* Pitch stripe wash — same mown-grass pattern used on the hero and collection grid */
       background-image: repeating-linear-gradient(18deg, rgba(20,18,12,0.018) 0 46px, rgba(20,18,12,0.032) 46px 92px) !important;
+      /* Media gallery — Dawn reads corner radius off this custom property, so setting it
+         here rounds the main image + zoom/modal frames to match the card language used
+         everywhere else on the site (was hard 0, felt like a stray unstyled box). */
+      --media-radius: 16px;
+    }
+    .mp-product .thumbnail.global-media-settings img {
+      border-radius: 8px !important;
     }
 
     .mp-product .product__title h1,
