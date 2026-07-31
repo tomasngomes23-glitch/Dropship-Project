@@ -1,0 +1,101 @@
+{% comment %}
+  Renders name & number personalization fields for products with a
+  "Personalization" variant option (values: "No personalization" /
+  "Add name & number (+€3.99)"). Fields are hidden and disabled until the
+  customer picks the paid option, so they never submit blank properties on
+  the free option.
+
+  Usage:
+  {% render 'personalization-fields', product: product %}
+{% endcomment %}
+{%- if product.options contains 'Personalization' -%}
+  <div class="personalization-fields" data-personalization-fields hidden>
+    <p class="form__label">Personalize this shirt</p>
+    <div class="personalization-fields__row">
+      <div class="personalization-fields__field">
+        <label for="Personalization-Name-{{ product.id }}">Name</label>
+        <input
+          type="text"
+          id="Personalization-Name-{{ product.id }}"
+          name="properties[Name]"
+          maxlength="20"
+          autocomplete="off"
+          disabled
+        >
+      </div>
+      <div class="personalization-fields__field">
+        <label for="Personalization-Number-{{ product.id }}">Number</label>
+        <input
+          type="text"
+          id="Personalization-Number-{{ product.id }}"
+          name="properties[Number]"
+          maxlength="2"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          autocomplete="off"
+          disabled
+        >
+      </div>
+    </div>
+  </div>
+  {{ 'personalization.js' | asset_url | script_tag }}
+  {%- style -%}
+    .personalization-fields {
+      --gold: #d9b34d; --gold-bright: #e8c873; --ink: #14120c; --paper: #f2ede1;
+      margin-block: 1.2rem;
+      padding: 1.1rem 1.2rem 1.3rem;
+      background: var(--paper);
+      border: none;
+      position: relative;
+      clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+      font-family: "Arial Narrow", Arial, sans-serif;
+    }
+    .personalization-fields::before {
+      content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--gold);
+    }
+    .personalization-fields .form__label {
+      color: var(--ink); font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.04em; font-size: 0.8rem; margin: 0;
+    }
+    .personalization-fields__row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .personalization-fields__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+      min-width: 120px;
+    }
+    .personalization-fields__field label {
+      color: rgba(20,18,12,0.6); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; font-size: 0.68rem;
+    }
+    .personalization-fields__field input {
+      padding: 0.65rem 0.8rem;
+      background: #fff;
+      border: 1px solid rgba(20,18,12,0.25);
+      border-radius: 0;
+      color: var(--ink);
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .personalization-fields__field input::placeholder {
+      color: rgba(20,18,12,0.35);
+    }
+    .personalization-fields__field input:focus-visible {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(232,200,115,0.3);
+    }
+    .personalization-fields__field input:disabled {
+      background: rgba(20,18,12,0.04);
+      cursor: not-allowed;
+    }
+  {%- endstyle -%}
+{%- endif -%}

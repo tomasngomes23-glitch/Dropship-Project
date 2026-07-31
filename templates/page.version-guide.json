@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "version-guide",
+      "settings": {
+        "heading": "Fan Version vs Player Version",
+        "heading_size": "h0",
+        "intro": "<p>Every First Touch kit comes in two builds. Flip the switch to compare — then pick your version on the product page.</p>",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": ["main"]
+}

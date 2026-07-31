@@ -1,0 +1,43 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "always",
+        "show_line_separator": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "mobile_logo_position": "center",
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "led-ticker": {
+      "type": "led-ticker",
+      "settings": {
+        "aria_label": "Store announcements",
+        "speed": 28
+      },
+      "blocks": {
+        "msg-1": { "type": "message", "settings": { "text": "FAN VERSION OR PLAYER VERSION — YOUR CALL" } },
+        "msg-2": { "type": "message", "settings": { "text": "48 CLUBS · 6 LEAGUES" } },
+        "msg-3": { "type": "message", "settings": { "text": "FREE SHIPPING OVER €60" } },
+        "msg-4": { "type": "message", "settings": { "text": "NEW DROPS EVERY WEEK" } }
+      },
+      "block_order": ["msg-1", "msg-2", "msg-3", "msg-4"]
+    }
+  },
+  "order": [
+    "led-ticker",
+    "header"
+  ]
+}

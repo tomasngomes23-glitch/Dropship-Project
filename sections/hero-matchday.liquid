@@ -1,0 +1,456 @@
+{% comment %}
+  Matchday Programme hero — front cover of a matchday programme, not a SaaS banner.
+  Bespoke section, palette hardcoded per the "Matchday Programme" design system
+  (see PROJECT_STATUS.md / repo notes) since settings_data.json cannot be edited yet.
+{% endcomment %}
+
+{%- style -%}
+  .hero-mp-{{ section.id }} {
+    --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #14120c; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #2f8f4e;
+    position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
+    /* Base padding comes from the theme editor setting, but on very large screens that
+       fixed px amount reads as a thin letterboxed strip against the full viewport width —
+       add a vw-scaled amount on top so the pitch keeps growing taller as the screen widens. */
+    padding: calc({{ section.settings.padding_top }}px + 5vw) 1.5rem calc({{ section.settings.padding_bottom }}px + 5vw);
+    font-family: "Arial Narrow", Arial, sans-serif;
+    background-image:
+      radial-gradient(circle, rgba(20,18,12,0.05) 1px, transparent 1.1px),
+      repeating-linear-gradient(18deg, rgba(20,18,12,0.02) 0 46px, rgba(20,18,12,0.035) 46px 92px);
+    background-size: 9px 9px, auto;
+  }
+  .hero-mp-{{ section.id }}::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0%, rgba(217,179,77,0.14), transparent 60%);
+  }
+  /* Optional merchant photo background — fills the hero edge-to-edge behind the pitch
+     markings, with a paper-tint scrim so the dark ink headline stays legible over any photo. */
+  .hero-mp-{{ section.id }} .hero-mp-photo {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(251,250,245,0.55), rgba(251,250,245,0.88) 55%, rgba(251,250,245,0.96));
+  }
+  /* Floodlight sweep — slow radial beam drifting across the pitch, evokes stadium lights */
+  .hero-mp-{{ section.id }} .hero-mp-floodlight {
+    position: absolute; inset: -20%; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 38% 55% at 20% -10%, rgba(217,161,63,0.22), transparent 60%);
+    animation: hero-mp-sweep-{{ section.id }} 16s ease-in-out infinite;
+  }
+  @keyframes hero-mp-sweep-{{ section.id }} {
+    0%, 100% { transform: translateX(-8%) rotate(-2deg); opacity: 0.55; }
+    50% { transform: translateX(60%) rotate(2deg); opacity: 0.95; }
+  }
+  /* Pitch markings — plain CSS borders/positioning instead of a stretched SVG. An SVG with
+     preserveAspectRatio: none stretches non-uniformly on wide screens, and stroke-width
+     stretches with it — horizontal and vertical lines end up visibly different thicknesses.
+     CSS border-width is real, unscaled pixels, so every line stays the same thickness
+     regardless of the section's aspect ratio. */
+  .hero-mp-{{ section.id }} .hero-mp-markings {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-outline {
+    position: absolute; inset: 0; border: 2px solid rgba(20,18,12,0.16);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-halfway {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px;
+    background: rgba(20,18,12,0.16);
+  }
+  /* Penalty boxes ("grandes áreas") — real pitch markings, same white as the rest of the
+     lines (not gold) but a touch brighter/thicker so the 18-yard box, 6-yard box and
+     penalty spot read clearly as a deliberate feature. Percentages match the old 1000x300
+     viewBox coordinates (e.g. 27.33% = 82/300, 9% = 90/1000). */
+  .hero-mp-{{ section.id }} .hero-mp-box {
+    position: absolute; border-style: solid; border-color: rgba(20,18,12,0.22);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-box--big { top: 27.33%; height: 45.33%; width: 9%; border-width: 3.5px; }
+  .hero-mp-{{ section.id }} .hero-mp-box--small { top: 42.5%; height: 15%; width: 3%; border-width: 2.5px; }
+  .hero-mp-{{ section.id }} .hero-mp-box--l { left: 0; border-left: none; }
+  .hero-mp-{{ section.id }} .hero-mp-box--r { right: 0; border-right: none; }
+  .hero-mp-{{ section.id }} .hero-mp-spot {
+    position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+    background: rgba(20,18,12,0.3); top: 50%;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-spot--l { left: 6.2%; }
+  .hero-mp-{{ section.id }} .hero-mp-spot--r { left: 93.8%; }
+
+  /* Center circle — a separate fixed-aspect element (not inside the stretched SVG
+     above) so it's always a true circle, never squashed into an oval. */
+  .hero-mp-{{ section.id }} .hero-mp-circle {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: clamp(180px, 20vw, 420px); height: clamp(180px, 20vw, 420px); border-radius: 50%;
+    border: 3px solid rgba(20,18,12,0.25); z-index: 0;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-circle::after {
+    content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 8px; height: 8px; border-radius: 50%; background: rgba(20,18,12,0.35);
+  }
+
+  /* Corner flags — four small fixed-size icons pinned exactly to the section's four
+     true corners (0%/0%, 100%/0%, 0%/100%, 100%/100%), so they always land right on
+     the goal line regardless of how the line layer above stretches. One base shape,
+     mirrored per corner. */
+  .hero-mp-{{ section.id }} .hero-mp-flag {
+    position: absolute; width: 16px; height: 16px; pointer-events: none;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-flag svg { width: 100%; height: 100%; display: block; }
+  .hero-mp-{{ section.id }} .hero-mp-flag--tl { top: 0; left: 0; }
+  .hero-mp-{{ section.id }} .hero-mp-flag--tr { top: 0; right: 0; transform: scaleX(-1); }
+  .hero-mp-{{ section.id }} .hero-mp-flag--bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .hero-mp-{{ section.id }} .hero-mp-flag--br { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+  /* Corner light dots — one shared perimeter loop (TL -> TR -> BR -> BL -> TL),
+     detouring into each penalty box along the two goal-line edges (TR->BR hugs the
+     right box, BL->TL hugs the left box) so both big areas get traced every lap.
+     TL and BR play it forward (clockwise) a half-lap apart, chasing each other;
+     TR and BL play the exact same keyframes with animation-direction: reverse
+     (counter-clockwise), also a half-lap apart. Reverse is a perfect mirror of
+     forward, so on every edge one clockwise and one counter-clockwise dot cross
+     paths moving in opposite directions — two heading right, two heading left. */
+  .hero-mp-{{ section.id }} .hero-mp-dot {
+    position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; z-index: 1;
+    border-radius: 50%; background: var(--gold-bright);
+    box-shadow: 0 0 4px 2px #fff, 0 0 14px 5px rgba(232,200,115,1), 0 0 32px 11px rgba(232,200,115,0.85),
+      0 0 52px 18px rgba(232,200,115,0.5);
+  }
+  /* Resting position for when the animation is unavailable — matches each dot's
+     corner on the loop below. */
+  .hero-mp-{{ section.id }} .hero-mp-dot--tl { top: 0%; left: 0%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr { top: 0%; left: 100%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--br { top: 100%; left: 100%; }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl { top: 100%; left: 0%; }
+  /* Always animate regardless of prefers-reduced-motion, same explicit direction as
+     the LED ticker — this is decorative motion, not essential content. */
+  .hero-mp-{{ section.id }} .hero-mp-dot--tl {
+    animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--br {
+    animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite;
+    animation-delay: -22s; /* half a lap ahead/behind TL, chasing it clockwise */
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--tr {
+    animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite reverse;
+    animation-delay: -29.18s; /* same loop, mirrored direction, starting at the TR corner */
+  }
+  .hero-mp-{{ section.id }} .hero-mp-dot--bl {
+    animation: hero-mp-dot-loop-{{ section.id }} 44s linear infinite reverse;
+    animation-delay: -7.18s; /* mirrored direction, half a lap from the tr dot */
+  }
+  /* Clockwise perimeter: TL -> TR (detour into the right box) -> BR -> BL (detour
+     into the left box) -> TL. Keyframe percentages are NOT evenly spaced — each
+     one is sized proportionally to how far that segment actually travels in the
+     pitch SVG's own coordinate space (viewBox 0 0 1000 300: the long edges are
+     1000 units, the box detour legs are 82/92/136/92/82 units), so the dot moves
+     at one constant speed the whole lap instead of visibly speeding up on the
+     short box legs and crawling on the long edges. */
+  @keyframes hero-mp-dot-loop-{{ section.id }} {
+    0%      { left: 0%;    top: 0%; }
+    33.69%  { left: 100%;  top: 0%; }
+    36.46%  { left: 100%;  top: 27.33%; }
+    39.56%  { left: 90.8%; top: 27.33%; }
+    44.14%  { left: 90.8%; top: 72.67%; }
+    47.24%  { left: 100%;  top: 72.67%; }
+    50%     { left: 100%;  top: 100%; }
+    83.69%  { left: 0%;    top: 100%; }
+    86.46%  { left: 0%;    top: 72.67%; }
+    89.56%  { left: 9.2%;  top: 72.67%; }
+    94.14%  { left: 9.2%;  top: 27.33%; }
+    97.24%  { left: 0%;    top: 27.33%; }
+    100%    { left: 0%;    top: 0%; }
+  }
+  .hero-mp-{{ section.id }} .hero-mp-live {
+    position: absolute; top: 1.75rem; left: 1.75rem; z-index: 2;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-bright);
+    background: rgba(20,18,12,0.88); border: 1px solid rgba(20,18,12,0.12);
+    padding: 0.35rem 0.6rem 0.35rem 0.5rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-live-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--live-green); flex: none;
+    box-shadow: 0 0 0 0 rgba(62,166,95,0.6); animation: hero-mp-pulse-{{ section.id }} 1.8s ease-out infinite;
+  }
+  @keyframes hero-mp-pulse-{{ section.id }} {
+    0% { box-shadow: 0 0 0 0 rgba(62,166,95,0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(62,166,95,0); }
+    100% { box-shadow: 0 0 0 0 rgba(62,166,95,0); }
+  }
+  @media screen and (max-width: 749px) {
+    .hero-mp-{{ section.id }} .hero-mp-live { top: auto; left: 1.25rem; bottom: 1.25rem; }
+  }
+  .hero-mp-{{ section.id }} .hero-mp-inner {
+    position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; text-align: center;
+  }
+  .hero-mp-{{ section.id }} [data-mp-reveal] {
+    opacity: 0; transform: translateY(36px) scale(0.96); transition: opacity 0.7s cubic-bezier(.2,.8,.2,1), transform 0.7s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-mp-{{ section.id }} [data-mp-reveal].is-visible {
+    opacity: 1; transform: translateY(0) scale(1);
+  }
+  .hero-mp-{{ section.id }} h1 {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; line-height: 0.94; margin: 0; color: var(--chalk);
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+  }
+  .hero-mp-{{ section.id }} h1 em {
+    font-style: normal; color: var(--gold);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-sub {
+    max-width: 540px; margin: 1.35rem auto 0; font-size: 1.05rem; line-height: 1.5; color: rgba(20,18,12,0.72);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-actions {
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.25rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn {
+    position: relative; display: inline-flex; align-items: center; gap: 0.6rem; font-family: "Arial Narrow", Arial, sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.05rem;
+    padding: 1.15rem 2.5rem 1.25rem; text-decoration: none; cursor: pointer; border: none;
+    clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), filter 0.28s ease, box-shadow 0.28s ease;
+    overflow: hidden;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 35%; height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform: skewX(-22deg) translateX(-220%); pointer-events: none; z-index: 1;
+    transition: transform 0.6s ease;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-120%); transition: transform 0.5s ease;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover::before { transform: translateX(120%); }
+  .hero-mp-{{ section.id }} .hero-mp-btn--solid { background: var(--gold); color: #fff; }
+  .hero-mp-{{ section.id }} .hero-mp-btn--outline {
+    background: #fff; color: var(--ink);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn-arrow {
+    position: relative; z-index: 1; display: inline-block; transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn > span:not(.hero-mp-btn-arrow) { position: relative; z-index: 1; }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover .hero-mp-btn-arrow { transform: translateX(5px); }
+  .hero-mp-{{ section.id }} .hero-mp-btn:hover {
+    transform: translateY(-6px) scale(1.045) rotate(-0.6deg); filter: brightness(1.15);
+    box-shadow: 0 16px 30px -8px rgba(217,179,77,0.8), 0 0 38px rgba(232,200,115,0.7), 0 4px 10px rgba(0,0,0,0.35);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn:active {
+    transform: translateY(-2px) scale(0.97) rotate(-0.6deg);
+    box-shadow: 0 8px 16px -6px rgba(217,179,77,0.55);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-btn:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 3px; }
+  .hero-mp-{{ section.id }} .hero-mp-stats {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0; margin-top: 3.25rem;
+    padding-top: 1.75rem;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat {
+    padding: 0 2rem; border-left: 1px solid rgba(20,18,12,0.15);
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat:first-child { border-left: none; }
+  .hero-mp-{{ section.id }} .hero-mp-stat-num {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.75rem); color: var(--gold); font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .hero-mp-{{ section.id }} .hero-mp-stat-label {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.7; margin-top: 0.3rem;
+  }
+  @media screen and (max-width: 749px) {
+    .hero-mp-{{ section.id }} .hero-mp-stat { padding: 0 1.1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mp-{{ section.id }} .hero-mp-btn { transition: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn::after,
+    .hero-mp-{{ section.id }} .hero-mp-btn::before { display: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn:hover { transform: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn-arrow { transition: none; }
+    .hero-mp-{{ section.id }} .hero-mp-btn:hover .hero-mp-btn-arrow { transform: none; }
+    .hero-mp-{{ section.id }} .hero-mp-floodlight { animation: none; opacity: 0.7; }
+    .hero-mp-{{ section.id }} .hero-mp-live-dot { animation: none; }
+    .hero-mp-{{ section.id }} [data-mp-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+{%- endstyle -%}
+
+<div class="hero-mp-{{ section.id }}">
+  {%- if section.settings.background_image != blank -%}
+    <span class="hero-mp-photo" aria-hidden="true">
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1800 }}"
+        srcset="{{ section.settings.background_image | image_url: width: 900 }} 900w, {{ section.settings.background_image | image_url: width: 1400 }} 1400w, {{ section.settings.background_image | image_url: width: 1800 }} 1800w"
+        sizes="100vw"
+        alt=""
+        width="{{ section.settings.background_image.width }}"
+        height="{{ section.settings.background_image.height }}"
+      >
+    </span>
+  {%- endif -%}
+  <span class="hero-mp-floodlight" aria-hidden="true"></span>
+  <div class="hero-mp-markings" aria-hidden="true">
+    <span class="hero-mp-outline"></span>
+    <span class="hero-mp-halfway"></span>
+    <span class="hero-mp-box hero-mp-box--big hero-mp-box--l"></span>
+    <span class="hero-mp-box hero-mp-box--small hero-mp-box--l"></span>
+    <span class="hero-mp-spot hero-mp-spot--l"></span>
+    <span class="hero-mp-box hero-mp-box--big hero-mp-box--r"></span>
+    <span class="hero-mp-box hero-mp-box--small hero-mp-box--r"></span>
+    <span class="hero-mp-spot hero-mp-spot--r"></span>
+    <span class="hero-mp-circle"></span>
+    <div class="hero-mp-flag hero-mp-flag--tl">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
+      </svg>
+    </div>
+    <div class="hero-mp-flag hero-mp-flag--tr">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
+      </svg>
+    </div>
+    <div class="hero-mp-flag hero-mp-flag--bl">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
+      </svg>
+    </div>
+    <div class="hero-mp-flag hero-mp-flag--br">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
+      </svg>
+    </div>
+    <span class="hero-mp-dot hero-mp-dot--tl"></span>
+    <span class="hero-mp-dot hero-mp-dot--bl"></span>
+    <span class="hero-mp-dot hero-mp-dot--tr"></span>
+    <span class="hero-mp-dot hero-mp-dot--br"></span>
+  </div>
+  <div class="hero-mp-live">
+    <span class="hero-mp-live-dot" aria-hidden="true"></span>
+    Matchday: Open
+  </div>
+  <div class="hero-mp-inner">
+    <h1 data-mp-reveal style="transition-delay: 0.08s;">{{ section.settings.heading | default: "GEAR UP FOR <em>MATCHDAY</em>" }}</h1>
+    {%- if section.settings.subheading != blank -%}
+      <div class="hero-mp-sub" data-mp-reveal style="transition-delay: 0.16s;">{{ section.settings.subheading }}</div>
+    {%- endif -%}
+    <div class="hero-mp-actions" data-mp-reveal style="transition-delay: 0.24s;">
+      {%- if section.settings.button_label_1 != blank -%}
+        <a href="{{ section.settings.button_link_1 | default: '#' }}" class="hero-mp-btn hero-mp-btn--solid"><span>{{ section.settings.button_label_1 }}</span><span class="hero-mp-btn-arrow" aria-hidden="true">&rarr;</span></a>
+      {%- endif -%}
+      {%- if section.settings.button_label_2 != blank -%}
+        <a href="{{ section.settings.button_link_2 | default: '#' }}" class="hero-mp-btn hero-mp-btn--outline">{{ section.settings.button_label_2 }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="hero-mp-stats" data-mp-stats data-mp-reveal style="transition-delay: 0.32s;">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'stat' -%}
+          <div class="hero-mp-stat" {{ block.shopify_attributes }}>
+            <div class="hero-mp-stat-num" data-mp-count data-target="{{ block.settings.value | default: 0 }}" data-suffix="{{ block.settings.suffix }}">0{{ block.settings.suffix }}</div>
+            <div class="hero-mp-stat-label">{{ block.settings.label }}</div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript.previousElementSibling;
+  if (!root) return;
+  var nums = root.querySelectorAll('[data-mp-count]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function roll(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduce) { el.textContent = target + suffix; return; }
+    var start = 0;
+    var duration = 900;
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(start + (target - start) * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) { requestAnimationFrame(step); } else { el.textContent = target + suffix; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { roll(entry.target); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(function (n) { io.observe(n); });
+  } else {
+    nums.forEach(roll);
+  }
+
+  var revealEls = root.querySelectorAll('[data-mp-reveal]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  } else {
+    var revealIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealIo.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { revealIo.observe(el); });
+    /* Safety net: some contexts (theme editor preview iframes, slow script execution)
+       never fire the observer. Force content visible after a short delay so it can
+       never stay permanently hidden. */
+    setTimeout(function () {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }, 1200);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero (Matchday)",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading (supports <em> for gold word)", "default": "GEAR UP FOR <em>MATCHDAY</em>" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Kits from every league, every era. Fan Version and Player Version, on every shirt.</p>" },
+    { "type": "text", "id": "button_label_1", "label": "Primary button label", "default": "Shop all kits" },
+    { "type": "url", "id": "button_link_1", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "New arrivals" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "background_image", "label": "Background photo (optional)", "info": "Sits behind the pitch markings with a light scrim" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "48" },
+        { "type": "text", "id": "suffix", "label": "Suffix" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Clubs" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero (Matchday)",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Leagues" } },
+        { "type": "stat", "settings": { "value": "48", "suffix": "", "label": "Clubs" } },
+        { "type": "stat", "settings": { "value": "1000", "suffix": "+", "label": "Jerseys" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

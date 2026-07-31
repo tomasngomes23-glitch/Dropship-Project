@@ -1,0 +1,157 @@
+{% comment %}
+  Renders cart notification
+
+  Accepts:
+  - color_scheme: {String} sets the color scheme of the notification (optional)
+  - desktop_menu_type: {String} passes the desktop menu type which allows us to use the right css class (optional)
+
+  Usage:
+  {% render 'cart-notification' %}
+{% endcomment %}
+
+<cart-notification>
+  <div class="cart-notification-wrapper mp-cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
+    <div
+      id="cart-notification"
+      class="cart-notification mp-cart-notification focus-inset{% if color_scheme %} color-{{ color_scheme }} gradient{% endif %}"
+      aria-modal="true"
+      aria-label="{{ 'general.cart.item_added' | t }}"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div class="cart-notification__header">
+        <h2 class="cart-notification__heading caption-large text-body">
+          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+          {{ 'general.cart.item_added' | t }}
+        </h2>
+        <button
+          type="button"
+          class="cart-notification__close modal__close-button link link--text focus-inset"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </button>
+      </div>
+      <div id="cart-notification-product" class="cart-notification-product"></div>
+      <div class="cart-notification__links">
+        <a
+          href="{{ routes.cart_url }}"
+          id="cart-notification-button"
+          class="button button--secondary button--full-width"
+        >
+          {{- 'general.cart.view_empty_cart' | t -}}
+        </a>
+        <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+          <button class="button button--primary button--full-width" name="checkout">
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+        </form>
+        <button type="button" class="link button-label">{{ 'general.continue_shopping' | t }}</button>
+      </div>
+    </div>
+  </div>
+</cart-notification>
+{% style %}
+  .cart-notification {
+    display: none;
+  }
+{% endstyle %}
+
+{% comment %}
+  Matchday Programme reskin of the "added to cart" notification popup (this theme uses
+  settings.cart_type == 'notification', not the drawer). Scoped to .mp-cart-notification
+  so nothing leaks. Structural markup / ids / classes JS depends on (#cart-notification,
+  .active, .animate, cart-notification-product, cart-notification-button) are untouched.
+{%- endcomment -%}
+{%- style -%}
+  .mp-cart-notification {
+    --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
+    --chalk: #f5f1e6; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #3ea65f;
+    background: var(--paper) !important; color: var(--ink) !important;
+    border-radius: 0 !important; border: none !important;
+    box-shadow: 0 18px 0 rgba(0,0,0,0.3) !important;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    clip-path: polygon(0% 1.5%, 1.5% 0%, 98.5% 0%, 100% 1.5%, 100% 98.5%, 98.5% 100%, 1.5% 100%, 0% 98.5%);
+  }
+  .mp-cart-notification .cart-notification__heading {
+    font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; color: var(--ink) !important;
+    border-bottom: 1px dashed rgba(20,18,12,0.25); padding-bottom: 0.75rem;
+  }
+  .mp-cart-notification .cart-notification__heading svg {
+    color: var(--live-green);
+  }
+  .mp-cart-notification .cart-notification__close svg {
+    color: var(--ink);
+  }
+
+  .mp-cart-notification .button--primary {
+    position: relative; overflow: hidden;
+    background: var(--gold) !important; color: var(--ink) !important; border: none !important;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 0 !important;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
+  }
+  .mp-cart-notification .button--primary::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 35%; height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform: skewX(-22deg) translateX(-220%); pointer-events: none; transition: transform 0.6s ease;
+  }
+  .mp-cart-notification .button--primary::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-120%); transition: transform 0.5s ease;
+  }
+  .mp-cart-notification .button--primary:hover::after { transform: skewX(-22deg) translateX(560%); }
+  .mp-cart-notification .button--primary:hover::before { transform: translateX(120%); }
+  .mp-cart-notification .button--primary:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 22px -8px rgba(217,179,77,0.7), 0 0 18px rgba(232,200,115,0.5);
+    filter: brightness(1.08);
+  }
+  .mp-cart-notification .button--primary:active { transform: translateY(-1px) scale(0.97); }
+  .mp-cart-notification .button--secondary {
+    background: transparent !important; color: var(--ink) !important;
+    border: 1px dashed rgba(20,18,12,0.4) !important; border-radius: 0 !important;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1), border-color 0.25s ease, color 0.25s ease;
+  }
+  .mp-cart-notification .button--secondary:hover {
+    border-color: var(--gold) !important; color: var(--gold-bright) !important;
+    transform: translateY(-3px) scale(1.02);
+  }
+  .mp-cart-notification .button--secondary:active { transform: translateY(-1px) scale(0.98); }
+  .mp-cart-notification .button-label {
+    color: var(--ink) !important; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em;
+  }
+
+  /* Line items (sections/cart-notification-product.liquid, swapped in dynamically by
+     cart-notification.js — kept here since only the item fragment is re-fetched, not
+     this <style> block) — ticket-stub feel */
+  .mp-cart-notification .cart-notification-product .cart-item {
+    border-top: 1px dashed rgba(20,18,12,0.22);
+    padding-top: 0.9rem; margin-top: 0.9rem;
+  }
+  .mp-cart-notification .cart-notification-product .cart-item:first-child {
+    border-top: none; margin-top: 0;
+  }
+  .mp-cart-notification .cart-notification-product__name {
+    font-family: "Arial Narrow", Arial, sans-serif; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--ink) !important;
+  }
+  .mp-cart-notification .cart-notification-product .price,
+  .mp-cart-notification .cart-notification-product .product-option {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; color: rgba(20,18,12,0.75);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-cart-notification { transition: none; }
+    .mp-cart-notification .button--primary,
+    .mp-cart-notification .button--secondary { transition: none; }
+    .mp-cart-notification .button--primary:hover,
+    .mp-cart-notification .button--secondary:hover { transform: none; }
+    .mp-cart-notification .button--primary::after,
+    .mp-cart-notification .button--primary::before { display: none; }
+  }
+{%- endstyle -%}

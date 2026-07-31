@@ -1,0 +1,176 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-matchday",
+      "blocks": {
+        "stat-1": { "type": "stat", "settings": { "value": "6", "suffix": "", "label": "Leagues" } },
+        "stat-2": { "type": "stat", "settings": { "value": "48", "suffix": "", "label": "Clubs" } },
+        "stat-3": { "type": "stat", "settings": { "value": "1000", "suffix": "+", "label": "Jerseys" } }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3"],
+      "settings": {
+        "heading": "GEAR UP FOR <em>MATCHDAY</em>",
+        "subheading": "<p>Kits from every league, every era. Fan Version and Player Version, on every shirt.</p>",
+        "button_label_1": "Shop all kits",
+        "button_link_1": "shopify://collections/all",
+        "button_label_2": "",
+        "button_link_2": "shopify://collections/new-arrivals",
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "shop-by-league": {
+      "type": "directory-grid",
+      "blocks": {
+        "premier-league": { "type": "entry", "settings": { "title": "Premier League", "meta": "In stock", "flag_country": "england", "link": "shopify://collections/premier-league" } },
+        "la-liga": { "type": "entry", "settings": { "title": "La Liga", "meta": "In stock", "flag_country": "spain", "link": "shopify://collections/la-liga" } },
+        "serie-a": { "type": "entry", "settings": { "title": "Serie A", "meta": "In stock", "flag_country": "italy", "link": "shopify://collections/serie-a" } },
+        "bundesliga": { "type": "entry", "settings": { "title": "Bundesliga", "meta": "In stock", "flag_country": "germany", "link": "shopify://collections/bundesliga" } },
+        "ligue-1": { "type": "entry", "settings": { "title": "Ligue 1", "meta": "In stock", "flag_country": "france", "link": "shopify://collections/ligue-1" } },
+        "primeira-liga": { "type": "entry", "settings": { "title": "Primeira Liga", "meta": "In stock", "flag_country": "portugal", "link": "shopify://collections/primeira-liga" } }
+      },
+      "block_order": ["premier-league", "la-liga", "serie-a", "bundesliga", "ligue-1", "primeira-liga"],
+      "settings": {
+        "eyebrow": "The Directory",
+        "heading": "Shop by league",
+        "columns_desktop": 6,
+        "padding_top": 56,
+        "padding_bottom": 40
+      }
+    },
+    "shop-by-competition": {
+      "type": "directory-grid",
+      "blocks": {
+        "champions-league": { "type": "entry", "settings": { "title": "Champions League", "meta": "In stock", "link": "shopify://collections/champions-league" } },
+        "world-cup": { "type": "entry", "settings": { "title": "World Cup", "meta": "In stock", "link": "shopify://collections/world-cup" } },
+        "euro": { "type": "entry", "settings": { "title": "Euro", "meta": "In stock", "link": "shopify://collections/euro" } },
+        "europa-league": { "type": "entry", "settings": { "title": "Europa League", "meta": "In stock", "link": "shopify://collections/europa-league" } },
+        "copa-america": { "type": "entry", "settings": { "title": "Copa America", "meta": "In stock", "link": "shopify://collections/copa-america" } }
+      },
+      "block_order": ["champions-league", "world-cup", "euro", "europa-league", "copa-america"],
+      "settings": {
+        "eyebrow": "The Directory",
+        "heading": "Shop by competition",
+        "columns_desktop": 5,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "retro-and-special": {
+      "type": "directory-grid",
+      "blocks": {
+        "retro-90s": { "type": "entry", "settings": { "title": "90s", "meta": "In stock", "badge": "Retro", "link": "shopify://collections/retro-90s" } },
+        "retro-2000s": { "type": "entry", "settings": { "title": "2000s", "meta": "In stock", "badge": "Retro", "link": "shopify://collections/retro-2000s" } },
+        "retro-2010s": { "type": "entry", "settings": { "title": "2010s", "meta": "In stock", "badge": "Retro", "link": "shopify://collections/retro-2010s" } },
+        "third-kits": { "type": "entry", "settings": { "title": "Third Kits", "meta": "In stock", "link": "shopify://collections/third-kits" } },
+        "concept-kits": { "type": "entry", "settings": { "title": "Concept Kits", "meta": "In stock", "badge": "New", "link": "shopify://collections/concept-kits" } },
+        "city-editions": { "type": "entry", "settings": { "title": "City Editions", "meta": "In stock", "link": "shopify://collections/city-editions" } }
+      },
+      "block_order": ["retro-90s", "retro-2000s", "retro-2010s", "third-kits", "concept-kits", "city-editions"],
+      "settings": {
+        "eyebrow": "The Directory",
+        "heading": "Retro & special editions",
+        "columns_desktop": 6,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "reviews": {
+      "type": "reviews-matchday",
+      "blocks": {
+        "review-1": { "type": "review", "settings": { "reviewer_name": "Marco T.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Print is razor sharp and the fabric feels exactly like the boxed version I've owned before. Ordered Monday, had it by Friday. Didn't expect that from an independent shop." } },
+        "review-2": { "type": "review", "settings": { "reviewer_name": "Sophie K.", "detail": "Bought: L · Fan Version", "rating": "5", "verified": true, "body": "Fan Version is soft, breathable and true to size. Wore it to a five-a-side and it held up through a full wash cycle with zero cracking on the badge." } },
+        "review-3": { "type": "review", "settings": { "reviewer_name": "Diego R.", "detail": "Bought: XL · Player Version", "rating": "4", "verified": true, "body": "Player cut runs slim, so go a size up from what you'd normally wear. Once I exchanged for the XL it fit great. Print quality is genuinely excellent." } },
+        "review-4": { "type": "review", "settings": { "reviewer_name": "Aisha N.", "detail": "Bought: S · Fan Version", "rating": "5", "verified": true, "body": "Bought this as a birthday gift for my brother and he wore it the same day. Arrived quicker than the estimate said, packaging was tidy too." } },
+        "review-5": { "type": "review", "settings": { "reviewer_name": "Tomás P.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Was honestly skeptical about an unofficial print holding up, but this is on par with shirts I've paid double for elsewhere. Stitching on the crest is clean, no loose threads." } },
+        "review-6": { "type": "review", "settings": { "reviewer_name": "Harriet W.", "detail": "Bought: L · Fan Version", "rating": "3", "verified": true, "body": "Shirt itself is comfortable but the print on the sleeve badge started lifting slightly at the edge after about six washes. Support replaced it without hassle, so the service saved the experience." } },
+        "review-7": { "type": "review", "settings": { "reviewer_name": "Jamal O.", "detail": "Bought: M · Fan Version", "rating": "5", "verified": true, "body": "Compared this to a kit I bought years ago from an official store and the fabric weight is nearly identical. Colours haven't faded after a month of regular wear." } },
+        "review-8": { "type": "review", "settings": { "reviewer_name": "Elena V.", "detail": "Bought: S · Player Version", "rating": "5", "verified": true, "body": "Player fit is snug and athletic like it should be. If you're between sizes for the Player Version, size up — the cut is closer to a true athletic fit than the Fan Version." } },
+        "review-9": { "type": "review", "settings": { "reviewer_name": "Connor B.", "detail": "Bought: L · Fan Version", "rating": "4", "verified": true, "body": "Took about nine days longer than the delivery estimate, which was frustrating, but the shirt that showed up was worth the wait. Great print, comfortable fit." } },
+        "review-10": { "type": "review", "settings": { "reviewer_name": "Priya S.", "detail": "Bought: M · Player Version + Fan Version", "rating": "5", "verified": true, "body": "Ordered both versions to compare. Player Version fabric is noticeably lighter and more fitted, Fan Version is heavier cotton-feel and more relaxed. Both prints are equally sharp — just pick based on how you plan to wear it." } },
+        "review-11": { "type": "review", "settings": { "reviewer_name": "Lucas F.", "detail": "Bought: XL · Fan Version", "rating": "5", "verified": true, "body": "Relaxed, comfy fit and the colours are more vivid in person than in the photos. This is my third order from them and the consistency has been solid every time." } },
+        "review-12": { "type": "review", "settings": { "reviewer_name": "Grace M.", "detail": "Bought: M · Fan Version", "rating": "5", "verified": true, "body": "First time buying from an independent kit shop instead of an official store and I was nervous about print quality. No complaints at all — looks legit and feels legit." } },
+        "review-13": { "type": "review", "settings": { "reviewer_name": "Noah D.", "detail": "Bought: L · Player Version", "rating": "4", "verified": true, "body": "Stitching around the collar is neat and the size chart on the product page was accurate for once. Only reason it's not five stars is the badge sits slightly off-centre on mine." } },
+        "review-14": { "type": "review", "settings": { "reviewer_name": "Isabela C.", "detail": "Bought: S · Fan Version", "rating": "5", "verified": true, "body": "Bought this for my daughter and the fabric is noticeably soft, no itchy tag or scratchy print. She's worn it every weekend since it arrived." } },
+        "review-15": { "type": "review", "settings": { "reviewer_name": "Ryan K.", "detail": "Bought: M · Fan Version", "rating": "3", "verified": true, "body": "Colour is a touch darker in person than the product photos showed. Still a decent shirt for the price, just wanted to flag it in case you're picky about exact shade matching." } },
+        "review-16": { "type": "review", "settings": { "reviewer_name": "Fatima Z.", "detail": "Bought: L · Player Version", "rating": "5", "verified": true, "body": "About as close to a matchday shirt as you'll get from an independent brand. Breathable fabric, held up through a full 90 minutes plus extra time without clinging." } },
+        "review-17": { "type": "review", "settings": { "reviewer_name": "Owen H.", "detail": "Bought: XL · Fan Version", "rating": "5", "verified": true, "body": "Messaged support before ordering with a sizing question and got a genuinely helpful reply within a couple hours, not a canned response. Shirt fits exactly as they described." } },
+        "review-18": { "type": "review", "settings": { "reviewer_name": "Nadia S.", "detail": "Bought: M · Player Version", "rating": "5", "verified": true, "body": "Number printing on the back is sharp with no cracking after several washes on a cold cycle. Genuinely impressed for an unofficial print." } },
+        "review-19": { "type": "review", "settings": { "reviewer_name": "Ben C.", "detail": "Bought: S · Fan Version", "rating": "4", "verified": true, "body": "Runs a little large in the Fan Version, could've gone down a size. Exchange process was easy though and the second one fits well." } },
+        "review-20": { "type": "review", "settings": { "reviewer_name": "Camila R.", "detail": "Bought: L · Fan Version", "rating": "5", "verified": true, "body": "Shipping was faster than expected and the shirt was a hit as a gift — everyone at the party asked where it was from. Quality genuinely surprised me." } }
+      },
+      "block_order": ["review-1", "review-2", "review-3", "review-4", "review-5", "review-6", "review-7", "review-8", "review-9", "review-10", "review-11", "review-12", "review-13", "review-14", "review-15", "review-16", "review-17", "review-18", "review-19", "review-20"],
+      "settings": {
+        "eyebrow": "Matchday Mail",
+        "heading": "What fans are saying",
+        "intro": "<p>Real orders, real feedback — the good and the honest.</p>",
+        "show_aggregate": true,
+        "aggregate_score": "4.8",
+        "review_count": "340+",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "brand-story": {
+      "type": "brand-story-programme",
+      "settings": {
+        "eyebrow": "Editor's Note",
+        "heading": "Built by fans, for fans",
+        "body": "<p>First Touch is an independent football culture brand. We're not affiliated with, licensed by, or endorsed by any club, league or federation — we just love the shirts, the terraces, and the matchday ritual, and we make prints inspired by that culture.</p><p>Every kit ships in Fan Version and Player Version, cut and printed the way you'd expect from the real thing.</p>",
+        "signature": "— The First Touch crew",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": { "heading": "Get first look at new drops", "heading_size": "h1" }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": { "text": "<p>Follow the socials for the newest kits, or drop your email below.</p>" }
+        },
+        "email_form": { "type": "email_form" }
+      },
+      "block_order": ["heading", "paragraph", "email_form"],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "collage-moments": {
+      "type": "collage-moments",
+      "blocks": {
+        "tile-1": { "type": "tile", "settings": { "title": "Boots", "subtitle": "Mercurial, T90, Predator Mania. Drop I of iconic boots." } },
+        "tile-2": { "type": "tile", "settings": { "title": "Tracksuits & Jackets", "subtitle": "Pre-match warm-ups. Manager touchlines. Tour drip." } },
+        "tile-3": { "type": "tile", "settings": { "title": "Long Sleeves", "subtitle": "Cold-weather classics. Goalkeeper specials. The way it was." } },
+        "tile-4": { "type": "tile", "settings": { "title": "Balls", "subtitle": "Teamgeist, Jabulani, Brazuca. Drop I of iconic balls." } },
+        "tile-5": { "type": "tile", "settings": { "title": "Kids", "subtitle": "The first shirts. The smallest sizes. The biggest memories." } }
+      },
+      "block_order": ["tile-1", "tile-2", "tile-3", "tile-4", "tile-5"],
+      "settings": {
+        "eyebrow": "Curated",
+        "heading": "Built around moments.",
+        "all_label": "All collections",
+        "all_link": "shopify://collections/all",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "shop-by-league",
+    "shop-by-competition",
+    "collage-moments",
+    "retro-and-special",
+    "reviews",
+    "brand-story",
+    "newsletter"
+  ]
+}
