@@ -6,7 +6,7 @@
 {%- style -%}
   .bs-{{ section.id }} {
     --pitch: #fbfaf5; --pitch-dark: #f0e9d8; --paper: #ffffff; --ink: #14120c;
-    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
+    --chalk: #14120c; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #2f8f4e;
     position: relative; overflow: hidden;
     background: var(--pitch-dark); padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
     background-image: radial-gradient(circle, rgba(20,18,12,0.045) 1px, transparent 1.1px);
@@ -43,7 +43,7 @@
   }
   .bs-{{ section.id }} .bs-line-divider svg { width: 100%; height: 100%; display: block; overflow: visible; }
   .bs-{{ section.id }} .bs-line-divider path {
-    fill: none; stroke: rgba(201,150,47,0.65); stroke-width: 1.5; stroke-dasharray: 6 6;
+    fill: none; stroke: rgba(217,179,77,0.65); stroke-width: 1.5; stroke-dasharray: 6 6;
     stroke-dashoffset: 1000; transition: stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1);
   }
   .bs-{{ section.id }} .bs-line-divider.is-visible path { stroke-dashoffset: 0; }
@@ -93,10 +93,10 @@
   .bs-{{ section.id }} .bs-stamp::before {
     content: ""; position: absolute; inset: 0; border-radius: 50%; opacity: 0.5;
     background-image:
-      linear-gradient(30deg, rgba(201,150,47,0.55) 12%, transparent 12.5%, transparent 87%, rgba(201,150,47,0.55) 87.5%, rgba(201,150,47,0.55)),
-      linear-gradient(150deg, rgba(201,150,47,0.55) 12%, transparent 12.5%, transparent 87%, rgba(201,150,47,0.55) 87.5%, rgba(201,150,47,0.55)),
-      linear-gradient(30deg, rgba(201,150,47,0.55) 12%, transparent 12.5%, transparent 87%, rgba(201,150,47,0.55) 87.5%, rgba(201,150,47,0.55)),
-      linear-gradient(150deg, rgba(201,150,47,0.55) 12%, transparent 12.5%, transparent 87%, rgba(201,150,47,0.55) 87.5%, rgba(201,150,47,0.55));
+      linear-gradient(30deg, rgba(217,179,77,0.55) 12%, transparent 12.5%, transparent 87%, rgba(217,179,77,0.55) 87.5%, rgba(217,179,77,0.55)),
+      linear-gradient(150deg, rgba(217,179,77,0.55) 12%, transparent 12.5%, transparent 87%, rgba(217,179,77,0.55) 87.5%, rgba(217,179,77,0.55)),
+      linear-gradient(30deg, rgba(217,179,77,0.55) 12%, transparent 12.5%, transparent 87%, rgba(217,179,77,0.55) 87.5%, rgba(217,179,77,0.55)),
+      linear-gradient(150deg, rgba(217,179,77,0.55) 12%, transparent 12.5%, transparent 87%, rgba(217,179,77,0.55) 87.5%, rgba(217,179,77,0.55));
     background-size: 11px 19px;
     background-position: 0 0, 0 0, 5.5px 9.5px, 5.5px 9.5px;
   }

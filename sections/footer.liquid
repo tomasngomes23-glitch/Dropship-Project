@@ -35,7 +35,7 @@
 {%- style -%}
   .mp-footer {
     --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #ffffff; --ink: #14120c;
-    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
+    --chalk: #14120c; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #2f8f4e;
     background: var(--pitch-dark) !important; color: var(--chalk) !important;
     font-family: "Arial Narrow", Arial, sans-serif;
     position: relative;
@@ -48,7 +48,7 @@
   }
   .mp-footer::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-    background-image: repeating-linear-gradient(90deg, rgba(201,150,47,0.5) 0 8px, transparent 8px 16px);
+    background-image: repeating-linear-gradient(90deg, rgba(217,179,77,0.5) 0 8px, transparent 8px 16px);
   }
 
   .mp-footer .footer-block__heading {
@@ -68,7 +68,7 @@
   }
   .mp-footer .footer-block--menu .list-menu__item:hover {
     color: var(--gold) !important; transform: translateX(6px); letter-spacing: 0.05em;
-    text-shadow: 0 0 10px rgba(224,179,85,0.55);
+    text-shadow: 0 0 10px rgba(232,200,115,0.55);
   }
   .mp-footer .footer-block--menu .list-menu__item:hover::after {
     right: 0;
@@ -111,7 +111,7 @@
   }
   .mp-footer .newsletter-form__button:hover {
     transform: translateY(-6px) scale(1.06);
-    box-shadow: 0 14px 26px -8px rgba(201,150,47,0.75), 0 0 22px rgba(224,179,85,0.55);
+    box-shadow: 0 14px 26px -8px rgba(217,179,77,0.75), 0 0 22px rgba(232,200,115,0.55);
     filter: brightness(1.1);
   }
   .mp-footer .newsletter-form__button:hover::after { transform: skewX(-22deg) translateX(560%); }
@@ -127,7 +127,7 @@
   .mp-footer .footer__list-social .list-social__link:hover {
     color: var(--gold-bright) !important;
     transform: translateY(-4px) scale(1.15);
-    filter: drop-shadow(0 4px 8px rgba(224,179,85,0.5));
+    filter: drop-shadow(0 4px 8px rgba(232,200,115,0.5));
   }
 
   /* Bottom bar — dashed hairline "perforation" above small print */
@@ -159,7 +159,7 @@
   .mp-footer .footer__content-bottom-wrapper:last-child::after {
     content: "END OF PROGRAMME \2014 SEE YOU AT THE NEXT MATCHDAY";
     display: block; margin-top: 0.75rem; font-size: 0.6rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: rgba(201,150,47,0.55);
+    text-transform: uppercase; color: rgba(217,179,77,0.55);
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
   }
 

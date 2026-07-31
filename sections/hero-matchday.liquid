@@ -7,7 +7,7 @@
 {%- style -%}
   .hero-mp-{{ section.id }} {
     --pitch: #fbfaf5; --pitch-dark: #f2ede0; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #14120c; --gold: #b8862c; --gold-bright: #d9a13f; --live-green: #2f8f4e;
+    --chalk: #14120c; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #2f8f4e;
     position: relative; overflow: hidden; background: var(--pitch); color: var(--chalk);
     /* Base padding comes from the theme editor setting, but on very large screens that
        fixed px amount reads as a thin letterboxed strip against the full viewport width —
@@ -21,7 +21,7 @@
   }
   .hero-mp-{{ section.id }}::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(201,150,47,0.14), transparent 60%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(217,179,77,0.14), transparent 60%);
   }
   /* Optional merchant photo background — fills the hero edge-to-edge behind the pitch
      markings, with a paper-tint scrim so the dark ink headline stays legible over any photo. */
@@ -114,8 +114,8 @@
   .hero-mp-{{ section.id }} .hero-mp-dot {
     position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; z-index: 1;
     border-radius: 50%; background: var(--gold-bright);
-    box-shadow: 0 0 4px 2px #fff, 0 0 14px 5px rgba(224,179,85,1), 0 0 32px 11px rgba(224,179,85,0.85),
-      0 0 52px 18px rgba(224,179,85,0.5);
+    box-shadow: 0 0 4px 2px #fff, 0 0 14px 5px rgba(232,200,115,1), 0 0 32px 11px rgba(232,200,115,0.85),
+      0 0 52px 18px rgba(232,200,115,0.5);
   }
   /* Resting position for when the animation is unavailable — matches each dot's
      corner on the loop below. */
@@ -237,11 +237,11 @@
   .hero-mp-{{ section.id }} .hero-mp-btn:hover .hero-mp-btn-arrow { transform: translateX(5px); }
   .hero-mp-{{ section.id }} .hero-mp-btn:hover {
     transform: translateY(-6px) scale(1.045) rotate(-0.6deg); filter: brightness(1.15);
-    box-shadow: 0 16px 30px -8px rgba(201,150,47,0.8), 0 0 38px rgba(224,179,85,0.7), 0 4px 10px rgba(0,0,0,0.35);
+    box-shadow: 0 16px 30px -8px rgba(217,179,77,0.8), 0 0 38px rgba(232,200,115,0.7), 0 4px 10px rgba(0,0,0,0.35);
   }
   .hero-mp-{{ section.id }} .hero-mp-btn:active {
     transform: translateY(-2px) scale(0.97) rotate(-0.6deg);
-    box-shadow: 0 8px 16px -6px rgba(201,150,47,0.55);
+    box-shadow: 0 8px 16px -6px rgba(217,179,77,0.55);
   }
   .hero-mp-{{ section.id }} .hero-mp-btn:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 3px; }
   .hero-mp-{{ section.id }} .hero-mp-stats {
@@ -303,25 +303,25 @@
     <div class="hero-mp-flag hero-mp-flag--tl">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
-        <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--tr">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
-        <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--bl">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
-        <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
       </svg>
     </div>
     <div class="hero-mp-flag hero-mp-flag--br">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="2" y1="18" x2="2" y2="2" stroke="#14120c" stroke-width="1.6"/>
-        <path d="M2 2 L14 6 L2 10 Z" fill="#c9962f"/>
+        <path d="M2 2 L14 6 L2 10 Z" fill="#d9b34d"/>
       </svg>
     </div>
     <span class="hero-mp-dot hero-mp-dot--tl"></span>

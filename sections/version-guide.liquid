@@ -1,7 +1,7 @@
 {%- style -%}
   .vg-{{ section.id }} {
     --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --chalk: #f5f1e6; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #3ea65f;
     background: var(--pitch); color: var(--chalk); font-family: "Arial Narrow", Arial, sans-serif;
     padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;
     background-image:
@@ -18,7 +18,7 @@
   .vg-{{ section.id }} .vg-btn:focus-visible,
   .vg-{{ section.id }} .button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
   .vg-{{ section.id }} .vg-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 420px; margin: 0 auto 2.5rem; border: 1px dashed rgba(20,18,12,0.35); padding: 4px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
-  .vg-{{ section.id }} .vg-switch-thumb { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--gold); transition: transform 0.32s cubic-bezier(.34,1.56,.64,1), box-shadow 0.32s ease; z-index: 0; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); box-shadow: 0 0 14px rgba(224,179,85,0.5); }
+  .vg-{{ section.id }} .vg-switch-thumb { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--gold); transition: transform 0.32s cubic-bezier(.34,1.56,.64,1), box-shadow 0.32s ease; z-index: 0; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); box-shadow: 0 0 14px rgba(232,200,115,0.5); }
   .vg-{{ section.id }}.is-player .vg-switch-thumb { transform: translateX(100%); }
   .vg-{{ section.id }} .vg-switch button { position: relative; z-index: 1; background: transparent; border: none; padding: 0.7rem 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; cursor: pointer; color: var(--ink); transition: color 0.35s ease, letter-spacing 0.25s ease, transform 0.25s cubic-bezier(.2,.8,.2,1); }
   .vg-{{ section.id }} .vg-switch button.is-active { color: var(--ink); }

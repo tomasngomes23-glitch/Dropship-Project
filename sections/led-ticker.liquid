@@ -10,9 +10,9 @@
 
 {%- style -%}
   .led-ticker-{{ section.id }} {
-    --pitch-dark: #081511; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --pitch-dark: #081511; --gold-bright: #e8c873; --live-green: #3ea65f;
     position: relative; overflow: hidden; background: var(--pitch-dark);
-    border-top: 1px solid rgba(224,179,85,0.25); border-bottom: 1px solid rgba(224,179,85,0.25);
+    border-top: 1px solid rgba(232,200,115,0.25); border-bottom: 1px solid rgba(232,200,115,0.25);
     padding: 0.5rem 0;
   }
   .led-ticker-{{ section.id }}::before,
@@ -40,7 +40,7 @@
     font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
     font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--gold-bright); padding: 0 1.5rem;
-    text-shadow: 0 0 6px rgba(224,179,85,0.45);
+    text-shadow: 0 0 6px rgba(232,200,115,0.45);
   }
   .led-ticker-{{ section.id }} .led-dot {
     width: 5px; height: 5px; border-radius: 50%; background: var(--live-green); flex: none;

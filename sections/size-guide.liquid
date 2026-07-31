@@ -1,7 +1,7 @@
 {%- style -%}
   .sg-{{ section.id }} {
     --pitch: #0d1f16; --pitch-dark: #081511; --paper: #f2ede1; --ink: #14120c;
-    --chalk: #f5f1e6; --gold: #c9962f; --gold-bright: #e0b355; --live-green: #3ea65f;
+    --chalk: #f5f1e6; --gold: #d9b34d; --gold-bright: #e8c873; --live-green: #3ea65f;
     background: var(--pitch); color: var(--chalk); font-family: "Arial Narrow", Arial, sans-serif;
     padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;
     background-image:
@@ -24,9 +24,9 @@
   @media screen and (min-width: 750px) { .sg-{{ section.id }} .sg-wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
   .sg-{{ section.id }} .sg-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
   .sg-{{ section.id }} .sg-tab { position: relative; overflow: hidden; border: 1px dashed rgba(20,18,12,0.35); background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.25s cubic-bezier(.2,.8,.2,1); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
-  .sg-{{ section.id }} .sg-tab::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: linear-gradient(100deg, transparent, rgba(201,150,47,0.35), transparent); transform: translateX(-120%); transition: transform 0.5s ease; }
+  .sg-{{ section.id }} .sg-tab::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: linear-gradient(100deg, transparent, rgba(217,179,77,0.35), transparent); transform: translateX(-120%); transition: transform 0.5s ease; }
   .sg-{{ section.id }} .sg-tab span { position: relative; z-index: 1; }
-  .sg-{{ section.id }} .sg-tab:hover { border-color: var(--gold); transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 18px -6px rgba(201,150,47,0.65), 0 0 16px rgba(224,179,85,0.45); }
+  .sg-{{ section.id }} .sg-tab:hover { border-color: var(--gold); transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 18px -6px rgba(217,179,77,0.65), 0 0 16px rgba(232,200,115,0.45); }
   .sg-{{ section.id }} .sg-tab:hover::before { transform: translateX(120%); }
   .sg-{{ section.id }} .sg-tab:active { transform: translateY(-2px) scale(0.95); }
   .sg-{{ section.id }} .sg-tab.is-active { background: var(--gold); color: var(--ink); border-color: transparent; border-style: solid; }
