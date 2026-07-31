@@ -184,11 +184,14 @@
 
     .mp-product .quantity {
       border: 1px dashed rgba(20,18,12,0.35) !important; border-radius: 0 !important;
-      background: transparent !important;
+      background: var(--paper) !important;
     }
     .mp-product .quantity__input {
-      background: transparent !important; color: var(--chalk) !important;
+      background: var(--paper) !important; color: var(--chalk) !important;
       font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    }
+    .mp-product .quantity__button {
+      background: var(--paper) !important;
     }
     .mp-product .quantity__button svg {
       color: var(--chalk);
@@ -209,10 +212,19 @@
     .mp-product .product-form__submit.button--primary:hover span::after {
       transform: translateX(5px);
     }
+    /* Secondary (Add to cart, when dynamic checkout is on) — same solid chamfered
+       shape as the primary button so it reads as a real CTA next to Shop Pay's
+       button, just in ink instead of gold. */
     .mp-product .product-form__submit.button--secondary {
-      background: transparent !important; color: var(--chalk) !important;
-      border: 1px dashed rgba(20,18,12,0.45) !important; border-radius: 0 !important;
+      background: var(--ink) !important; color: #fbfaf5 !important;
+      border: none !important; border-radius: 0 !important;
       font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+      transition: filter 0.25s ease, box-shadow 0.25s ease;
+    }
+    .mp-product .product-form__submit.button--secondary:hover {
+      filter: brightness(1.3);
+      box-shadow: 0 10px 20px -10px rgba(20,18,12,0.5);
     }
     .mp-product shopify-accelerated-checkout,
     .mp-product shopify-accelerated-checkout-cart {
