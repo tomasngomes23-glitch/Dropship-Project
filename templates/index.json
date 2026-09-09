@@ -146,9 +146,10 @@
         "heading": "Leva mais, poupa mais",
         "heading_size": "h1",
         "subheading": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>",
+        "layout": "tiers",
         "button_label": "Ver jackets",
         "button_link": "shopify://collections/all",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-6",
         "padding_top": 52,
         "padding_bottom": 52
       }
@@ -159,13 +160,16 @@
         "video-1": { "type": "video_item", "settings": {} },
         "video-2": { "type": "video_item", "settings": {} },
         "video-3": { "type": "video_item", "settings": {} },
-        "video-4": { "type": "video_item", "settings": {} }
+        "video-4": { "type": "video_item", "settings": {} },
+        "video-5": { "type": "video_item", "settings": {} },
+        "video-6": { "type": "video_item", "settings": {} }
       },
-      "block_order": ["video-1", "video-2", "video-3", "video-4"],
+      "block_order": ["video-1", "video-2", "video-3", "video-4", "video-5", "video-6"],
       "settings": {
         "heading": "A comunidade Overtake",
         "heading_size": "h2",
         "hashtag": "#OvertakeCrew",
+        "wordmark": "OVERTAKE",
         "color_scheme": "scheme-1",
         "padding_top": 44,
         "padding_bottom": 44
@@ -202,6 +206,7 @@
       "block_order": ["review-1", "review-2", "review-3"],
       "settings": {
         "heading": "O que dizem os clientes",
+        "customer_count_heading": "[PLACEHOLDER — X+] clientes já vestem Overtake no dia-a-dia",
         "heading_size": "h2",
         "show_average": true,
         "average_rating": "4.8",

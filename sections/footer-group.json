@@ -4,12 +4,27 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "quick-links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick Links",
+            "menu": "footer"
+          }
+        },
+        "customer-support": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Support",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": ["quick-links", "customer-support"],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
-        "newsletter_heading": "Entra na Overtake Crew — drops e descontos em primeira mão",
+        "newsletter_heading": "Join the Overtake Crew — desconto-mistério na primeira compra",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,

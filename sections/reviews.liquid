@@ -32,6 +32,13 @@
     padding: 1.25rem;
   }
 
+  .reviews__card-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin-bottom: 0.75rem;
+  }
+
   .reviews__card-stars {
     color: rgb(var(--color-foreground));
     margin-bottom: 0.5rem;
@@ -52,7 +59,13 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding reviews reviews-{{ section.id }}">
-    {%- if section.settings.heading != blank -%}
+    {%- if section.settings.customer_count_heading != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin center">
+        <h2 class="title {{ section.settings.heading_size }}">
+          {{ section.settings.customer_count_heading }}
+        </h2>
+      </div>
+    {%- elsif section.settings.heading != blank -%}
       <div class="title-wrapper title-wrapper--no-top-margin center">
         <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
       </div>
@@ -69,6 +82,16 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'review' -%}
           <div class="reviews__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.photo != blank -%}
+              <img
+                class="reviews__card-photo"
+                src="{{ block.settings.photo | image_url: width: 500 }}"
+                alt="{{ block.settings.photo.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.photo.width }}"
+                height="{{ block.settings.photo.height }}"
+              >
+            {%- endif -%}
             <div class="reviews__card-stars" aria-hidden="true">
               {%- assign stars = block.settings.rating | times: 1 -%}
               {%- for i in (1..5) -%}
@@ -97,6 +120,12 @@
       "id": "heading",
       "label": "Título",
       "default": "O que dizem os clientes"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "customer_count_heading",
+      "label": "Título alternativo com nº de clientes (usa este em vez do título simples, se preenchido)",
+      "default": "[PLACEHOLDER — X+] clientes já vestem Overtake no dia-a-dia"
     },
     {
       "type": "select",
@@ -162,6 +191,11 @@
       "type": "review",
       "name": "Review",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Foto do cliente/produto (opcional)"
+        },
         {
           "type": "select",
           "id": "rating",

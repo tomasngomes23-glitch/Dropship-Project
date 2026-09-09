@@ -37,6 +37,37 @@
     letter-spacing: 0.05em;
     font-size: 0.85rem;
   }
+
+  .volume-discount__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .volume-discount__visual-item {
+    width: clamp(120px, 22vw, 220px);
+  }
+
+  .volume-discount__visual-item img,
+  .volume-discount__visual-item .placeholder-svg {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .volume-discount__visual-label {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .volume-discount__visual-connector {
+    font-size: 2rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -50,19 +81,42 @@
       <p class="volume-discount__subheading center">{{ section.settings.subheading }}</p>
     {%- endif -%}
 
-    <div class="volume-discount__tiers grid grid--1-col grid--3-col-tablet">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'tier' -%}
-          <div
-            class="volume-discount__tier{% if block.settings.featured %} volume-discount__tier--featured{% endif %}"
-            {{ block.shopify_attributes }}
-          >
-            <p class="volume-discount__tier-qty">{{ block.settings.quantity_label | escape }}</p>
-            <p class="volume-discount__tier-off">{{ block.settings.discount_label | escape }}</p>
+    {%- if section.settings.layout == 'visual_bundle' -%}
+      {%- assign visual_blocks = section.blocks | where: 'type', 'product_visual' -%}
+      <div class="volume-discount__visual">
+        {%- for block in visual_blocks -%}
+          <div class="volume-discount__visual-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label | default: block.settings.image.alt }}
+            {%- else -%}
+              {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            {%- if block.settings.label != blank -%}
+              <p class="volume-discount__visual-label">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
           </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+          {%- unless forloop.last -%}
+            <span class="volume-discount__visual-connector" aria-hidden="true">
+              {%- if forloop.rindex0 == 1 -%}={%- else -%}+{%- endif -%}
+            </span>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="volume-discount__tiers grid grid--1-col grid--3-col-tablet">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tier' -%}
+            <div
+              class="volume-discount__tier{% if block.settings.featured %} volume-discount__tier--featured{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <p class="volume-discount__tier-qty">{{ block.settings.quantity_label | escape }}</p>
+              <p class="volume-discount__tier-off">{{ block.settings.discount_label | escape }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     {%- if section.settings.button_label != blank -%}
       <div class="center" style="margin-top: 1.5rem;">
@@ -109,6 +163,16 @@
       "id": "subheading",
       "label": "Subtítulo",
       "default": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Estilo",
+      "options": [
+        { "value": "tiers", "label": "Cartões por nível" },
+        { "value": "visual_bundle", "label": "Visual com imagens (\"leva 2 + 1 = 25% off\")" }
+      ],
+      "default": "tiers"
     },
     {
       "type": "text",
@@ -174,6 +238,22 @@
           "id": "featured",
           "label": "Destacar este nível",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "product_visual",
+      "name": "Produto do bundle (imagem)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem do produto"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Legenda (opcional)"
         }
       ]
     }

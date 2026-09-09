@@ -12,24 +12,34 @@
   }
 
   .video-wall-{{ section.id }} .video-wall__grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     gap: 0.75rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .video-wall-{{ section.id }} .video-wall__grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .video-wall__item {
     position: relative;
+    flex: 0 0 auto;
+    width: clamp(140px, 30vw, 220px);
     aspect-ratio: 9 / 16;
     overflow: hidden;
     background: rgba(var(--color-foreground), 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
+    scroll-snap-align: start;
+  }
+
+  .video-wall__wordmark {
+    text-align: center;
+    margin-top: 1.75rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   .video-wall__item img,
@@ -65,7 +75,7 @@
       </div>
     {%- endif -%}
 
-    <div class="video-wall__grid grid">
+    <div class="video-wall__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'video_item' -%}
           <div class="video-wall__item" {{ block.shopify_attributes }}>
@@ -101,6 +111,10 @@
         — marca-nos para apareceres aqui
       </p>
     {%- endif -%}
+
+    {%- if section.settings.wordmark != blank -%}
+      <p class="video-wall__wordmark">{{ section.settings.wordmark | escape }}</p>
+    {%- endif -%}
   </div>
 </div>
 
@@ -131,6 +145,12 @@
       "id": "hashtag",
       "label": "Hashtag da marca",
       "default": "#OvertakeCrew"
+    },
+    {
+      "type": "text",
+      "id": "wordmark",
+      "label": "Wordmark/logo em texto (opcional, aparece por baixo da grelha)",
+      "default": "OVERTAKE"
     },
     {
       "type": "color_scheme",
@@ -185,6 +205,8 @@
     {
       "name": "Vídeo wall / UGC",
       "blocks": [
+        { "type": "video_item" },
+        { "type": "video_item" },
         { "type": "video_item" },
         { "type": "video_item" },
         { "type": "video_item" },
