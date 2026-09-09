@@ -9,7 +9,7 @@
           "type": "link_list",
           "settings": {
             "heading": "Quick Links",
-            "menu": "footer"
+            "menu": "main-menu"
           }
         },
         "customer-support": {
