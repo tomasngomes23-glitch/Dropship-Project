@@ -1,0 +1,196 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .video-wall-{{ section.id }} .video-wall__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .video-wall-{{ section.id }} .video-wall__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .video-wall__item {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-wall__item img,
+  .video-wall__item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-wall__placeholder-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: rgb(var(--color-foreground), 0.6);
+  }
+
+  .video-wall__hashtag {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding video-wall video-wall-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin center">
+        <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="video-wall__grid grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video_item' -%}
+          <div class="video-wall__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.video != blank -%}
+              <video muted loop playsinline
+                {% if block.settings.thumbnail != blank %}poster="{{ block.settings.thumbnail | image_url: width: 600 }}"{% endif %}
+              >
+                {%- for source in block.settings.video.sources -%}
+                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                {%- endfor -%}
+              </video>
+            {%- elsif block.settings.thumbnail != blank -%}
+              <img
+                src="{{ block.settings.thumbnail | image_url: width: 600 }}"
+                alt="{{ block.settings.thumbnail.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.thumbnail.width }}"
+                height="{{ block.settings.thumbnail.height }}"
+              >
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              <span class="video-wall__placeholder-label">[PLACEHOLDER — vídeo/UGC vertical]</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.hashtag != blank -%}
+      <p class="video-wall__hashtag">
+        {{- 'icon-tiktok.svg' | inline_asset_content -}}
+        <strong>{{ section.settings.hashtag | escape }}</strong>
+        — marca-nos para apareceres aqui
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vídeo wall / UGC",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "A comunidade Overtake"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho do título",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Grande" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag da marca",
+      "default": "#OvertakeCrew"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_item",
+      "name": "Vídeo",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Vídeo (opcional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Miniatura / poster"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vídeo wall / UGC",
+      "blocks": [
+        { "type": "video_item" },
+        { "type": "video_item" },
+        { "type": "video_item" },
+        { "type": "video_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

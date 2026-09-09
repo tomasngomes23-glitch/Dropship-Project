@@ -1,0 +1,277 @@
+{{ 'section-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .hero-banner-{{ section.id }} {
+    --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    min-height: {{ section.settings.mobile_height }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .hero-banner-{{ section.id }} {
+      min-height: {{ section.settings.desktop_height }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="hero-banner hero-banner-{{ section.id }} section-{{ section.id }}-padding">
+    <div class="hero-banner__media">
+      {%- if section.settings.video != null -%}
+        <video
+          class="hero-banner__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          {% if section.settings.image != blank %}
+            poster="{{ section.settings.image | image_url: width: 1920 }}"
+          {% endif %}
+        >
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
+        </video>
+      {%- elsif section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            widths: '375, 750, 1100, 1500, 1780, 2000',
+            class: 'hero-banner__image',
+            alt: section.settings.image.alt | default: section.settings.heading
+        }}
+      {%- else -%}
+        <div class="hero-banner__placeholder">
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg hero-banner__image' }}
+          <p class="hero-banner__placeholder-label caption-with-letter-spacing">
+            [PLACEHOLDER — substituir por foto/vídeo de jacket em uso]
+          </p>
+        </div>
+      {%- endif -%}
+      <div class="hero-banner__overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-banner__content hero-banner__content--{{ section.settings.content_position }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if section.settings.caption != blank -%}
+        <p class="hero-banner__caption caption-with-letter-spacing">{{ section.settings.caption | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero-banner__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'brand_quote' -%}
+            <blockquote class="hero-banner__brand-quote" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.quote | default: '[PLACEHOLDER — frase de marca/autenticidade, ex: história de como a Overtake começou]' }}</p>
+              {%- if block.settings.attribution != blank -%}
+                <cite>{{ block.settings.attribution | escape }}</cite>
+              {%- endif -%}
+            </blockquote>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section section--hero-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media (imagem é sempre necessária como poster/fallback)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem de fundo"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vídeo de fundo (opcional)",
+      "info": "Se definido, reproduz em loop silencioso sobre a imagem. A imagem acima é usada como poster/fallback."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacidade do overlay escuro",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Etiqueta pequena (opcional)",
+      "default": "OVERTAKE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Vintage racing wear, feito para durar"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho da headline",
+      "options": [
+        { "value": "h1", "label": "Normal" },
+        { "value": "h0", "label": "Grande" },
+        { "value": "hxl", "label": "Extra grande" },
+        { "value": "hxxl", "label": "Máximo" }
+      ],
+      "default": "hxl"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Ver coleção"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Estilo secundário (contorno)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Posição do conteúdo",
+      "options": [
+        { "value": "bottom-left", "label": "Fundo esquerda" },
+        { "value": "bottom-center", "label": "Fundo centro" },
+        { "value": "center-left", "label": "Centro esquerda" },
+        { "value": "center-center", "label": "Centro" }
+      ],
+      "default": "bottom-left"
+    },
+    {
+      "type": "header",
+      "content": "Cor e altura"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-3"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Altura mínima (mobile)",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Altura mínima (desktop)",
+      "default": 650
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_quote",
+      "name": "Frase de marca",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Frase",
+          "default": "<p>[PLACEHOLDER — frase de marca/autenticidade, ex: história de como a Overtake começou]</p>"
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Assinatura (opcional)",
+          "default": "— Fundador da Overtake"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "brand_quote" }
+      ]
+    }
+  ]
+}
+{% endschema %}

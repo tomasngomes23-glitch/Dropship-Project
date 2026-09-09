@@ -1,53 +1,77 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero_banner": {
+      "type": "hero-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "brand_quote": {
+          "type": "brand_quote",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "quote": "<p>[PLACEHOLDER — frase de marca/autenticidade, ex: história de como a Overtake começou]</p>",
+            "attribution": "— Fundador da Overtake"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "block_order": ["brand_quote"],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
+        "caption": "OVERTAKE",
+        "heading": "Vintage racing wear, feito para durar",
+        "heading_size": "hxl",
+        "button_label": "Ver coleção",
+        "button_link": "shopify://collections/all",
+        "button_style_secondary": false,
+        "content_position": "bottom-left",
+        "overlay_opacity": 30,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "mobile_height": 500,
+        "desktop_height": 650,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "featured_collection": {
+    "trust_badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge-shipping": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "heading": "Envio Grátis",
+            "text": "<p>Em encomendas acima de [PLACEHOLDER — valor]</p>"
+          }
+        },
+        "badge-quality": {
+          "type": "badge",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Qualidade Premium",
+            "text": "<p>Materiais e acabamento cuidados</p>"
+          }
+        },
+        "badge-returns": {
+          "type": "badge",
+          "settings": {
+            "icon": "return",
+            "heading": "Devolução Fácil",
+            "text": "<p>[PLACEHOLDER — prazo] dias para trocar ou devolver</p>"
+          }
+        }
+      },
+      "block_order": ["badge-shipping", "badge-quality", "badge-returns"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "best_sellers": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
+        "title": "Best Sellers",
+        "heading_size": "h1",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
+        "collection": "",
         "products_to_show": 8,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
@@ -55,8 +79,8 @@
         "show_view_all": true,
         "view_all_style": "solid",
         "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
@@ -66,10 +90,188 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "category_tiles": {
+      "type": "collection-list",
+      "blocks": {
+        "cat-jackets": {
+          "type": "featured_collection",
+          "settings": { "collection": "" }
+        },
+        "cat-shirts": {
+          "type": "featured_collection",
+          "settings": { "collection": "" }
+        },
+        "cat-special": {
+          "type": "featured_collection",
+          "settings": { "collection": "" }
+        },
+        "cat-accessories": {
+          "type": "featured_collection",
+          "settings": { "collection": "" }
+        }
+      },
+      "block_order": ["cat-jackets", "cat-shirts", "cat-special", "cat-accessories"],
+      "settings": {
+        "title": "Compra por categoria",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "swipe_on_mobile": true,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "volume_discount": {
+      "type": "volume-discount",
+      "blocks": {
+        "tier-2": {
+          "type": "tier",
+          "settings": { "quantity_label": "2 jackets", "discount_label": "10% OFF", "featured": false }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": { "quantity_label": "3 jackets", "discount_label": "20% OFF", "featured": true }
+        },
+        "tier-4": {
+          "type": "tier",
+          "settings": { "quantity_label": "4+ jackets", "discount_label": "25% OFF", "featured": false }
+        }
+      },
+      "block_order": ["tier-2", "tier-3", "tier-4"],
+      "settings": {
+        "heading": "Leva mais, poupa mais",
+        "heading_size": "h1",
+        "subheading": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>",
+        "button_label": "Ver jackets",
+        "button_link": "shopify://collections/all",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "video_wall": {
+      "type": "video-wall",
+      "blocks": {
+        "video-1": { "type": "video_item", "settings": {} },
+        "video-2": { "type": "video_item", "settings": {} },
+        "video-3": { "type": "video_item", "settings": {} },
+        "video-4": { "type": "video_item", "settings": {} }
+      },
+      "block_order": ["video-1", "video-2", "video-3", "video-4"],
+      "settings": {
+        "heading": "A comunidade Overtake",
+        "heading_size": "h2",
+        "hashtag": "#OvertakeCrew",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"],
+      "settings": {
+        "heading": "O que dizem os clientes",
+        "heading_size": "h2",
+        "show_average": true,
+        "average_rating": "4.8",
+        "review_count": "0",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq-shipping": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quanto tempo demora o envio?",
+            "icon": "truck",
+            "row_content": "<p>[PLACEHOLDER — prazos de envio reais]</p>"
+          }
+        },
+        "faq-tracking": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como acompanho a minha encomenda?",
+            "icon": "box",
+            "row_content": "<p>[PLACEHOLDER — processo de tracking]</p>"
+          }
+        },
+        "faq-returns": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Posso devolver ou trocar?",
+            "icon": "return",
+            "row_content": "<p>[PLACEHOLDER — política de devoluções]</p>"
+          }
+        },
+        "faq-sizing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como escolho o tamanho certo?",
+            "icon": "ruler",
+            "row_content": "<p>[PLACEHOLDER — guia de tamanhos]</p>"
+          }
+        }
+      },
+      "block_order": ["faq-shipping", "faq-tracking", "faq-returns", "faq-sizing"],
+      "settings": {
+        "caption": "",
+        "heading": "Perguntas frequentes",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero_banner",
+    "trust_badges",
+    "best_sellers",
+    "category_tiles",
+    "volume_discount",
+    "video_wall",
+    "reviews",
+    "faq"
   ]
 }

@@ -1,0 +1,202 @@
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .reviews-{{ section.id }} .reviews__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .reviews__average {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .reviews__average-number {
+    font-size: 2.25rem;
+    line-height: 1;
+  }
+
+  .reviews__card {
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 1.25rem;
+  }
+
+  .reviews__card-stars {
+    color: rgb(var(--color-foreground));
+    margin-bottom: 0.5rem;
+  }
+
+  .reviews__card-quote {
+    font-size: 0.95rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .reviews__card-author {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgb(var(--color-foreground), 0.65);
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding reviews reviews-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin center">
+        <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_average -%}
+      <div class="reviews__average">
+        <p class="reviews__average-number">{{ section.settings.average_rating }} / 5</p>
+        <p class="caption">[PLACEHOLDER — baseado em {{ section.settings.review_count }} avaliações reais]</p>
+      </div>
+    {%- endif -%}
+
+    <div class="reviews__grid grid grid--1-col grid--3-col-tablet">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="reviews__card" {{ block.shopify_attributes }}>
+            <div class="reviews__card-stars" aria-hidden="true">
+              {%- assign stars = block.settings.rating | times: 1 -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+            <p class="reviews__card-quote">
+              {{ block.settings.quote | default: '[PLACEHOLDER — review real de cliente, específica sobre o produto]' }}
+            </p>
+            <p class="reviews__card-author">{{ block.settings.author | default: '[Nome do cliente]' }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "O que dizem os clientes"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho do título",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Grande" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_average",
+      "label": "Mostrar nota média",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "average_rating",
+      "label": "Nota média (editar manualmente ou ligar a app de reviews)",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Número de avaliações",
+      "default": "0"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "Estrelas",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Texto da review",
+          "default": "[PLACEHOLDER — review real de cliente, específica sobre o produto]"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nome do cliente",
+          "default": "[Nome do cliente]"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
