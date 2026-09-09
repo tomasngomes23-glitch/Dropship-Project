@@ -1,0 +1,151 @@
+{%- style -%}
+  .marquee-bar-{{ section.id }} {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: {{ section.settings.padding_block }}px 0;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__track {
+    display: inline-flex;
+    align-items: center;
+    animation: marquee-scroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-bar-{{ section.id }}:hover .marquee-bar__track {
+    animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading-family);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 1.5rem;
+    white-space: nowrap;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__item a {
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__dot {
+    opacity: 0.5;
+  }
+
+  @keyframes marquee-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-bar-{{ section.id }} .marquee-bar__track {
+      animation: none;
+    }
+    .marquee-bar-{{ section.id }} {
+      overflow-x: auto;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign message_blocks = section.blocks | where: 'type', 'message'
+-%}
+
+{%- if message_blocks.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} marquee-bar marquee-bar-{{ section.id }}">
+    <div class="marquee-bar__track" aria-hidden="false">
+      {%- comment -%} render the message list twice back-to-back so the -50% translateX loop is seamless {%- endcomment -%}
+      {%- for i in (1..2) -%}
+        {%- for block in message_blocks -%}
+          <span class="marquee-bar__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
+            {%- else -%}
+              {{ block.settings.text | escape }}
+            {%- endif -%}
+          </span>
+          <span class="marquee-bar__dot" aria-hidden="true">&bull;</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Marquee (ticker contínuo)",
+  "tag": "section",
+  "class": "marquee-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-4"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "label": "Velocidade (segundos por ciclo — menor é mais rápido)",
+      "default": 26
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pausar ao passar o rato por cima",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaço vertical",
+      "default": 10
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Mensagem",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Envio grátis em encomendas acima de [PLACEHOLDER]"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee (ticker contínuo)",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Envio grátis em encomendas acima de [PLACEHOLDER]" } },
+        { "type": "message", "settings": { "text": "Leva 3 jackets, poupa 20%" } },
+        { "type": "message", "settings": { "text": "Novo drop de hoodies disponível" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -2,34 +2,31 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "marquee-bar": {
+      "type": "marquee-bar",
       "settings": {
         "color_scheme": "scheme-4",
-        "show_line_separator": true,
-        "show_social": false,
-        "auto_rotate": true,
-        "change_slides_speed": 4,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "speed": 26,
+        "pause_on_hover": true,
+        "padding_block": 10
       },
       "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
+        "marquee-0": {
+          "type": "message",
           "settings": {
             "text": "Envio grátis a partir de [PLACEHOLDER — valor]",
             "link": ""
           }
         },
-        "announcement-bar-1": {
-          "type": "announcement",
+        "marquee-1": {
+          "type": "message",
           "settings": {
             "text": "Leva 3 jackets, poupa 20%",
             "link": "shopify://collections/all"
           }
         },
-        "announcement-bar-2": {
-          "type": "announcement",
+        "marquee-2": {
+          "type": "message",
           "settings": {
             "text": "Novo drop disponível",
             "link": "shopify://collections/all"
@@ -37,9 +34,9 @@
         }
       },
       "block_order": [
-        "announcement-bar-0",
-        "announcement-bar-1",
-        "announcement-bar-2"
+        "marquee-0",
+        "marquee-1",
+        "marquee-2"
       ]
     },
     "header": {
@@ -62,7 +59,7 @@
     }
   },
   "order": [
-    "announcement-bar",
+    "marquee-bar",
     "header"
   ]
 }
