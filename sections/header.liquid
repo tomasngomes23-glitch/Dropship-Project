@@ -27,10 +27,14 @@
   }
 
   .header__inline-menu .header__menu-item {
-    font-size: 1.7rem;
+    font-size: clamp(1.2rem, 0.9vw + 0.9rem, 1.5rem);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 500;
+  }
+
+  .header__heading-logo-wrapper {
+    width: clamp(90px, 9vw, 160px);
   }
 
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}

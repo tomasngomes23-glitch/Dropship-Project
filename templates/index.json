@@ -23,8 +23,8 @@
         "content_position": "bottom-left",
         "overlay_opacity": 40,
         "color_scheme": "scheme-1",
-        "mobile_height": 500,
-        "desktop_height": 650,
+        "mobile_height": 420,
+        "desktop_height": 560,
         "padding_top": 0,
         "padding_bottom": 0
       }
