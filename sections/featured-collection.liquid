@@ -61,18 +61,25 @@
   }
 
   #collection-{{ section.id }} .card__heading {
-    font-weight: 700;
+    font-weight: 400;
   }
 
-  #collection-{{ section.id }} .price .price-item--regular,
   #collection-{{ section.id }} .price .price-item--sale {
     font-weight: 700;
+    color: rgb(var(--color-foreground));
+  }
+
+  #collection-{{ section.id }} .price .price-item--regular {
+    font-weight: 400;
+    font-size: 0.9em;
+    color: rgba(var(--color-foreground), 0.55);
   }
 
   #collection-{{ section.id }} .price__sale {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    align-items: baseline;
     gap: 0.5rem;
   }
 
