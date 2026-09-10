@@ -14,21 +14,21 @@
         "marquee-0": {
           "type": "message",
           "settings": {
-            "text": "Envio grátis a partir de [PLACEHOLDER — valor]",
+            "text": "Free shipping on orders over [PLACEHOLDER — amount]",
             "link": ""
           }
         },
         "marquee-1": {
           "type": "message",
           "settings": {
-            "text": "Leva 3 jackets, poupa 20%",
+            "text": "Buy 3 jackets, save 20%",
             "link": "shopify://collections/all"
           }
         },
         "marquee-2": {
           "type": "message",
           "settings": {
-            "text": "Novo drop disponível",
+            "text": "New drop available",
             "link": "shopify://collections/all"
           }
         }
