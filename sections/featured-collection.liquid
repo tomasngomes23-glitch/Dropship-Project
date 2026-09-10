@@ -36,6 +36,30 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  #collection-{{ section.id }} .collection__title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  #collection-{{ section.id }} .collection__title .title {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  #collection-{{ section.id }} .collection__view-all-inline {
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  #collection-{{ section.id }} .slider-counter {
+    display: none;
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -89,6 +113,15 @@
             {{ section.settings.description -}}
           {%- endif %}
         </div>
+      {%- endif -%}
+      {%- if section.settings.show_view_all and more_in_collection -%}
+        <a
+          href="{{ section.settings.collection.url }}"
+          class="link collection__view-all-inline"
+          aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+        >
+          {{ 'sections.featured_collection.view_all' | t }}
+        </a>
       {%- endif -%}
     </div>
 
@@ -198,17 +231,6 @@
       {%- endif -%}
     </slider-component>
 
-    {%- if section.settings.show_view_all and more_in_collection -%}
-      <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        <a
-          href="{{ section.settings.collection.url }}"
-          class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
-          aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
-        >
-          {{ 'sections.featured_collection.view_all' | t }}
-        </a>
-      </div>
-    {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}
