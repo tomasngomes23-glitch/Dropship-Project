@@ -46,6 +46,13 @@
     margin: 0;
     padding-left: clamp(1.5rem, 4vw, 5rem);
     padding-right: clamp(1.5rem, 4vw, 5rem);
+    margin-bottom: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #collection-{{ section.id }} .collection__title {
+      margin-bottom: {{ section.settings.padding_top }}px;
+    }
   }
 
   #collection-{{ section.id }} .collection__title .title {
@@ -89,6 +96,12 @@
     font-weight: 600;
     letter-spacing: 0.04em;
     text-decoration: none;
+    color: rgb(var(--color-foreground));
+    transition: opacity 0.15s ease;
+  }
+
+  #collection-{{ section.id }} .collection__view-all-inline:hover {
+    opacity: 0.6;
   }
 
   #collection-{{ section.id }} .slider-counter {
