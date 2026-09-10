@@ -39,7 +39,7 @@
 
   @keyframes marquee-scroll-{{ section.id }} {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to { transform: translateX(-25%); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -59,8 +59,8 @@
 {%- if message_blocks.size > 0 -%}
   <div class="color-{{ section.settings.color_scheme }} marquee-bar marquee-bar-{{ section.id }}">
     <div class="marquee-bar__track" aria-hidden="false">
-      {%- comment -%} render the message list twice back-to-back so the -50% translateX loop is seamless {%- endcomment -%}
-      {%- for i in (1..2) -%}
+      {%- comment -%} render the message list 4x back-to-back so the -25% translateX loop stays seamless even with few/short messages on wide screens {%- endcomment -%}
+      {%- for i in (1..4) -%}
         {%- for block in message_blocks -%}
           <span class="marquee-bar__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
             {%- if block.settings.link != blank -%}
