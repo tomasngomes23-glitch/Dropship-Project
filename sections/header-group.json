@@ -9,7 +9,7 @@
         "enable_country_selector": false,
         "speed": 26,
         "pause_on_hover": true,
-        "padding_block": 12
+        "padding_block": 8
       },
       "blocks": {
         "marquee-0": {

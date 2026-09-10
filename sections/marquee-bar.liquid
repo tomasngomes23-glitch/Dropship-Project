@@ -3,6 +3,8 @@
     position: relative;
     overflow: hidden;
     padding: {{ section.settings.padding_block }}px 0;
+    background: #000;
+    color: #fff;
   }
 
   .marquee-bar-{{ section.id }} .marquee-bar__viewport {
@@ -25,11 +27,11 @@
     display: inline-flex;
     align-items: center;
     font-family: var(--font-heading-family);
-    font-size: clamp(1.1rem, 0.4vw + 1rem, 1.3rem);
+    font-size: clamp(0.85rem, 0.25vw + 0.75rem, 1rem);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0 1.5rem;
+    padding: 0 1.2rem;
     white-space: nowrap;
   }
 
