@@ -42,8 +42,8 @@
     "header": {
       "type": "header",
       "settings": {
-        "color_scheme": "scheme-7",
-        "menu_color_scheme": "scheme-7",
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
         "logo_position": "middle-left",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
