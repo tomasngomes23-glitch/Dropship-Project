@@ -2,7 +2,7 @@
   "current": "Dawn",
   "presets": {
     "Dawn": {
-      "logo_width": 90,
+      "logo_width": 140,
       "customer_account_menu": "customer-account-main-menu",
       "color_schemes": {
         "scheme-1": {
@@ -212,7 +212,9 @@
             "color_scheme": "scheme-1"
           }
         }
-      }
+      },
+      "logo": "shopify://shop_images/image.png",
+      "favicon": "shopify://shop_images/icons8-formula-1-100.png"
     }
   }
 }
