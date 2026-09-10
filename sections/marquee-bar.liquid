@@ -47,15 +47,6 @@
     to { transform: translateX(-25%); }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-bar-{{ section.id }} .marquee-bar__track {
-      animation: none;
-    }
-    .marquee-bar-{{ section.id }} .marquee-bar__viewport {
-      overflow-x: auto;
-    }
-  }
-
   .marquee-bar-{{ section.id }} .marquee-bar__localization {
     position: absolute;
     right: 0;
