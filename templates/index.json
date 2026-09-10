@@ -5,7 +5,7 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "image": "shopify://shop_images/Banner_try1.png",
+        "image": "shopify://shop_images/Banner_2.png",
         "caption": "",
         "heading": "",
         "heading_size": "hxl",
@@ -80,8 +80,8 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 16,
-        "padding_bottom": 36
+        "padding_top": 36,
+        "padding_bottom": 48
       }
     },
     "category_tiles": {
