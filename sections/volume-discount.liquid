@@ -74,7 +74,7 @@
   <div class="page-width section-{{ section.id }}-padding volume-discount volume-discount-{{ section.id }}">
     {%- if section.settings.heading != blank -%}
       <div class="title-wrapper title-wrapper--no-top-margin center">
-        <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        <h2 class="title {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ section.settings.heading }}</h2>
       </div>
     {%- endif -%}
     {%- if section.settings.subheading != blank -%}
@@ -107,7 +107,11 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'tier' -%}
             <div
-              class="volume-discount__tier{% if block.settings.featured %} volume-discount__tier--featured{% endif %}"
+              class="volume-discount__tier{% if block.settings.featured %} volume-discount__tier--featured{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
               {{ block.shopify_attributes }}
             >
               <p class="volume-discount__tier-qty">{{ block.settings.quantity_label | escape }}</p>

@@ -71,14 +71,21 @@
   <div class="page-width section-{{ section.id }}-padding video-wall video-wall-{{ section.id }}">
     {%- if section.settings.heading != blank -%}
       <div class="title-wrapper title-wrapper--no-top-margin center">
-        <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        <h2 class="title {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ section.settings.heading }}</h2>
       </div>
     {%- endif -%}
 
     <div class="video-wall__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'video_item' -%}
-          <div class="video-wall__item" {{ block.shopify_attributes }}>
+          <div
+            class="video-wall__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
             {%- if block.settings.video != blank -%}
               <video muted loop playsinline
                 {% if block.settings.thumbnail != blank %}poster="{{ block.settings.thumbnail | image_url: width: 600 }}"{% endif %}

@@ -42,7 +42,14 @@
     <div class="trust-badges trust-badges-{{ section.id }} grid grid--1-col grid--3-col-tablet">
       {%- for block in section.blocks -%}
         {%- if block.type == 'badge' -%}
-          <div class="trust-badges__item" {{ block.shopify_attributes }}>
+          <div
+            class="trust-badges__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
             <div class="trust-badges__icon">
               {%- if block.settings.icon_image != blank -%}
                 <img
