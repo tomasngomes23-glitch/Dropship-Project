@@ -14,7 +14,7 @@
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__heading {
-    text-align: center;
+    text-align: left;
     font-weight: 800;
     margin: 0;
   }
@@ -48,9 +48,10 @@
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__card {
-    background: #fdf1f2;
-    border: 1px solid rgba(217, 33, 51, 0.18);
+    background: rgb(var(--color-background));
+    border: 1px solid rgba(217, 33, 51, 0.25);
     border-radius: 14px;
+    box-shadow: 0 0 22px rgba(217, 33, 51, 0.16);
     padding: 1.5rem;
     height: 100%;
     display: flex;
@@ -62,7 +63,7 @@
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 1.25rem;
-    background: rgba(217, 33, 51, 0.08);
+    background: rgba(var(--color-foreground), 0.06);
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper img {
