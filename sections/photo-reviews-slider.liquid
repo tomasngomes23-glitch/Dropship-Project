@@ -1,5 +1,3 @@
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -32,42 +30,47 @@
     }
   }
 
-  #photo-reviews-{{ section.id }} .slider-component-full-width {
-    --desktop-margin-left-first-item: 4.5rem;
+  #photo-reviews-{{ section.id }} .photo-reviews__viewport {
+    overflow: hidden;
+    width: 100%;
+    padding: 1.5rem 0;
   }
 
-  #photo-reviews-{{ section.id }} .slider-component-full-width .slider {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+  #photo-reviews-{{ section.id }} .photo-reviews__track {
+    display: flex;
+    align-items: stretch;
+    gap: 1.25rem;
+    width: max-content;
+    animation: photo-reviews-scroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
   }
 
-  @media screen and (min-width: 990px) {
-    #photo-reviews-{{ section.id }} .slider-component-full-width .slider--desktop {
-      scroll-padding-left: 4.5rem;
-    }
+  #photo-reviews-{{ section.id }}:hover .photo-reviews__track {
+    animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
+  }
 
-    #photo-reviews-{{ section.id }} .slider-component-full-width .slider--desktop .slider__slide:first-child {
-      margin-left: 4.5rem;
-      scroll-margin-left: 4.5rem;
-    }
+  @keyframes photo-reviews-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__card {
     background: rgb(var(--color-background));
     border: 1px solid rgba(217, 33, 51, 0.25);
-    border-radius: 14px;
-    box-shadow: 0 0 22px rgba(217, 33, 51, 0.16);
-    padding: 1.5rem;
-    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 18px rgba(217, 33, 51, 0.16);
+    padding: 1rem;
+    width: clamp(160px, 16vw, 200px);
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper {
     aspect-ratio: 1 / 1;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.85rem;
     background: rgba(var(--color-foreground), 0.06);
   }
 
@@ -80,33 +83,35 @@
 
   #photo-reviews-{{ section.id }} .photo-reviews__stars {
     color: #d92133;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.85rem;
-    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__title {
     font-weight: 800;
-    font-size: 1.15rem;
-    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    margin: 0 0 0.35rem;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__quote {
     font-style: normal;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0 0 1rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin: 0 0 0.75rem;
     flex-grow: 1;
     color: rgba(var(--color-foreground), 0.8);
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__author {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
   }
 
-  #photo-reviews-{{ section.id }} .slider-counter {
-    display: none;
+  @media (prefers-reduced-motion: reduce) {
+    #photo-reviews-{{ section.id }} .photo-reviews__track {
+      animation: none;
+    }
   }
 {%- endstyle -%}
 
@@ -118,20 +123,16 @@
       </div>
     {%- endif -%}
 
-    <slider-component class="slider-mobile-gutter slider-component-full-width">
-      <ul
-        id="PhotoReviewsSlider-{{ section.id }}"
-        class="grid grid--4-col-desktop grid--1-col-tablet-down slider slider--desktop"
-        role="list"
-      >
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'review_card' -%}
-            <li id="PhotoReviewSlide-{{ section.id }}-{{ forloop.index }}" class="grid__item slider__slide" {{ block.shopify_attributes }}>
-              <div class="photo-reviews__card">
+    <div class="photo-reviews__viewport">
+      <div class="photo-reviews__track">
+        {%- for dup in (1..2) -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'review_card' -%}
+              <div class="photo-reviews__card" {% if dup == 1 %}{{ block.shopify_attributes }}{% endif %} {% if dup > 1 %}aria-hidden="true"{% endif %}>
                 <div class="photo-reviews__image-wrapper">
                   {%- if block.settings.image != blank -%}
                     <img
-                      src="{{ block.settings.image | image_url: width: 500 }}"
+                      src="{{ block.settings.image | image_url: width: 400 }}"
                       alt="{{ block.settings.image.alt | escape }}"
                       loading="lazy"
                       width="{{ block.settings.image.width }}"
@@ -143,8 +144,8 @@
                 </div>
                 <div class="photo-reviews__stars" aria-hidden="true">
                   {%- assign stars = block.settings.rating | times: 1 -%}
-                  {%- for i in (1..5) -%}
-                    {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+                  {%- for star_i in (1..5) -%}
+                    {%- if star_i <= stars -%}★{%- else -%}☆{%- endif -%}
                   {%- endfor -%}
                 </div>
                 {%- if block.settings.title != blank -%}
@@ -155,41 +156,11 @@
                 </p>
                 <p class="photo-reviews__author">{{ block.settings.author | default: '[Nome do cliente]' }}</p>
               </div>
-            </li>
-          {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
         {%- endfor -%}
-      </ul>
-      <div class="slider-buttons">
-        <button
-          type="button"
-          class="slider-button slider-button--prev"
-          name="previous"
-          aria-label="{{ 'general.slider.previous_slide' | t }}"
-          aria-controls="PhotoReviewsSlider-{{ section.id }}"
-        >
-          <span class="svg-wrapper">
-            {{- 'icon-caret.svg' | inline_asset_content -}}
-          </span>
-        </button>
-        <div class="slider-counter caption">
-          <span class="slider-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
-          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ section.blocks.size }}</span>
-        </div>
-        <button
-          type="button"
-          class="slider-button slider-button--next"
-          name="next"
-          aria-label="{{ 'general.slider.next_slide' | t }}"
-          aria-controls="PhotoReviewsSlider-{{ section.id }}"
-        >
-          <span class="svg-wrapper">
-            {{- 'icon-caret.svg' | inline_asset_content -}}
-          </span>
-        </button>
       </div>
-    </slider-component>
+    </div>
   </div>
 </div>
 
@@ -220,6 +191,26 @@
       "id": "color_scheme",
       "label": "Esquema de cor",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Movimento"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Velocidade (segundos por ciclo — menor é mais rápido)",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pausar ao passar o rato por cima",
+      "default": true
     },
     {
       "type": "header",
