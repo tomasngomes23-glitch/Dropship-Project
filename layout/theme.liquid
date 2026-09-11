@@ -276,18 +276,46 @@
           font-size: 1.6rem;
         }
       }
+    {% endstyle %}
 
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <style>
       h1, h2, h3, h4, h5, h6,
       .h0, .h1, .h2, .h3, .h4, .h5, .h6 {
         letter-spacing: 0.005em;
       }
 
-      .card__heading {
+      h3.card__heading {
         font-size: 1.15em;
       }
-    {% endstyle %}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
+      .page-width {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      @media screen and (min-width: 750px) {
+        .page-width {
+          padding-left: 6.5rem;
+          padding-right: 6.5rem;
+        }
+
+        .header.page-width,
+        .utility-bar__grid.page-width {
+          padding-left: 4.5rem;
+          padding-right: 4.5rem;
+        }
+      }
+
+      @media screen and (min-width: 990px) {
+        .header:not(.drawer-menu).page-width {
+          padding-left: 6.5rem;
+          padding-right: 6.5rem;
+        }
+      }
+    </style>
+
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
