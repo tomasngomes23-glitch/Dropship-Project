@@ -60,6 +60,17 @@
     --desktop-margin-left-first-item: 4.5rem;
   }
 
+  @media screen and (min-width: 990px) {
+    #collection-{{ section.id }} .slider-component-full-width .slider--desktop {
+      scroll-padding-left: 4.5rem;
+    }
+
+    #collection-{{ section.id }} .slider-component-full-width .slider--desktop .slider__slide:first-child {
+      margin-left: 4.5rem;
+      scroll-margin-left: 4.5rem;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     #collection-{{ section.id }} .collection__title {
       margin-bottom: {{ section.settings.padding_top }}px;
