@@ -66,7 +66,7 @@
         "description_style": "body",
         "collection": "vintage-jackets",
         "products_to_show": 6,
-        "columns_desktop": 4,
+        "columns_desktop": 5,
         "color_scheme": "scheme-1",
         "full_width": true,
         "show_view_all": true,

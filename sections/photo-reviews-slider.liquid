@@ -16,11 +16,26 @@
   #photo-reviews-{{ section.id }} .photo-reviews__heading {
     text-align: center;
     font-weight: 800;
+    margin: 0;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__title-wrapper {
     margin: 0 0 2.5rem;
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews-slider {
+  #photo-reviews-{{ section.id }} .slider-component-full-width {
     --desktop-margin-left-first-item: 4.5rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    #photo-reviews-{{ section.id }} .slider-component-full-width .slider--desktop {
+      scroll-padding-left: 4.5rem;
+    }
+
+    #photo-reviews-{{ section.id }} .slider-component-full-width .slider--desktop .slider__slide:first-child {
+      margin-left: 4.5rem;
+      scroll-margin-left: 4.5rem;
+    }
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__card {
@@ -74,12 +89,14 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding" id="photo-reviews-{{ section.id }}">
+  <div class="section-{{ section.id }}-padding" id="photo-reviews-{{ section.id }}">
     {%- if section.settings.heading != blank -%}
-      <h2 class="photo-reviews__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      <div class="photo-reviews__title-wrapper title-wrapper title-wrapper--no-top-margin page-width">
+        <h2 class="photo-reviews__heading title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </div>
     {%- endif -%}
 
-    <slider-component class="slider-mobile-gutter photo-reviews-slider">
+    <slider-component class="slider-mobile-gutter slider-component-full-width">
       <ul
         id="PhotoReviewsSlider-{{ section.id }}"
         class="grid grid--4-col-desktop grid--1-col-tablet-down slider slider--desktop"
