@@ -1,0 +1,256 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__heading {
+    text-align: center;
+    font-weight: 800;
+    margin: 0 0 2.5rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews-slider {
+    --desktop-margin-left-first-item: 4.5rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__card {
+    background: rgb(var(--color-background));
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    border-radius: 12px;
+    padding: 1.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper {
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: rgba(var(--color-foreground), 0.06);
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__stars {
+    color: #d9a441;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__quote {
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+    flex-grow: 1;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__author {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  #photo-reviews-{{ section.id }} .slider-counter {
+    display: none;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding" id="photo-reviews-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="photo-reviews__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <slider-component class="slider-mobile-gutter photo-reviews-slider">
+      <ul
+        id="PhotoReviewsSlider-{{ section.id }}"
+        class="grid grid--4-col-desktop grid--1-col-tablet-down slider slider--desktop"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review_card' -%}
+            <li id="PhotoReviewSlide-{{ section.id }}-{{ forloop.index }}" class="grid__item slider__slide" {{ block.shopify_attributes }}>
+              <div class="photo-reviews__card">
+                <div class="photo-reviews__image-wrapper">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 500 }}"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                    >
+                  {%- else -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+                <div class="photo-reviews__stars" aria-hidden="true">
+                  {%- assign stars = block.settings.rating | times: 1 -%}
+                  {%- for i in (1..5) -%}
+                    {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+                  {%- endfor -%}
+                </div>
+                <p class="photo-reviews__quote">
+                  {{ block.settings.quote | default: '[PLACEHOLDER — review real de cliente]' }}
+                </p>
+                <p class="photo-reviews__author">{{ block.settings.author | default: '[Nome do cliente]' }}</p>
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      <div class="slider-buttons">
+        <button
+          type="button"
+          class="slider-button slider-button--prev"
+          name="previous"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+          aria-controls="PhotoReviewsSlider-{{ section.id }}"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </button>
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <button
+          type="button"
+          class="slider-button slider-button--next"
+          name="next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+          aria-controls="PhotoReviewsSlider-{{ section.id }}"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </button>
+      </div>
+    </slider-component>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews com fotos",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "12.000+ clientes já vestem Overtake"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho do título",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Grande" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review_card",
+      "name": "Review com foto",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto do cliente/produto"
+        },
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "Estrelas",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Texto da review",
+          "default": "[PLACEHOLDER — review real de cliente]"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nome do cliente",
+          "default": "[Nome do cliente]"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews com fotos",
+      "blocks": [
+        { "type": "review_card" },
+        { "type": "review_card" },
+        { "type": "review_card" },
+        { "type": "review_card" },
+        { "type": "review_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

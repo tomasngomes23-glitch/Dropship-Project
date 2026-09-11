@@ -66,7 +66,7 @@
         "description_style": "body",
         "collection": "vintage-jackets",
         "products_to_show": 6,
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "color_scheme": "scheme-1",
         "full_width": true,
         "show_view_all": true,
@@ -82,6 +82,59 @@
         "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 72
+      }
+    },
+    "photo_reviews": {
+      "type": "photo-reviews-slider",
+      "blocks": {
+        "photo-review-1": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-2": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-3": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-4": {
+          "type": "review_card",
+          "settings": {
+            "rating": "4",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-5": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        }
+      },
+      "block_order": ["photo-review-1", "photo-review-2", "photo-review-3", "photo-review-4", "photo-review-5"],
+      "settings": {
+        "heading": "12.000+ clientes já vestem Overtake",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
       }
     },
     "category_tiles": {
@@ -265,6 +318,7 @@
   "order": [
     "hero_banner",
     "best_sellers",
+    "photo_reviews",
     "trust_badges",
     "category_tiles",
     "volume_discount",
