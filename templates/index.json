@@ -1,0 +1,334 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "image": "shopify://shop_images/Banner_3.png",
+        "caption": "",
+        "heading": "",
+        "heading_size": "hxl",
+        "button_label": "",
+        "button_link": "shopify://collections/vintage-jackets",
+        "button_style_secondary": false,
+        "content_position": "bottom-left",
+        "overlay_opacity": 0,
+        "color_scheme": "scheme-1",
+        "mobile_height": 420,
+        "desktop_height": 560,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "trust_badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge-shipping": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "heading": "Envio Grátis",
+            "text": "<p>Em encomendas acima de [PLACEHOLDER — valor]</p>"
+          }
+        },
+        "badge-quality": {
+          "type": "badge",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Qualidade Premium",
+            "text": "<p>Materiais e acabamento cuidados</p>"
+          }
+        },
+        "badge-returns": {
+          "type": "badge",
+          "settings": {
+            "icon": "return",
+            "heading": "Devolução Fácil",
+            "text": "<p>[PLACEHOLDER — prazo] dias para trocar ou devolver</p>"
+          }
+        }
+      },
+      "block_order": ["badge-shipping", "badge-quality", "badge-returns"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "vintage-jackets",
+        "products_to_show": 6,
+        "columns_desktop": 5,
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 64,
+        "padding_bottom": 92
+      }
+    },
+    "photo_reviews": {
+      "type": "photo-reviews-slider",
+      "blocks": {
+        "photo-review-1": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "[PLACEHOLDER — título curto]",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-2": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "[PLACEHOLDER — título curto]",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-3": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "[PLACEHOLDER — título curto]",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-4": {
+          "type": "review_card",
+          "settings": {
+            "rating": "4",
+            "title": "[PLACEHOLDER — título curto]",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "photo-review-5": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "[PLACEHOLDER — título curto]",
+            "quote": "[PLACEHOLDER — review real de cliente]",
+            "author": "[Nome do cliente]"
+          }
+        }
+      },
+      "block_order": ["photo-review-1", "photo-review-2", "photo-review-3", "photo-review-4", "photo-review-5"],
+      "settings": {
+        "heading": "12.000+ clientes já vestem Overtake",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "category_tiles": {
+      "type": "collection-list",
+      "blocks": {
+        "cat-jackets": {
+          "type": "featured_collection",
+          "settings": { "collection": "vintage-jackets" }
+        },
+        "cat-ferrari": {
+          "type": "featured_collection",
+          "settings": { "collection": "ferrari" }
+        },
+        "cat-mercedes": {
+          "type": "featured_collection",
+          "settings": { "collection": "mercedes" }
+        },
+        "cat-redbull": {
+          "type": "featured_collection",
+          "settings": { "collection": "red-bull-racing" }
+        }
+      },
+      "block_order": ["cat-jackets", "cat-ferrari", "cat-mercedes", "cat-redbull"],
+      "settings": {
+        "title": "Compra por categoria",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "swipe_on_mobile": true,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "volume_discount": {
+      "type": "volume-discount",
+      "blocks": {
+        "tier-2": {
+          "type": "tier",
+          "settings": { "quantity_label": "2 jackets", "discount_label": "10% OFF", "featured": false }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": { "quantity_label": "3 jackets", "discount_label": "20% OFF", "featured": true }
+        },
+        "tier-4": {
+          "type": "tier",
+          "settings": { "quantity_label": "4+ jackets", "discount_label": "25% OFF", "featured": false }
+        }
+      },
+      "block_order": ["tier-2", "tier-3", "tier-4"],
+      "settings": {
+        "heading": "Leva mais, poupa mais",
+        "heading_size": "h1",
+        "subheading": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>",
+        "layout": "tiers",
+        "button_label": "Ver jackets",
+        "button_link": "shopify://collections/vintage-jackets",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "video_wall": {
+      "type": "video-wall",
+      "blocks": {
+        "video-1": { "type": "video_item", "settings": {} },
+        "video-2": { "type": "video_item", "settings": {} },
+        "video-3": { "type": "video_item", "settings": {} },
+        "video-4": { "type": "video_item", "settings": {} },
+        "video-5": { "type": "video_item", "settings": {} },
+        "video-6": { "type": "video_item", "settings": {} }
+      },
+      "block_order": ["video-1", "video-2", "video-3", "video-4", "video-5", "video-6"],
+      "settings": {
+        "heading": "A comunidade Overtake",
+        "heading_size": "h2",
+        "hashtag": "#OvertakeCrew",
+        "wordmark": "OVERTAKE",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
+            "author": "[Nome do cliente]"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"],
+      "settings": {
+        "heading": "O que dizem os clientes",
+        "customer_count_heading": "[PLACEHOLDER — X+] clientes já vestem Overtake no dia-a-dia",
+        "heading_size": "h2",
+        "show_average": true,
+        "average_rating": "4.8",
+        "review_count": "0",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq-shipping": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quanto tempo demora o envio?",
+            "icon": "truck",
+            "row_content": "<p>[PLACEHOLDER — prazos de envio reais]</p>"
+          }
+        },
+        "faq-tracking": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como acompanho a minha encomenda?",
+            "icon": "box",
+            "row_content": "<p>[PLACEHOLDER — processo de tracking]</p>"
+          }
+        },
+        "faq-returns": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Posso devolver ou trocar?",
+            "icon": "return",
+            "row_content": "<p>[PLACEHOLDER — política de devoluções]</p>"
+          }
+        },
+        "faq-sizing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como escolho o tamanho certo?",
+            "icon": "ruler",
+            "row_content": "<p>[PLACEHOLDER — guia de tamanhos]</p>"
+          }
+        }
+      },
+      "block_order": ["faq-shipping", "faq-tracking", "faq-returns", "faq-sizing"],
+      "settings": {
+        "caption": "",
+        "heading": "Perguntas frequentes",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "best_sellers",
+    "photo_reviews",
+    "trust_badges",
+    "category_tiles",
+    "volume_discount",
+    "video_wall",
+    "reviews",
+    "faq"
+  ]
+}

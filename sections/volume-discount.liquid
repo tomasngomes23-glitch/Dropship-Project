@@ -1,0 +1,276 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .volume-discount-{{ section.id }} .volume-discount__tiers {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .volume-discount__tier {
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+  }
+
+  .volume-discount__tier--featured {
+    border-color: rgb(var(--color-foreground));
+    border-width: 2px;
+  }
+
+  .volume-discount__tier-qty {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .volume-discount__tier-off {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+  }
+
+  .volume-discount__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .volume-discount__visual-item {
+    width: clamp(120px, 22vw, 220px);
+  }
+
+  .volume-discount__visual-item img,
+  .volume-discount__visual-item .placeholder-svg {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .volume-discount__visual-label {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .volume-discount__visual-connector {
+    font-size: 2rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding volume-discount volume-discount-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin center">
+        <h2 class="title {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="volume-discount__subheading center">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.layout == 'visual_bundle' -%}
+      {%- assign visual_blocks = section.blocks | where: 'type', 'product_visual' -%}
+      <div class="volume-discount__visual">
+        {%- for block in visual_blocks -%}
+          <div class="volume-discount__visual-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label | default: block.settings.image.alt }}
+            {%- else -%}
+              {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            {%- if block.settings.label != blank -%}
+              <p class="volume-discount__visual-label">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
+          </div>
+          {%- unless forloop.last -%}
+            <span class="volume-discount__visual-connector" aria-hidden="true">
+              {%- if forloop.rindex0 == 1 -%}={%- else -%}+{%- endif -%}
+            </span>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="volume-discount__tiers grid grid--1-col grid--3-col-tablet">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tier' -%}
+            <div
+              class="volume-discount__tier{% if block.settings.featured %} volume-discount__tier--featured{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+              {{ block.shopify_attributes }}
+            >
+              <p class="volume-discount__tier-qty">{{ block.settings.quantity_label | escape }}</p>
+              <p class="volume-discount__tier-off">{{ block.settings.discount_label | escape }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="center" style="margin-top: 1.5rem;">
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button"
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Desconto por volume",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "Leva mais, poupa mais"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho do título",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Grande" },
+        { "value": "h0", "label": "Extra grande" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Estilo",
+      "options": [
+        { "value": "tiers", "label": "Cartões por nível" },
+        { "value": "visual_bundle", "label": "Visual com imagens (\"leva 2 + 1 = 25% off\")" }
+      ],
+      "default": "tiers"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Ver jackets"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Nível de desconto",
+      "settings": [
+        {
+          "type": "text",
+          "id": "quantity_label",
+          "label": "Quantidade",
+          "default": "2 jackets"
+        },
+        {
+          "type": "text",
+          "id": "discount_label",
+          "label": "Desconto",
+          "default": "10% off"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Destacar este nível",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "product_visual",
+      "name": "Imagem do bundle",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem do produto"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Legenda (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Desconto por volume",
+      "blocks": [
+        { "type": "tier", "settings": { "quantity_label": "2 jackets", "discount_label": "10% OFF" } },
+        { "type": "tier", "settings": { "quantity_label": "3 jackets", "discount_label": "20% OFF", "featured": true } },
+        { "type": "tier", "settings": { "quantity_label": "4+ jackets", "discount_label": "25% OFF" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

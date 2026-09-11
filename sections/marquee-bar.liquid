@@ -1,0 +1,197 @@
+{%- style -%}
+  .marquee-bar-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+    padding: {{ section.settings.padding_block }}px 0;
+    background: #000;
+    color: #fff;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__viewport {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__track {
+    display: inline-flex;
+    align-items: center;
+    animation: marquee-scroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-bar-{{ section.id }}:hover .marquee-bar__track {
+    animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading-family);
+    font-size: clamp(0.85rem, 0.25vw + 0.75rem, 1rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 1.2rem;
+    white-space: nowrap;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__item a {
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__dot {
+    opacity: 0.5;
+  }
+
+  @keyframes marquee-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-25%); }
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__localization {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgb(var(--color-background));
+  }
+
+  .marquee-bar-{{ section.id }} .marquee-bar__localization .disclosure__button {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  @media screen and (max-width: 749px) {
+    .marquee-bar-{{ section.id }} .marquee-bar__localization {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign message_blocks = section.blocks | where: 'type', 'message'
+  assign show_country_selector = false
+  if section.settings.enable_country_selector and localization.available_countries.size > 1
+    assign show_country_selector = true
+  endif
+-%}
+
+{%- if message_blocks.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} marquee-bar marquee-bar-{{ section.id }}">
+    <div class="marquee-bar__viewport">
+      <div class="marquee-bar__track" aria-hidden="false">
+        {%- comment -%} render the message list 4x back-to-back so the -25% translateX loop stays seamless even with few/short messages on wide screens {%- endcomment -%}
+        {%- for i in (1..4) -%}
+          {%- for block in message_blocks -%}
+            <span class="marquee-bar__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
+              {%- else -%}
+                {{ block.settings.text | escape }}
+              {%- endif -%}
+            </span>
+            <span class="marquee-bar__dot" aria-hidden="true">&bull;</span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if show_country_selector -%}
+      <div class="marquee-bar__localization">
+        <localization-form data-prevent-hide>
+          {%- form 'localization', id: 'AnnouncementCountryForm', class: 'localization-form' -%}
+            <div>
+              <h2 class="visually-hidden" id="AnnouncementCountryLabel">{{ 'localization.country_label' | t }}</h2>
+              {%- render 'country-localization', localPosition: 'AnnouncementCountry' -%}
+            </div>
+          {%- endform -%}
+        </localization-form>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Marquee (ticker contínuo)",
+  "tag": "section",
+  "class": "marquee-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "Mostrar seletor de país/moeda",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "label": "Velocidade (segundos por ciclo — menor é mais rápido)",
+      "default": 26
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pausar ao passar o rato por cima",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaço vertical",
+      "default": 10
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Mensagem",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Free shipping on orders over [PLACEHOLDER]"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee (ticker contínuo)",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Free shipping on orders over [PLACEHOLDER]" } },
+        { "type": "message", "settings": { "text": "Buy 3 jackets, save 20%" } },
+        { "type": "message", "settings": { "text": "New drop available" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

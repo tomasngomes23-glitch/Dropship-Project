@@ -1,0 +1,66 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "marquee-bar": {
+      "type": "marquee-bar",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "enable_country_selector": false,
+        "speed": 26,
+        "pause_on_hover": true,
+        "padding_block": 8
+      },
+      "blocks": {
+        "marquee-0": {
+          "type": "message",
+          "settings": {
+            "text": "Free shipping on orders over [PLACEHOLDER — amount]",
+            "link": ""
+          }
+        },
+        "marquee-1": {
+          "type": "message",
+          "settings": {
+            "text": "Buy 3 jackets, save 20%",
+            "link": "shopify://collections/all"
+          }
+        },
+        "marquee-2": {
+          "type": "message",
+          "settings": {
+            "text": "New drop available",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-0",
+        "marquee-1",
+        "marquee-2"
+      ]
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "enable_country_selector": true,
+        "enable_language_selector": false,
+        "mobile_logo_position": "center",
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "marquee-bar",
+    "header"
+  ]
+}
