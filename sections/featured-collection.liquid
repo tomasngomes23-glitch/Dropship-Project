@@ -46,13 +46,14 @@
     margin: 0;
     padding-left: 2rem;
     padding-right: 2rem;
-    margin-bottom: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    margin-bottom: 24px;
   }
 
   @media screen and (min-width: 750px) {
     #collection-{{ section.id }} .collection__title {
       padding-left: 4.5rem;
       padding-right: 4.5rem;
+      margin-bottom: 32px;
     }
   }
 
@@ -71,16 +72,10 @@
     }
   }
 
-  @media screen and (min-width: 750px) {
-    #collection-{{ section.id }} .collection__title {
-      margin-bottom: {{ section.settings.padding_top }}px;
-    }
-  }
-
   #collection-{{ section.id }} .collection__title .title {
     text-transform: uppercase;
     font-weight: 900;
-    font-size: clamp(2.75rem, 2vw + 2.1rem, 4rem);
+    font-size: clamp(2.4rem, 1.8vw + 1.9rem, 3.5rem);
   }
 
   #collection-{{ section.id }} .card__media,

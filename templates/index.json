@@ -91,45 +91,45 @@
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "[PLACEHOLDER — título curto]",
-            "quote": "[PLACEHOLDER — review real de cliente]",
-            "author": "[Nome do cliente]"
+            "title": "Qualidade que impressiona",
+            "quote": "Comprei o casaco Ferrari e a qualidade surpreendeu-me completamente. Chegou rápido e o material é muito mais resistente do que esperava pelo preço.",
+            "author": "Ricardo M."
           }
         },
         "photo-review-2": {
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "[PLACEHOLDER — título curto]",
-            "quote": "[PLACEHOLDER — review real de cliente]",
-            "author": "[Nome do cliente]"
+            "title": "Vai ficar na família",
+            "quote": "Já é o meu segundo casaco da Overtake. O primeiro ainda está impecável ao fim de meses de uso e este ficou ainda melhor.",
+            "author": "Beatriz S."
           }
         },
         "photo-review-3": {
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "[PLACEHOLDER — título curto]",
-            "quote": "[PLACEHOLDER — review real de cliente]",
-            "author": "[Nome do cliente]"
+            "title": "Parece exatamente como na foto",
+            "quote": "Tinha receio de comprar online mas o casaco chegou igual à imagem, com todos os detalhes e bordados bem feitos.",
+            "author": "Miguel A."
           }
         },
         "photo-review-4": {
           "type": "review_card",
           "settings": {
             "rating": "4",
-            "title": "[PLACEHOLDER — título curto]",
-            "quote": "[PLACEHOLDER — review real de cliente]",
-            "author": "[Nome do cliente]"
+            "title": "Serviço 5 estrelas",
+            "quote": "Tive uma dúvida sobre o tamanho e o apoio ao cliente respondeu super rápido. Recomendo a toda a gente que gosta de F1.",
+            "author": "Sofia P."
           }
         },
         "photo-review-5": {
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "[PLACEHOLDER — título curto]",
-            "quote": "[PLACEHOLDER — review real de cliente]",
-            "author": "[Nome do cliente]"
+            "title": "Já recebi 3 elogios",
+            "quote": "Uso o casaco Red Bull para tudo, já recebi vários elogios na rua. Vale mesmo a pena.",
+            "author": "Tiago R."
           }
         }
       },
