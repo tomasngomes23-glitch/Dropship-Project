@@ -274,6 +274,69 @@
         "padding_bottom": 44
       }
     },
+    "comparison": {
+      "type": "comparison-table",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": { "label": "Heavyweight embroidered fabric" }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": { "label": "Officially inspired vintage designs" }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": { "label": "Tracked worldwide shipping" }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": { "label": "Easy returns & exchanges" }
+        },
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Quality guarantee",
+            "text": "If your jacket arrives damaged, we replace it at no cost."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "icon": "lightning_bolt",
+            "heading": "Premium stitching",
+            "text": "Heavyweight fabric with reinforced embroidery on every patch."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "heading": "Unique designs",
+            "text": "Vintage racing looks you won't find on fast-fashion sites."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "heading": "Instant style upgrade",
+            "text": "Turn heads with a jacket that stands out from the grid."
+          }
+        }
+      },
+      "block_order": ["row-1", "row-2", "row-3", "row-4", "feature-1", "feature-2", "feature-3", "feature-4"],
+      "settings": {
+        "heading": "Overtake vs the rest",
+        "heading_size": "h1",
+        "brand_label": "Overtake",
+        "others_label": "Others",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
     "reviews": {
       "type": "reviews",
       "blocks": {
@@ -376,6 +439,7 @@
     "category_tiles",
     "volume_discount",
     "video_wall",
+    "comparison",
     "reviews",
     "faq"
   ]
