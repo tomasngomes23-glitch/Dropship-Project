@@ -78,19 +78,19 @@
 
 {% schema %}
 {
-  "name": "Barra de confiança",
+  "name": "Trust bar",
   "tag": "section",
   "class": "section",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Esquema de cor",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Espaçamento"
+      "content": "Padding"
     },
     {
       "type": "range",
@@ -99,7 +99,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço acima",
+      "label": "Top padding",
       "default": 36
     },
     {
@@ -109,64 +109,64 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço abaixo",
+      "label": "Bottom padding",
       "default": 36
     }
   ],
   "blocks": [
     {
       "type": "badge",
-      "name": "Ícone de confiança",
+      "name": "Trust icon",
       "settings": [
         {
           "type": "select",
           "id": "icon",
-          "label": "Ícone",
+          "label": "Icon",
           "options": [
-            { "value": "truck", "label": "Camião (envio)" },
-            { "value": "check_mark", "label": "Visto (qualidade)" },
-            { "value": "return", "label": "Devolução" },
-            { "value": "lock", "label": "Cadeado (pagamento seguro)" },
-            { "value": "heart", "label": "Coração" },
-            { "value": "star", "label": "Estrela" }
+            { "value": "truck", "label": "Truck (shipping)" },
+            { "value": "check_mark", "label": "Checkmark (quality)" },
+            { "value": "return", "label": "Return" },
+            { "value": "lock", "label": "Lock (secure payment)" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "star", "label": "Star" }
           ],
           "default": "truck"
         },
         {
           "type": "image_picker",
           "id": "icon_image",
-          "label": "Ícone personalizado (opcional, substitui o ícone acima)"
+          "label": "Custom icon (optional, replaces the icon above)"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "Título",
-          "default": "Envio Grátis"
+          "label": "Title",
+          "default": "Free Shipping"
         },
         {
           "type": "richtext",
           "id": "text",
-          "label": "Texto",
-          "default": "<p>Em encomendas acima de [PLACEHOLDER — valor]</p>"
+          "label": "Text",
+          "default": "<p>On orders over [PLACEHOLDER — amount]</p>"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Barra de confiança",
+      "name": "Trust bar",
       "blocks": [
         {
           "type": "badge",
-          "settings": { "icon": "truck", "heading": "Envio Grátis", "text": "<p>Em encomendas acima de [PLACEHOLDER — valor]</p>" }
+          "settings": { "icon": "truck", "heading": "Free Shipping", "text": "<p>On orders over [PLACEHOLDER — amount]</p>" }
         },
         {
           "type": "badge",
-          "settings": { "icon": "check_mark", "heading": "Qualidade Premium", "text": "<p>Materiais e acabamento cuidados</p>" }
+          "settings": { "icon": "check_mark", "heading": "Premium Quality", "text": "<p>Carefully chosen materials and finish</p>" }
         },
         {
           "type": "badge",
-          "settings": { "icon": "return", "heading": "Devolução Fácil", "text": "<p>[PLACEHOLDER — prazo] dias para trocar ou devolver</p>" }
+          "settings": { "icon": "return", "heading": "Easy Returns", "text": "<p>[PLACEHOLDER — days] days to exchange or return</p>" }
         }
       ]
     }

@@ -104,7 +104,7 @@
               >
             {%- else -%}
               {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              <span class="video-wall__placeholder-label">[PLACEHOLDER — vídeo/UGC vertical]</span>
+              <span class="video-wall__placeholder-label">[PLACEHOLDER — vertical video/UGC]</span>
             {%- endif -%}
           </div>
         {%- endif -%}
@@ -115,7 +115,7 @@
       <p class="video-wall__hashtag">
         {{- 'icon-tiktok.svg' | inline_asset_content -}}
         <strong>{{ section.settings.hashtag | escape }}</strong>
-        — marca-nos para apareceres aqui
+        — tag us to be featured here
       </p>
     {%- endif -%}
 
@@ -127,47 +127,47 @@
 
 {% schema %}
 {
-  "name": "Vídeo wall / UGC",
+  "name": "Video wall / UGC",
   "tag": "section",
   "class": "section",
   "settings": [
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Título",
-      "default": "A comunidade Overtake"
+      "label": "Title",
+      "default": "The Overtake community"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Tamanho do título",
+      "label": "Title size",
       "options": [
         { "value": "h2", "label": "Normal" },
-        { "value": "h1", "label": "Grande" }
+        { "value": "h1", "label": "Large" }
       ],
       "default": "h2"
     },
     {
       "type": "text",
       "id": "hashtag",
-      "label": "Hashtag da marca",
+      "label": "Brand hashtag",
       "default": "#OvertakeCrew"
     },
     {
       "type": "text",
       "id": "wordmark",
-      "label": "Wordmark/logo em texto (opcional, aparece por baixo da grelha)",
+      "label": "Text wordmark/logo (optional, appears below the grid)",
       "default": "OVERTAKE"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Esquema de cor",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Espaçamento"
+      "content": "Padding"
     },
     {
       "type": "range",
@@ -176,7 +176,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço acima",
+      "label": "Top padding",
       "default": 44
     },
     {
@@ -186,31 +186,31 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço abaixo",
+      "label": "Bottom padding",
       "default": 44
     }
   ],
   "blocks": [
     {
       "type": "video_item",
-      "name": "Vídeo",
+      "name": "Video",
       "settings": [
         {
           "type": "video",
           "id": "video",
-          "label": "Vídeo (opcional)"
+          "label": "Video (optional)"
         },
         {
           "type": "image_picker",
           "id": "thumbnail",
-          "label": "Miniatura / poster"
+          "label": "Thumbnail / poster"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Vídeo wall / UGC",
+      "name": "Video wall / UGC",
       "blocks": [
         { "type": "video_item" },
         { "type": "video_item" },

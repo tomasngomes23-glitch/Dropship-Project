@@ -59,7 +59,7 @@
         <div class="hero-banner__placeholder">
           {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg hero-banner__image' }}
           <p class="hero-banner__placeholder-label caption-with-letter-spacing">
-            [PLACEHOLDER — substituir por foto/vídeo de jacket em uso]
+            [PLACEHOLDER — replace with a photo/video of the jacket in use]
           </p>
         </div>
       {%- endif -%}
@@ -90,7 +90,7 @@
         {%- case block.type -%}
           {%- when 'brand_quote' -%}
             <blockquote class="hero-banner__brand-quote" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.quote | default: '[PLACEHOLDER — frase de marca/autenticidade, ex: história de como a Overtake começou]' }}</p>
+              <p>{{ block.settings.quote | default: '[PLACEHOLDER — brand/authenticity quote, e.g. the story of how Overtake started]' }}</p>
               {%- if block.settings.attribution != blank -%}
                 <cite>{{ block.settings.attribution | escape }}</cite>
               {%- endif -%}
@@ -109,18 +109,18 @@
   "settings": [
     {
       "type": "header",
-      "content": "Media (imagem é sempre necessária)"
+      "content": "Media (image is always required)"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Imagem de fundo"
+      "label": "Background image"
     },
     {
       "type": "video",
       "id": "video",
-      "label": "Vídeo de fundo (opcional)",
-      "info": "Se definido, reproduz em loop silencioso sobre a imagem. A imagem acima é usada como poster/fallback."
+      "label": "Background video (optional)",
+      "info": "If set, plays on silent loop over the image. The image above is used as poster/fallback."
     },
     {
       "type": "range",
@@ -129,74 +129,74 @@
       "max": 80,
       "step": 5,
       "unit": "%",
-      "label": "Opacidade do overlay escuro",
+      "label": "Dark overlay opacity",
       "default": 30
     },
     {
       "type": "header",
-      "content": "Conteúdo"
+      "content": "Content"
     },
     {
       "type": "text",
       "id": "caption",
-      "label": "Etiqueta pequena (opcional)",
+      "label": "Small label (optional)",
       "default": "OVERTAKE"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Headline",
-      "default": "Vintage racing wear, feito para durar"
+      "default": "Vintage racing wear, built to last"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Tamanho da headline",
+      "label": "Headline size",
       "options": [
         { "value": "h1", "label": "Normal" },
-        { "value": "h0", "label": "Grande" },
-        { "value": "hxl", "label": "Extra grande" },
-        { "value": "hxxl", "label": "Máximo" }
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Maximum" }
       ],
       "default": "hxl"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Texto do botão",
-      "default": "Ver coleção"
+      "label": "Button text",
+      "default": "Shop the collection"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Link do botão"
+      "label": "Button link"
     },
     {
       "type": "checkbox",
       "id": "button_style_secondary",
-      "label": "Estilo secundário (contorno)",
+      "label": "Secondary style (outline)",
       "default": false
     },
     {
       "type": "select",
       "id": "content_position",
-      "label": "Posição do conteúdo",
+      "label": "Content position",
       "options": [
-        { "value": "bottom-left", "label": "Fundo esquerda" },
-        { "value": "bottom-center", "label": "Fundo centro" },
-        { "value": "center-left", "label": "Centro esquerda" },
-        { "value": "center-center", "label": "Centro" }
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "center-left", "label": "Center left" },
+        { "value": "center-center", "label": "Center" }
       ],
       "default": "bottom-left"
     },
     {
       "type": "header",
-      "content": "Cor e altura"
+      "content": "Color and height"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Esquema de cor",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
@@ -206,7 +206,7 @@
       "max": 800,
       "step": 10,
       "unit": "px",
-      "label": "Altura mínima (mobile)",
+      "label": "Minimum height (mobile)",
       "default": 500
     },
     {
@@ -216,12 +216,12 @@
       "max": 1000,
       "step": 10,
       "unit": "px",
-      "label": "Altura mínima (desktop)",
+      "label": "Minimum height (desktop)",
       "default": 650
     },
     {
       "type": "header",
-      "content": "Espaçamento"
+      "content": "Padding"
     },
     {
       "type": "range",
@@ -230,7 +230,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço acima",
+      "label": "Top padding",
       "default": 0
     },
     {
@@ -240,27 +240,27 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço abaixo",
+      "label": "Bottom padding",
       "default": 0
     }
   ],
   "blocks": [
     {
       "type": "brand_quote",
-      "name": "Frase de marca",
+      "name": "Brand quote",
       "limit": 1,
       "settings": [
         {
           "type": "richtext",
           "id": "quote",
-          "label": "Frase",
-          "default": "<p>[PLACEHOLDER — frase de marca/autenticidade, ex: história de como a Overtake começou]</p>"
+          "label": "Quote",
+          "default": "<p>[PLACEHOLDER — brand/authenticity quote, e.g. the story of how Overtake started]</p>"
         },
         {
           "type": "text",
           "id": "attribution",
-          "label": "Assinatura (opcional)",
-          "default": "— Fundador da Overtake"
+          "label": "Attribution (optional)",
+          "default": "— Overtake Founder"
         }
       ]
     }

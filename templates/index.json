@@ -28,24 +28,24 @@
           "type": "badge",
           "settings": {
             "icon": "truck",
-            "heading": "Envio Grátis",
-            "text": "<p>Em encomendas acima de [PLACEHOLDER — valor]</p>"
+            "heading": "Free Shipping",
+            "text": "<p>On orders over [PLACEHOLDER — amount]</p>"
           }
         },
         "badge-quality": {
           "type": "badge",
           "settings": {
             "icon": "check_mark",
-            "heading": "Qualidade Premium",
-            "text": "<p>Materiais e acabamento cuidados</p>"
+            "heading": "Premium Quality",
+            "text": "<p>Carefully chosen materials and finish</p>"
           }
         },
         "badge-returns": {
           "type": "badge",
           "settings": {
             "icon": "return",
-            "heading": "Devolução Fácil",
-            "text": "<p>[PLACEHOLDER — prazo] dias para trocar ou devolver</p>"
+            "heading": "Easy Returns",
+            "text": "<p>[PLACEHOLDER — days] days to exchange or return</p>"
           }
         }
       },
@@ -91,8 +91,8 @@
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "Qualidade que impressiona",
-            "quote": "Comprei o casaco Ferrari e a qualidade surpreendeu-me completamente. Chegou rápido e o material é muito mais resistente do que esperava pelo preço.",
+            "title": "Quality that impresses",
+            "quote": "I bought the Ferrari jacket and the quality completely surprised me. It arrived fast and the material is way more durable than I expected for the price.",
             "author": "Ricardo M."
           }
         },
@@ -100,8 +100,8 @@
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "Vai ficar na família",
-            "quote": "Já é o meu segundo casaco da Overtake. O primeiro ainda está impecável ao fim de meses de uso e este ficou ainda melhor.",
+            "title": "This one's staying in the family",
+            "quote": "This is already my second jacket from Overtake. The first one still looks flawless after months of wear, and this one turned out even better.",
             "author": "Beatriz S."
           }
         },
@@ -109,8 +109,8 @@
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "Parece exatamente como na foto",
-            "quote": "Tinha receio de comprar online mas o casaco chegou igual à imagem, com todos os detalhes e bordados bem feitos.",
+            "title": "Looks exactly like the photos",
+            "quote": "I was a bit worried about buying online, but the jacket arrived just like the pictures, with all the details and embroidery done really well.",
             "author": "Miguel A."
           }
         },
@@ -118,8 +118,8 @@
           "type": "review_card",
           "settings": {
             "rating": "4",
-            "title": "Serviço 5 estrelas",
-            "quote": "Tive uma dúvida sobre o tamanho e o apoio ao cliente respondeu super rápido. Recomendo a toda a gente que gosta de F1.",
+            "title": "5-star service",
+            "quote": "I had a question about sizing and customer support replied super fast. I'd recommend it to anyone who loves F1.",
             "author": "Sofia P."
           }
         },
@@ -127,15 +127,61 @@
           "type": "review_card",
           "settings": {
             "rating": "5",
-            "title": "Já recebi 3 elogios",
-            "quote": "Uso o casaco Red Bull para tudo, já recebi vários elogios na rua. Vale mesmo a pena.",
+            "title": "Already got 3 compliments",
+            "quote": "I wear the Red Bull jacket for everything, I've already gotten several compliments on the street. Totally worth it.",
             "author": "Tiago R."
+          }
+        },
+        "photo-review-6": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "Fits perfectly",
+            "quote": "Ordered a size up like the size guide suggested and it fits like a glove. Couldn't be happier.",
+            "author": "James O."
+          }
+        },
+        "photo-review-7": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "Fast shipping",
+            "quote": "Placed my order on a Monday and it was on my doorstep by Thursday. Packaging was solid too.",
+            "author": "Ana C."
+          }
+        },
+        "photo-review-8": {
+          "type": "review_card",
+          "settings": {
+            "rating": "4",
+            "title": "Better than expected",
+            "quote": "Honestly didn't expect this level of quality for the price. The Mercedes jacket is now my favorite piece.",
+            "author": "Diogo F."
+          }
+        },
+        "photo-review-9": {
+          "type": "review_card",
+          "settings": {
+            "rating": "5",
+            "title": "My go-to gift",
+            "quote": "Bought one for my brother's birthday and he hasn't taken it off since. Already planning my next order.",
+            "author": "Carla N."
           }
         }
       },
-      "block_order": ["photo-review-1", "photo-review-2", "photo-review-3", "photo-review-4", "photo-review-5"],
+      "block_order": [
+        "photo-review-1",
+        "photo-review-2",
+        "photo-review-3",
+        "photo-review-4",
+        "photo-review-5",
+        "photo-review-6",
+        "photo-review-7",
+        "photo-review-8",
+        "photo-review-9"
+      ],
       "settings": {
-        "heading": "12.000+ clientes já vestem Overtake",
+        "heading": "12,000+ customers already wear Overtake",
         "heading_size": "h1",
         "color_scheme": "scheme-1",
         "padding_top": 44,
@@ -164,7 +210,7 @@
       },
       "block_order": ["cat-jackets", "cat-ferrari", "cat-mercedes", "cat-redbull"],
       "settings": {
-        "title": "Compra por categoria",
+        "title": "Shop by category",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 4,
@@ -194,11 +240,11 @@
       },
       "block_order": ["tier-2", "tier-3", "tier-4"],
       "settings": {
-        "heading": "Leva mais, poupa mais",
+        "heading": "Buy more, save more",
         "heading_size": "h1",
-        "subheading": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>",
+        "subheading": "<p>Mix and match vintage jackets and save automatically at checkout</p>",
         "layout": "tiers",
-        "button_label": "Ver jackets",
+        "button_label": "Shop jackets",
         "button_link": "shopify://collections/vintage-jackets",
         "color_scheme": "scheme-1",
         "padding_top": 52,
@@ -217,7 +263,7 @@
       },
       "block_order": ["video-1", "video-2", "video-3", "video-4", "video-5", "video-6"],
       "settings": {
-        "heading": "A comunidade Overtake",
+        "heading": "The Overtake community",
         "heading_size": "h2",
         "hashtag": "#OvertakeCrew",
         "wordmark": "OVERTAKE",
@@ -233,31 +279,31 @@
           "type": "review",
           "settings": {
             "rating": "5",
-            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
-            "author": "[Nome do cliente]"
+            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
+            "author": "[Customer name]"
           }
         },
         "review-2": {
           "type": "review",
           "settings": {
             "rating": "5",
-            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
-            "author": "[Nome do cliente]"
+            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
+            "author": "[Customer name]"
           }
         },
         "review-3": {
           "type": "review",
           "settings": {
             "rating": "4",
-            "quote": "[PLACEHOLDER — review real de cliente, específica sobre o produto]",
-            "author": "[Nome do cliente]"
+            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
+            "author": "[Customer name]"
           }
         }
       },
       "block_order": ["review-1", "review-2", "review-3"],
       "settings": {
-        "heading": "O que dizem os clientes",
-        "customer_count_heading": "[PLACEHOLDER — X+] clientes já vestem Overtake no dia-a-dia",
+        "heading": "What customers say",
+        "customer_count_heading": "[PLACEHOLDER — X+] customers already wear Overtake every day",
         "heading_size": "h2",
         "show_average": true,
         "average_rating": "4.8",
@@ -273,40 +319,40 @@
         "faq-shipping": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Quanto tempo demora o envio?",
+            "heading": "How long does shipping take?",
             "icon": "truck",
-            "row_content": "<p>[PLACEHOLDER — prazos de envio reais]</p>"
+            "row_content": "<p>[PLACEHOLDER — real shipping times]</p>"
           }
         },
         "faq-tracking": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Como acompanho a minha encomenda?",
+            "heading": "How do I track my order?",
             "icon": "box",
-            "row_content": "<p>[PLACEHOLDER — processo de tracking]</p>"
+            "row_content": "<p>[PLACEHOLDER — tracking process]</p>"
           }
         },
         "faq-returns": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Posso devolver ou trocar?",
+            "heading": "Can I return or exchange?",
             "icon": "return",
-            "row_content": "<p>[PLACEHOLDER — política de devoluções]</p>"
+            "row_content": "<p>[PLACEHOLDER — returns policy]</p>"
           }
         },
         "faq-sizing": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Como escolho o tamanho certo?",
+            "heading": "How do I choose the right size?",
             "icon": "ruler",
-            "row_content": "<p>[PLACEHOLDER — guia de tamanhos]</p>"
+            "row_content": "<p>[PLACEHOLDER — sizing guide]</p>"
           }
         }
       },
       "block_order": ["faq-shipping", "faq-tracking", "faq-returns", "faq-sizing"],
       "settings": {
         "caption": "",
-        "heading": "Perguntas frequentes",
+        "heading": "Frequently asked questions",
         "heading_size": "h1",
         "heading_alignment": "center",
         "layout": "none",

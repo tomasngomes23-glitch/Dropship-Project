@@ -74,7 +74,7 @@
     {%- if section.settings.show_average -%}
       <div class="reviews__average">
         <p class="reviews__average-number">{{ section.settings.average_rating }} / 5</p>
-        <p class="caption">[PLACEHOLDER — baseado em {{ section.settings.review_count }} avaliações reais]</p>
+        <p class="caption">[PLACEHOLDER — based on {{ section.settings.review_count }} real reviews]</p>
       </div>
     {%- endif -%}
 
@@ -106,9 +106,9 @@
               {%- endfor -%}
             </div>
             <p class="reviews__card-quote">
-              {{ block.settings.quote | default: '[PLACEHOLDER — review real de cliente, específica sobre o produto]' }}
+              {{ block.settings.quote | default: '[PLACEHOLDER — real customer review, specific to the product]' }}
             </p>
-            <p class="reviews__card-author">{{ block.settings.author | default: '[Nome do cliente]' }}</p>
+            <p class="reviews__card-author">{{ block.settings.author | default: '[Customer name]' }}</p>
           </div>
         {%- endif -%}
       {%- endfor -%}
@@ -125,52 +125,52 @@
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Título",
-      "default": "O que dizem os clientes"
+      "label": "Title",
+      "default": "What customers say"
     },
     {
       "type": "inline_richtext",
       "id": "customer_count_heading",
-      "label": "Título com nº de clientes (substitui o título simples)",
-      "default": "[PLACEHOLDER — X+] clientes já vestem Overtake no dia-a-dia"
+      "label": "Title with customer count (replaces the simple title)",
+      "default": "[PLACEHOLDER — X+] customers already wear Overtake every day"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Tamanho do título",
+      "label": "Title size",
       "options": [
         { "value": "h2", "label": "Normal" },
-        { "value": "h1", "label": "Grande" }
+        { "value": "h1", "label": "Large" }
       ],
       "default": "h2"
     },
     {
       "type": "checkbox",
       "id": "show_average",
-      "label": "Mostrar nota média",
+      "label": "Show average rating",
       "default": true
     },
     {
       "type": "text",
       "id": "average_rating",
-      "label": "Nota média (editar manualmente ou ligar a app de reviews)",
+      "label": "Average rating (edit manually or connect a reviews app)",
       "default": "4.8"
     },
     {
       "type": "text",
       "id": "review_count",
-      "label": "Número de avaliações",
+      "label": "Number of reviews",
       "default": "0"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Esquema de cor",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Espaçamento"
+      "content": "Padding"
     },
     {
       "type": "range",
@@ -179,7 +179,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço acima",
+      "label": "Top padding",
       "default": 44
     },
     {
@@ -189,7 +189,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço abaixo",
+      "label": "Bottom padding",
       "default": 44
     }
   ],
@@ -201,12 +201,12 @@
         {
           "type": "image_picker",
           "id": "photo",
-          "label": "Foto do cliente/produto (opcional)"
+          "label": "Customer/product photo (optional)"
         },
         {
           "type": "select",
           "id": "rating",
-          "label": "Estrelas",
+          "label": "Stars",
           "options": [
             { "value": "5", "label": "5" },
             { "value": "4", "label": "4" },
@@ -217,14 +217,14 @@
         {
           "type": "textarea",
           "id": "quote",
-          "label": "Texto da review",
-          "default": "[PLACEHOLDER — review real de cliente, específica sobre o produto]"
+          "label": "Review text",
+          "default": "[PLACEHOLDER — real customer review, specific to the product]"
         },
         {
           "type": "text",
           "id": "author",
-          "label": "Nome do cliente",
-          "default": "[Nome do cliente]"
+          "label": "Customer name",
+          "default": "[Customer name]"
         }
       ]
     }

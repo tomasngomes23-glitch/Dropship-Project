@@ -141,63 +141,63 @@
 
 {% schema %}
 {
-  "name": "Desconto por volume",
+  "name": "Volume discount",
   "tag": "section",
   "class": "section",
   "settings": [
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Título",
-      "default": "Leva mais, poupa mais"
+      "label": "Title",
+      "default": "Buy more, save more"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Tamanho do título",
+      "label": "Title size",
       "options": [
         { "value": "h2", "label": "Normal" },
-        { "value": "h1", "label": "Grande" },
-        { "value": "h0", "label": "Extra grande" }
+        { "value": "h1", "label": "Large" },
+        { "value": "h0", "label": "Extra large" }
       ],
       "default": "h1"
     },
     {
       "type": "richtext",
       "id": "subheading",
-      "label": "Subtítulo",
-      "default": "<p>Combina jackets vintage e poupa automaticamente no checkout</p>"
+      "label": "Subtitle",
+      "default": "<p>Mix and match vintage jackets and save automatically at checkout</p>"
     },
     {
       "type": "select",
       "id": "layout",
-      "label": "Estilo",
+      "label": "Style",
       "options": [
-        { "value": "tiers", "label": "Cartões por nível" },
-        { "value": "visual_bundle", "label": "Visual com imagens (\"leva 2 + 1 = 25% off\")" }
+        { "value": "tiers", "label": "Tier cards" },
+        { "value": "visual_bundle", "label": "Visual with images (\"buy 2 + 1 = 25% off\")" }
       ],
       "default": "tiers"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Texto do botão",
-      "default": "Ver jackets"
+      "label": "Button text",
+      "default": "Shop jackets"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Link do botão"
+      "label": "Button link"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Esquema de cor",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Espaçamento"
+      "content": "Padding"
     },
     {
       "type": "range",
@@ -206,7 +206,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço acima",
+      "label": "Top padding",
       "default": 52
     },
     {
@@ -216,55 +216,55 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaço abaixo",
+      "label": "Bottom padding",
       "default": 52
     }
   ],
   "blocks": [
     {
       "type": "tier",
-      "name": "Nível de desconto",
+      "name": "Discount tier",
       "settings": [
         {
           "type": "text",
           "id": "quantity_label",
-          "label": "Quantidade",
+          "label": "Quantity",
           "default": "2 jackets"
         },
         {
           "type": "text",
           "id": "discount_label",
-          "label": "Desconto",
+          "label": "Discount",
           "default": "10% off"
         },
         {
           "type": "checkbox",
           "id": "featured",
-          "label": "Destacar este nível",
+          "label": "Feature this tier",
           "default": false
         }
       ]
     },
     {
       "type": "product_visual",
-      "name": "Imagem do bundle",
+      "name": "Bundle image",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Imagem do produto"
+          "label": "Product image"
         },
         {
           "type": "text",
           "id": "label",
-          "label": "Legenda (opcional)"
+          "label": "Caption (optional)"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Desconto por volume",
+      "name": "Volume discount",
       "blocks": [
         { "type": "tier", "settings": { "quantity_label": "2 jackets", "discount_label": "10% OFF" } },
         { "type": "tier", "settings": { "quantity_label": "3 jackets", "discount_label": "20% OFF", "featured": true } },
