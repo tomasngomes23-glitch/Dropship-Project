@@ -218,47 +218,6 @@
         "padding_bottom": 44
       }
     },
-    "reviews": {
-      "type": "reviews",
-      "blocks": {
-        "review-1": {
-          "type": "review",
-          "settings": {
-            "rating": "5",
-            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
-            "author": "[Customer name]"
-          }
-        },
-        "review-2": {
-          "type": "review",
-          "settings": {
-            "rating": "5",
-            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
-            "author": "[Customer name]"
-          }
-        },
-        "review-3": {
-          "type": "review",
-          "settings": {
-            "rating": "4",
-            "quote": "[PLACEHOLDER — real customer review, specific to the product]",
-            "author": "[Customer name]"
-          }
-        }
-      },
-      "block_order": ["review-1", "review-2", "review-3"],
-      "settings": {
-        "heading": "What customers say",
-        "customer_count_heading": "[PLACEHOLDER — X+] customers already wear Overtake every day",
-        "heading_size": "h2",
-        "show_average": true,
-        "average_rating": "4.8",
-        "review_count": "0",
-        "color_scheme": "scheme-1",
-        "padding_top": 44,
-        "padding_bottom": 44
-      }
-    },
     "faq": {
       "type": "collapsible-content",
       "blocks": {
@@ -316,7 +275,6 @@
     "hero_banner",
     "best_sellers",
     "photo_reviews",
-    "reviews",
     "comparison",
     "faq"
   ]
