@@ -8,7 +8,7 @@
         "brand": {
           "type": "brand_information",
           "settings": {
-            "show_social": true
+            "show_social": false
           }
         },
         "quick-links": {
@@ -24,9 +24,16 @@
             "heading": "Customer Support",
             "menu": "footer"
           }
+        },
+        "help": {
+          "type": "text",
+          "settings": {
+            "heading": "Help",
+            "subtext": "<p>Need any advice before you buy? We're here to help.</p><p><a href=\"/pages/contact-us\">Contact Us</a></p>"
+          }
         }
       },
-      "block_order": ["brand", "quick-links", "customer-support"],
+      "block_order": ["brand", "quick-links", "customer-support", "help"],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,

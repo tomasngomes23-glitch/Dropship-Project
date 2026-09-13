@@ -13,6 +13,17 @@
   margin: 0 auto 1rem;
 }
 
-.footer__blocks-wrapper > .footer-block:first-child .footer__list-social {
+.footer__blocks-wrapper > .footer-block:first-child .footer-block__image-wrapper img {
+  filter: invert(1);
+}
+
+.footer__column--social {
+  align-items: flex-start;
   justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .footer__column--social {
+    justify-content: flex-start;
+  }
 }
