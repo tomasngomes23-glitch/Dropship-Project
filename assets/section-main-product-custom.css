@@ -1,0 +1,158 @@
+.trust-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin: 0 0 0.75rem !important;
+}
+
+.trust-rating__stars {
+  color: #d92133;
+  letter-spacing: 0.05em;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.trust-rating__text {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.urgency-bar {
+  margin: 1.75rem 0 !important;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  background: rgba(217, 33, 51, 0.06);
+  border: 1px solid rgba(217, 33, 51, 0.2);
+}
+
+.urgency-bar__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #b81c2e;
+}
+
+.urgency-bar__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #d92133;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 0 rgba(217, 33, 51, 0.6);
+  animation: urgency-pulse 1.6s ease-out infinite;
+}
+
+@keyframes urgency-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(217, 33, 51, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(217, 33, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(217, 33, 51, 0); }
+}
+
+.urgency-bar__track {
+  width: 100%;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(217, 33, 51, 0.14);
+  overflow: hidden;
+}
+
+.urgency-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d92133, #ff4d5e);
+  border-radius: 4px;
+}
+
+.product__info-container .icon-with-text {
+  margin: 1.75rem 0 !important;
+}
+
+.product__info-container .icon-with-text--vertical {
+  --icon-size: 1.9rem;
+}
+
+.product__info-container .icon-with-text--vertical .icon-with-text__item {
+  margin-bottom: 1.1rem;
+  align-items: center;
+}
+
+.product__info-container .icon-with-text--vertical .icon-with-text__item:last-child {
+  margin-bottom: 0;
+}
+
+.product__info-container .icon-with-text--vertical .svg-wrapper {
+  background: rgba(217, 33, 51, 0.08);
+  border: 1px solid rgba(217, 33, 51, 0.2);
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-sizing: content-box;
+  fill: #d92133;
+  margin-right: 0.9rem;
+}
+
+.product__info-container .icon-with-text--vertical .h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+media-gallery .product-media-container,
+media-gallery .product__media {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 750px) {
+  media-gallery[data-desktop-layout="thumbnail"],
+  media-gallery[data-desktop-layout="thumbnail_slider"] {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] slider-component[id^="GalleryViewer-"],
+  media-gallery[data-desktop-layout="thumbnail_slider"] slider-component[id^="GalleryViewer-"] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail-slider,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-slider {
+    flex: 0 0 auto;
+    width: 90px;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail-list,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 1rem !important;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail-list__item,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list__item {
+    width: 100% !important;
+    height: 90px !important;
+    flex: 0 0 auto !important;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail-list__item::before,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list__item::before {
+    content: none !important;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail-slider .slider-button,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-slider .slider-button {
+    display: none;
+  }
+
+  media-gallery[data-desktop-layout="thumbnail"] .thumbnail img,
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail img {
+    border-radius: 8px;
+  }
+}
