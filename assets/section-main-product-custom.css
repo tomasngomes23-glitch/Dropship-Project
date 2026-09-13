@@ -91,6 +91,41 @@
   color: rgba(var(--color-foreground), 0.75);
 }
 
+.photo-slider {
+  margin: 1.75rem 0 !important;
+}
+
+.photo-slider__heading {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
+  margin: 0 0 0.85rem;
+}
+
+.photo-slider__track {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.25rem;
+}
+
+.photo-slider__item {
+  flex: 0 0 42%;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+.photo-slider__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .payment-badges {
   margin: 1rem 0 !important;
   text-align: center;

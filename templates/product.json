@@ -64,6 +64,56 @@
             "heading": "Guarantee Safe Checkout:"
           }
         },
+        "bundle": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Buy more, Save more",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 6,
+            "products_per_page": 1,
+            "pagination_style": "dots",
+            "image_ratio": "square",
+            "enable_quick_add": true
+          }
+        },
+        "social_stat": {
+          "type": "text",
+          "settings": {
+            "text": "💗 Join 12,000+ Happy Customers",
+            "text_style": "uppercase"
+          }
+        },
+        "photo_slider": {
+          "type": "photo_slider",
+          "settings": {
+            "heading": "Loved by 12,000+ customers"
+          }
+        },
+        "details_1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product Details",
+            "icon": "price_tag",
+            "content": "<p>[PLACEHOLDER — full product details]</p>"
+          }
+        },
+        "details_2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How do I know it's genuine vintage?",
+            "icon": "check_mark",
+            "content": "<p>[PLACEHOLDER — authenticity info]</p>"
+          }
+        },
+        "details_3": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "washing",
+            "content": "<p>[PLACEHOLDER — care instructions]</p>"
+          }
+        },
         "description": {
           "type": "description"
         },
@@ -85,6 +135,12 @@
         "quantity_selector",
         "buy_buttons",
         "payment_badges",
+        "bundle",
+        "social_stat",
+        "photo_slider",
+        "details_1",
+        "details_2",
+        "details_3",
         "description",
         "share"
       ],

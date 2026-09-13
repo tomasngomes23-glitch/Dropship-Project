@@ -1,0 +1,39 @@
+{% comment %}
+  Renders a swipeable row of customer photos.
+  Accepts:
+  - block: {Object} the photo_slider block
+
+  Usage:
+  {% render 'product-photo-slider', block: block %}
+{% endcomment %}
+{%- assign has_slider_photos = false -%}
+{%- for i in (1..6) -%}
+  {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
+  {%- if block.settings[slider_image_key] != blank -%}
+    {%- assign has_slider_photos = true -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if has_slider_photos -%}
+  <div class="photo-slider" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <p class="photo-slider__heading">{{ block.settings.heading }}</p>
+    {%- endif -%}
+    <div class="photo-slider__track">
+      {%- for i in (1..6) -%}
+        {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
+        {%- assign slider_photo = block.settings[slider_image_key] -%}
+        {%- if slider_photo != blank -%}
+          <div class="photo-slider__item">
+            <img
+              src="{{ slider_photo | image_url: width: 400 }}"
+              alt="{{ slider_photo.alt | escape }}"
+              loading="lazy"
+              width="{{ slider_photo.width }}"
+              height="{{ slider_photo.height }}"
+            >
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
