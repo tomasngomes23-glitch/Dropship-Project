@@ -54,37 +54,41 @@
   font-weight: 700;
 }
 
-.social-proof {
-  margin: 1.75rem 0 !important;
-}
-
-.social-proof__heading {
+.product__title h1 {
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-size: 1rem;
-  margin: 0 0 0.85rem;
+  letter-spacing: -0.01em;
 }
 
-.social-proof__grid {
+.price--large.price--on-sale .price__container {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 0.6rem;
 }
 
-.social-proof__item {
-  flex: 1 1 0;
-  aspect-ratio: 3 / 4;
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(var(--color-foreground), 0.06);
+.price--large .price-item--regular {
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.5);
 }
 
-.social-proof__item img,
-.social-proof__item svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.price--large .badge.price__badge-sale {
+  background: #d92133;
+  border-color: #d92133;
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem 0.4rem;
+  vertical-align: middle;
+}
+
+.product-popup-modal__button {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  color: rgba(var(--color-foreground), 0.75);
 }
 
 .payment-badges {

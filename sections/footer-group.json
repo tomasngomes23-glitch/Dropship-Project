@@ -5,6 +5,12 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "brand": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
         "quick-links": {
           "type": "link_list",
           "settings": {
@@ -20,7 +26,7 @@
           }
         }
       },
-      "block_order": ["quick-links", "customer-support"],
+      "block_order": ["brand", "quick-links", "customer-support"],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,

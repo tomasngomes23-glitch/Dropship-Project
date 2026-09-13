@@ -41,6 +41,13 @@
             "swatch_shape": "circle"
           }
         },
+        "size_guide": {
+          "type": "popup",
+          "settings": {
+            "text": "Size guide",
+            "page": "size-guide"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector"
         },
@@ -55,12 +62,6 @@
           "type": "payment_badges",
           "settings": {
             "heading": "Guarantee Safe Checkout:"
-          }
-        },
-        "social_proof": {
-          "type": "social_proof",
-          "settings": {
-            "heading": "Loved on socials 💗"
           }
         },
         "description": {
@@ -80,10 +81,10 @@
         "features",
         "urgency_bar",
         "variant_picker",
+        "size_guide",
         "quantity_selector",
         "buy_buttons",
         "payment_badges",
-        "social_proof",
         "description",
         "share"
       ],

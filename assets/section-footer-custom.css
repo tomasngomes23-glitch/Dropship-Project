@@ -1,0 +1,18 @@
+.footer__blocks-wrapper > .footer-block:first-child {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  order: -1;
+}
+
+.footer__blocks-wrapper > .footer-block:first-child .footer-block__brand-info {
+  align-items: center;
+}
+
+.footer__blocks-wrapper > .footer-block:first-child .footer-block__image-wrapper {
+  margin: 0 auto 1rem;
+}
+
+.footer__blocks-wrapper > .footer-block:first-child .footer__list-social {
+  justify-content: center;
+}
