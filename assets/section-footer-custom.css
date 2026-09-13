@@ -1,19 +1,19 @@
-.footer__blocks-wrapper > .footer-block:first-child {
+.footer__blocks-wrapper > .footer-block--brand {
   grid-column: 1 / -1;
   text-align: center;
   margin-bottom: 1.5rem;
   order: -1;
 }
 
-.footer__blocks-wrapper > .footer-block:first-child .footer-block__brand-info {
+.footer__blocks-wrapper > .footer-block--brand .footer-block__brand-info {
   align-items: center;
 }
 
-.footer__blocks-wrapper > .footer-block:first-child .footer-block__image-wrapper {
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
   margin: 0 auto 1rem;
 }
 
-.footer__blocks-wrapper > .footer-block:first-child .footer-block__image-wrapper img {
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper img {
   filter: invert(1);
 }
 
