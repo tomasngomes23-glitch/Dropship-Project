@@ -31,8 +31,7 @@
         "urgency_bar": {
           "type": "urgency_bar",
           "settings": {
-            "label": "Selling fast — low stock",
-            "fill_percent": 25
+            "label": "Selling fast — low stock"
           }
         },
         "variant_picker": {
@@ -50,6 +49,18 @@
           "settings": {
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
+          }
+        },
+        "payment_badges": {
+          "type": "payment_badges",
+          "settings": {
+            "heading": "Guarantee Safe Checkout:"
+          }
+        },
+        "social_proof": {
+          "type": "social_proof",
+          "settings": {
+            "heading": "Loved on socials 💗"
           }
         },
         "description": {
@@ -71,6 +82,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "payment_badges",
+        "social_proof",
         "description",
         "share"
       ],
