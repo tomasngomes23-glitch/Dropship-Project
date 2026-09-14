@@ -103,20 +103,40 @@
   margin: 0 0 0.85rem;
 }
 
+.photo-slider__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
 .photo-slider__track {
   display: flex;
+  align-items: stretch;
   gap: 0.6rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.25rem;
+  width: max-content;
+  animation: photo-slider-scroll 22s linear infinite;
+  will-change: transform;
+}
+
+.photo-slider:hover .photo-slider__track {
+  animation-play-state: paused;
+}
+
+@keyframes photo-slider-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .photo-slider__item {
-  flex: 0 0 42%;
+  flex: 0 0 auto;
+  width: 42vw;
+  max-width: 200px;
   aspect-ratio: 3 / 4;
   border-radius: 12px;
   overflow: hidden;
-  scroll-snap-align: start;
 }
 
 .photo-slider__item img,

@@ -68,16 +68,7 @@
           "type": "bundle_products",
           "settings": {
             "heading": "Buy more, Save more",
-            "product_1": "scuderia-ferrari-team-shirt-2015",
-            "product_2": "scuderia-ferrari-mission-winnow-shirt-2019",
-            "product_3": "alfa-romeu-team-polo-2021"
-          }
-        },
-        "social_stat": {
-          "type": "text",
-          "settings": {
-            "text": "💗 Join 12,000+ Happy Customers",
-            "text_style": "uppercase"
+            "collection": "vintage-jackets"
           }
         },
         "photo_slider": {
@@ -132,7 +123,6 @@
         "buy_buttons",
         "payment_badges",
         "bundle",
-        "social_stat",
         "photo_slider",
         "details_1",
         "details_2",
@@ -146,8 +136,8 @@
         "media_position": "left",
         "gallery_layout": "thumbnail",
         "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
+        "constrain_to_viewport": false,
+        "media_fit": "cover",
         "image_zoom": "lightbox",
         "mobile_thumbnails": "show",
         "hide_variants": true,

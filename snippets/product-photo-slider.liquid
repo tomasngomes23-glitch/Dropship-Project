@@ -1,5 +1,6 @@
 {% comment %}
-  Renders a swipeable row of customer photos. Falls back to a placeholder
+  Renders an auto-scrolling marquee row of customer photos, matching the
+  homepage's photo-reviews-slider motion. Falls back to a placeholder
   graphic for any slot without a real photo yet, so the block is always
   visible instead of disappearing until photos are added.
   Accepts:
@@ -12,23 +13,27 @@
   {%- if block.settings.heading != blank -%}
     <p class="photo-slider__heading">{{ block.settings.heading }}</p>
   {%- endif -%}
-  <div class="photo-slider__track">
-    {%- for i in (1..4) -%}
-      {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
-      {%- assign slider_photo = block.settings[slider_image_key] -%}
-      <div class="photo-slider__item">
-        {%- if slider_photo != blank -%}
-          <img
-            src="{{ slider_photo | image_url: width: 400 }}"
-            alt="{{ slider_photo.alt | escape }}"
-            loading="lazy"
-            width="{{ slider_photo.width }}"
-            height="{{ slider_photo.height }}"
-          >
-        {%- else -%}
-          {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
+  <div class="photo-slider__viewport">
+    <div class="photo-slider__track">
+      {%- for dup in (1..2) -%}
+        {%- for i in (1..4) -%}
+          {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
+          {%- assign slider_photo = block.settings[slider_image_key] -%}
+          <div class="photo-slider__item" {% if dup > 1 %}aria-hidden="true"{% endif %}>
+            {%- if slider_photo != blank -%}
+              <img
+                src="{{ slider_photo | image_url: width: 400 }}"
+                alt="{{ slider_photo.alt | escape }}"
+                loading="lazy"
+                width="{{ slider_photo.width }}"
+                height="{{ slider_photo.height }}"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
   </div>
 </div>
