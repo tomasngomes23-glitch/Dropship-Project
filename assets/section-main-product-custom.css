@@ -125,6 +125,22 @@
   height: 1rem;
 }
 
+.product-popup-modal__content:has(.product-popup-modal__content-info img) {
+  padding: 1.25rem;
+}
+
+.product-popup-modal__content-info:has(img) {
+  padding-right: 0;
+}
+
+.product-popup-modal__content-info img {
+  border-radius: 12px;
+  max-height: 68vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .photo-slider {
   margin: 1.75rem 0 !important;
 }
