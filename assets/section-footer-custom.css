@@ -28,4 +28,16 @@
   .footer__column--social {
     justify-content: flex-start;
   }
+
+  /* Group the newsletter + link columns tightly on the left, like the
+     reference layout, instead of stretching them evenly across the row. */
+  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 20rem;
+  }
+
+  .footer__blocks-wrapper > .footer-block:last-child {
+    margin-left: auto;
+  }
 }
