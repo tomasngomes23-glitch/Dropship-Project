@@ -455,6 +455,9 @@
                       type="button"
                       aria-haspopup="dialog"
                     >
+                      <span class="svg-wrapper">
+                        {{- 'icon-ruler.svg' | inline_asset_content -}}
+                      </span>
                       {{ block.settings.text | default: block.settings.page.title | escape }}
                     </button>
                   </modal-opener>
