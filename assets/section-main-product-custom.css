@@ -320,6 +320,7 @@
 .product__info-container variant-selects .form__label,
 .product__info-container .variant-picker__header .form__label {
   font-weight: 700 !important;
+  font-size: 1.5rem;
   color: rgb(var(--color-foreground));
 }
 
