@@ -31,9 +31,11 @@
 
   /* Size non-brand footer columns to their content and give them equal
      gaps, instead of stretching to equal-width columns (which leaves
-     uneven visual gaps since each column's content is a different length). */
+     uneven visual gaps since each column's content is a different length).
+     Left-aligned (not centered) so the newsletter block sits at the left
+     edge, matching the reference layout. */
   .footer__blocks-wrapper {
-    justify-content: center;
+    justify-content: flex-start;
     gap: 3.5rem;
   }
 
@@ -42,4 +44,28 @@
     width: auto;
     max-width: none;
   }
+}
+
+/* Slightly larger logo */
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
+  max-width: min(100%, 190px) !important;
+}
+
+/* Smaller footer text overall */
+.footer-block__heading {
+  font-size: 1rem !important;
+}
+
+.footer-block__details-content,
+.footer-block__details-content a,
+.footer__list-social,
+.footer-block__brand-info,
+.footer__localization,
+.footer__copyright,
+.footer__column--info {
+  font-size: 0.8rem;
+}
+
+.footer-block__newsletter .footer-block__heading {
+  font-size: 1.05rem !important;
 }
