@@ -12,57 +12,58 @@
   }
 
   .comparison-{{ section.id }} .comparison__top {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin-bottom: 3rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .comparison-{{ section.id }} .comparison__top {
-      grid-template-columns: 1fr 1.3fr;
-      gap: 3rem;
-    }
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
   }
 
   .comparison__heading {
     font-weight: 800;
-    letter-spacing: 0.02em;
-    margin: 0;
-    text-align: center;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.75rem;
+    font-size: 2.4rem;
   }
 
   @media screen and (min-width: 750px) {
     .comparison__heading {
-      text-align: left;
+      font-size: 3.1rem;
     }
   }
 
+  .comparison__subheading {
+    font-size: 1.05rem;
+    color: rgba(var(--color-foreground), 0.65);
+    margin: 0;
+  }
+
   .comparison__table {
-    border: 1px solid rgba(var(--color-foreground), 0.12);
-    border-radius: 14px;
+    max-width: 860px;
+    margin: 0 auto;
+    border-radius: 22px;
     overflow: hidden;
     background: rgb(var(--color-background));
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--color-foreground), 0.06);
   }
 
   .comparison__table-head,
   .comparison__row {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-columns: 1.7fr 1fr 1fr;
     align-items: center;
   }
 
   .comparison__table-head {
-    padding: 1rem 1.25rem;
-    background: rgba(217, 33, 51, 0.04);
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 1.35rem 1.5rem;
+    background: linear-gradient(120deg, #b81c2e, #d92133 55%, #ef4a58);
   }
 
   .comparison__table-head span {
     text-align: center;
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    color: #ffffff;
   }
 
   .comparison__table-head span:first-child {
@@ -70,26 +71,39 @@
   }
 
   .comparison__table-head span:nth-child(2) {
-    color: #d92133;
-    font-weight: 800;
-    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .comparison__table-head span:nth-child(2)::before {
+    content: "\2605";
+    font-size: 0.85rem;
   }
 
   .comparison__table-head span:nth-child(3) {
-    color: rgba(var(--color-foreground), 0.55);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
   }
 
   .comparison__row {
-    padding: 1rem 1.25rem;
+    padding: 1.35rem 1.5rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .comparison__row:nth-child(even) {
+    background: rgba(var(--color-foreground), 0.02);
   }
 
   .comparison__row + .comparison__row {
-    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+    border-top: 1px solid rgba(var(--color-foreground), 0.07);
   }
 
   .comparison__row-label {
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.005em;
   }
 
   .comparison__cell {
@@ -101,20 +115,21 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2rem;
+    height: 2rem;
     flex: 0 0 auto;
-  }
-
-  .comparison__mark--yes {
-    background: #d92133;
-    color: #ffffff;
     border-radius: 50%;
   }
 
+  .comparison__mark--yes {
+    background: linear-gradient(135deg, #d92133, #ef4a58);
+    color: #ffffff;
+    box-shadow: 0 6px 14px -2px rgba(217, 33, 51, 0.45);
+  }
+
   .comparison__mark--yes svg {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 1.05rem;
+    height: 1.05rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 3;
@@ -123,16 +138,20 @@
   }
 
   .comparison__mark--no {
-    color: rgba(var(--color-foreground), 0.3);
-    font-size: 1.1rem;
+    background: rgba(var(--color-foreground), 0.07);
+    color: rgba(var(--color-foreground), 0.4);
+    font-size: 1rem;
     font-weight: 700;
   }
 
   .comparison__features {
-    margin-top: 3rem;
+    margin-top: 4rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem 1.5rem;
+    gap: 2.25rem 1.75rem;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media screen and (min-width: 750px) {
@@ -149,25 +168,30 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    margin-bottom: 0.9rem;
+    width: 4.25rem;
+    height: 4.25rem;
+    margin-bottom: 1.1rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(217, 33, 51, 0.14), rgba(217, 33, 51, 0.05));
+    border: 1px solid rgba(217, 33, 51, 0.15);
   }
 
   .comparison__feature-icon .svg-wrapper {
-    width: 100%;
-    height: 100%;
-    fill: rgb(var(--color-foreground));
+    width: 45%;
+    height: 45%;
+    fill: #d92133;
   }
 
   .comparison__feature-heading {
-    margin: 0 0 0.4rem;
+    margin: 0 0 0.45rem;
+    font-size: 1.1rem;
+    font-weight: 800;
   }
 
   .comparison__feature-text {
-    font-size: 0.85rem;
-    color: rgba(var(--color-foreground), 0.75);
-    line-height: 1.4;
+    font-size: 0.92rem;
+    color: rgba(var(--color-foreground), 0.68);
+    line-height: 1.5;
   }
 {%- endstyle -%}
 
@@ -177,29 +201,32 @@
       <h2 class="comparison__heading title {{ section.settings.heading_size }}">
         {{ section.settings.heading }}
       </h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="comparison__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
 
-      <div class="comparison__table">
-        <div class="comparison__table-head">
-          <span></span>
-          <span>{{ section.settings.brand_label | escape }}</span>
-          <span>{{ section.settings.others_label | escape }}</span>
-        </div>
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'row' -%}
-            <div class="comparison__row" {{ block.shopify_attributes }}>
-              <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
-              <div class="comparison__cell">
-                <span class="comparison__mark comparison__mark--yes">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
-                </span>
-              </div>
-              <div class="comparison__cell">
-                <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
-              </div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+    <div class="comparison__table">
+      <div class="comparison__table-head">
+        <span></span>
+        <span>{{ section.settings.brand_label | escape }}</span>
+        <span>{{ section.settings.others_label | escape }}</span>
       </div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'row' -%}
+          <div class="comparison__row" {{ block.shopify_attributes }}>
+            <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
+            <div class="comparison__cell">
+              <span class="comparison__mark comparison__mark--yes">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
+              </span>
+            </div>
+            <div class="comparison__cell">
+              <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
 
     <div class="comparison__features">
@@ -240,6 +267,12 @@
         { "value": "h0", "label": "Extra large" }
       ],
       "default": "h1"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "See why thousands of racing fans choose us over generic sellers"
     },
     {
       "type": "text",
