@@ -36,7 +36,7 @@
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
     justify-content: flex-start;
-    gap: 5rem;
+    gap: 7.5rem;
   }
 
   .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {

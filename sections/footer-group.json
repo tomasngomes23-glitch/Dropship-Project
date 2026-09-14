@@ -14,21 +14,21 @@
         "quick-links": {
           "type": "link_list",
           "settings": {
-            "heading": "",
+            "heading": "Quick Links",
             "menu": "main-menu"
           }
         },
         "customer-support": {
           "type": "link_list",
           "settings": {
-            "heading": "",
+            "heading": "Customer Support",
             "menu": "footer"
           }
         },
         "help": {
           "type": "text",
           "settings": {
-            "heading": "",
+            "heading": "Help",
             "subtext": "<p>Need any advice before you buy? We're here to help.</p><p><a href=\"/pages/contact-us\">Contact Us</a></p>"
           }
         }
