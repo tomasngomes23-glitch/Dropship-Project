@@ -1,0 +1,26 @@
+.collection-hero__inner {
+  align-items: center;
+  text-align: center;
+}
+
+.collection-hero__text-wrapper {
+  margin: 0 auto;
+}
+
+.collection-hero__title {
+  margin: 1.5rem 0 0.75rem;
+}
+
+.collection-hero__description {
+  margin: 0 auto;
+}
+
+.card__media {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card__media img,
+.card__media svg {
+  transform: scale(1.05);
+}
