@@ -36,8 +36,4 @@
     width: auto;
     max-width: 20rem;
   }
-
-  .footer__blocks-wrapper > .footer-block:last-child {
-    margin-left: auto;
-  }
 }

@@ -342,7 +342,7 @@ media-gallery .product__media {
 @media screen and (min-width: 990px) {
   product-info .page-width {
     max-width: 1500px;
-    padding-left: 1rem;
+    padding-left: 0.25rem;
   }
 
   .product--large:not(.product--no-media) .product__media-wrapper {
