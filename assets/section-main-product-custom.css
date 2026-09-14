@@ -1,3 +1,7 @@
+.product__info-container .shopify-payment-button__more-options {
+  display: none;
+}
+
 .trust-rating {
   display: flex;
   align-items: center;
