@@ -87,6 +87,7 @@
             class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
+            {%- assign size_chart_block = section.blocks | where: 'type', 'popup' | first -%}
 
             {%- for block in section.blocks -%}
               {%- case block.type -%}
@@ -444,23 +445,25 @@
                     {%- endif -%}
                   </div>
                 {%- when 'popup' -%}
-                  <modal-opener
-                    class="product-popup-modal__opener quick-add-hidden"
-                    data-modal="#PopupModal-{{ block.id }}"
-                    {{ block.shopify_attributes }}
-                  >
-                    <button
-                      id="ProductPopup-{{ block.id }}"
-                      class="product-popup-modal__button link"
-                      type="button"
-                      aria-haspopup="dialog"
+                  {%- unless block.id == size_chart_block.id -%}
+                    <modal-opener
+                      class="product-popup-modal__opener quick-add-hidden"
+                      data-modal="#PopupModal-{{ block.id }}"
+                      {{ block.shopify_attributes }}
                     >
-                      <span class="svg-wrapper">
-                        {{- 'icon-ruler.svg' | inline_asset_content -}}
-                      </span>
-                      {{ block.settings.text | default: block.settings.page.title | escape }}
-                    </button>
-                  </modal-opener>
+                      <button
+                        id="ProductPopup-{{ block.id }}"
+                        class="product-popup-modal__button link"
+                        type="button"
+                        aria-haspopup="dialog"
+                      >
+                        <span class="svg-wrapper">
+                          {{- 'icon-ruler.svg' | inline_asset_content -}}
+                        </span>
+                        {{ block.settings.text | default: block.settings.page.title | escape }}
+                      </button>
+                    </modal-opener>
+                  {%- endunless -%}
                 {%- when 'share' -%}
                   {% liquid
                     assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
@@ -480,7 +483,8 @@
                   {% render 'product-variant-picker',
                     product: product,
                     block: block,
-                    product_form_id: product_form_id
+                    product_form_id: product_form_id,
+                    size_chart_block: size_chart_block
                   %}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',

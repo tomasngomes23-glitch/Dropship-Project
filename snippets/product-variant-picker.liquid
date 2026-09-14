@@ -5,6 +5,7 @@
   - product: {Object} product object.
   - block: {Object} passing the block information.
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - size_chart_block: {Object} optional popup block rendered inline next to the Size option.
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
@@ -34,14 +35,23 @@
           endif
         endif
       -%}
+      {%- assign show_size_chart = false -%}
+      {%- if size_chart_block and option.name contains 'Size' -%}
+        {%- assign show_size_chart = true -%}
+      {%- endif -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
-            {{ option.name }}:
-            <span data-selected-value>
-              {{- option.selected_value -}}
-            </span>
-          </legend>
+          <div class="variant-picker__header">
+            <legend class="form__label">
+              {{ option.name }}:
+              <span data-selected-value>
+                {{- option.selected_value -}}
+              </span>
+            </legend>
+            {%- if show_size_chart -%}
+              {% render 'size-chart-opener', size_chart_block: size_chart_block %}
+            {%- endif -%}
+          </div>
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -51,7 +61,12 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <div class="variant-picker__header">
+            <legend class="form__label">{{ option.name }}</legend>
+            {%- if show_size_chart -%}
+              {% render 'size-chart-opener', size_chart_block: size_chart_block %}
+            {%- endif -%}
+          </div>
           {% render 'product-variant-options',
             product: product,
             option: option,
