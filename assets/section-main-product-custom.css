@@ -103,6 +103,11 @@
   margin: 0;
 }
 
+.product-popup-modal__opener {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .product-popup-modal__button {
   display: inline-flex;
   align-items: center;

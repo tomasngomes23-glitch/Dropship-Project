@@ -35,8 +35,9 @@
      Left-aligned (not centered) so the newsletter block sits at the left
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
-    justify-content: flex-start;
-    gap: 7.5rem;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: nowrap;
   }
 
   .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {
@@ -52,11 +53,12 @@
 }
 
 .footer-block__heading {
-  font-size: 1.3rem !important;
+  font-size: 1.45rem !important;
 }
 
 .footer-block__details-content,
 .footer-block__details-content a,
+.footer-block__details-content p,
 .footer__list-social,
 .footer-block__brand-info,
 .footer__localization,
