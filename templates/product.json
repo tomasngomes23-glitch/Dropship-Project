@@ -137,7 +137,7 @@
         "gallery_layout": "thumbnail",
         "media_size": "large",
         "constrain_to_viewport": false,
-        "media_fit": "cover",
+        "media_fit": "contain",
         "image_zoom": "lightbox",
         "mobile_thumbnails": "show",
         "hide_variants": true,
