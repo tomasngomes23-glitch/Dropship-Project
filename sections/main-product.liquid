@@ -731,7 +731,7 @@
 
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}
-        <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+        <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal{% if block.id == size_chart_block.id %} product-popup-modal--image-only{% endif %}" {{ block.shopify_attributes }}>
           <div
             role="dialog"
             aria-label="{{ block.settings.text }}"
@@ -748,7 +748,9 @@
               {{- 'icon-close.svg' | inline_asset_content -}}
             </button>
             <div class="product-popup-modal__content-info">
-              <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
+              {%- unless block.id == size_chart_block.id -%}
+                <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
+              {%- endunless -%}
               {{ block.settings.page.content }}
             </div>
           </div>

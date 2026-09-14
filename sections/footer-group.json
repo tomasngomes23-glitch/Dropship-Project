@@ -28,8 +28,8 @@
         "help": {
           "type": "text",
           "settings": {
-            "heading": "Help",
-            "subtext": "<p>Need any advice before you buy? We're here to help.</p><p><a href=\"/pages/contact-us\">Contact Us</a></p>"
+            "heading": "Contact Us",
+            "subtext": "<p><a href=\"mailto:support@overtake.pt\">support@overtake.pt</a></p>"
           }
         }
       },
