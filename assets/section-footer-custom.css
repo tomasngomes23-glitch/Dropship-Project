@@ -66,7 +66,15 @@
 }
 
 .footer-block__newsletter .footer-block__heading {
-  font-size: 1.15rem !important;
+  font-size: 1.45rem !important;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.footer-block__newsletter-subtext {
+  font-size: 0.85rem;
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0 0 1rem;
 }
 
 /* Stack Country/region, payment icons and copyright as a single

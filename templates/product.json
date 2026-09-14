@@ -16,18 +16,6 @@
         "price": {
           "type": "price"
         },
-        "features": {
-          "type": "icon-with-text",
-          "settings": {
-            "layout": "vertical",
-            "icon_1": "leather",
-            "heading_1": "Genuine vintage racing fabric",
-            "icon_2": "shirt",
-            "heading_2": "Officially inspired vintage design",
-            "icon_3": "truck",
-            "heading_3": "Tracked worldwide shipping"
-          }
-        },
         "urgency_bar": {
           "type": "urgency_bar",
           "settings": {
@@ -39,6 +27,13 @@
           "settings": {
             "picker_type": "button",
             "swatch_shape": "circle"
+          }
+        },
+        "size_guide": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Chart",
+            "page": "size-guide"
           }
         },
         "quantity_selector": {
@@ -108,9 +103,9 @@
         "trust_rating",
         "title",
         "price",
-        "features",
         "urgency_bar",
         "variant_picker",
+        "size_guide",
         "quantity_selector",
         "buy_buttons",
         "payment_badges",

@@ -104,10 +104,19 @@
 }
 
 .product-popup-modal__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: underline;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgb(var(--color-foreground));
+}
+
+.product-popup-modal__button .svg-wrapper svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .photo-slider {
@@ -297,6 +306,12 @@
 
 .product__info-container .icon-with-text--vertical .h4 {
   font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.product__info-container .quantity__label,
+.product__info-container fieldset .form__label,
+.product__info-container variant-selects .form__label {
   font-weight: 700;
 }
 
