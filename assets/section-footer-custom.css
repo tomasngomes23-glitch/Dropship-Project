@@ -36,7 +36,7 @@
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
     justify-content: flex-start;
-    gap: 3.5rem;
+    gap: 5rem;
   }
 
   .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {
@@ -51,9 +51,8 @@
   max-width: min(100%, 190px) !important;
 }
 
-/* Smaller footer text overall */
 .footer-block__heading {
-  font-size: 1rem !important;
+  font-size: 1.1rem !important;
 }
 
 .footer-block__details-content,
@@ -63,9 +62,37 @@
 .footer__localization,
 .footer__copyright,
 .footer__column--info {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .footer-block__newsletter .footer-block__heading {
-  font-size: 1.05rem !important;
+  font-size: 1.15rem !important;
+}
+
+/* Stack Country/region, payment icons and copyright as a single
+   left-aligned column, matching the reference layout. */
+.footer__content-bottom-wrapper--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column {
+  width: auto;
+  align-items: flex-start;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__localization {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column--info {
+  align-items: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__copyright {
+  text-align: left !important;
+  margin-top: 0;
 }
