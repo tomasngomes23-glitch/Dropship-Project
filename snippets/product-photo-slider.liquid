@@ -1,39 +1,34 @@
 {% comment %}
-  Renders a swipeable row of customer photos.
+  Renders a swipeable row of customer photos. Falls back to a placeholder
+  graphic for any slot without a real photo yet, so the block is always
+  visible instead of disappearing until photos are added.
   Accepts:
   - block: {Object} the photo_slider block
 
   Usage:
   {% render 'product-photo-slider', block: block %}
 {% endcomment %}
-{%- assign has_slider_photos = false -%}
-{%- for i in (1..6) -%}
-  {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
-  {%- if block.settings[slider_image_key] != blank -%}
-    {%- assign has_slider_photos = true -%}
+<div class="photo-slider" {{ block.shopify_attributes }}>
+  {%- if block.settings.heading != blank -%}
+    <p class="photo-slider__heading">{{ block.settings.heading }}</p>
   {%- endif -%}
-{%- endfor -%}
-{%- if has_slider_photos -%}
-  <div class="photo-slider" {{ block.shopify_attributes }}>
-    {%- if block.settings.heading != blank -%}
-      <p class="photo-slider__heading">{{ block.settings.heading }}</p>
-    {%- endif -%}
-    <div class="photo-slider__track">
-      {%- for i in (1..6) -%}
-        {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
-        {%- assign slider_photo = block.settings[slider_image_key] -%}
+  <div class="photo-slider__track">
+    {%- for i in (1..4) -%}
+      {%- capture slider_image_key -%}image_{{ i }}{%- endcapture -%}
+      {%- assign slider_photo = block.settings[slider_image_key] -%}
+      <div class="photo-slider__item">
         {%- if slider_photo != blank -%}
-          <div class="photo-slider__item">
-            <img
-              src="{{ slider_photo | image_url: width: 400 }}"
-              alt="{{ slider_photo.alt | escape }}"
-              loading="lazy"
-              width="{{ slider_photo.width }}"
-              height="{{ slider_photo.height }}"
-            >
-          </div>
+          <img
+            src="{{ slider_photo | image_url: width: 400 }}"
+            alt="{{ slider_photo.alt | escape }}"
+            loading="lazy"
+            width="{{ slider_photo.width }}"
+            height="{{ slider_photo.height }}"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
         {%- endif -%}
-      {%- endfor -%}
-    </div>
+      </div>
+    {%- endfor -%}
   </div>
-{%- endif -%}
+</div>
