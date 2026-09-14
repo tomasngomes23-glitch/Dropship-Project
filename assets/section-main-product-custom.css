@@ -340,14 +340,19 @@ media-gallery .product__media {
 }
 
 @media screen and (min-width: 990px) {
+  product-info .page-width {
+    max-width: 1700px;
+    padding-left: 0.75rem;
+  }
+
   .product--large:not(.product--no-media) .product__media-wrapper {
-    max-width: 73%;
-    width: calc(73% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: 78%;
+    width: calc(78% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 
   .product--large:not(.product--no-media) .product__info-wrapper {
-    max-width: 27%;
-    width: calc(27% - var(--grid-desktop-horizontal-spacing) / 2);
-    padding-left: 2.5rem;
+    max-width: 22%;
+    width: calc(22% - var(--grid-desktop-horizontal-spacing) / 2);
+    padding-left: 3rem;
   }
 }
