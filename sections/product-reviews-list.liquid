@@ -17,8 +17,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    border: 1px solid rgba(var(--color-foreground), 0.12);
-    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
     padding: 1.75rem 2rem;
     margin: 0 0 2.5rem;
   }
@@ -27,38 +29,83 @@
     font-weight: 800;
     font-size: 1.6rem;
     margin: 0 0 0.5rem;
+    color: #191919;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__header-sub {
     margin: 0;
     font-size: 0.95rem;
-    color: rgba(var(--color-foreground), 0.65);
+    color: rgba(0, 0, 0, 0.55);
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.1rem;
     flex-wrap: wrap;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__score-number {
-    font-size: 2.8rem;
+  .trustreviews-{{ section.id }} .trustreviews__score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #007f4e;
+    color: #ffffff;
     font-weight: 800;
-    line-height: 1;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 3px;
+    margin-bottom: 0.4rem;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__score-stars {
-    color: #d92133;
-    font-size: 1.4rem;
-    letter-spacing: 0.08em;
+  .trustreviews-{{ section.id }} .trustreviews__score-number {
+    font-size: 2.6rem;
+    font-weight: 800;
     line-height: 1;
+    color: #191919;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score-count {
-    margin: 0.25rem 0 0;
+    margin: 0.4rem 0 0;
     font-size: 0.85rem;
-    color: rgba(var(--color-foreground), 0.65);
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars-row {
+    display: inline-flex;
+    gap: 0.2rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box {
+    width: 1.3rem;
+    height: 1.3rem;
+    background: #dcdce6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box.is-filled {
+    background: #007f4e;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: #ffffff;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--lg {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 3px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--lg svg {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__grid {
@@ -80,12 +127,13 @@
   }
 
   .trustreviews-{{ section.id }} .trustreviews__card {
-    border: 1px solid rgba(var(--color-foreground), 0.12);
-    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    background: rgb(var(--color-background));
+    background: #ffffff;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__card[hidden] {
@@ -103,8 +151,8 @@
     width: 3.4rem;
     height: 3.4rem;
     border-radius: 50%;
-    background: rgba(217, 33, 51, 0.1);
-    color: #d92133;
+    background: #e7f4ee;
+    color: #007f4e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,15 +187,12 @@
   .trustreviews-{{ section.id }} .trustreviews__verified svg {
     width: 1.1rem;
     height: 1.1rem;
-    fill: #1a8a1a;
+    fill: #007f4e;
     flex: 0 0 auto;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__stars {
-    color: #d92133;
-    letter-spacing: 0.08em;
-    font-size: 1.05rem;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.75rem;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__title {
@@ -209,9 +254,13 @@
   .trustreviews-{{ section.id }} .trustreviews__load-more {
     cursor: pointer;
   }
+
+  .trustreviews-outer-{{ section.id }} {
+    background: #f5f5f7;
+  }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+<div class="trustreviews-outer-{{ section.id }}">
   <div class="page-width section-{{ section.id }}-padding trustreviews trustreviews-{{ section.id }}" data-trustreviews-batch="{{ section.settings.reviews_per_page }}">
     <div class="trustreviews__header">
       <div>
@@ -221,7 +270,22 @@
       <div class="trustreviews__score">
         <p class="trustreviews__score-number">{{ section.settings.average_rating }}</p>
         <div>
-          <div class="trustreviews__score-stars" aria-hidden="true">★★★★★</div>
+          {%- assign rating_num = section.settings.average_rating | times: 1.0 -%}
+          <span class="trustreviews__score-badge">
+            {%- if rating_num >= 4.5 -%}Excellent
+            {%- elsif rating_num >= 4.0 -%}Great
+            {%- elsif rating_num >= 3.0 -%}Average
+            {%- else -%}Reviews
+            {%- endif -%}
+          </span>
+          <div class="trustreviews__stars-row" aria-hidden="true">
+            {%- assign full_stars = rating_num | round -%}
+            {%- for i in (1..5) -%}
+              <span class="trustreviews__star-box trustreviews__star-box--lg{% if i <= full_stars %} is-filled{% endif %}">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+              </span>
+            {%- endfor -%}
+          </div>
           <p class="trustreviews__score-count">{{ section.settings.review_count }}</p>
         </div>
       </div>
@@ -263,10 +327,12 @@
               </div>
             </div>
 
-            <div class="trustreviews__stars" aria-hidden="true">
+            <div class="trustreviews__stars trustreviews__stars-row" aria-hidden="true">
               {%- assign stars = block.settings.rating | times: 1 -%}
               {%- for i in (1..5) -%}
-                {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+                <span class="trustreviews__star-box{% if i <= stars %} is-filled{% endif %}">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                </span>
               {%- endfor -%}
             </div>
 
