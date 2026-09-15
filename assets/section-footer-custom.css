@@ -75,15 +75,41 @@
 }
 
 .footer-block__newsletter .footer-block__heading {
-  font-size: 2rem !important;
+  font-size: 2.6rem !important;
   font-weight: 800;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
 }
 
 .footer-block__newsletter-subtext {
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   color: rgba(var(--color-foreground), 0.75);
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  /* Give the newsletter/email column more visual weight and push the
+     other three columns slightly further to the side to balance it. */
+  .footer__blocks-wrapper > .footer-block--newsletter-col {
+    flex: 0 0 auto;
+    min-width: 360px;
+    max-width: 420px;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .footer__newsletter {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .newsletter-form__field-wrapper {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper {
+    gap: 6rem 4rem;
+  }
+
+  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand):not(.footer-block--newsletter-col) {
+    margin-left: 1.5rem;
+  }
 }
 
 /* Stack Country/region, payment icons and copyright as a single
