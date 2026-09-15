@@ -29,43 +29,74 @@
     color: #191919;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__score {
+  .trustreviews-{{ section.id }} .trustreviews__summary {
     display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  .trustreviews-{{ section.id }} .trustreviews__score-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #007f4e;
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 1.1rem;
-    padding: 0.5rem 0.9rem;
-    border-radius: 4px;
-    margin: 0;
-  }
-
-  .trustreviews-{{ section.id }} .trustreviews__score-badge-row {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 0.6rem;
+    min-width: 220px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-top {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score-number {
-    font-size: 3.4rem;
+    font-size: 2.2rem;
     font-weight: 800;
     line-height: 1;
     color: #191919;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score-count {
-    margin: 0.5rem 0 0;
-    font-size: 1rem;
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.6);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-label {
+    flex: 0 0 auto;
+    width: 2.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-bar {
+    flex: 1 1 auto;
+    height: 0.6rem;
+    background: #e5e5ea;
+    border-radius: 999px;
+    overflow: hidden;
+    min-width: 120px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-bar-fill {
+    display: block;
+    height: 100%;
+    background: #007f4e;
+    border-radius: 999px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-count {
+    flex: 0 0 auto;
+    width: 2.75rem;
+    text-align: right;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.55);
   }
 
   .trustreviews-{{ section.id }} .trustreviews__stars-row {
@@ -271,29 +302,58 @@
   <div class="page-width section-{{ section.id }}-padding trustreviews trustreviews-{{ section.id }}" data-trustreviews-batch="{{ section.settings.reviews_per_page }}">
     <div class="trustreviews__header">
       <p class="trustreviews__header-title">{{ section.settings.heading }}</p>
-      <div class="trustreviews__score">
-        <p class="trustreviews__score-number">{{ section.settings.average_rating }}</p>
-        <div>
-          {%- assign rating_num = section.settings.average_rating | times: 1.0 -%}
-          <div class="trustreviews__score-badge-row">
-            <span class="trustreviews__score-badge">
-              {%- if rating_num >= 4.5 -%}Excellent
-              {%- elsif rating_num >= 4.0 -%}Great
-              {%- elsif rating_num >= 3.0 -%}Average
-              {%- else -%}Reviews
-              {%- endif -%}
-            </span>
-            <div class="trustreviews__stars-row" aria-hidden="true">
-              {%- assign full_stars = rating_num | round -%}
-              {%- for i in (1..5) -%}
-                <span class="trustreviews__star-box trustreviews__star-box--lg{% if i <= full_stars %} is-filled{% endif %}">
-                  <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
-                </span>
-              {%- endfor -%}
-            </div>
-          </div>
-          <p class="trustreviews__score-count">{{ section.settings.review_count }}</p>
+      <div class="trustreviews__summary">
+        <div class="trustreviews__summary-top">
+          <span class="trustreviews__star-box trustreviews__star-box--lg is-filled" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+          </span>
+          <p class="trustreviews__score-number">{{ section.settings.average_rating }}</p>
         </div>
+
+        {%- assign count_5 = 0 -%}
+        {%- assign count_4 = 0 -%}
+        {%- assign count_3 = 0 -%}
+        {%- assign count_2 = 0 -%}
+        {%- assign count_1 = 0 -%}
+        {%- assign total_reviews = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            {%- assign total_reviews = total_reviews | plus: 1 -%}
+            {%- case block.settings.rating -%}
+              {%- when '5' -%}{%- assign count_5 = count_5 | plus: 1 -%}
+              {%- when '4' -%}{%- assign count_4 = count_4 | plus: 1 -%}
+              {%- when '3' -%}{%- assign count_3 = count_3 | plus: 1 -%}
+              {%- when '2' -%}{%- assign count_2 = count_2 | plus: 1 -%}
+              {%- when '1' -%}{%- assign count_1 = count_1 | plus: 1 -%}
+            {%- endcase -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <div class="trustreviews__breakdown">
+          {%- for star in (1..5) reversed -%}
+            {%- case star -%}
+              {%- when 5 -%}{%- assign count = count_5 -%}
+              {%- when 4 -%}{%- assign count = count_4 -%}
+              {%- when 3 -%}{%- assign count = count_3 -%}
+              {%- when 2 -%}{%- assign count = count_2 -%}
+              {%- when 1 -%}{%- assign count = count_1 -%}
+            {%- endcase -%}
+            {%- if total_reviews > 0 -%}
+              {%- assign fill_percent = count | times: 100 | divided_by: total_reviews -%}
+            {%- else -%}
+              {%- assign fill_percent = 0 -%}
+            {%- endif -%}
+            <div class="trustreviews__breakdown-row">
+              <span class="trustreviews__breakdown-label">{{ star }}★</span>
+              <span class="trustreviews__breakdown-bar">
+                <span class="trustreviews__breakdown-bar-fill" style="width: {{ fill_percent }}%;"></span>
+              </span>
+              <span class="trustreviews__breakdown-count">({{ count }})</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <p class="trustreviews__score-count">{{ section.settings.review_count }}</p>
       </div>
     </div>
 

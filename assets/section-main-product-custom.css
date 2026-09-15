@@ -77,8 +77,20 @@
 .product__info-container .shopify-payment-button__button {
   font-size: 1.9rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   min-height: 5.5rem;
   border-radius: 10px;
+}
+
+.product__info-container .product-form__buttons .button:before,
+.product__info-container .product-form__submit:before {
+  border-radius: 10px;
+}
+
+.product__info-container .product-form__buttons .button:after,
+.product__info-container .product-form__submit:after {
+  border-radius: 8px;
 }
 
 .product__info-container .product-form__buy-now {
