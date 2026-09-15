@@ -152,7 +152,6 @@
 .product-popup-modal--image-only .product-popup-modal__content {
   padding: 0;
   overflow: hidden;
-  display: flex;
 }
 
 .product-popup-modal--image-only .product-popup-modal__content-info {
