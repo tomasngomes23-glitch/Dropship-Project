@@ -83,7 +83,8 @@
   font-size: 1.5rem;
 }
 
-.product__info-container .product-form__input {
+.product__info-container .product-form__input,
+.product__info-container .product-form__buttons {
   max-width: none;
 }
 
@@ -152,6 +153,11 @@
 .product-popup-modal--image-only .product-popup-modal__content {
   padding: 0;
   overflow: hidden;
+  top: 50%;
+  margin-top: 0;
+  transform: translate(-50%, -50%);
+  height: 90vh;
+  max-height: 90vh;
 }
 
 .product-popup-modal--image-only .product-popup-modal__content-info {
@@ -169,6 +175,8 @@
   height: auto;
   max-width: 100%;
   max-height: 100%;
+  min-height: 0;
+  min-width: 0;
   object-fit: contain;
 }
 
