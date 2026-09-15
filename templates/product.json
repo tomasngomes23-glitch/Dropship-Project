@@ -91,12 +91,6 @@
         },
         "description": {
           "type": "description"
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
         }
       },
       "block_order": [
@@ -114,8 +108,7 @@
         "details_1",
         "details_2",
         "details_3",
-        "description",
-        "share"
+        "description"
       ],
       "settings": {
         "enable_sticky_info": true,
