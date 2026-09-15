@@ -30,16 +30,78 @@
   }
 
   .trustreviews-{{ section.id }} .trustreviews__summary {
+    position: relative;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars-text {
+    color: #007f4e;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-count {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-chevron {
+    display: inline-flex;
+    transition: transform 0.2s ease;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-chevron svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-toggle[aria-expanded="true"] .trustreviews__summary-chevron {
+    transform: rotate(180deg);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    z-index: 5;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 1.5rem 1.75rem;
+    width: 320px;
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    min-width: 220px;
+    gap: 1.1rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-panel[hidden] {
+    display: none;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__summary-top {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.7rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-top .trustreviews__score-number {
+    font-size: 2rem;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score-number {
@@ -47,12 +109,6 @@
     font-weight: 800;
     line-height: 1;
     color: #191919;
-  }
-
-  .trustreviews-{{ section.id }} .trustreviews__score-count {
-    margin: 0.2rem 0 0;
-    font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.6);
   }
 
   .trustreviews-{{ section.id }} .trustreviews__breakdown {
@@ -300,60 +356,79 @@
 
 <div class="trustreviews-outer-{{ section.id }}">
   <div class="page-width section-{{ section.id }}-padding trustreviews trustreviews-{{ section.id }}" data-trustreviews-batch="{{ section.settings.reviews_per_page }}">
+    {%- liquid
+      assign count_5 = section.settings.rating_5_count
+      assign count_4 = section.settings.rating_4_count
+      assign count_3 = section.settings.rating_3_count
+      assign count_2 = section.settings.rating_2_count
+      assign count_1 = section.settings.rating_1_count
+      assign total_reviews = count_5 | plus: count_4 | plus: count_3 | plus: count_2 | plus: count_1
+
+      assign weighted_sum = count_5 | times: 5
+      assign temp = count_4 | times: 4
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_3 | times: 3
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_2 | times: 2
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_1 | times: 1
+      assign weighted_sum = weighted_sum | plus: temp
+
+      if total_reviews > 0
+        assign average_rating = weighted_sum | times: 1.0 | divided_by: total_reviews | round: 1
+      else
+        assign average_rating = 0
+      endif
+      assign rounded_stars = average_rating | round
+    -%}
+
     <div class="trustreviews__header">
       <p class="trustreviews__header-title">{{ section.settings.heading }}</p>
-      <div class="trustreviews__summary">
-        <div class="trustreviews__summary-top">
-          <span class="trustreviews__star-box trustreviews__star-box--lg is-filled" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+      <div class="trustreviews__summary" data-trustreviews-summary>
+        <button type="button" class="trustreviews__summary-toggle" aria-expanded="false">
+          <span class="trustreviews__stars-text" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              {%- if i <= rounded_stars -%}★{%- else -%}☆{%- endif -%}
+            {%- endfor -%}
           </span>
-          <p class="trustreviews__score-number">{{ section.settings.average_rating }}</p>
+          <span class="trustreviews__summary-count">{{ total_reviews }} Reviews</span>
+          <span class="trustreviews__summary-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </span>
+        </button>
+
+        <div class="trustreviews__summary-panel" hidden>
+          <div class="trustreviews__summary-top">
+            <span class="trustreviews__star-box trustreviews__star-box--lg is-filled" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+            </span>
+            <p class="trustreviews__score-number">{{ average_rating }}</p>
+          </div>
+
+          <div class="trustreviews__breakdown">
+            {%- for star in (1..5) reversed -%}
+              {%- case star -%}
+                {%- when 5 -%}{%- assign count = count_5 -%}
+                {%- when 4 -%}{%- assign count = count_4 -%}
+                {%- when 3 -%}{%- assign count = count_3 -%}
+                {%- when 2 -%}{%- assign count = count_2 -%}
+                {%- when 1 -%}{%- assign count = count_1 -%}
+              {%- endcase -%}
+              {%- if total_reviews > 0 -%}
+                {%- assign fill_percent = count | times: 100 | divided_by: total_reviews -%}
+              {%- else -%}
+                {%- assign fill_percent = 0 -%}
+              {%- endif -%}
+              <div class="trustreviews__breakdown-row">
+                <span class="trustreviews__breakdown-label">{{ star }}★</span>
+                <span class="trustreviews__breakdown-bar">
+                  <span class="trustreviews__breakdown-bar-fill" style="width: {{ fill_percent }}%;"></span>
+                </span>
+                <span class="trustreviews__breakdown-count">({{ count }})</span>
+              </div>
+            {%- endfor -%}
+          </div>
         </div>
-
-        {%- assign count_5 = 0 -%}
-        {%- assign count_4 = 0 -%}
-        {%- assign count_3 = 0 -%}
-        {%- assign count_2 = 0 -%}
-        {%- assign count_1 = 0 -%}
-        {%- assign total_reviews = 0 -%}
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'review' -%}
-            {%- assign total_reviews = total_reviews | plus: 1 -%}
-            {%- case block.settings.rating -%}
-              {%- when '5' -%}{%- assign count_5 = count_5 | plus: 1 -%}
-              {%- when '4' -%}{%- assign count_4 = count_4 | plus: 1 -%}
-              {%- when '3' -%}{%- assign count_3 = count_3 | plus: 1 -%}
-              {%- when '2' -%}{%- assign count_2 = count_2 | plus: 1 -%}
-              {%- when '1' -%}{%- assign count_1 = count_1 | plus: 1 -%}
-            {%- endcase -%}
-          {%- endif -%}
-        {%- endfor -%}
-
-        <div class="trustreviews__breakdown">
-          {%- for star in (1..5) reversed -%}
-            {%- case star -%}
-              {%- when 5 -%}{%- assign count = count_5 -%}
-              {%- when 4 -%}{%- assign count = count_4 -%}
-              {%- when 3 -%}{%- assign count = count_3 -%}
-              {%- when 2 -%}{%- assign count = count_2 -%}
-              {%- when 1 -%}{%- assign count = count_1 -%}
-            {%- endcase -%}
-            {%- if total_reviews > 0 -%}
-              {%- assign fill_percent = count | times: 100 | divided_by: total_reviews -%}
-            {%- else -%}
-              {%- assign fill_percent = 0 -%}
-            {%- endif -%}
-            <div class="trustreviews__breakdown-row">
-              <span class="trustreviews__breakdown-label">{{ star }}★</span>
-              <span class="trustreviews__breakdown-bar">
-                <span class="trustreviews__breakdown-bar-fill" style="width: {{ fill_percent }}%;"></span>
-              </span>
-              <span class="trustreviews__breakdown-count">({{ count }})</span>
-            </div>
-          {%- endfor -%}
-        </div>
-
-        <p class="trustreviews__score-count">{{ section.settings.review_count }}</p>
       </div>
     </div>
 
@@ -424,6 +499,23 @@
   (function () {
     var section = document.currentScript.closest('.trustreviews-{{ section.id }}') || document.querySelector('.trustreviews-{{ section.id }}');
     if (!section) return;
+
+    var summaryToggle = section.querySelector('.trustreviews__summary-toggle');
+    var summaryPanel = section.querySelector('.trustreviews__summary-panel');
+    if (summaryToggle && summaryPanel) {
+      summaryToggle.addEventListener('click', function () {
+        var isOpen = summaryToggle.getAttribute('aria-expanded') === 'true';
+        summaryToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        summaryPanel.hidden = isOpen;
+      });
+      document.addEventListener('click', function (event) {
+        if (!section.contains(event.target)) {
+          summaryToggle.setAttribute('aria-expanded', 'false');
+          summaryPanel.hidden = true;
+        }
+      });
+    }
+
     var batchSize = parseInt(section.getAttribute('data-trustreviews-batch'), 10) || 6;
     var button = section.querySelector('.trustreviews__load-more');
     if (!button) return;
@@ -474,16 +566,38 @@
       "default": "Real reviews from real Overtake customers"
     },
     {
-      "type": "text",
-      "id": "average_rating",
-      "label": "Average rating",
-      "default": "4.8"
+      "type": "header",
+      "content": "Rating breakdown"
     },
     {
-      "type": "text",
-      "id": "review_count",
-      "label": "Review count text",
-      "default": "Based on 301 reviews"
+      "type": "number",
+      "id": "rating_5_count",
+      "label": "5-star review count",
+      "default": 260
+    },
+    {
+      "type": "number",
+      "id": "rating_4_count",
+      "label": "4-star review count",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "rating_3_count",
+      "label": "3-star review count",
+      "default": 8
+    },
+    {
+      "type": "number",
+      "id": "rating_2_count",
+      "label": "2-star review count",
+      "default": 2
+    },
+    {
+      "type": "number",
+      "id": "rating_1_count",
+      "label": "1-star review count",
+      "default": 1
     },
     {
       "type": "range",

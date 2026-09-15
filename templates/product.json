@@ -430,8 +430,11 @@
       "settings": {
         "heading": "Join 2,400+ satisfied customers",
         "subheading": "Real reviews from real Overtake customers",
-        "average_rating": "4.8",
-        "review_count": "Based on 301 reviews",
+        "rating_5_count": 260,
+        "rating_4_count": 30,
+        "rating_3_count": 8,
+        "rating_2_count": 2,
+        "rating_1_count": 1,
         "reviews_per_page": 6,
         "load_more_label": "Load more reviews",
         "color_scheme": "scheme-1",
