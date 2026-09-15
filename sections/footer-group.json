@@ -29,7 +29,7 @@
           "type": "text",
           "settings": {
             "heading": "Contact Us",
-            "subtext": "<p><a href=\"mailto:support@overtake.pt\">support@overtake.pt</a></p>"
+            "subtext": "<p>If you have any questions, don't hesitate to contact us:</p><p><a href=\"mailto:support@overtake.pt\">support@overtake.pt</a></p>"
           }
         }
       },
