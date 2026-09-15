@@ -2,6 +2,10 @@
   display: none;
 }
 
+.product__info-container .quantity__rules-cart {
+  display: none !important;
+}
+
 .trust-rating {
   display: flex;
   align-items: center;
@@ -71,8 +75,22 @@
 .product__info-container .product-form__buttons .button,
 .product__info-container .product-form__submit,
 .product__info-container .shopify-payment-button__button {
-  font-size: 1.75rem;
+  font-size: 1.9rem;
+  font-weight: 700;
   min-height: 5.5rem;
+  border-radius: 10px;
+}
+
+.product__info-container .product-form__buy-now {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.product__info-container .product-form__buy-now:hover {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #ffffff;
 }
 
 .product__info-container .quantity {

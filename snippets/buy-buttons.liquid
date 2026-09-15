@@ -94,7 +94,19 @@
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
+            <button
+              type="submit"
+              name="checkout"
+              class="product-form__submit product-form__buy-now button button--full-width"
+              {% if product.selected_or_first_available_variant.available == false
+                or quantity_rule_soldout
+                or product.selected_or_first_available_variant == null
+              %}
+                disabled
+              {% endif %}
+            >
+              Buy Now
+            </button>
           {%- endif -%}
         </div>
       {%- endform -%}
