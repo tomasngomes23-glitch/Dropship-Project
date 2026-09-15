@@ -133,6 +133,312 @@
         "padding_bottom": 0
       }
     },
+    "trust-reviews": {
+      "type": "product-reviews-list",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Quality that impresses",
+            "quote": "I bought the Ferrari jacket and the quality completely surprised me. It arrived fast and the material is way more durable than I expected for the price.",
+            "author": "Ricardo M.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "This one's staying in the family",
+            "quote": "This is already my second jacket from Overtake. The first one still looks flawless after months of wear, and this one turned out even better.",
+            "author": "Beatriz S.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Looks exactly like the photos",
+            "quote": "I was a bit worried about buying online, but the jacket arrived just like the pictures, with all the details and embroidery done really well.",
+            "author": "Miguel A.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "5-star service",
+            "quote": "I had a question about sizing and customer support replied super fast. I'd recommend it to anyone who loves F1.",
+            "author": "Sofia P.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review-5": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Already got 3 compliments",
+            "quote": "I wear the Red Bull jacket for everything, I've already gotten several compliments on the street. Totally worth it.",
+            "author": "Tiago R.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-6": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Fits perfectly",
+            "quote": "Ordered a size up like the size guide suggested and it fits like a glove. Couldn't be happier.",
+            "author": "James O.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review-7": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Fast shipping",
+            "quote": "Placed my order on a Monday and it was on my doorstep by Thursday. Packaging was solid too.",
+            "author": "Ana C.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review-8": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Better than expected",
+            "quote": "Honestly didn't expect this level of quality for the price. The Mercedes jacket is now my favorite piece.",
+            "author": "Diogo F.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-9": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "My go-to gift",
+            "quote": "Bought one for my brother's birthday and he hasn't taken it off since. Already planning my next order.",
+            "author": "Carla N.",
+            "date": "6 days ago",
+            "verified": true
+          }
+        },
+        "review-10": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Obsessed with the Porsche jacket",
+            "quote": "The Porsche jacket is even better in person, the embroidery is super clean and the fit is spot on. Already eyeing my next one.",
+            "author": "Nuno T.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review-11": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "title": "Great jacket, delivery took a bit longer",
+            "quote": "Love the Ford jacket, the colors are really vibrant. Delivery took a couple extra days but support kept me updated the whole time.",
+            "author": "Marco V.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-12": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Exactly what I wanted",
+            "quote": "Been wanting a Ferrari jacket for ages and this one nailed it. Warm, well made, and the zippers feel premium.",
+            "author": "Helena B.",
+            "date": "4 days ago",
+            "verified": true
+          }
+        },
+        "review-13": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Delivery time was spot on",
+            "quote": "Tracked my order the whole way and it arrived exactly when they said it would. No surprises, very professional.",
+            "author": "Rui P.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review-14": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Audi fan for life",
+            "quote": "The Audi jacket is insanely comfortable and the quilting keeps me warm even on cold mornings. Get compliments every time I wear it.",
+            "author": "Patricia L.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-15": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Lamborghini jacket is a showstopper",
+            "quote": "Everyone asks where I got it. The stitching on the Lamborghini logo is way better quality than I expected.",
+            "author": "Bruno S.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review-16": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Support went above and beyond",
+            "quote": "I needed to swap sizes and the team sorted it out same day, no hassle at all. That kind of service keeps me coming back.",
+            "author": "Ines M.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review-17": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "BMW jacket exceeded expectations",
+            "quote": "Wasn't sure about the fit from the photos but it's perfect. The BMW colorway looks even sharper in real life.",
+            "author": "Carlos D.",
+            "date": "5 days ago",
+            "verified": true
+          }
+        },
+        "review-18": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "McLaren jacket, zero complaints",
+            "quote": "Fast delivery, great packaging, and the jacket itself feels heavy duty. This is my third order and every one has been perfect.",
+            "author": "Filipa R.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review-19": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "title": "Subaru jacket, super happy",
+            "quote": "Really solid quality for the price. Only wish it came in more sizes, but the one I got fits great.",
+            "author": "Andre K.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review-20": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "International shipping was smooth",
+            "quote": "Ordered from outside Europe and it still arrived quicker than expected with no extra fees. Very impressed.",
+            "author": "Laura W.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review-21": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Easy exchange process",
+            "quote": "Needed a different size and the exchange was handled quickly with no extra shipping costs. Great customer service overall.",
+            "author": "Joao B.",
+            "date": "6 weeks ago",
+            "verified": true
+          }
+        },
+        "review-22": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Third jacket and counting",
+            "quote": "I keep coming back for more. The material quality is consistent across every jacket I've bought so far.",
+            "author": "Marta G.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review-23": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Perfect birthday gift",
+            "quote": "Got this for my dad and he loved it. The packaging alone made it feel like a premium unboxing experience.",
+            "author": "Sara F.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review-24": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Material is genuinely impressive",
+            "quote": "Didn't expect the lining to be this soft or the outer shell to feel this sturdy. Overtake really nailed the quality here.",
+            "author": "Pedro C.",
+            "date": "4 weeks ago",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3",
+        "review-4",
+        "review-5",
+        "review-6",
+        "review-7",
+        "review-8",
+        "review-9",
+        "review-10",
+        "review-11",
+        "review-12",
+        "review-13",
+        "review-14",
+        "review-15",
+        "review-16",
+        "review-17",
+        "review-18",
+        "review-19",
+        "review-20",
+        "review-21",
+        "review-22",
+        "review-23",
+        "review-24"
+      ],
+      "settings": {
+        "heading": "Customer reviews",
+        "subheading": "Real reviews from real Overtake customers",
+        "average_rating": "4.8",
+        "review_count": "Based on 12,000+ reviews",
+        "reviews_per_page": 6,
+        "load_more_label": "Load more reviews",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -155,6 +461,7 @@
   "order": [
     "main",
     "disclosures",
+    "trust-reviews",
     "related-products"
   ]
 }

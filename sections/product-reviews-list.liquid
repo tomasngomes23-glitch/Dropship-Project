@@ -1,0 +1,472 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin: 0 0 2.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__header-title {
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__header-sub {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(var(--color-foreground), 0.65);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-number {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-stars {
+    color: #d92133;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-count {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: rgba(var(--color-foreground), 0.65);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .trustreviews-{{ section.id }} .trustreviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .trustreviews-{{ section.id }} .trustreviews__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card {
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    background: rgb(var(--color-background));
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card[hidden] {
+    display: none;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__avatar {
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: rgba(217, 33, 51, 0.1);
+    color: #d92133;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.15rem;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__identity {
+    min-width: 0;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__author {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0.15rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__verified svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: #1a8a1a;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars {
+    color: #d92133;
+    letter-spacing: 0.08em;
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__title {
+    font-weight: 800;
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__quote {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+    color: rgba(var(--color-foreground), 0.85);
+    flex-grow: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 0 1rem;
+    background: rgba(var(--color-foreground), 0.05);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px dashed rgba(var(--color-foreground), 0.25);
+    border-radius: 8px;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: rgba(var(--color-foreground), 0.4);
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__date {
+    font-size: 0.78rem;
+    color: rgba(var(--color-foreground), 0.5);
+    margin: 0;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__footer {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__load-more {
+    cursor: pointer;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding trustreviews trustreviews-{{ section.id }}" data-trustreviews-batch="{{ section.settings.reviews_per_page }}">
+    <div class="trustreviews__header">
+      <div>
+        <p class="trustreviews__header-title">{{ section.settings.heading }}</p>
+        <p class="trustreviews__header-sub">{{ section.settings.subheading }}</p>
+      </div>
+      <div class="trustreviews__score">
+        <p class="trustreviews__score-number">{{ section.settings.average_rating }}</p>
+        <div>
+          <div class="trustreviews__score-stars" aria-hidden="true">★★★★★</div>
+          <p class="trustreviews__score-count">{{ section.settings.review_count }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trustreviews__grid">
+      {%- assign visible_count = section.settings.reviews_per_page -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div
+            class="trustreviews__card"
+            {% if forloop.index > visible_count %}hidden{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.photo != blank -%}
+              <div class="trustreviews__photo">
+                <img
+                  src="{{ block.settings.photo | image_url: width: 500 }}"
+                  alt="{{ block.settings.photo.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.photo.width }}"
+                  height="{{ block.settings.photo.height }}"
+                >
+              </div>
+            {%- elsif block.settings.show_photo_placeholder -%}
+              <div class="trustreviews__photo-placeholder">[PLACEHOLDER — customer photo]</div>
+            {%- endif -%}
+
+            <div class="trustreviews__card-top">
+              <div class="trustreviews__avatar" aria-hidden="true">{{ block.settings.author | slice: 0 }}</div>
+              <div class="trustreviews__identity">
+                <p class="trustreviews__author">{{ block.settings.author | default: '[Customer name]' }}</p>
+                {%- if block.settings.verified -%}
+                  <p class="trustreviews__verified">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+                    Verified purchase
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="trustreviews__stars" aria-hidden="true">
+              {%- assign stars = block.settings.rating | times: 1 -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <p class="trustreviews__title">{{ block.settings.title }}</p>
+            {%- endif -%}
+
+            <p class="trustreviews__quote">{{ block.settings.quote | default: '[PLACEHOLDER — real customer review]' }}</p>
+            <p class="trustreviews__date">{{ block.settings.date }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="trustreviews__footer">
+      <button type="button" class="button button--secondary trustreviews__load-more">
+        {{ section.settings.load_more_label }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.currentScript.closest('.trustreviews-{{ section.id }}') || document.querySelector('.trustreviews-{{ section.id }}');
+    if (!section) return;
+    var batchSize = parseInt(section.getAttribute('data-trustreviews-batch'), 10) || 6;
+    var button = section.querySelector('.trustreviews__load-more');
+    if (!button) return;
+
+    function revealNextBatch() {
+      var hiddenCards = section.querySelectorAll('.trustreviews__card[hidden]');
+      if (!hiddenCards.length) {
+        button.hidden = true;
+        return;
+      }
+      for (var i = 0; i < Math.min(batchSize, hiddenCards.length); i++) {
+        hiddenCards[i].removeAttribute('hidden');
+      }
+      if (section.querySelectorAll('.trustreviews__card[hidden]').length === 0) {
+        button.hidden = true;
+      }
+    }
+
+    if (section.querySelectorAll('.trustreviews__card[hidden]').length === 0) {
+      button.hidden = true;
+    }
+
+    button.addEventListener('click', revealNextBatch);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Trust reviews list",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Title",
+      "default": "Customer reviews"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subtitle",
+      "default": "Real reviews from real Overtake customers"
+    },
+    {
+      "type": "text",
+      "id": "average_rating",
+      "label": "Average rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count text",
+      "default": "Based on 12,000+ reviews"
+    },
+    {
+      "type": "range",
+      "id": "reviews_per_page",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "label": "Reviews shown per page/click",
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Load more button text",
+      "default": "Load more reviews"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Customer photo (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_photo_placeholder",
+          "label": "Show empty photo placeholder if no photo is set",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "Stars",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "[PLACEHOLDER — short title]"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text",
+          "default": "[PLACEHOLDER — real customer review]"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer name",
+          "default": "[Customer name]"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date text",
+          "default": "[PLACEHOLDER — e.g. 2 weeks ago]"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show \"Verified purchase\" badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust reviews list",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
