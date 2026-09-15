@@ -1,0 +1,141 @@
+.footer__blocks-wrapper > .footer-block--brand {
+  flex: 1 0 100%;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  order: -1;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__brand-info {
+  align-items: center;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
+  margin: 0 auto 1rem;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper img {
+  filter: invert(1);
+}
+
+.footer__column--social {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .footer__column--social {
+    justify-content: flex-start;
+  }
+
+  /* Size non-brand footer columns to their content and give them equal
+     gaps, instead of stretching to equal-width columns (which leaves
+     uneven visual gaps since each column's content is a different length).
+     Left-aligned (not centered) so the newsletter block sits at the left
+     edge, matching the reference layout. */
+  .footer__blocks-wrapper {
+    justify-content: space-between;
+    gap: 6rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }
+}
+
+/* Slightly larger logo */
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
+  max-width: min(100%, 190px) !important;
+}
+
+.footer-block__heading {
+  font-size: 2rem !important;
+}
+
+.footer-block__details-content,
+.footer-block__details-content a,
+.footer__list-social,
+.footer-block__brand-info,
+.footer__localization,
+.footer__copyright,
+.footer__column--info {
+  font-size: 0.9rem;
+}
+
+.footer-block__details-content p {
+  font-size: 1.4rem;
+}
+
+.footer-block__details-content p a {
+  font-size: 1.4rem;
+}
+
+.footer-block__newsletter .footer-block__heading {
+  font-size: 2.6rem !important;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.footer-block__newsletter-subtext {
+  font-size: 1.55rem;
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0 0 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  /* Give the newsletter/email column more visual weight and push the
+     other three columns slightly further to the side to balance it. */
+  .footer__blocks-wrapper > .footer-block--newsletter-col {
+    flex: 0 0 auto;
+    min-width: 360px;
+    max-width: 420px;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .footer__newsletter {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .newsletter-form__field-wrapper {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper {
+    gap: 6rem 4rem;
+  }
+
+  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand):not(.footer-block--newsletter-col) {
+    margin-left: 1.5rem;
+  }
+}
+
+/* Stack Country/region, payment icons and copyright as a single
+   left-aligned column, matching the reference layout. */
+.footer__content-bottom-wrapper--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column {
+  width: auto;
+  align-items: flex-start;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__localization {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column--info {
+  align-items: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__copyright {
+  text-align: left !important;
+  margin-top: 0;
+}

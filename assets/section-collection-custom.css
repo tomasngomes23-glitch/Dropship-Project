@@ -1,0 +1,36 @@
+.collection-hero__inner {
+  align-items: center;
+  text-align: center;
+}
+
+.collection-hero__text-wrapper {
+  margin: 0 auto;
+}
+
+.collection-hero__title {
+  margin: 3rem 0 0.75rem;
+}
+
+.collection-hero__title.h0 {
+  font-size: calc(var(--font-heading-scale) * 6.4rem);
+}
+
+@media screen and (min-width: 750px) {
+  .collection-hero__title.h0 {
+    font-size: calc(var(--font-heading-scale) * 9.6rem);
+  }
+}
+
+.collection-hero__description {
+  margin: 0 auto;
+}
+
+.card__media {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card__media img,
+.card__media svg {
+  transform: scale(1.05);
+}
