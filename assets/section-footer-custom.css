@@ -36,7 +36,7 @@
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
     justify-content: space-between;
-    gap: 4rem;
+    gap: 6rem;
     flex-wrap: wrap;
   }
 
@@ -53,7 +53,7 @@
 }
 
 .footer-block__heading {
-  font-size: 1.45rem !important;
+  font-size: 2rem !important;
 }
 
 .footer-block__details-content,
@@ -70,8 +70,12 @@
   font-size: 1.4rem;
 }
 
+.footer-block__details-content p a {
+  font-size: 1.4rem;
+}
+
 .footer-block__newsletter .footer-block__heading {
-  font-size: 1.45rem !important;
+  font-size: 2rem !important;
   font-weight: 800;
   margin-bottom: 0.35rem;
 }
