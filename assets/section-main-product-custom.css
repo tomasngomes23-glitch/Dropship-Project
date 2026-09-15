@@ -167,15 +167,16 @@
 
 .product-popup-modal--image-only .product-popup-modal__content {
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
   top: 50%;
   margin-top: 0;
   transform: translate(-50%, -50%) scale(0.96);
   opacity: 0;
   width: auto;
   height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 85vw;
+  max-height: 85vh;
+  max-height: 85dvh;
 }
 
 .product-popup-modal--image-only.product-popup-modal[open] .product-popup-modal__content {
@@ -194,8 +195,9 @@
   display: block;
   width: auto;
   height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 85vw;
+  max-height: 85vh;
+  max-height: 85dvh;
   min-height: 0;
   min-width: 0;
   object-fit: contain;

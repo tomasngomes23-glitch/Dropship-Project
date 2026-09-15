@@ -36,7 +36,7 @@
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
     justify-content: space-between;
-    gap: 2rem;
+    gap: 4rem;
     flex-wrap: wrap;
   }
 
