@@ -21,20 +21,28 @@
     flex: 1 1 auto;
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-family: var(--font-heading-family);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground));
+    text-decoration: none;
   }
 
-  .drawer__logo img {
-    display: block;
-    max-height: 32px;
-    width: auto;
+  .drawer__header {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
   }
 
   .cart-drawer__promo {
     background: #111111;
     color: #ffffff;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    letter-spacing: 0.01em;
     padding: 1rem 1.5rem;
   }
 
@@ -167,18 +175,7 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        {%- if settings.logo != blank -%}
-          <a href="{{ routes.root_url }}" class="drawer__logo">
-            <img
-              src="{{ settings.logo | image_url: width: 200 }}"
-              alt="{{ shop.name }}"
-              width="{{ settings.logo_width }}"
-              height="{{ settings.logo_width | divided_by: settings.logo.aspect_ratio }}"
-            >
-          </a>
-        {%- else -%}
-          <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
-        {%- endif -%}
+        <a href="{{ routes.root_url }}" class="drawer__logo">{{ shop.name }}</a>
         <button
           class="drawer__close"
           type="button"
@@ -219,13 +216,13 @@
               class="cart-drawer__progress-fill"
               data-progress-fill
               data-target="{{ shipping_percent }}"
-              style="width: 0%;"
+              style="width: {{ shipping_percent }}%;"
             ></div>
             <div
               class="cart-drawer__progress-icon"
               data-progress-icon
               data-target="{{ shipping_percent }}"
-              style="left: 0%;"
+              style="left: {{ shipping_percent }}%;"
             >
               <svg viewbox="0 0 24 24" aria-hidden="true">
                 <path d="M3 8l9-5 9 5-9 5-9-5z"></path>

@@ -49,7 +49,12 @@
         <div class="complete-look" data-complete-look data-variant-id="{{ look_variant.id }}">
           <label class="complete-look__row">
             <span class="complete-look__checkbox-wrap">
-              <input type="checkbox" class="complete-look__checkbox" data-complete-look-checkbox>
+              <input type="checkbox" class="complete-look__checkbox-input" data-complete-look-checkbox>
+              <span class="complete-look__checkbox" aria-hidden="true">
+                <svg class="complete-look__check-icon" viewbox="0 0 16 16">
+                  <path d="M3 8.5l3 3 7-7"></path>
+                </svg>
+              </span>
             </span>
             <span class="complete-look__image">
               <img

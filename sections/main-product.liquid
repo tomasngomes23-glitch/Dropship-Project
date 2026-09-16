@@ -539,7 +539,9 @@
                       {%- assign trust_stars = block.settings.rating | times: 1 -%}
                       {%- for star_i in (1..5) -%}
                         <span class="trust-rating__star{% unless star_i <= trust_stars %} trust-rating__star--empty{% endunless %}">
-                          {{- 'icon-star.svg' | inline_asset_content -}}
+                          <svg viewbox="0 0 20 19" aria-hidden="true">
+                            <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path>
+                          </svg>
                         </span>
                       {%- endfor -%}
                     </span>
