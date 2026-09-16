@@ -230,6 +230,35 @@
     font-weight: 800;
     letter-spacing: 0.08em;
   }
+
+  .welcome-popup-tab {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 999;
+    transform: translateY(-50%) translateX(-100%);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    padding: 1.5rem 0.9rem;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .welcome-popup-tab.is-visible {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .welcome-popup-tab span {
+    display: block;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
 </style>
 
 <div class="welcome-popup-overlay" id="WelcomePopup" role="dialog" aria-modal="true" aria-labelledby="WelcomePopupHeading" hidden>
@@ -299,6 +328,10 @@
   </div>
 </div>
 
+<button type="button" class="welcome-popup-tab" id="WelcomePopupTab" aria-label="Ver desconto de 10%">
+  <span>10% OFF</span>
+</button>
+
 <script>
   (function () {
     var STORAGE_KEY = 'overtakeWelcomePopupDismissed';
@@ -309,6 +342,7 @@
     var declineButton = document.getElementById('WelcomePopupDecline');
     var formWrapper = document.getElementById('WelcomePopupForm');
     var successWrapper = document.getElementById('WelcomePopupSuccess');
+    var tab = document.getElementById('WelcomePopupTab');
 
     function alreadyDismissed() {
       try {
@@ -316,6 +350,14 @@
       } catch (e) {
         return false;
       }
+    }
+
+    function showTab() {
+      if (tab) tab.classList.add('is-visible');
+    }
+
+    function hideTab() {
+      if (tab) tab.classList.remove('is-visible');
     }
 
     function dismiss() {
@@ -326,16 +368,20 @@
       try {
         window.localStorage.setItem(STORAGE_KEY, 'true');
       } catch (e) {}
+      showTab();
     }
 
     function show() {
+      hideTab();
       overlay.hidden = false;
       requestAnimationFrame(function () {
         overlay.classList.add('is-visible');
       });
     }
 
-    if (!alreadyDismissed()) {
+    if (alreadyDismissed()) {
+      showTab();
+    } else {
       setTimeout(show, 2500);
     }
 
@@ -347,6 +393,10 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && overlay.classList.contains('is-visible')) dismiss();
     });
+
+    if (tab) {
+      tab.addEventListener('click', show);
+    }
 
     {%- if popup_posted_successfully -%}
       formWrapper.hidden = true;
