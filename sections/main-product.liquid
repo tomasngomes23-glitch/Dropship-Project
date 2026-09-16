@@ -538,7 +538,9 @@
                     <span class="trust-rating__stars" aria-hidden="true">
                       {%- assign trust_stars = block.settings.rating | times: 1 -%}
                       {%- for star_i in (1..5) -%}
-                        {%- if star_i <= trust_stars -%}★{%- else -%}☆{%- endif -%}
+                        <span class="trust-rating__star{% unless star_i <= trust_stars %} trust-rating__star--empty{% endunless %}">
+                          {{- 'icon-star.svg' | inline_asset_content -}}
+                        </span>
                       {%- endfor -%}
                     </span>
                     <span class="trust-rating__text">

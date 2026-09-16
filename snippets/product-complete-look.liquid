@@ -42,45 +42,38 @@
     -%}
     {%- if chosen_product != blank -%}
       {%- assign look_variant = chosen_product.selected_or_first_available_variant -%}
-      <div
-        class="complete-look"
-        data-complete-look
-        data-variant-id="{{ look_variant.id }}"
-        {{ block.shopify_attributes }}
-      >
-        {%- if block.settings.heading != blank or block.settings.subtext != blank -%}
-          <div class="complete-look__header">
-            {%- if block.settings.heading != blank -%}
-              <p class="complete-look__heading">{{ block.settings.heading }}</p>
-            {%- endif -%}
-            {%- if block.settings.subtext != blank -%}
-              <p class="complete-look__subtext">{{ block.settings.subtext }}</p>
-            {%- endif -%}
-          </div>
+      <div class="complete-look-wrap" {{ block.shopify_attributes }}>
+        {%- if block.settings.heading != blank -%}
+          <p class="complete-look__heading">{{ block.settings.heading }}</p>
         {%- endif -%}
-        <label class="complete-look__row">
-          <span class="complete-look__checkbox-wrap">
-            <input type="checkbox" class="complete-look__checkbox" data-complete-look-checkbox>
-          </span>
-          <span class="complete-look__image">
-            <img
-              src="{{ chosen_product.featured_image | image_url: width: 160 }}"
-              alt="{{ chosen_product.featured_image.alt | escape }}"
-              loading="lazy"
-              width="64"
-              height="64"
-            >
-          </span>
-          <span class="complete-look__info">
-            <span class="complete-look__title">{{ chosen_product.title | escape }}</span>
-            <span class="complete-look__price">
-              {{ look_variant.price | money }}
-              {%- if look_variant.compare_at_price > look_variant.price -%}
-                <s class="complete-look__price-compare">{{ look_variant.compare_at_price | money }}</s>
-              {%- endif -%}
+        <div class="complete-look" data-complete-look data-variant-id="{{ look_variant.id }}">
+          <label class="complete-look__row">
+            <span class="complete-look__checkbox-wrap">
+              <input type="checkbox" class="complete-look__checkbox" data-complete-look-checkbox>
             </span>
-          </span>
-        </label>
+            <span class="complete-look__image">
+              <img
+                src="{{ chosen_product.featured_image | image_url: width: 160 }}"
+                alt="{{ chosen_product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="64"
+                height="64"
+              >
+            </span>
+            <span class="complete-look__info">
+              <span class="complete-look__title">{{ chosen_product.title | escape }}</span>
+              {%- if block.settings.subtext != blank -%}
+                <span class="complete-look__subtext">{{ block.settings.subtext }}</span>
+              {%- endif -%}
+              <span class="complete-look__price">
+                {%- if look_variant.compare_at_price > look_variant.price -%}
+                  <s class="complete-look__price-compare">{{ look_variant.compare_at_price | money }}</s>
+                {%- endif -%}
+                {{ look_variant.price | money }}
+              </span>
+            </span>
+          </label>
+        </div>
       </div>
       <script src="{{ 'product-complete-look.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}

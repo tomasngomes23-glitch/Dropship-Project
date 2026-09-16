@@ -10,10 +10,23 @@
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'cart-drawer-progress.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
     visibility: hidden;
+  }
+
+  .drawer__logo {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .drawer__logo img {
+    display: block;
+    max-height: 32px;
+    width: auto;
   }
 
   .cart-drawer__promo {
@@ -23,6 +36,16 @@
     font-size: 1.3rem;
     font-weight: 700;
     padding: 1rem 1.5rem;
+  }
+
+  .cart-drawer__savings {
+    margin: 0;
+    padding: 0.9rem 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a7a3c;
+    background: rgba(26, 122, 60, 0.08);
   }
 
   .cart-drawer__shipping-bar {
@@ -47,17 +70,22 @@
 
   .cart-drawer__progress {
     position: relative;
-    height: 6px;
+    height: 8px;
     margin: 0 1.4rem 1.6rem;
     border-radius: 999px;
-    background: rgba(var(--color-foreground), 0.1);
+    background: rgba(var(--color-foreground), 0.12);
+    overflow: hidden;
   }
 
   .cart-drawer__progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
+    min-width: 8px;
     border-radius: 999px;
-    background: #d92133;
-    transition: width 0.4s ease;
+    background: linear-gradient(90deg, #e63c4f, #b3101f);
+    transition: width 0.6s ease;
   }
 
   .cart-drawer__progress-icon {
@@ -72,7 +100,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 10px -2px rgba(217, 33, 51, 0.6);
-    transition: left 0.4s ease;
+    transition: left 0.6s ease;
   }
 
   .cart-drawer__progress-icon svg {
@@ -139,7 +167,18 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+        {%- if settings.logo != blank -%}
+          <a href="{{ routes.root_url }}" class="drawer__logo">
+            <img
+              src="{{ settings.logo | image_url: width: 200 }}"
+              alt="{{ shop.name }}"
+              width="{{ settings.logo_width }}"
+              height="{{ settings.logo_width | divided_by: settings.logo.aspect_ratio }}"
+            >
+          </a>
+        {%- else -%}
+          <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+        {%- endif -%}
         <button
           class="drawer__close"
           type="button"
@@ -160,7 +199,11 @@
           if shipping_percent > 100
             assign shipping_percent = 100
           endif
+          assign cart_savings = cart.original_total_price | minus: cart.total_price
         -%}
+        {%- if cart_savings > 0 -%}
+          <p class="cart-drawer__savings">You're saving {{ cart_savings | money }} on this order!</p>
+        {%- endif -%}
         <div class="cart-drawer__shipping-bar">
           {%- if shipping_remaining > 0 -%}
             <p class="cart-drawer__shipping-text">
@@ -172,8 +215,18 @@
             </p>
           {%- endif -%}
           <div class="cart-drawer__progress">
-            <div class="cart-drawer__progress-fill" style="width: {{ shipping_percent }}%;"></div>
-            <div class="cart-drawer__progress-icon" style="left: {{ shipping_percent }}%;">
+            <div
+              class="cart-drawer__progress-fill"
+              data-progress-fill
+              data-target="{{ shipping_percent }}"
+              style="width: 0%;"
+            ></div>
+            <div
+              class="cart-drawer__progress-icon"
+              data-progress-icon
+              data-target="{{ shipping_percent }}"
+              style="left: 0%;"
+            >
               <svg viewbox="0 0 24 24" aria-hidden="true">
                 <path d="M3 8l9-5 9 5-9 5-9-5z"></path>
                 <path d="M3 8v8l9 5 9-5V8"></path>
