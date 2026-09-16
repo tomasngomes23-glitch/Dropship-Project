@@ -245,7 +245,7 @@
           "settings": {
             "heading": "How long does shipping take?",
             "icon": "truck",
-            "row_content": "<p>Orders are processed within 1-2 business days. Delivery takes 3-5 business days within Portugal and 5-10 business days for the rest of Europe. You'll get a shipping confirmation email as soon as your order is on its way.</p>"
+            "row_content": "<p>Orders are processed within 1-2 business days. Delivery takes 3-5 business days within Portugal and 5-10 business days for the rest of Europe. You'll get a shipping confirmation email as soon as your order is on its way. Full details on our <a href=\"/pages/shipping-policy\">Shipping Policy</a> page.</p>"
           }
         },
         "faq-tracking": {
@@ -253,7 +253,7 @@
           "settings": {
             "heading": "How do I track my order?",
             "icon": "box",
-            "row_content": "<p>As soon as your order ships, we'll email you a tracking number and a link so you can follow your package every step of the way. You can also track your order anytime from our Track Your Order page.</p>"
+            "row_content": "<p>As soon as your order ships, we'll email you a tracking number and a link so you can follow your package every step of the way. You can also track your order anytime from our <a href=\"/pages/track-your-order\">Track Your Order</a> page.</p>"
           }
         },
         "faq-returns": {
@@ -261,7 +261,7 @@
           "settings": {
             "heading": "Can I return or exchange?",
             "icon": "return",
-            "row_content": "<p>Yes! We accept returns and exchanges within 14 days of delivery, as long as the item is unused, unworn and in its original packaging. Email us at support@overtake.pt and we'll walk you through the process.</p>"
+            "row_content": "<p>Yes! We accept returns and exchanges within 14 days of delivery, as long as the item is unused, unworn and in its original packaging. See our full <a href=\"/pages/refund-policy\">Refund Policy</a> or email us at <a href=\"mailto:support@overtake.pt\">support@overtake.pt</a> and we'll walk you through the process.</p>"
           }
         },
         "faq-sizing": {
@@ -269,7 +269,7 @@
           "settings": {
             "heading": "How do I choose the right size?",
             "icon": "ruler",
-            "row_content": "<p>Check the size chart on each product page for detailed measurements. If you're between sizes, we recommend sizing up for a more relaxed, oversized fit. Still unsure? Reach out and our team will help you pick the right size.</p>"
+            "row_content": "<p>Check the size chart on each product page, or our full <a href=\"/pages/size-guide\">Size Guide</a>, for detailed measurements. If you're between sizes, we recommend sizing up for a more relaxed, oversized fit. Still unsure? <a href=\"/pages/contact-us\">Reach out</a> and our team will help you pick the right size.</p>"
           }
         }
       },
