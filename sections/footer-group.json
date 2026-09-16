@@ -37,8 +37,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
-        "newsletter_heading": "Get first access",
-        "newsletter_subtext": "Join the Overtake team and get 10% on your first order",
+        "newsletter_heading": "Join the Team",
+        "newsletter_subtext": "Get exclusive updates and a 10% discount on your first order",
         "enable_follow_on_shop": true,
         "show_social": false,
         "enable_country_selector": true,
