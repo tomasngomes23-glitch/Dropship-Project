@@ -239,9 +239,17 @@
             "icon": "ruler",
             "row_content": "<p>Check the size chart on each product page, or our full <a href=\"/pages/size-guide\">Size Guide</a>, for detailed measurements. If you're between sizes, we recommend sizing up for a more relaxed, oversized fit. Still unsure? <a href=\"/pages/contact-us\">Reach out</a> and our team will help you pick the right size.</p>"
           }
+        },
+        "faq-payment": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "icon": "price_tag",
+            "row_content": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express) through our secure checkout. If you run into any issues completing your payment, <a href=\"/pages/contact-us\">reach out</a> and we'll help you sort it out.</p>"
+          }
         }
       },
-      "block_order": ["faq-shipping", "faq-tracking", "faq-returns", "faq-sizing"],
+      "block_order": ["faq-shipping", "faq-tracking", "faq-returns", "faq-sizing", "faq-payment"],
       "settings": {
         "caption": "",
         "heading": "Frequently asked questions",
@@ -261,8 +269,8 @@
   "order": [
     "hero_banner",
     "best_sellers",
-    "photo_reviews",
     "comparison",
+    "photo_reviews",
     "faq"
   ]
 }
