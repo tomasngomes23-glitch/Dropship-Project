@@ -117,7 +117,7 @@
   .comparison__image-inner {
     position: relative;
     z-index: 1;
-    transform: scale(1.15);
+    transform: scale(1.28);
     transform-origin: center 42%;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
@@ -346,8 +346,8 @@
     var inner = section.querySelector('.comparison__image-inner');
     if (!outer || !inner) return;
 
-    var maxTilt = 9;
-    var baseScale = 'scale(1.15) ';
+    var maxTilt = 12;
+    var baseScale = 'scale(1.28) ';
 
     outer.addEventListener('mousemove', function (event) {
       var rect = outer.getBoundingClientRect();
