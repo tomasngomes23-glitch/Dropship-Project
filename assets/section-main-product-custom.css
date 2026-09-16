@@ -15,10 +15,13 @@
 }
 
 .trust-rating__stars {
+  display: inline-block;
   color: #d92133;
   letter-spacing: 0.05em;
   font-size: 1.45rem;
   line-height: 1;
+  position: relative;
+  top: 0.1em;
 }
 
 .trust-rating__text {
