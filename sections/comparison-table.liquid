@@ -120,9 +120,14 @@
     }
   }
 
-  .comparison__image-inner {
+  .comparison__image-frame {
     position: relative;
     z-index: 1;
+    overflow: hidden;
+  }
+
+  .comparison__image-inner {
+    position: relative;
     transform: scale(1.32);
     transform-origin: center 42%;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -317,30 +322,32 @@
 
     <div class="comparison__layout">
       <div class="comparison__image-wrap" data-comparison-tilt>
-        <div class="comparison__image-inner">
-          {%- if section.settings.showcase_image != blank -%}
-            <img
-              class="comparison__image"
-              src="{{ section.settings.showcase_image | image_url: width: 1200 }}"
-              alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
-              width="{{ section.settings.showcase_image.width }}"
-              height="{{ section.settings.showcase_image.height }}"
-              loading="lazy"
-            >
-          {%- endif -%}
-
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'detail' -%}
-              <button
-                type="button"
-                class="comparison__marker"
-                style="top: {{ block.settings.position_top }}%; left: {{ block.settings.position_left }}%;"
-                data-marker-index="{{ forloop.index }}"
-                aria-label="{{ block.settings.heading | escape }}"
-                {{ block.shopify_attributes }}
-              >{{ forloop.index }}</button>
+        <div class="comparison__image-frame">
+          <div class="comparison__image-inner">
+            {%- if section.settings.showcase_image != blank -%}
+              <img
+                class="comparison__image"
+                src="{{ section.settings.showcase_image | image_url: width: 1200 }}"
+                alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
+                width="{{ section.settings.showcase_image.width }}"
+                height="{{ section.settings.showcase_image.height }}"
+                loading="lazy"
+              >
             {%- endif -%}
-          {%- endfor -%}
+
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'detail' -%}
+                <button
+                  type="button"
+                  class="comparison__marker"
+                  style="top: {{ block.settings.position_top }}%; left: {{ block.settings.position_left }}%;"
+                  data-marker-index="{{ forloop.index }}"
+                  aria-label="{{ block.settings.heading | escape }}"
+                  {{ block.shopify_attributes }}
+                >{{ forloop.index }}</button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
         </div>
       </div>
 
