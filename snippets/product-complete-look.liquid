@@ -1,7 +1,9 @@
 {% comment %}
   Renders a "Complete the Look" upsell card offering one other jacket
   (picked pseudo-randomly from a collection, excluding the current
-  product). Checking the box adds it to the cart right away.
+  product). Checking the box does not add anything by itself: when the
+  shopper hits the page's main "Add to cart" button, this product is
+  bundled into that same cart request alongside the current product.
   Accepts:
   - block: {Object} the complete_the_look block
 
@@ -40,51 +42,47 @@
     -%}
     {%- if chosen_product != blank -%}
       {%- assign look_variant = chosen_product.selected_or_first_available_variant -%}
-      <div class="complete-look" {{ block.shopify_attributes }}>
-        {%- if block.settings.heading != blank -%}
-          <p class="complete-look__heading">{{ block.settings.heading }}</p>
+      <div
+        class="complete-look"
+        data-complete-look
+        data-variant-id="{{ look_variant.id }}"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.heading != blank or block.settings.subtext != blank -%}
+          <div class="complete-look__header">
+            {%- if block.settings.heading != blank -%}
+              <p class="complete-look__heading">{{ block.settings.heading }}</p>
+            {%- endif -%}
+            {%- if block.settings.subtext != blank -%}
+              <p class="complete-look__subtext">{{ block.settings.subtext }}</p>
+            {%- endif -%}
+          </div>
         {%- endif -%}
-        {%- if block.settings.subtext != blank -%}
-          <p class="complete-look__subtext">{{ block.settings.subtext }}</p>
-        {%- endif -%}
-        {%- form 'product', chosen_product, class: 'complete-look__form' -%}
-          <input type="hidden" name="id" value="{{ look_variant.id }}">
-          <input type="hidden" name="return_to" value="{{ request.path }}">
-          <label class="complete-look__row">
+        <label class="complete-look__row">
+          <span class="complete-look__checkbox-wrap">
             <input type="checkbox" class="complete-look__checkbox" data-complete-look-checkbox>
-            <span class="complete-look__image">
-              <img
-                src="{{ chosen_product.featured_image | image_url: width: 160 }}"
-                alt="{{ chosen_product.featured_image.alt | escape }}"
-                loading="lazy"
-                width="64"
-                height="64"
-              >
+          </span>
+          <span class="complete-look__image">
+            <img
+              src="{{ chosen_product.featured_image | image_url: width: 160 }}"
+              alt="{{ chosen_product.featured_image.alt | escape }}"
+              loading="lazy"
+              width="64"
+              height="64"
+            >
+          </span>
+          <span class="complete-look__info">
+            <span class="complete-look__title">{{ chosen_product.title | escape }}</span>
+            <span class="complete-look__price">
+              {{ look_variant.price | money }}
+              {%- if look_variant.compare_at_price > look_variant.price -%}
+                <s class="complete-look__price-compare">{{ look_variant.compare_at_price | money }}</s>
+              {%- endif -%}
             </span>
-            <span class="complete-look__info">
-              <span class="complete-look__title">{{ chosen_product.title | escape }}</span>
-              <span class="complete-look__price">
-                {{ look_variant.price | money }}
-                {%- if look_variant.compare_at_price > look_variant.price -%}
-                  <s class="complete-look__price-compare">{{ look_variant.compare_at_price | money }}</s>
-                {%- endif -%}
-              </span>
-            </span>
-          </label>
-        {%- endform -%}
+          </span>
+        </label>
       </div>
-      <script>
-        (function () {
-          var scripts = document.querySelectorAll('[data-complete-look-checkbox]');
-          var checkbox = scripts[scripts.length - 1];
-          if (!checkbox) return;
-          checkbox.addEventListener('change', function () {
-            if (!checkbox.checked) return;
-            var form = checkbox.closest('form');
-            if (form) form.submit();
-          });
-        })();
-      </script>
+      <script src="{{ 'product-complete-look.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   {%- endif -%}
 {%- endif -%}

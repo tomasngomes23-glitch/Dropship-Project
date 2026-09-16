@@ -388,49 +388,65 @@
 }
 
 .complete-look {
-  margin: 1.25rem 0 !important;
-  padding: 1.25rem 1.4rem;
-  border: 1px solid rgba(var(--color-foreground), 0.14);
-  border-radius: 16px;
+  margin: 1.5rem 0 !important;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 14px;
   background: rgb(var(--color-background));
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.complete-look:has(.complete-look__checkbox:checked) {
+  border-color: #d92133;
+  box-shadow: 0 0 0 1px #d92133;
+}
+
+.complete-look__header {
+  padding: 0.9rem 1.1rem 0;
 }
 
 .complete-look__heading {
   margin: 0;
-  font-weight: 800;
-  font-size: 1.05rem;
-  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .complete-look__subtext {
-  margin: 0.2rem 0 1rem;
-  font-size: 0.85rem;
-  text-align: center;
-  color: rgba(var(--color-foreground), 0.6);
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(var(--color-foreground), 0.55);
 }
 
 .complete-look__row {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
   cursor: pointer;
+}
+
+.complete-look__checkbox-wrap {
+  flex: 0 0 auto;
+  display: flex;
 }
 
 .complete-look__checkbox {
   flex: 0 0 auto;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.3rem;
+  height: 1.3rem;
   margin: 0;
   accent-color: #d92133;
+  cursor: pointer;
 }
 
 .complete-look__image {
   flex: 0 0 auto;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 8px;
   overflow: hidden;
   display: block;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
 .complete-look__image img {
@@ -443,12 +459,15 @@
 .complete-look__info {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .complete-look__title {
   display: block;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -456,7 +475,6 @@
 
 .complete-look__price {
   display: block;
-  margin-top: 0.15rem;
   font-size: 0.9rem;
   font-weight: 700;
 }
@@ -464,6 +482,7 @@
 .complete-look__price-compare {
   margin-left: 0.4rem;
   font-weight: 400;
+  font-size: 0.8rem;
   color: rgba(var(--color-foreground), 0.5);
 }
 
