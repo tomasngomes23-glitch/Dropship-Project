@@ -193,41 +193,9 @@
             "heading": "Ribbed cuffs & hem",
             "text": "Reinforced ribbing keeps the fit snug and the jacket looking sharp longer."
           }
-        },
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "icon": "check_mark",
-            "heading": "Quality guarantee",
-            "text": "If your jacket arrives damaged, we replace it at no cost."
-          }
-        },
-        "feature-2": {
-          "type": "feature",
-          "settings": {
-            "icon": "lightning_bolt",
-            "heading": "Premium stitching",
-            "text": "Heavyweight fabric with reinforced embroidery on every patch."
-          }
-        },
-        "feature-3": {
-          "type": "feature",
-          "settings": {
-            "icon": "star",
-            "heading": "Unique designs",
-            "text": "Vintage racing looks you won't find on fast-fashion sites."
-          }
-        },
-        "feature-4": {
-          "type": "feature",
-          "settings": {
-            "icon": "heart",
-            "heading": "Instant style upgrade",
-            "text": "Turn heads with a jacket that stands out from the grid."
-          }
         }
       },
-      "block_order": ["detail-1", "detail-2", "detail-3", "detail-4", "feature-1", "feature-2", "feature-3", "feature-4"],
+      "block_order": ["detail-1", "detail-2", "detail-3", "detail-4"],
       "settings": {
         "heading": "Overtake vs the rest",
         "heading_size": "h1",
