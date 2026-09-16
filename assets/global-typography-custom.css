@@ -1,0 +1,13 @@
+/* Site-wide section heading style: uppercase, matching the brand's bold look. */
+.title,
+.comparison__heading,
+.collapsible-content__heading,
+.photo-reviews__heading {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* FAQ question text: lighter weight than the default heading boldness. */
+.accordion__title {
+  font-weight: 600;
+}
