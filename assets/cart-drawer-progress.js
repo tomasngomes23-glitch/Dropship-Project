@@ -1,27 +1,27 @@
 // Animates the cart-drawer's free-shipping progress bar from 0 to its
 // target width/position every time the drawer opens (fresh add-to-cart
-// render or just reopening via the header cart icon), instead of it
-// appearing already filled with no motion. The elements always render
-// at their final position server-side, so if this script fails to run
-// for any reason the bar still shows correctly, just without the
-// animation.
+// render or just reopening via the header cart icon). Uses the Web
+// Animations API instead of toggling inline styles/transitions, since
+// the bar's true target position is always rendered server-side first
+// (so it looks correct even if this script fails to run) and .animate()
+// reverts to that underlying value when the animation finishes, with
+// no reflow-timing tricks required.
 document.addEventListener('DOMContentLoaded', () => {
   const cartDrawerEl = document.querySelector('cart-drawer');
   if (!cartDrawerEl) return;
 
-  function resetAndAnimate(el, property) {
-    if (!el) return;
-    const target = el.dataset.target || '0';
-    el.style.transition = 'none';
-    el.style[property] = '0%';
-    void el.offsetWidth; // force a reflow so the 0% state is committed
-    el.style.transition = '';
-    el.style[property] = `${target}%`;
-  }
-
   function animateProgress() {
-    resetAndAnimate(cartDrawerEl.querySelector('[data-progress-fill]'), 'width');
-    resetAndAnimate(cartDrawerEl.querySelector('[data-progress-icon]'), 'left');
+    const fill = cartDrawerEl.querySelector('[data-progress-fill]');
+    if (fill) {
+      const target = fill.dataset.target || '0';
+      fill.animate([{ width: '0%' }, { width: `${target}%` }], { duration: 700, easing: 'ease-out' });
+    }
+
+    const icon = cartDrawerEl.querySelector('[data-progress-icon]');
+    if (icon) {
+      const target = icon.dataset.target || '0';
+      icon.animate([{ left: '0%' }, { left: `${target}%` }], { duration: 700, easing: 'ease-out' });
+    }
   }
 
   new MutationObserver((mutations) => {

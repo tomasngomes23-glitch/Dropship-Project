@@ -60,49 +60,10 @@
             "heading": "Guarantee Safe Checkout:"
           }
         },
-        "bundle": {
-          "type": "bundle_products",
-          "settings": {
-            "heading": "Buy more, Save more",
-            "collection": "vintage-jackets"
-          }
-        },
         "photo_slider": {
           "type": "photo_slider",
           "settings": {
             "heading": "Loved by 12,000+ customers"
-          }
-        },
-        "details_1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Product Details",
-            "icon": "price_tag",
-            "content": "<p>Heavyweight racing-style jacket with a durable full-zip front, ribbed cuffs and hem, and stitched (not printed) team-inspired patches for a finish that holds up wash after wash.</p>"
-          }
-        },
-        "packaging_shipping": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Packaging & Shipping",
-            "icon": "truck",
-            "content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition. Orders are processed within 1-2 business days, with delivery in 3-5 business days within Portugal and 5-10 business days for the rest of Europe.</p>"
-          }
-        },
-        "details_2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "How do I know it's genuine vintage?",
-            "icon": "check_mark",
-            "content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets — from the fabric weight to the embroidered patches — rather than a used or pre-owned item.</p>"
-          }
-        },
-        "details_3": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Care Instructions",
-            "icon": "washing",
-            "content": "<p>Machine wash cold on a gentle cycle, or hand wash for best results. Do not bleach. Tumble dry low or hang to dry, and avoid ironing directly over embroidered patches.</p>"
           }
         },
         "description": {
@@ -120,12 +81,7 @@
         "complete_look",
         "buy_buttons",
         "payment_badges",
-        "bundle",
         "photo_slider",
-        "details_1",
-        "packaging_shipping",
-        "details_2",
-        "details_3",
         "description"
       ],
       "settings": {
@@ -142,6 +98,58 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
+      }
+    },
+    "product-details-accordion": {
+      "type": "collapsible-content",
+      "blocks": {
+        "details_1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Details",
+            "icon": "none",
+            "row_content": "<p>Heavyweight racing-style jacket with a durable full-zip front, ribbed cuffs and hem, and stitched (not printed) team-inspired patches for a finish that holds up wash after wash.</p>"
+          }
+        },
+        "packaging_shipping": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Packaging & Shipping",
+            "icon": "none",
+            "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition. Orders are processed within 1-2 business days, with delivery in 3-5 business days within Portugal and 5-10 business days for the rest of Europe.</p>"
+          }
+        },
+        "details_2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I know it's genuine vintage?",
+            "icon": "none",
+            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets — from the fabric weight to the embroidered patches — rather than a used or pre-owned item.</p>"
+          }
+        },
+        "details_3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "none",
+            "row_content": "<p>Machine wash cold on a gentle cycle, or hand wash for best results. Do not bleach. Tumble dry low or hang to dry, and avoid ironing directly over embroidered patches.</p>"
+          }
+        }
+      },
+      "block_order": ["details_1", "packaging_shipping", "details_2", "details_3"],
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "disclosures": {
@@ -481,6 +489,7 @@
   },
   "order": [
     "main",
+    "product-details-accordion",
     "disclosures",
     "trust-reviews",
     "related-products"

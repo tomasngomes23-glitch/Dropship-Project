@@ -22,14 +22,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: var(--font-heading-family);
-    font-weight: 800;
-    font-style: italic;
-    font-size: 1.6rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
     color: rgb(var(--color-foreground));
     text-decoration: none;
+  }
+
+  .drawer__logo img {
+    display: block;
+    max-height: 28px;
+    width: auto;
+    /* The source logo is white type on a solid black background;
+       inverting it swaps that to black type on white so it reads
+       cleanly against the drawer's white header. */
+    filter: invert(1);
   }
 
   .drawer__header {
@@ -175,7 +179,18 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        <a href="{{ routes.root_url }}" class="drawer__logo">{{ shop.name }}</a>
+        <a href="{{ routes.root_url }}" class="drawer__logo">
+          {%- if settings.logo != blank -%}
+            <img
+              src="{{ settings.logo | image_url: width: 200 }}"
+              alt="{{ shop.name }}"
+              width="{{ settings.logo_width }}"
+              height="{{ settings.logo_width | divided_by: settings.logo.aspect_ratio }}"
+            >
+          {%- else -%}
+            {{ shop.name }}
+          {%- endif -%}
+        </a>
         <button
           class="drawer__close"
           type="button"
