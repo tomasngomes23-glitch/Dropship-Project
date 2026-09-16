@@ -47,14 +47,14 @@
 
   .trustreviews-{{ section.id }} .trustreviews__stars-text {
     color: #007f4e;
-    font-size: 1.65rem;
+    font-size: 1.9rem;
     letter-spacing: 0.08em;
     line-height: 1;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__summary-count {
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.35rem;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__summary-chevron {
@@ -63,8 +63,8 @@
   }
 
   .trustreviews-{{ section.id }} .trustreviews__summary-chevron svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
     fill: #191919;
   }
 
@@ -181,6 +181,29 @@
     width: 1.05rem;
     height: 1.05rem;
     fill: #ffffff;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-stars {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--partial {
+    position: relative;
+    overflow: hidden;
+    background: #dcdce6;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box-fill {
+    position: absolute;
+    inset: 0;
+    width: var(--fill-percent, 0%);
+    background: #007f4e;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--partial svg {
+    position: relative;
+    z-index: 1;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__star-box--lg {
@@ -401,8 +424,29 @@
 
         <div class="trustreviews__summary-panel" hidden>
           <div class="trustreviews__summary-top">
-            <span class="trustreviews__star-box trustreviews__star-box--lg is-filled" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+            {%- liquid
+              assign full_stars = average_rating | floor
+              assign decimal = average_rating | minus: full_stars
+              assign partial_percent = decimal | times: 100 | round
+              assign next_star = full_stars | plus: 1
+            -%}
+            <span class="trustreviews__score-stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                {%- if i <= full_stars -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg is-filled">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                  </span>
+                {%- elsif i == next_star and partial_percent > 0 -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg trustreviews__star-box--partial" style="--fill-percent: {{ partial_percent }}%;">
+                    <span class="trustreviews__star-box-fill"></span>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                  </span>
+                {%- else -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                  </span>
+                {%- endif -%}
+              {%- endfor -%}
             </span>
             <p class="trustreviews__score-number">{{ average_rating }}</p>
           </div>
