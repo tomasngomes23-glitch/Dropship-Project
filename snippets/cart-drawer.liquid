@@ -15,6 +15,83 @@
   .drawer {
     visibility: hidden;
   }
+
+  .cart-drawer__promo {
+    background: #111111;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+  }
+
+  .cart-drawer__shipping-bar {
+    padding: 1.5rem 2rem 1.75rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .cart-drawer__shipping-text {
+    margin: 0 0 1.1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .cart-drawer__shipping-text strong {
+    color: #d92133;
+  }
+
+  .cart-drawer__shipping-text--unlocked {
+    color: #1a7a3c;
+  }
+
+  .cart-drawer__progress {
+    position: relative;
+    height: 6px;
+    margin: 0 1.4rem 1.6rem;
+    border-radius: 999px;
+    background: rgba(var(--color-foreground), 0.1);
+  }
+
+  .cart-drawer__progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #d92133;
+    transition: width 0.4s ease;
+  }
+
+  .cart-drawer__progress-icon {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #d92133;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px -2px rgba(217, 33, 51, 0.6);
+    transition: left 0.4s ease;
+  }
+
+  .cart-drawer__progress-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cart-drawer__shipping-label {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #d92133;
+    margin: -0.5rem 0 0;
+  }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
@@ -74,6 +151,37 @@
           </span>
         </button>
       </div>
+      {%- unless cart == empty -%}
+        <div class="cart-drawer__promo">Buy 3 Jackets, Get the 3rd at 20% Off!</div>
+        {%- liquid
+          assign free_shipping_goal = 8000
+          assign shipping_remaining = free_shipping_goal | minus: cart.total_price
+          assign shipping_percent = cart.total_price | times: 100.0 | divided_by: free_shipping_goal
+          if shipping_percent > 100
+            assign shipping_percent = 100
+          endif
+        -%}
+        <div class="cart-drawer__shipping-bar">
+          {%- if shipping_remaining > 0 -%}
+            <p class="cart-drawer__shipping-text">
+              You're <strong>{{ shipping_remaining | money }}</strong> away from free shipping!
+            </p>
+          {%- else -%}
+            <p class="cart-drawer__shipping-text cart-drawer__shipping-text--unlocked">
+              Free shipping unlocked!
+            </p>
+          {%- endif -%}
+          <div class="cart-drawer__progress">
+            <div class="cart-drawer__progress-fill" style="width: {{ shipping_percent }}%;"></div>
+            <div class="cart-drawer__progress-icon" style="left: {{ shipping_percent }}%;">
+              <svg viewbox="0 0 24 24" aria-hidden="true">
+                <path d="M3 8l9-5 9 5-9 5-9-5z"></path>
+                <path d="M3 8v8l9 5 9-5V8"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      {%- endunless -%}
       <cart-drawer-items
         view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
         view-event-trigger="manual"
