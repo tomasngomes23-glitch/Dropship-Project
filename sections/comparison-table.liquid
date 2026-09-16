@@ -20,20 +20,62 @@
   .comparison__heading {
     font-weight: 800;
     letter-spacing: -0.01em;
-    margin: 0 0 1.1rem;
-    font-size: 3.4rem;
+    margin: 0 0 1.25rem;
+    font-size: 4rem;
   }
 
   @media screen and (min-width: 750px) {
     .comparison__heading {
-      font-size: 4.4rem;
+      font-size: 5.2rem;
     }
   }
 
   .comparison__subheading {
-    font-size: 1.45rem;
+    font-size: 1.7rem;
     color: rgba(var(--color-foreground), 0.65);
     margin: 0;
+  }
+
+  .comparison__hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0 auto 1.5rem;
+    max-width: 1120px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.45);
+  }
+
+  .comparison__hint svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .comparison__hint .comparison__hint-arrow--left {
+    animation: comparison-hint-left 1.6s ease-in-out infinite;
+  }
+
+  .comparison__hint .comparison__hint-arrow--right {
+    animation: comparison-hint-right 1.6s ease-in-out infinite;
+  }
+
+  @keyframes comparison-hint-left {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+  }
+
+  @keyframes comparison-hint-right {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
   }
 
   .comparison__table-outer {
@@ -73,7 +115,7 @@
   .comparison__table-head span {
     text-align: center;
     font-weight: 800;
-    font-size: 1.55rem;
+    font-size: 1.85rem;
     letter-spacing: 0.01em;
     color: #ffffff;
   }
@@ -91,7 +133,7 @@
 
   .comparison__table-head span:nth-child(2)::before {
     content: "\2605";
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 
   .comparison__table-head span:nth-child(3) {
@@ -114,7 +156,7 @@
 
   .comparison__row-label {
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     letter-spacing: -0.005em;
   }
 
@@ -157,7 +199,7 @@
   .comparison__mark--no {
     background: rgba(var(--color-foreground), 0.07);
     color: rgba(var(--color-foreground), 0.4);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 700;
   }
 
@@ -206,12 +248,12 @@
 
   .comparison__feature-heading {
     margin: 0 0 0.55rem;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
   }
 
   .comparison__feature-text {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     color: rgba(var(--color-foreground), 0.68);
     line-height: 1.55;
   }
@@ -227,6 +269,12 @@
         <p class="comparison__subheading">{{ section.settings.subheading }}</p>
       {%- endif -%}
     </div>
+
+    <p class="comparison__hint">
+      <svg class="comparison__hint-arrow--left" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      Move your cursor to explore
+      <svg class="comparison__hint-arrow--right" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </p>
 
     <div class="comparison__table-outer" data-comparison-tilt>
       <div class="comparison__table">
@@ -276,7 +324,7 @@
     var card = outer.querySelector('.comparison__table');
     if (!card) return;
 
-    var maxTilt = 8;
+    var maxTilt = 11;
     var isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
     if (isCoarsePointer) return;
 
