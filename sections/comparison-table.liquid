@@ -20,30 +20,42 @@
   .comparison__heading {
     font-weight: 800;
     letter-spacing: -0.01em;
-    margin: 0 0 1rem;
-    font-size: 2.8rem;
+    margin: 0 0 1.1rem;
+    font-size: 3.4rem;
   }
 
   @media screen and (min-width: 750px) {
     .comparison__heading {
-      font-size: 3.6rem;
+      font-size: 4.4rem;
     }
   }
 
   .comparison__subheading {
-    font-size: 1.25rem;
+    font-size: 1.45rem;
     color: rgba(var(--color-foreground), 0.65);
     margin: 0;
   }
 
-  .comparison__table {
-    max-width: 1040px;
+  .comparison__table-outer {
+    max-width: 1120px;
     margin: 0 auto;
+    perspective: 1400px;
+  }
+
+  .comparison__table {
     border-radius: 26px;
     overflow: hidden;
     background: rgb(var(--color-background));
     box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(var(--color-foreground), 0.06);
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+    will-change: transform;
+  }
+
+  .comparison__table.is-tilting {
+    transition: box-shadow 0.4s ease;
+    box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.28), 0 4px 14px rgba(0, 0, 0, 0.08);
   }
 
   .comparison__table-head,
@@ -61,7 +73,7 @@
   .comparison__table-head span {
     text-align: center;
     font-weight: 800;
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     letter-spacing: 0.01em;
     color: #ffffff;
   }
@@ -102,7 +114,7 @@
 
   .comparison__row-label {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     letter-spacing: -0.005em;
   }
 
@@ -115,10 +127,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 3.2rem;
+    height: 3.2rem;
     flex: 0 0 auto;
     border-radius: 50%;
+    transition: transform 0.25s ease;
+  }
+
+  .comparison__row:hover .comparison__mark {
+    transform: scale(1.12) translateZ(20px);
   }
 
   .comparison__mark--yes {
@@ -128,8 +145,8 @@
   }
 
   .comparison__mark--yes svg {
-    width: 1.35rem;
-    height: 1.35rem;
+    width: 1.65rem;
+    height: 1.65rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 3;
@@ -140,7 +157,7 @@
   .comparison__mark--no {
     background: rgba(var(--color-foreground), 0.07);
     color: rgba(var(--color-foreground), 0.4);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
   }
 
@@ -168,12 +185,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
     margin-bottom: 1.35rem;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, rgba(217, 33, 51, 0.14), rgba(217, 33, 51, 0.05));
     border: 1px solid rgba(217, 33, 51, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .comparison__feature:hover .comparison__feature-icon {
+    transform: scale(1.08) rotate(-4deg);
   }
 
   .comparison__feature-icon .svg-wrapper {
@@ -184,12 +206,12 @@
 
   .comparison__feature-heading {
     margin: 0 0 0.55rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 800;
   }
 
   .comparison__feature-text {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: rgba(var(--color-foreground), 0.68);
     line-height: 1.55;
   }
@@ -206,27 +228,29 @@
       {%- endif -%}
     </div>
 
-    <div class="comparison__table">
-      <div class="comparison__table-head">
-        <span></span>
-        <span>{{ section.settings.brand_label | escape }}</span>
-        <span>{{ section.settings.others_label | escape }}</span>
+    <div class="comparison__table-outer" data-comparison-tilt>
+      <div class="comparison__table">
+        <div class="comparison__table-head">
+          <span></span>
+          <span>{{ section.settings.brand_label | escape }}</span>
+          <span>{{ section.settings.others_label | escape }}</span>
+        </div>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'row' -%}
+            <div class="comparison__row" {{ block.shopify_attributes }}>
+              <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
+              <div class="comparison__cell">
+                <span class="comparison__mark comparison__mark--yes">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
+                </span>
+              </div>
+              <div class="comparison__cell">
+                <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'row' -%}
-          <div class="comparison__row" {{ block.shopify_attributes }}>
-            <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
-            <div class="comparison__cell">
-              <span class="comparison__mark comparison__mark--yes">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
-              </span>
-            </div>
-            <div class="comparison__cell">
-              <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
-            </div>
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
     </div>
 
     <div class="comparison__features">
@@ -244,6 +268,41 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var outer = document.querySelector('.comparison-{{ section.id }} [data-comparison-tilt]');
+    if (!outer) return;
+    var card = outer.querySelector('.comparison__table');
+    if (!card) return;
+
+    var maxTilt = 8;
+    var isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    if (isCoarsePointer) return;
+
+    function onMove(event) {
+      var rect = outer.getBoundingClientRect();
+      var x = (event.clientX - rect.left) / rect.width;
+      var y = (event.clientY - rect.top) / rect.height;
+      var rotateY = (x - 0.5) * maxTilt * 2;
+      var rotateX = (0.5 - y) * maxTilt;
+      card.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+    }
+
+    function onEnter() {
+      card.classList.add('is-tilting');
+    }
+
+    function onLeave() {
+      card.classList.remove('is-tilting');
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    }
+
+    outer.addEventListener('mouseenter', onEnter);
+    outer.addEventListener('mousemove', onMove);
+    outer.addEventListener('mouseleave', onLeave);
+  })();
+</script>
 
 {% schema %}
 {
