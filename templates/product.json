@@ -39,6 +39,14 @@
         "quantity_selector": {
           "type": "quantity_selector"
         },
+        "complete_look": {
+          "type": "complete_the_look",
+          "settings": {
+            "heading": "Complete the Look",
+            "subtext": "Customers often add this jacket too",
+            "collection": "vintage-jackets"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -109,6 +117,7 @@
         "variant_picker",
         "size_guide",
         "quantity_selector",
+        "complete_look",
         "buy_buttons",
         "payment_badges",
         "bundle",
