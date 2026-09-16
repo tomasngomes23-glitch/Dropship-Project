@@ -161,7 +161,7 @@
         "detail-1": {
           "type": "detail",
           "settings": {
-            "position_top": 9,
+            "position_top": 17,
             "position_left": 52,
             "heading": "Full-zip heavyweight build",
             "text": "A sturdy front zip and heavyweight fabric that holds its shape wear after wear."
@@ -179,8 +179,8 @@
         "detail-3": {
           "type": "detail",
           "settings": {
-            "position_top": 52,
-            "position_left": 28,
+            "position_top": 58,
+            "position_left": 18,
             "heading": "Bold sleeve branding",
             "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
           }
@@ -188,7 +188,7 @@
         "detail-4": {
           "type": "detail",
           "settings": {
-            "position_top": 83,
+            "position_top": 77,
             "position_left": 50,
             "heading": "Ribbed cuffs & hem",
             "text": "Reinforced ribbing keeps the fit snug and the jacket looking sharp longer."
