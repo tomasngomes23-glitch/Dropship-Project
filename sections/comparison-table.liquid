@@ -78,9 +78,72 @@
     50% { transform: translateX(5px); }
   }
 
-  .comparison__table-outer {
+  .comparison__interactive {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
     max-width: 1120px;
     margin: 0 auto;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .comparison__interactive {
+      flex-direction: row;
+      align-items: stretch;
+      max-width: 1320px;
+    }
+  }
+
+  .comparison__showcase {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 340px;
+    perspective: 1400px;
+  }
+
+  .comparison__showcase-card {
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgb(var(--color-background));
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(var(--color-foreground), 0.06);
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+    will-change: transform;
+    position: relative;
+  }
+
+  .comparison__showcase-card.is-tilting {
+    transition: box-shadow 0.4s ease;
+    box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison__showcase-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: translateZ(30px);
+  }
+
+  .comparison__showcase-badge {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #191919;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    transform: translateZ(40px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  }
+
+  .comparison__table-outer {
+    flex: 1 1 auto;
+    min-width: 0;
     perspective: 1400px;
   }
 
@@ -276,28 +339,48 @@
       <svg class="comparison__hint-arrow--right" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </p>
 
-    <div class="comparison__table-outer" data-comparison-tilt>
-      <div class="comparison__table">
-        <div class="comparison__table-head">
-          <span></span>
-          <span>{{ section.settings.brand_label | escape }}</span>
-          <span>{{ section.settings.others_label | escape }}</span>
+    <div class="comparison__interactive">
+      {%- if section.settings.showcase_product != blank -%}
+        <div class="comparison__showcase" data-comparison-tilt>
+          <div class="comparison__showcase-card">
+            {%- assign showcase_image = section.settings.showcase_product.featured_image -%}
+            {%- if showcase_image != blank -%}
+              <img
+                src="{{ showcase_image | image_url: width: 700 }}"
+                alt="{{ showcase_image.alt | default: section.settings.showcase_product.title | escape }}"
+                width="{{ showcase_image.width }}"
+                height="{{ showcase_image.height }}"
+                loading="lazy"
+              >
+            {%- endif -%}
+            <span class="comparison__showcase-badge">{{ section.settings.showcase_product.title }}</span>
+          </div>
         </div>
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'row' -%}
-            <div class="comparison__row" {{ block.shopify_attributes }}>
-              <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
-              <div class="comparison__cell">
-                <span class="comparison__mark comparison__mark--yes">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
-                </span>
+      {%- endif -%}
+
+      <div class="comparison__table-outer" data-comparison-tilt>
+        <div class="comparison__table">
+          <div class="comparison__table-head">
+            <span></span>
+            <span>{{ section.settings.brand_label | escape }}</span>
+            <span>{{ section.settings.others_label | escape }}</span>
+          </div>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'row' -%}
+              <div class="comparison__row" {{ block.shopify_attributes }}>
+                <p class="comparison__row-label">{{ block.settings.label | escape }}</p>
+                <div class="comparison__cell">
+                  <span class="comparison__mark comparison__mark--yes">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6"></polyline></svg>
+                  </span>
+                </div>
+                <div class="comparison__cell">
+                  <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
+                </div>
               </div>
-              <div class="comparison__cell">
-                <span class="comparison__mark comparison__mark--no" aria-hidden="true">&#10005;</span>
-              </div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
     </div>
 
@@ -319,36 +402,39 @@
 
 <script>
   (function () {
-    var outer = document.querySelector('.comparison-{{ section.id }} [data-comparison-tilt]');
-    if (!outer) return;
-    var card = outer.querySelector('.comparison__table');
-    if (!card) return;
-
-    var maxTilt = 11;
     var isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
     if (isCoarsePointer) return;
 
-    function onMove(event) {
-      var rect = outer.getBoundingClientRect();
-      var x = (event.clientX - rect.left) / rect.width;
-      var y = (event.clientY - rect.top) / rect.height;
-      var rotateY = (x - 0.5) * maxTilt * 2;
-      var rotateX = (0.5 - y) * maxTilt;
-      card.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
-    }
+    var outers = document.querySelectorAll('.comparison-{{ section.id }} [data-comparison-tilt]');
 
-    function onEnter() {
-      card.classList.add('is-tilting');
-    }
+    outers.forEach(function (outer) {
+      var card = outer.querySelector('.comparison__table, .comparison__showcase-card');
+      if (!card) return;
 
-    function onLeave() {
-      card.classList.remove('is-tilting');
-      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    }
+      var maxTilt = 11;
 
-    outer.addEventListener('mouseenter', onEnter);
-    outer.addEventListener('mousemove', onMove);
-    outer.addEventListener('mouseleave', onLeave);
+      function onMove(event) {
+        var rect = outer.getBoundingClientRect();
+        var x = (event.clientX - rect.left) / rect.width;
+        var y = (event.clientY - rect.top) / rect.height;
+        var rotateY = (x - 0.5) * maxTilt * 2;
+        var rotateX = (0.5 - y) * maxTilt;
+        card.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+      }
+
+      function onEnter() {
+        card.classList.add('is-tilting');
+      }
+
+      function onLeave() {
+        card.classList.remove('is-tilting');
+        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      }
+
+      outer.addEventListener('mouseenter', onEnter);
+      outer.addEventListener('mousemove', onMove);
+      outer.addEventListener('mouseleave', onLeave);
+    });
   })();
 </script>
 
@@ -380,6 +466,12 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "See why thousands of racing fans choose us over generic sellers"
+    },
+    {
+      "type": "product",
+      "id": "showcase_product",
+      "label": "Interactive product showcase",
+      "info": "Shown as a tilting photo card next to the table."
     },
     {
       "type": "text",
