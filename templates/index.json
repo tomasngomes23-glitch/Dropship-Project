@@ -170,8 +170,8 @@
         "detail-2": {
           "type": "detail",
           "settings": {
-            "position_top": 33,
-            "position_left": 47,
+            "position_top": 35,
+            "position_left": 58,
             "heading": "Embroidered team crest",
             "text": "Officially inspired crest patch, stitched (not printed) for a durable finish."
           }
@@ -180,7 +180,7 @@
           "type": "detail",
           "settings": {
             "position_top": 52,
-            "position_left": 22,
+            "position_left": 28,
             "heading": "Bold sleeve branding",
             "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
           }

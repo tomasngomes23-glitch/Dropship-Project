@@ -99,7 +99,7 @@
     position: relative;
     perspective: 1400px;
     width: 100%;
-    max-width: 560px;
+    max-width: 640px;
     flex: 0 0 auto;
   }
 
@@ -114,16 +114,16 @@
 
   @media screen and (min-width: 990px) {
     .comparison__image-wrap {
-      flex: 0 0 56%;
+      flex: 0 0 62%;
       max-width: none;
-      width: 56%;
+      width: 62%;
     }
   }
 
   .comparison__image-inner {
     position: relative;
     z-index: 1;
-    transform: scale(1.22);
+    transform: scale(1.32);
     transform-origin: center 42%;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
@@ -138,14 +138,14 @@
 
   .comparison__marker {
     position: absolute;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.9rem;
+    height: 2.9rem;
     border-radius: 50%;
     background: #d92133;
     color: #ffffff;
     border: 3px solid #ffffff;
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,7 +177,7 @@
   .comparison__legend {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 2rem;
     width: 100%;
   }
 
@@ -212,13 +212,13 @@
 
   .comparison__legend-number {
     flex: 0 0 auto;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 3.1rem;
+    height: 3.1rem;
     border-radius: 50%;
     background: #d92133;
     color: #ffffff;
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,12 +231,12 @@
 
   .comparison__legend-heading {
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     margin: 0 0 0.35rem;
   }
 
   .comparison__legend-text {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     line-height: 1.5;
     color: rgba(var(--color-foreground), 0.68);
     margin: 0;
@@ -421,7 +421,7 @@
     if (!outer || !inner) return;
 
     var maxTilt = 9;
-    var baseScale = 'scale(1.22) ';
+    var baseScale = 'scale(1.32) ';
 
     outer.addEventListener('mousemove', function (event) {
       var rect = outer.getBoundingClientRect();
@@ -596,8 +596,8 @@
         {
           "type": "detail",
           "settings": {
-            "position_top": 33,
-            "position_left": 47,
+            "position_top": 35,
+            "position_left": 58,
             "heading": "Embroidered team crest",
             "text": "Officially inspired crest patch, stitched (not printed) for a durable finish."
           }
@@ -606,7 +606,7 @@
           "type": "detail",
           "settings": {
             "position_top": 52,
-            "position_left": 22,
+            "position_left": 28,
             "heading": "Bold sleeve branding",
             "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
           }
