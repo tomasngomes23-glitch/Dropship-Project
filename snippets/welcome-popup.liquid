@@ -1,0 +1,261 @@
+{%- comment -%}
+  Email capture popup shown once per visitor (localStorage-gated) offering
+  10% off. Reuses the same customer newsletter form as the footer, tagged
+  separately so subscribers from this popup can be told apart in Shopify.
+{%- endcomment -%}
+
+<style>
+  .welcome-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+  }
+
+  .welcome-popup-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .welcome-popup {
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 12px;
+    padding: 3rem 2.5rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(12px);
+    transition: transform 0.25s ease;
+  }
+
+  .welcome-popup-overlay.is-visible .welcome-popup {
+    transform: translateY(0);
+  }
+
+  .welcome-popup__close {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #191919;
+  }
+
+  .welcome-popup__close:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .welcome-popup__close svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .welcome-popup__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(var(--color-foreground), 0.6);
+    margin: 0 0 0.75rem;
+  }
+
+  .welcome-popup__heading {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+  }
+
+  .welcome-popup__heading strong {
+    color: #007f4e;
+  }
+
+  .welcome-popup__subtext {
+    font-size: 1.05rem;
+    color: rgba(var(--color-foreground), 0.75);
+    margin: 0 0 1.75rem;
+  }
+
+  .welcome-popup__form .field {
+    margin-bottom: 1rem;
+  }
+
+  .welcome-popup__submit {
+    width: 100%;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 1.3rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+  }
+
+  .welcome-popup__submit:hover {
+    background: #1a1a1a;
+  }
+
+  .welcome-popup__disclaimer {
+    font-size: 0.8rem;
+    color: rgba(var(--color-foreground), 0.5);
+    margin: 1rem 0 0;
+  }
+
+  .welcome-popup__success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .welcome-popup__success-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: #e7f4ee;
+    color: #007f4e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .welcome-popup__success-icon svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    fill: currentColor;
+  }
+
+  .welcome-popup__code {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px dashed #007f4e;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+</style>
+
+<div class="welcome-popup-overlay" id="WelcomePopup" role="dialog" aria-modal="true" aria-labelledby="WelcomePopupHeading" hidden>
+  <div class="welcome-popup">
+    <button type="button" class="welcome-popup__close" id="WelcomePopupClose" aria-label="{{ 'accessibility.close' | t }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div id="WelcomePopupForm">
+      <p class="welcome-popup__eyebrow">Overtake Club</p>
+      <h2 class="welcome-popup__heading" id="WelcomePopupHeading">Get <strong>10% off</strong> your first order</h2>
+      <p class="welcome-popup__subtext">Subscreve e recebe já o teu código de desconto por email.</p>
+
+      {%- form 'customer', id: 'WelcomePopupNewsletter', class: 'welcome-popup__form' -%}
+        {%- assign popup_posted_successfully = form.posted_successfully? -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,welcome-popup">
+        <div class="field">
+          <input
+            id="WelcomePopupEmail"
+            type="email"
+            name="contact[email]"
+            class="field__input"
+            placeholder="{{ 'newsletter.label' | t }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            required
+          >
+          <label class="field__label" for="WelcomePopupEmail">{{ 'newsletter.label' | t }}</label>
+        </div>
+        <button type="submit" class="welcome-popup__submit">Quero o meu desconto</button>
+      {%- endform -%}
+
+      <p class="welcome-popup__disclaimer">Sem spam. Podes cancelar a subscrição quando quiseres.</p>
+    </div>
+
+    <div id="WelcomePopupSuccess" class="welcome-popup__success" hidden>
+      <span class="welcome-popup__success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+      </span>
+      <h2 class="welcome-popup__heading">Obrigado!</h2>
+      <p class="welcome-popup__subtext">Usa este código no checkout:</p>
+      <span class="welcome-popup__code">WELCOME10</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'overtakeWelcomePopupDismissed';
+    var overlay = document.getElementById('WelcomePopup');
+    if (!overlay) return;
+
+    var closeButton = document.getElementById('WelcomePopupClose');
+    var formWrapper = document.getElementById('WelcomePopupForm');
+    var successWrapper = document.getElementById('WelcomePopupSuccess');
+    var form = overlay.querySelector('form');
+
+    function alreadyDismissed() {
+      try {
+        return window.localStorage.getItem(STORAGE_KEY) === 'true';
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function dismiss() {
+      overlay.classList.remove('is-visible');
+      setTimeout(function () {
+        overlay.hidden = true;
+      }, 250);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, 'true');
+      } catch (e) {}
+    }
+
+    function show() {
+      overlay.hidden = false;
+      requestAnimationFrame(function () {
+        overlay.classList.add('is-visible');
+      });
+    }
+
+    if (!alreadyDismissed()) {
+      setTimeout(show, 2500);
+    }
+
+    closeButton.addEventListener('click', dismiss);
+    overlay.addEventListener('click', function (event) {
+      if (event.target === overlay) dismiss();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && overlay.classList.contains('is-visible')) dismiss();
+    });
+
+    {%- if popup_posted_successfully -%}
+      formWrapper.hidden = true;
+      successWrapper.hidden = false;
+      show();
+      try {
+        window.localStorage.setItem(STORAGE_KEY, 'true');
+      } catch (e) {}
+    {%- endif -%}
+  })();
+</script>
