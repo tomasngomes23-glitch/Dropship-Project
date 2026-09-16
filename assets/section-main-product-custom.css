@@ -521,3 +521,9 @@ media-gallery .product__media {
     padding-left: 3rem;
   }
 }
+
+/* Match the gap under "Size" to the gap under "Quantity" - the pill
+   variant picker label otherwise sits closer to its options. */
+.product__info-container :is(.product-form__input--pill, .product-form__input--swatch) .form__label {
+  margin-bottom: 0.6rem;
+}

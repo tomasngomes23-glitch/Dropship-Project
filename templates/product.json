@@ -7,7 +7,7 @@
           "type": "trust_rating",
           "settings": {
             "rating": "5",
-            "text": "4.8 | 12,000+ Reviews"
+            "text": "4.8 | 301 Reviews"
           }
         },
         "title": {
@@ -70,7 +70,15 @@
           "settings": {
             "heading": "Product Details",
             "icon": "price_tag",
-            "content": "<p>[PLACEHOLDER — full product details]</p>"
+            "content": "<p>Heavyweight racing-style jacket with a durable full-zip front, ribbed cuffs and hem, and stitched (not printed) team-inspired patches for a finish that holds up wash after wash.</p>"
+          }
+        },
+        "packaging_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Packaging & Shipping",
+            "icon": "truck",
+            "content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition. Orders are processed within 1-2 business days, with delivery in 3-5 business days within Portugal and 5-10 business days for the rest of Europe.</p>"
           }
         },
         "details_2": {
@@ -78,7 +86,7 @@
           "settings": {
             "heading": "How do I know it's genuine vintage?",
             "icon": "check_mark",
-            "content": "<p>[PLACEHOLDER — authenticity info]</p>"
+            "content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets — from the fabric weight to the embroidered patches — rather than a used or pre-owned item.</p>"
           }
         },
         "details_3": {
@@ -86,7 +94,7 @@
           "settings": {
             "heading": "Care Instructions",
             "icon": "washing",
-            "content": "<p>[PLACEHOLDER — care instructions]</p>"
+            "content": "<p>Machine wash cold on a gentle cycle, or hand wash for best results. Do not bleach. Tumble dry low or hang to dry, and avoid ironing directly over embroidered patches.</p>"
           }
         },
         "description": {
@@ -106,6 +114,7 @@
         "bundle",
         "photo_slider",
         "details_1",
+        "packaging_shipping",
         "details_2",
         "details_3",
         "description"
