@@ -93,7 +93,7 @@
     position: relative;
     perspective: 1400px;
     width: 100%;
-    max-width: 640px;
+    max-width: 460px;
     flex: 0 0 auto;
   }
 
@@ -108,16 +108,16 @@
 
   @media screen and (min-width: 990px) {
     .comparison__image-wrap {
-      flex: 0 0 62%;
+      flex: 0 0 44%;
       max-width: none;
-      width: 62%;
+      width: 44%;
     }
   }
 
   .comparison__image-inner {
     position: relative;
     z-index: 1;
-    transform: scale(1.32);
+    transform: scale(1.15);
     transform-origin: center 42%;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
@@ -347,7 +347,7 @@
     if (!outer || !inner) return;
 
     var maxTilt = 9;
-    var baseScale = 'scale(1.32) ';
+    var baseScale = 'scale(1.15) ';
 
     outer.addEventListener('mousemove', function (event) {
       var rect = outer.getBoundingClientRect();
