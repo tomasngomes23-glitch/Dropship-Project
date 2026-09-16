@@ -45,8 +45,8 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 64,
-        "padding_bottom": 92
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "photo_reviews": {
@@ -151,8 +151,8 @@
         "color_scheme": "scheme-1",
         "speed": 45,
         "pause_on_hover": true,
-        "padding_top": 44,
-        "padding_bottom": 44
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "comparison": {
@@ -201,8 +201,8 @@
         "heading_size": "h1",
         "showcase_image": "shopify://shop_images/porsche-vintage-jacket-cutout.png",
         "color_scheme": "scheme-1",
-        "padding_top": 44,
-        "padding_bottom": 44
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "faq": {
@@ -261,8 +261,8 @@
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
-        "padding_top": 72,
-        "padding_bottom": 36
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     }
   },
