@@ -161,7 +161,7 @@
         "detail-1": {
           "type": "detail",
           "settings": {
-            "position_top": 10,
+            "position_top": 9,
             "position_left": 52,
             "heading": "Full-zip heavyweight build",
             "text": "A sturdy front zip and heavyweight fabric that holds its shape wear after wear."
@@ -170,8 +170,8 @@
         "detail-2": {
           "type": "detail",
           "settings": {
-            "position_top": 30,
-            "position_left": 40,
+            "position_top": 33,
+            "position_left": 47,
             "heading": "Embroidered team crest",
             "text": "Officially inspired crest patch, stitched (not printed) for a durable finish."
           }
@@ -179,8 +179,8 @@
         "detail-3": {
           "type": "detail",
           "settings": {
-            "position_top": 55,
-            "position_left": 14,
+            "position_top": 52,
+            "position_left": 22,
             "heading": "Bold sleeve branding",
             "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
           }
@@ -188,7 +188,7 @@
         "detail-4": {
           "type": "detail",
           "settings": {
-            "position_top": 82,
+            "position_top": 83,
             "position_left": 50,
             "heading": "Ribbed cuffs & hem",
             "text": "Reinforced ribbing keeps the fit snug and the jacket looking sharp longer."
