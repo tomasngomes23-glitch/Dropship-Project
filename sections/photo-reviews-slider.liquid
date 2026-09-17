@@ -28,18 +28,24 @@
 
   #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row {
     display: inline-flex;
-    gap: 0.15rem;
+    gap: 2px;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row .photo-reviews__star-tile {
+    width: 26px;
+    height: 26px;
+    border-radius: 2px;
+    background: #00b67a;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row svg {
-    width: 20px;
-    height: 20px;
-    fill: #00b67a;
+    width: 16px;
+    height: 16px;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__summary-rating {
     font-weight: 800;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__summary-count {
@@ -112,17 +118,29 @@
 
   #photo-reviews-{{ section.id }} .photo-reviews__stars {
     display: inline-flex;
-    gap: 0.1rem;
+    gap: 2px;
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews__stars svg {
-    width: 15px;
-    height: 15px;
-    fill: #00b67a;
+  #photo-reviews-{{ section.id }} .photo-reviews__star-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    background: #00b67a;
+    flex: 0 0 auto;
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews__stars svg.photo-reviews__star--empty {
-    fill: rgba(0, 182, 122, 0.25);
+  #photo-reviews-{{ section.id }} .photo-reviews__star-tile.photo-reviews__star--empty {
+    background: rgba(0, 182, 122, 0.25);
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__stars svg,
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row svg {
+    width: 12px;
+    height: 12px;
+    fill: #ffffff;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__date {
@@ -182,12 +200,19 @@
         assign average_rating = rating_sum | times: 1.0 | divided_by: total_reviews | round: 1
       endif
     -%}
+    {%- if section.settings.heading != blank -%}
+      <div class="photo-reviews__title-wrapper title-wrapper title-wrapper--no-top-margin page-width">
+        <h2 class="photo-reviews__heading title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
     {%- if total_reviews > 0 -%}
       <div class="photo-reviews__summary">
         <div class="photo-reviews__summary-stars">
           <span class="photo-reviews__summary-stars-row" aria-hidden="true">
             {%- for star_i in (1..5) -%}
-              <svg viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+              <span class="photo-reviews__star-tile">
+                <svg viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+              </span>
             {%- endfor -%}
           </span>
           <span class="photo-reviews__summary-rating">{{ average_rating }}</span>
@@ -195,11 +220,6 @@
         {%- if section.settings.customer_count != blank -%}
           <p class="photo-reviews__summary-count">{{ section.settings.customer_count }}</p>
         {%- endif -%}
-      </div>
-    {%- endif -%}
-    {%- if section.settings.heading != blank -%}
-      <div class="photo-reviews__title-wrapper title-wrapper title-wrapper--no-top-margin page-width">
-        <h2 class="photo-reviews__heading title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
       </div>
     {%- endif -%}
 
@@ -213,7 +233,9 @@
                   <span class="photo-reviews__stars" aria-hidden="true">
                     {%- assign stars = block.settings.rating | times: 1 -%}
                     {%- for star_i in (1..5) -%}
-                      <svg class="{% unless star_i <= stars %}photo-reviews__star--empty{% endunless %}" viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+                      <span class="photo-reviews__star-tile{% unless star_i <= stars %} photo-reviews__star--empty{% endunless %}">
+                        <svg viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+                      </span>
                     {%- endfor -%}
                   </span>
                   {%- if block.settings.date != blank -%}
