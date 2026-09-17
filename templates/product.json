@@ -60,12 +60,6 @@
             "heading": "Guarantee Safe Checkout:"
           }
         },
-        "photo_slider": {
-          "type": "photo_slider",
-          "settings": {
-            "heading": "Loved by 12,000+ customers"
-          }
-        },
         "description": {
           "type": "description"
         }
@@ -81,7 +75,6 @@
         "complete_look",
         "buy_buttons",
         "payment_badges",
-        "photo_slider",
         "description"
       ],
       "settings": {
