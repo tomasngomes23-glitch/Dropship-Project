@@ -15,7 +15,7 @@
         "marquee-0": {
           "type": "message",
           "settings": {
-            "text": "Free shipping on orders over [PLACEHOLDER — amount]",
+            "text": "Free shipping on orders over €80",
             "link": ""
           }
         },

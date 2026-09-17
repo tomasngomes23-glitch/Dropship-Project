@@ -60,6 +60,26 @@
             "heading": "Guarantee Safe Checkout:"
           }
         },
+        "trust_badges_1": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "vertical",
+            "icon_1": "check_mark",
+            "heading_1": "Lifetime Guarantee — guaranteed against wear & defects",
+            "icon_2": "price_tag",
+            "heading_2": "Buy 3 Jackets, Get the 3rd at 20% Off!",
+            "icon_3": "truck",
+            "heading_3": "Free shipping on orders over €80"
+          }
+        },
+        "trust_badges_2": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "vertical",
+            "icon_1": "return",
+            "heading_1": "Easy Returns — hassle-free return policy"
+          }
+        },
         "description": {
           "type": "description"
         }
@@ -75,6 +95,8 @@
         "complete_look",
         "buy_buttons",
         "payment_badges",
+        "trust_badges_1",
+        "trust_badges_2",
         "description"
       ],
       "settings": {
