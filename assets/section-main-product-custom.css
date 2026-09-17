@@ -412,6 +412,7 @@
   margin: 0 0 0.85rem;
   font-weight: 800;
   font-size: 1.6rem;
+  color: #000000;
 }
 
 .complete-look {
@@ -528,6 +529,7 @@
   display: block;
   font-weight: 800;
   font-size: 1.3rem;
+  color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
