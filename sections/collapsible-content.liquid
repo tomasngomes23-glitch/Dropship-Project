@@ -26,6 +26,12 @@
   #shopify-section-{{ section.id }} .accordion summary {
     padding: 2.2rem 0;
   }
+
+  {% if section.settings.uppercase_headings %}
+  #shopify-section-{{ section.id }} .accordion__title {
+    text-transform: uppercase;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -191,6 +197,12 @@
       "type": "checkbox",
       "id": "full_width",
       "label": "Remove text max-width (edge-to-edge rows)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_headings",
+      "label": "Uppercase row headings",
       "default": false
     },
     {

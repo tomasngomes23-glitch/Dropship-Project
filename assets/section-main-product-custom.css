@@ -20,22 +20,29 @@
 .trust-rating__stars {
   display: inline-flex;
   align-items: center;
-  gap: 0.1rem;
+  gap: 2px;
 }
 
 .trust-rating__star {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  background: #00b67a;
+  flex: 0 0 auto;
 }
 
 .trust-rating__star svg {
   display: block;
-  width: 14px;
-  height: 14px;
-  fill: #d92133;
+  width: 11px;
+  height: 11px;
+  fill: #ffffff;
 }
 
-.trust-rating__star--empty svg {
-  fill: rgba(217, 33, 51, 0.25);
+.trust-rating__star--empty {
+  background: rgba(0, 182, 122, 0.25);
 }
 
 .trust-rating__text {

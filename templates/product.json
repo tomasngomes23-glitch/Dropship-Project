@@ -142,6 +142,7 @@
         "heading_alignment": "center",
         "layout": "none",
         "full_width": true,
+        "uppercase_headings": true,
         "container_color_scheme": "scheme-2",
         "color_scheme": "scheme-1",
         "open_first_collapsible_row": false,

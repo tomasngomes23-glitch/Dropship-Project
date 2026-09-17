@@ -11,8 +11,14 @@
     }
   }
 
+  #ugc-gallery-{{ section.id }} .ugc-gallery__header {
+    text-align: center;
+    margin: 0 0 1.75rem;
+  }
+
   #ugc-gallery-{{ section.id }} .ugc-gallery__heading {
     font-weight: 800;
+    font-size: 1.6rem;
     margin: 0;
   }
 
@@ -22,20 +28,29 @@
     color: rgba(var(--color-foreground), 0.65);
   }
 
-  #ugc-gallery-{{ section.id }} .ugc-gallery__header {
-    margin: 0 0 1.75rem;
-  }
-
   #ugc-gallery-{{ section.id }} .ugc-gallery__viewport {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
 
   #ugc-gallery-{{ section.id }} .ugc-gallery__track {
     display: flex;
+    align-items: stretch;
     gap: 1rem;
-    padding-bottom: 0.5rem;
+    width: max-content;
+    animation: ugc-gallery-scroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  #ugc-gallery-{{ section.id }}:hover .ugc-gallery__track {
+    animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
+  }
+
+  @keyframes ugc-gallery-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
   #ugc-gallery-{{ section.id }} .ugc-gallery__item {
@@ -46,7 +61,6 @@
     border-radius: 10px;
     overflow: hidden;
     background: rgba(var(--color-foreground), 0.06);
-    scroll-snap-align: start;
   }
 
   #ugc-gallery-{{ section.id }} .ugc-gallery__item img,
@@ -110,7 +124,7 @@
   <div class="page-width section-{{ section.id }}-padding" id="ugc-gallery-{{ section.id }}">
     <div class="ugc-gallery__header">
       {%- if section.settings.heading != blank -%}
-        <h2 class="ugc-gallery__heading title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        <h2 class="ugc-gallery__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
       {%- if section.settings.subtext != blank -%}
         <p class="ugc-gallery__subtext">{{ section.settings.subtext }}</p>
@@ -119,40 +133,42 @@
 
     <div class="ugc-gallery__viewport">
       <div class="ugc-gallery__track">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'media_item' -%}
-            <div class="ugc-gallery__item" {{ block.shopify_attributes }}>
-              {%- if block.settings.video != blank -%}
-                <video muted loop playsinline autoplay
-                  {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 600 }}"{% endif %}
-                >
-                  {%- for source in block.settings.video.sources -%}
-                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
-                  {%- endfor -%}
-                </video>
-              {%- elsif block.settings.image != blank -%}
-                <img
-                  src="{{ block.settings.image | image_url: width: 600 }}"
-                  alt="{{ block.settings.image.alt | escape }}"
-                  loading="lazy"
-                  width="{{ block.settings.image.width }}"
-                  height="{{ block.settings.image.height }}"
-                >
-              {%- else -%}
-                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                <span class="ugc-gallery__placeholder-label">Add a photo, GIF or video</span>
-              {%- endif -%}
-              {%- if block.settings.caption != blank -%}
-                <p class="ugc-gallery__caption">{{ block.settings.caption }}</p>
-              {%- endif -%}
-              {%- if block.settings.show_verified -%}
-                <span class="ugc-gallery__verified">
-                  <svg viewbox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.4 1.7 2.9-.3 1 2.8 2.6 1.4-.5 2.9 1.6 2.5-1.6 2.5.5 2.9-2.6 1.4-1 2.8-2.9-.3L10 20l-2.4-1.7-2.9.3-1-2.8-2.6-1.4.5-2.9L0 10l1.6-2.5-.5-2.9 2.6-1.4 1-2.8 2.9.3z"></path><path d="M8.5 13.2L5.8 10.5l1-1 1.7 1.7 4-4 1 1z" fill="#fff"></path></svg>
-                  Verified
-                </span>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
+        {%- for dup in (1..2) -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'media_item' -%}
+              <div class="ugc-gallery__item" {% if dup == 1 %}{{ block.shopify_attributes }}{% endif %} {% if dup > 1 %}aria-hidden="true"{% endif %}>
+                {%- if block.settings.video != blank -%}
+                  <video muted loop playsinline autoplay
+                    {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 600 }}"{% endif %}
+                  >
+                    {%- for source in block.settings.video.sources -%}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {%- endfor -%}
+                  </video>
+                {%- elsif block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                  >
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  <span class="ugc-gallery__placeholder-label">Add a photo, GIF or video</span>
+                {%- endif -%}
+                {%- if block.settings.caption != blank -%}
+                  <p class="ugc-gallery__caption">{{ block.settings.caption }}</p>
+                {%- endif -%}
+                {%- if block.settings.show_verified -%}
+                  <span class="ugc-gallery__verified">
+                    <svg viewbox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.4 1.7 2.9-.3 1 2.8 2.6 1.4-.5 2.9 1.6 2.5-1.6 2.5.5 2.9-2.6 1.4-1 2.8-2.9-.3L10 20l-2.4-1.7-2.9.3-1-2.8-2.6-1.4.5-2.9L0 10l1.6-2.5-.5-2.9 2.6-1.4 1-2.8 2.9.3z"></path><path d="M8.5 13.2L5.8 10.5l1-1 1.7 1.7 4-4 1 1z" fill="#fff"></path></svg>
+                    Verified
+                  </span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         {%- endfor -%}
       </div>
     </div>
@@ -172,16 +188,6 @@
       "default": "See it for yourself, no filters"
     },
     {
-      "type": "select",
-      "id": "heading_size",
-      "label": "Title size",
-      "options": [
-        { "value": "h2", "label": "Normal" },
-        { "value": "h1", "label": "Large" }
-      ],
-      "default": "h2"
-    },
-    {
       "type": "text",
       "id": "subtext",
       "label": "Subtext",
@@ -192,6 +198,26 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Motion"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 20,
+      "max": 90,
+      "step": 5,
+      "unit": "s",
+      "label": "Speed (seconds per cycle — lower is faster)",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
     },
     {
       "type": "header",

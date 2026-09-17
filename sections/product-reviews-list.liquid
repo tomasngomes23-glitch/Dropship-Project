@@ -434,16 +434,43 @@
               {%- for i in (1..5) -%}
                 {%- if i <= full_stars -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg is-filled">
-                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                    <svg viewBox="0 0 20 19">
+                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"/>
+                      <g stroke="#007f4e" stroke-width="0.7" opacity="0.55">
+                        <line x1="10" y1="10.4" x2="10" y2="0"/>
+                        <line x1="10" y1="10.4" x2="20" y2="7.2"/>
+                        <line x1="10" y1="10.4" x2="16.2" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="3.8" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="0" y2="7.2"/>
+                      </g>
+                    </svg>
                   </span>
                 {%- elsif i == next_star and partial_percent > 0 -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg trustreviews__star-box--partial" style="--fill-percent: {{ partial_percent }}%;">
                     <span class="trustreviews__star-box-fill"></span>
-                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                    <svg viewBox="0 0 20 19">
+                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"/>
+                      <g stroke="#007f4e" stroke-width="0.7" opacity="0.55">
+                        <line x1="10" y1="10.4" x2="10" y2="0"/>
+                        <line x1="10" y1="10.4" x2="20" y2="7.2"/>
+                        <line x1="10" y1="10.4" x2="16.2" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="3.8" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="0" y2="7.2"/>
+                      </g>
+                    </svg>
                   </span>
                 {%- else -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg">
-                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                    <svg viewBox="0 0 20 19">
+                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"/>
+                      <g stroke="#007f4e" stroke-width="0.7" opacity="0.55">
+                        <line x1="10" y1="10.4" x2="10" y2="0"/>
+                        <line x1="10" y1="10.4" x2="20" y2="7.2"/>
+                        <line x1="10" y1="10.4" x2="16.2" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="3.8" y2="18.9"/>
+                        <line x1="10" y1="10.4" x2="0" y2="7.2"/>
+                      </g>
+                    </svg>
                   </span>
                 {%- endif -%}
               {%- endfor -%}
@@ -517,7 +544,16 @@
               {%- assign stars = block.settings.rating | times: 1 -%}
               {%- for i in (1..5) -%}
                 <span class="trustreviews__star-box{% if i <= stars %} is-filled{% endif %}">
-                  <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z"/></svg>
+                  <svg viewBox="0 0 20 19">
+                    <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"/>
+                    <g stroke="#007f4e" stroke-width="0.7" opacity="0.55">
+                      <line x1="10" y1="10.4" x2="10" y2="0"/>
+                      <line x1="10" y1="10.4" x2="20" y2="7.2"/>
+                      <line x1="10" y1="10.4" x2="16.2" y2="18.9"/>
+                      <line x1="10" y1="10.4" x2="3.8" y2="18.9"/>
+                      <line x1="10" y1="10.4" x2="0" y2="7.2"/>
+                    </g>
+                  </svg>
                 </span>
               {%- endfor -%}
             </div>
