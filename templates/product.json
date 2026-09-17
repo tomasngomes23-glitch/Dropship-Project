@@ -179,10 +179,10 @@
       }
     },
     "trust-reviews": {
-      "type": "photo-reviews-slider",
+      "type": "product-reviews-list",
       "blocks": {
         "review_1": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Quality that impresses",
@@ -193,7 +193,7 @@
           }
         },
         "review_2": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "This one's staying in the family",
@@ -204,7 +204,7 @@
           }
         },
         "review_3": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Looks exactly like the photos",
@@ -215,7 +215,7 @@
           }
         },
         "review_4": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "5-star service",
@@ -226,7 +226,7 @@
           }
         },
         "review_5": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Already got 3 compliments",
@@ -237,7 +237,7 @@
           }
         },
         "review_6": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Fits perfectly",
@@ -248,7 +248,7 @@
           }
         },
         "review_7": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Fast shipping",
@@ -259,7 +259,7 @@
           }
         },
         "review_8": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Better than expected",
@@ -270,7 +270,7 @@
           }
         },
         "review_9": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "My go-to gift",
@@ -281,7 +281,7 @@
           }
         },
         "review_10": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Obsessed with the Porsche jacket",
@@ -292,7 +292,7 @@
           }
         },
         "review_11": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "4",
             "title": "Great jacket, delivery took a bit longer",
@@ -303,7 +303,7 @@
           }
         },
         "review_12": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Exactly what I wanted",
@@ -314,7 +314,7 @@
           }
         },
         "review_13": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Delivery time was spot on",
@@ -325,7 +325,7 @@
           }
         },
         "review_14": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Audi fan for life",
@@ -336,7 +336,7 @@
           }
         },
         "review_15": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Lamborghini jacket is a showstopper",
@@ -347,7 +347,7 @@
           }
         },
         "review_16": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Support went above and beyond",
@@ -358,7 +358,7 @@
           }
         },
         "review_17": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "BMW jacket exceeded expectations",
@@ -369,7 +369,7 @@
           }
         },
         "review_18": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "McLaren jacket, zero complaints",
@@ -380,7 +380,7 @@
           }
         },
         "review_19": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "4",
             "title": "Subaru jacket, super happy",
@@ -391,7 +391,7 @@
           }
         },
         "review_20": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "International shipping was smooth",
@@ -402,7 +402,7 @@
           }
         },
         "review_21": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Easy exchange process",
@@ -413,7 +413,7 @@
           }
         },
         "review_22": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Third jacket and counting",
@@ -424,7 +424,7 @@
           }
         },
         "review_23": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Perfect birthday gift",
@@ -435,7 +435,7 @@
           }
         },
         "review_24": {
-          "type": "review_card",
+          "type": "review",
           "settings": {
             "rating": "5",
             "title": "Material is genuinely impressive",
@@ -474,16 +474,15 @@
       ],
       "settings": {
         "heading": "Join 2,400+ satisfied customers",
-        "heading_size": "h1",
-        "customer_count": "2,400+ satisfied customers",
+        "subheading": "Real reviews from real Overtake customers",
         "rating_5_count": 260,
         "rating_4_count": 30,
         "rating_3_count": 8,
         "rating_2_count": 2,
         "rating_1_count": 1,
+        "reviews_per_page": 9,
+        "load_more_label": "Load more reviews",
         "color_scheme": "scheme-1",
-        "speed": 40,
-        "pause_on_hover": true,
         "padding_top": 72,
         "padding_bottom": 36
       }

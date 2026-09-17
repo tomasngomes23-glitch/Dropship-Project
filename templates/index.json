@@ -16,8 +16,8 @@
         "heading_size": "h2",
         "subtext": "Real customers unboxing their Overtake jackets. Nothing retouched.",
         "color_scheme": "scheme-1",
-        "padding_top": 44,
-        "padding_bottom": 20
+        "padding_top": 64,
+        "padding_bottom": 40
       }
     },
     "hero_banner": {
@@ -25,7 +25,7 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "image": "shopify://shop_images/image_2640276175cb78d3bb7b4ea8c52e7814.png",
+        "image": "shopify://shop_images/Banner.png",
         "caption": "",
         "heading": "",
         "heading_size": "hxl",
@@ -66,7 +66,7 @@
         "quick_add": "none",
         "columns_mobile": "2",
         "padding_top": 44,
-        "padding_bottom": 44
+        "padding_bottom": 64
       }
     },
     "photo_reviews": {
@@ -189,8 +189,8 @@
         "color_scheme": "scheme-1",
         "speed": 45,
         "pause_on_hover": true,
-        "padding_top": 44,
-        "padding_bottom": 44,
+        "padding_top": 56,
+        "padding_bottom": 80,
         "customer_count": "2,400+ satisfied customers",
         "rating_5_count": 260,
         "rating_4_count": 30,
@@ -251,7 +251,7 @@
         "showcase_image": "shopify://shop_images/porsche-vintage-jacket-cutout.png",
         "color_scheme": "scheme-1",
         "padding_top": 44,
-        "padding_bottom": 44
+        "padding_bottom": 64
       }
     },
     "faq": {
@@ -316,7 +316,7 @@
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
-        "padding_top": 44,
+        "padding_top": 80,
         "padding_bottom": 44
       }
     }
