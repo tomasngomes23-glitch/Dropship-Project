@@ -158,6 +158,26 @@
         "padding_bottom": 0
       }
     },
+    "ugc_gallery": {
+      "type": "ugc-gallery",
+      "blocks": {
+        "media-1": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-2": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-3": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-4": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-5": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-6": { "type": "media_item", "settings": { "show_verified": true } }
+      },
+      "block_order": ["media-1", "media-2", "media-3", "media-4", "media-5", "media-6"],
+      "settings": {
+        "heading": "See it for yourself, no filters",
+        "heading_size": "h2",
+        "subtext": "Real customers unboxing their Overtake jackets. Nothing retouched.",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 20
+      }
+    },
     "trust-reviews": {
       "type": "photo-reviews-slider",
       "blocks": {
@@ -491,6 +511,7 @@
     "main",
     "product-details-accordion",
     "disclosures",
+    "ugc_gallery",
     "trust-reviews",
     "related-products"
   ]

@@ -210,7 +210,14 @@
         <div class="photo-reviews__summary-stars">
           <span class="photo-reviews__summary-stars-row" aria-hidden="true">
             {%- for star_i in (1..5) -%}
-              <span class="photo-reviews__star-tile">
+              {%- liquid
+                assign star_fill = average_rating | minus: star_i | plus: 1 | times: 100
+                assign star_fill = star_fill | at_least: 0 | at_most: 100
+              -%}
+              <span
+                class="photo-reviews__star-tile"
+                style="background: linear-gradient(90deg, #00b67a {{ star_fill }}%, rgba(0, 182, 122, 0.25) {{ star_fill }}%);"
+              >
                 <svg viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
               </span>
             {%- endfor -%}
