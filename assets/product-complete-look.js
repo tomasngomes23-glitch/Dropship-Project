@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
           if (cart) {
+            if (cart.classList.contains('is-empty')) cart.classList.remove('is-empty');
             cart.renderContents(response);
           } else {
             window.location = window.routes.cart_url;

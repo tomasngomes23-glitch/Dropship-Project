@@ -19,7 +19,7 @@
         "urgency_bar": {
           "type": "urgency_bar",
           "settings": {
-            "label": "Selling fast — low stock"
+            "label": "Selling fast \u2014 low stock"
           }
         },
         "variant_picker": {
@@ -124,7 +124,7 @@
           "settings": {
             "heading": "How do I know it's genuine vintage?",
             "icon": "none",
-            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets — from the fabric weight to the embroidered patches — rather than a used or pre-owned item.</p>"
+            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets \u2014 from the fabric weight to the embroidered patches \u2014 rather than a used or pre-owned item.</p>"
           }
         },
         "details_3": {
@@ -136,13 +136,19 @@
           }
         }
       },
-      "block_order": ["details_1", "packaging_shipping", "details_2", "details_3"],
+      "block_order": [
+        "details_1",
+        "packaging_shipping",
+        "details_2",
+        "details_3"
+      ],
       "settings": {
         "caption": "",
         "heading": "",
         "heading_size": "h1",
         "heading_alignment": "center",
         "layout": "none",
+        "full_width": true,
         "container_color_scheme": "scheme-2",
         "color_scheme": "scheme-1",
         "open_first_collapsible_row": false,
@@ -160,10 +166,10 @@
       }
     },
     "trust-reviews": {
-      "type": "product-reviews-list",
+      "type": "photo-reviews-slider",
       "blocks": {
-        "review-1": {
-          "type": "review",
+        "review_1": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Quality that impresses",
@@ -173,8 +179,8 @@
             "verified": true
           }
         },
-        "review-2": {
-          "type": "review",
+        "review_2": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "This one's staying in the family",
@@ -184,8 +190,8 @@
             "verified": true
           }
         },
-        "review-3": {
-          "type": "review",
+        "review_3": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Looks exactly like the photos",
@@ -195,8 +201,8 @@
             "verified": true
           }
         },
-        "review-4": {
-          "type": "review",
+        "review_4": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "5-star service",
@@ -206,8 +212,8 @@
             "verified": true
           }
         },
-        "review-5": {
-          "type": "review",
+        "review_5": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Already got 3 compliments",
@@ -217,8 +223,8 @@
             "verified": true
           }
         },
-        "review-6": {
-          "type": "review",
+        "review_6": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Fits perfectly",
@@ -228,8 +234,8 @@
             "verified": true
           }
         },
-        "review-7": {
-          "type": "review",
+        "review_7": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Fast shipping",
@@ -239,8 +245,8 @@
             "verified": true
           }
         },
-        "review-8": {
-          "type": "review",
+        "review_8": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Better than expected",
@@ -250,8 +256,8 @@
             "verified": true
           }
         },
-        "review-9": {
-          "type": "review",
+        "review_9": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "My go-to gift",
@@ -261,8 +267,8 @@
             "verified": true
           }
         },
-        "review-10": {
-          "type": "review",
+        "review_10": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Obsessed with the Porsche jacket",
@@ -272,8 +278,8 @@
             "verified": true
           }
         },
-        "review-11": {
-          "type": "review",
+        "review_11": {
+          "type": "review_card",
           "settings": {
             "rating": "4",
             "title": "Great jacket, delivery took a bit longer",
@@ -283,8 +289,8 @@
             "verified": true
           }
         },
-        "review-12": {
-          "type": "review",
+        "review_12": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Exactly what I wanted",
@@ -294,8 +300,8 @@
             "verified": true
           }
         },
-        "review-13": {
-          "type": "review",
+        "review_13": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Delivery time was spot on",
@@ -305,8 +311,8 @@
             "verified": true
           }
         },
-        "review-14": {
-          "type": "review",
+        "review_14": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Audi fan for life",
@@ -316,8 +322,8 @@
             "verified": true
           }
         },
-        "review-15": {
-          "type": "review",
+        "review_15": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Lamborghini jacket is a showstopper",
@@ -327,8 +333,8 @@
             "verified": true
           }
         },
-        "review-16": {
-          "type": "review",
+        "review_16": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Support went above and beyond",
@@ -338,8 +344,8 @@
             "verified": true
           }
         },
-        "review-17": {
-          "type": "review",
+        "review_17": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "BMW jacket exceeded expectations",
@@ -349,8 +355,8 @@
             "verified": true
           }
         },
-        "review-18": {
-          "type": "review",
+        "review_18": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "McLaren jacket, zero complaints",
@@ -360,8 +366,8 @@
             "verified": true
           }
         },
-        "review-19": {
-          "type": "review",
+        "review_19": {
+          "type": "review_card",
           "settings": {
             "rating": "4",
             "title": "Subaru jacket, super happy",
@@ -371,8 +377,8 @@
             "verified": true
           }
         },
-        "review-20": {
-          "type": "review",
+        "review_20": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "International shipping was smooth",
@@ -382,8 +388,8 @@
             "verified": true
           }
         },
-        "review-21": {
-          "type": "review",
+        "review_21": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Easy exchange process",
@@ -393,8 +399,8 @@
             "verified": true
           }
         },
-        "review-22": {
-          "type": "review",
+        "review_22": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Third jacket and counting",
@@ -404,8 +410,8 @@
             "verified": true
           }
         },
-        "review-23": {
-          "type": "review",
+        "review_23": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Perfect birthday gift",
@@ -415,8 +421,8 @@
             "verified": true
           }
         },
-        "review-24": {
-          "type": "review",
+        "review_24": {
+          "type": "review_card",
           "settings": {
             "rating": "5",
             "title": "Material is genuinely impressive",
@@ -428,42 +434,43 @@
         }
       },
       "block_order": [
-        "review-1",
-        "review-2",
-        "review-3",
-        "review-4",
-        "review-5",
-        "review-6",
-        "review-7",
-        "review-8",
-        "review-9",
-        "review-10",
-        "review-11",
-        "review-12",
-        "review-13",
-        "review-14",
-        "review-15",
-        "review-16",
-        "review-17",
-        "review-18",
-        "review-19",
-        "review-20",
-        "review-21",
-        "review-22",
-        "review-23",
-        "review-24"
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6",
+        "review_7",
+        "review_8",
+        "review_9",
+        "review_10",
+        "review_11",
+        "review_12",
+        "review_13",
+        "review_14",
+        "review_15",
+        "review_16",
+        "review_17",
+        "review_18",
+        "review_19",
+        "review_20",
+        "review_21",
+        "review_22",
+        "review_23",
+        "review_24"
       ],
       "settings": {
         "heading": "Join 2,400+ satisfied customers",
-        "subheading": "Real reviews from real Overtake customers",
+        "heading_size": "h1",
+        "customer_count": "2,400+ satisfied customers",
         "rating_5_count": 260,
         "rating_4_count": 30,
         "rating_3_count": 8,
         "rating_2_count": 2,
         "rating_1_count": 1,
-        "reviews_per_page": 6,
-        "load_more_label": "Load more reviews",
         "color_scheme": "scheme-1",
+        "speed": 40,
+        "pause_on_hover": true,
         "padding_top": 72,
         "padding_bottom": 36
       }

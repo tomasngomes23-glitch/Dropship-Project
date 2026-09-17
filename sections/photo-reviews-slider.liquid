@@ -11,6 +11,42 @@
     }
   }
 
+  #photo-reviews-{{ section.id }} .photo-reviews__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    margin: 0 0 2rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row {
+    display: inline-flex;
+    gap: 0.15rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row svg {
+    width: 20px;
+    height: 20px;
+    fill: #00b67a;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-rating {
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-count {
+    font-size: 0.95rem;
+    color: rgba(var(--color-foreground), 0.65);
+  }
+
   #photo-reviews-{{ section.id }} .photo-reviews__heading {
     text-align: left;
     font-weight: 800;
@@ -56,61 +92,111 @@
 
   #photo-reviews-{{ section.id }} .photo-reviews__card {
     background: rgb(var(--color-background));
-    border: 1px solid rgba(217, 33, 51, 0.25);
-    border-radius: 12px;
-    box-shadow: 0 0 18px rgba(217, 33, 51, 0.16);
-    padding: 1rem;
-    width: clamp(160px, 16vw, 200px);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    padding: 1.4rem 1.5rem;
+    width: clamp(240px, 22vw, 300px);
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper {
-    aspect-ratio: 1 / 1;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 0.85rem;
-    background: rgba(var(--color-foreground), 0.06);
-  }
-
-  #photo-reviews-{{ section.id }} .photo-reviews__image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  #photo-reviews-{{ section.id }} .photo-reviews__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__stars {
-    color: #d92133;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.6rem;
-    font-size: 1rem;
+    display: inline-flex;
+    gap: 0.1rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__stars svg {
+    width: 15px;
+    height: 15px;
+    fill: #00b67a;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__stars svg.photo-reviews__star--empty {
+    fill: rgba(0, 182, 122, 0.25);
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__date {
+    font-size: 0.78rem;
+    color: rgba(var(--color-foreground), 0.5);
+    white-space: nowrap;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__title {
     font-weight: 800;
     font-size: 0.95rem;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.5rem;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__quote {
     font-style: normal;
-    font-size: 0.8rem;
-    line-height: 1.45;
-    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0 0 1.1rem;
     flex-grow: 1;
-    color: rgba(var(--color-foreground), 0.8);
+    color: rgba(var(--color-foreground), 0.75);
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__author {
     font-weight: 700;
+    font-size: 0.85rem;
+    margin: 0 0 0.25rem;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__verified {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.78rem;
+    font-weight: 600;
+    color: #00b67a;
+  }
+
+  #photo-reviews-{{ section.id }} .photo-reviews__verified svg {
+    width: 13px;
+    height: 13px;
+    fill: #00b67a;
   }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="section-{{ section.id }}-padding" id="photo-reviews-{{ section.id }}">
+    {%- liquid
+      assign total_reviews = section.settings.rating_5_count | plus: section.settings.rating_4_count | plus: section.settings.rating_3_count | plus: section.settings.rating_2_count | plus: section.settings.rating_1_count
+      if total_reviews > 0
+        assign weighted_5 = section.settings.rating_5_count | times: 5
+        assign weighted_4 = section.settings.rating_4_count | times: 4
+        assign weighted_3 = section.settings.rating_3_count | times: 3
+        assign weighted_2 = section.settings.rating_2_count | times: 2
+        assign weighted_1 = section.settings.rating_1_count | times: 1
+        assign rating_sum = weighted_5 | plus: weighted_4 | plus: weighted_3 | plus: weighted_2 | plus: weighted_1
+        assign average_rating = rating_sum | times: 1.0 | divided_by: total_reviews | round: 1
+      endif
+    -%}
+    {%- if total_reviews > 0 -%}
+      <div class="photo-reviews__summary">
+        <div class="photo-reviews__summary-stars">
+          <span class="photo-reviews__summary-stars-row" aria-hidden="true">
+            {%- for star_i in (1..5) -%}
+              <svg viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+            {%- endfor -%}
+          </span>
+          <span class="photo-reviews__summary-rating">{{ average_rating }}</span>
+        </div>
+        {%- if section.settings.customer_count != blank -%}
+          <p class="photo-reviews__summary-count">{{ section.settings.customer_count }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     {%- if section.settings.heading != blank -%}
       <div class="photo-reviews__title-wrapper title-wrapper title-wrapper--no-top-margin page-width">
         <h2 class="photo-reviews__heading title {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
@@ -123,24 +209,16 @@
           {%- for block in section.blocks -%}
             {%- if block.type == 'review_card' -%}
               <div class="photo-reviews__card" {% if dup == 1 %}{{ block.shopify_attributes }}{% endif %} {% if dup > 1 %}aria-hidden="true"{% endif %}>
-                <div class="photo-reviews__image-wrapper">
-                  {%- if block.settings.image != blank -%}
-                    <img
-                      src="{{ block.settings.image | image_url: width: 400 }}"
-                      alt="{{ block.settings.image.alt | escape }}"
-                      loading="lazy"
-                      width="{{ block.settings.image.width }}"
-                      height="{{ block.settings.image.height }}"
-                    >
-                  {%- else -%}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                <div class="photo-reviews__card-header">
+                  <span class="photo-reviews__stars" aria-hidden="true">
+                    {%- assign stars = block.settings.rating | times: 1 -%}
+                    {%- for star_i in (1..5) -%}
+                      <svg class="{% unless star_i <= stars %}photo-reviews__star--empty{% endunless %}" viewbox="0 0 20 19"><path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L0 7.2l7.1-.6z"></path></svg>
+                    {%- endfor -%}
+                  </span>
+                  {%- if block.settings.date != blank -%}
+                    <span class="photo-reviews__date">{{ block.settings.date }}</span>
                   {%- endif -%}
-                </div>
-                <div class="photo-reviews__stars" aria-hidden="true">
-                  {%- assign stars = block.settings.rating | times: 1 -%}
-                  {%- for star_i in (1..5) -%}
-                    {%- if star_i <= stars -%}★{%- else -%}☆{%- endif -%}
-                  {%- endfor -%}
                 </div>
                 {%- if block.settings.title != blank -%}
                   <p class="photo-reviews__title">{{ block.settings.title }}</p>
@@ -149,6 +227,12 @@
                   {{ block.settings.quote | default: '[PLACEHOLDER — real customer review]' }}
                 </p>
                 <p class="photo-reviews__author">{{ block.settings.author | default: '[Customer name]' }}</p>
+                {%- if block.settings.verified -%}
+                  <span class="photo-reviews__verified">
+                    <svg viewbox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.4 1.7 2.9-.3 1 2.8 2.6 1.4-.5 2.9 1.6 2.5-1.6 2.5.5 2.9-2.6 1.4-1 2.8-2.9-.3L10 20l-2.4-1.7-2.9.3-1-2.8-2.6-1.4.5-2.9L0 10l1.6-2.5-.5-2.9 2.6-1.4 1-2.8 2.9.3z"></path><path d="M8.5 13.2L5.8 10.5l1-1 1.7 1.7 4-4 1 1z" fill="#fff"></path></svg>
+                    Verified purchase
+                  </span>
+                {%- endif -%}
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -160,7 +244,7 @@
 
 {% schema %}
 {
-  "name": "Photo reviews",
+  "name": "Reviews slider",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -179,6 +263,61 @@
         { "value": "h1", "label": "Large" }
       ],
       "default": "h1"
+    },
+    {
+      "type": "header",
+      "content": "Rating summary"
+    },
+    {
+      "type": "text",
+      "id": "customer_count",
+      "label": "Caption under the rating",
+      "default": "2,400+ satisfied customers"
+    },
+    {
+      "type": "range",
+      "id": "rating_5_count",
+      "label": "5-star reviews",
+      "min": 0,
+      "max": 500,
+      "step": 1,
+      "default": 260
+    },
+    {
+      "type": "range",
+      "id": "rating_4_count",
+      "label": "4-star reviews",
+      "min": 0,
+      "max": 500,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "rating_3_count",
+      "label": "3-star reviews",
+      "min": 0,
+      "max": 500,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "rating_2_count",
+      "label": "2-star reviews",
+      "min": 0,
+      "max": 500,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "rating_1_count",
+      "label": "1-star reviews",
+      "min": 0,
+      "max": 500,
+      "step": 1,
+      "default": 1
     },
     {
       "type": "color_scheme",
@@ -234,13 +373,8 @@
   "blocks": [
     {
       "type": "review_card",
-      "name": "Photo review",
+      "name": "Review",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Customer/product photo"
-        },
         {
           "type": "select",
           "id": "rating",
@@ -269,13 +403,25 @@
           "id": "author",
           "label": "Customer name",
           "default": "[Customer name]"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date label",
+          "default": "2 weeks ago"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show \"Verified purchase\"",
+          "default": true
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Photo reviews",
+      "name": "Reviews slider",
       "blocks": [
         { "type": "review_card" },
         { "type": "review_card" },
