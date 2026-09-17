@@ -87,7 +87,6 @@
     margin: 0 1.4rem 1.6rem;
     border-radius: 999px;
     background: rgba(var(--color-foreground), 0.12);
-    overflow: hidden;
   }
 
   .cart-drawer__progress-fill {
@@ -104,7 +103,8 @@
   .cart-drawer__progress-icon {
     position: absolute;
     top: 50%;
-    transform: translate(-50%, -50%);
+    right: 0;
+    transform: translate(50%, -50%);
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -113,7 +113,6 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 10px -2px rgba(217, 33, 51, 0.6);
-    transition: left 0.6s ease;
   }
 
   .cart-drawer__progress-icon svg {
@@ -233,17 +232,13 @@
               data-progress-fill
               data-target="{{ shipping_percent }}"
               style="width: {{ shipping_percent }}%;"
-            ></div>
-            <div
-              class="cart-drawer__progress-icon"
-              data-progress-icon
-              data-target="{{ shipping_percent }}"
-              style="left: {{ shipping_percent }}%;"
             >
-              <svg viewbox="0 0 24 24" aria-hidden="true">
-                <path d="M3 8l9-5 9 5-9 5-9-5z"></path>
-                <path d="M3 8v8l9 5 9-5V8"></path>
-              </svg>
+              <span class="cart-drawer__progress-icon" aria-hidden="true">
+                <svg viewbox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 8l9-5 9 5-9 5-9-5z"></path>
+                  <path d="M3 8v8l9 5 9-5V8"></path>
+                </svg>
+              </span>
             </div>
           </div>
         </div>
