@@ -128,15 +128,15 @@
   }
 
   .comparison__magnifier {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    z-index: 3;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
   }
 
   .comparison__magnifier.is-visible {
@@ -144,10 +144,17 @@
     pointer-events: auto;
   }
 
+  .comparison__magnifier-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.6);
+  }
+
   .comparison__magnifier-card {
     position: relative;
-    width: clamp(180px, 58%, 260px);
-    height: clamp(180px, 58%, 260px);
+    z-index: 1;
+    width: min(320px, 78vw);
+    height: min(320px, 78vw);
     transform: scale(0.82);
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -379,15 +386,6 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
-
-        <div class="comparison__magnifier" data-magnifier aria-hidden="true">
-          <div class="comparison__magnifier-card">
-            <div class="comparison__magnifier-glass" data-magnifier-glass></div>
-            <button type="button" class="comparison__magnifier-close" data-magnifier-close aria-label="{{ 'accessibility.close' | t }}">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-          </div>
-        </div>
       </div>
 
       <div class="comparison__legend">
@@ -402,6 +400,16 @@
             </div>
           {%- endif -%}
         {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="comparison__magnifier" data-magnifier aria-hidden="true">
+      <div class="comparison__magnifier-backdrop" data-magnifier-backdrop></div>
+      <div class="comparison__magnifier-card">
+        <div class="comparison__magnifier-glass" data-magnifier-glass></div>
+        <button type="button" class="comparison__magnifier-close" data-magnifier-close aria-label="{{ 'accessibility.close' | t }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -420,6 +428,7 @@
     var magnifier = section.querySelector('[data-magnifier]');
     var magnifierGlass = section.querySelector('[data-magnifier-glass]');
     var magnifierClose = section.querySelector('[data-magnifier-close]');
+    var magnifierBackdrop = section.querySelector('[data-magnifier-backdrop]');
 
     var zoomFactor = 2.6;
     var lastRotate = { x: 0, y: 0 };
@@ -499,9 +508,9 @@
       });
     }
 
-    if (magnifier) {
-      magnifier.addEventListener('click', function (event) {
-        if (event.target === magnifier) clearActive();
+    if (magnifierBackdrop) {
+      magnifierBackdrop.addEventListener('click', function () {
+        clearActive();
       });
     }
 
