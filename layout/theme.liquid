@@ -280,6 +280,7 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'global-typography-custom.css' | asset_url | stylesheet_tag }}
+    {{ 'scroll-reveal.css' | asset_url | stylesheet_tag }}
 
     <style>
       h1, h2, h3, h4, h5, h6,
@@ -449,5 +450,7 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script src="{{ 'scroll-reveal.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
