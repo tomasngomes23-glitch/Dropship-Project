@@ -92,7 +92,7 @@
   .comparison__image-wrap {
     position: relative;
     width: 100%;
-    max-width: 460px;
+    max-width: 640px;
     flex: 0 0 auto;
   }
 
@@ -107,15 +107,17 @@
 
   @media screen and (min-width: 990px) {
     .comparison__image-wrap {
-      flex: 0 0 44%;
+      flex: 0 0 58%;
       max-width: none;
-      width: 44%;
+      width: 58%;
     }
   }
 
   .comparison__image-inner {
     position: relative;
     z-index: 1;
+    transform: scale(1.3);
+    transform-origin: center 42%;
   }
 
   .comparison__image {
