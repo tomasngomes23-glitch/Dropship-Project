@@ -62,19 +62,6 @@
           {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg video-feature__placeholder' }}
         </div>
       {%- endif -%}
-      <div class="video-feature__glow" aria-hidden="true"></div>
-      {%- if section.settings.badge_text != blank -%}
-        <div class="video-feature__badge">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <span>{{ section.settings.badge_text | escape }}</span>
-        </div>
-      {%- endif -%}
-      {%- if section.settings.stat_number != blank -%}
-        <div class="video-feature__stat">
-          <p class="video-feature__stat-number">{{ section.settings.stat_number | escape }}</p>
-          <p class="video-feature__stat-label">{{ section.settings.stat_label | escape }}</p>
-        </div>
-      {%- endif -%}
     </div>
 
     <div class="video-feature__content">
@@ -150,24 +137,6 @@
       "type": "image_picker",
       "id": "poster",
       "label": "Poster / fallback image"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge text over the video (optional)",
-      "default": "Real fabric, up close"
-    },
-    {
-      "type": "text",
-      "id": "stat_number",
-      "label": "Floating stat number (optional)",
-      "default": "12,000+"
-    },
-    {
-      "type": "text",
-      "id": "stat_label",
-      "label": "Floating stat label",
-      "default": "happy customers"
     },
     {
       "type": "select",
