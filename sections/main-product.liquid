@@ -539,7 +539,7 @@
                       {%- assign trust_stars = block.settings.rating | times: 1 -%}
                       {%- for star_i in (1..5) -%}
                         <span class="trust-rating__star{% unless star_i <= trust_stars %} trust-rating__star--empty{% endunless %}">
-                          <span class="icon-trustpilot-star" aria-hidden="true"></span>
+                          <img class="icon-trustpilot-star" src="{{ 'icon-trustpilot-star.png' | asset_url }}" alt="" aria-hidden="true">
                         </span>
                       {%- endfor -%}
                     </span>

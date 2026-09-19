@@ -36,15 +36,7 @@
 
 .icon-trustpilot-star {
   display: inline-block;
-  background-color: #ffffff;
-  -webkit-mask-image: url(icon-trustpilot-star.png);
-  mask-image: url(icon-trustpilot-star.png);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+  object-fit: contain;
 }
 
 .trust-rating__star .icon-trustpilot-star {

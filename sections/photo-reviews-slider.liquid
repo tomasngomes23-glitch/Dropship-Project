@@ -145,15 +145,7 @@
 
   .icon-trustpilot-star {
     display: inline-block;
-    background-color: #ffffff;
-    -webkit-mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
-    mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
+    object-fit: contain;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__date {
@@ -231,7 +223,7 @@
                 class="photo-reviews__star-tile"
                 style="background: linear-gradient(90deg, #00b67a {{ star_fill }}%, rgba(0, 182, 122, 0.25) {{ star_fill }}%);"
               >
-                <span class="icon-trustpilot-star" aria-hidden="true"></span>
+                <img class="icon-trustpilot-star" src="{{ 'icon-trustpilot-star.png' | asset_url }}" alt="" aria-hidden="true">
               </span>
             {%- endfor -%}
           </span>
@@ -254,7 +246,7 @@
                     {%- assign stars = block.settings.rating | times: 1 -%}
                     {%- for star_i in (1..5) -%}
                       <span class="photo-reviews__star-tile{% unless star_i <= stars %} photo-reviews__star--empty{% endunless %}">
-                        <span class="icon-trustpilot-star" aria-hidden="true"></span>
+                        <img class="icon-trustpilot-star" src="{{ 'icon-trustpilot-star.png' | asset_url }}" alt="" aria-hidden="true">
                       </span>
                     {%- endfor -%}
                   </span>
