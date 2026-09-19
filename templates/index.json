@@ -230,30 +230,32 @@
     "video_feature": {
       "type": "video-feature",
       "settings": {
-        "caption": "ON THE COURT",
-        "heading": "Wear the game.",
+        "caption": "VINTAGE RACEWEAR",
+        "heading": "Built like the real thing.",
         "heading_size": "h0",
-        "body": "<p>Filmed courtside, not in a studio. This is the fit, the fabric, and the finish, exactly as it moves on real players before it ever ships to you.</p>",
-        "button_label": "Shop all jerseys",
-        "button_link": "",
+        "body": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>",
+        "button_label": "Shop vintage jackets",
+        "button_link": "shopify://collections/vintage-jackets",
         "media_position": "right",
         "fallback_video_asset": "video-feature-showcase.mp4",
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64,
-        "badge_text": "Filmed courtside"
+        "badge_text": "Real fabric, up close",
+        "stat_number": "12,000+",
+        "stat_label": "happy customers"
       },
       "blocks": {
         "feature_1": {
           "type": "feature",
           "settings": {
-            "text": "Filmed on real courts, not in a studio"
+            "text": "Officially inspired team crests, stitched not printed"
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "text": "Same jerseys your favourite players wear"
+            "text": "Heavyweight vintage-style fabric, built to last"
           }
         },
         "feature_3": {

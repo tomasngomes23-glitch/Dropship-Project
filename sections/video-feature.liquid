@@ -69,6 +69,12 @@
           <span>{{ section.settings.badge_text | escape }}</span>
         </div>
       {%- endif -%}
+      {%- if section.settings.stat_number != blank -%}
+        <div class="video-feature__stat">
+          <p class="video-feature__stat-number">{{ section.settings.stat_number | escape }}</p>
+          <p class="video-feature__stat-label">{{ section.settings.stat_label | escape }}</p>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="video-feature__content">
@@ -149,7 +155,19 @@
       "type": "text",
       "id": "badge_text",
       "label": "Badge text over the video (optional)",
-      "default": "Filmed courtside"
+      "default": "Real fabric, up close"
+    },
+    {
+      "type": "text",
+      "id": "stat_number",
+      "label": "Floating stat number (optional)",
+      "default": "12,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_label",
+      "label": "Floating stat label",
+      "default": "happy customers"
     },
     {
       "type": "select",
@@ -169,13 +187,13 @@
       "type": "text",
       "id": "caption",
       "label": "Small label (optional)",
-      "default": "ON THE COURT"
+      "default": "VINTAGE RACEWEAR"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Wear the game."
+      "default": "Built like the real thing."
     },
     {
       "type": "select",
@@ -192,13 +210,13 @@
       "type": "richtext",
       "id": "body",
       "label": "Body text",
-      "default": "<p>Filmed courtside, not in a studio. This is the fit, the fabric, and the finish, exactly as it moves on real players before it ever ships to you.</p>"
+      "default": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button text",
-      "default": "Shop all jerseys"
+      "default": "Shop vintage jackets"
     },
     {
       "type": "url",
@@ -251,7 +269,7 @@
           "type": "text",
           "id": "text",
           "label": "Text",
-          "default": "Real players, real courts"
+          "default": "Officially inspired team crests, stitched not printed"
         }
       ]
     }
@@ -260,8 +278,8 @@
     {
       "name": "Video feature",
       "blocks": [
-        { "type": "feature", "settings": { "text": "Filmed on real courts, not in a studio" } },
-        { "type": "feature", "settings": { "text": "Same jerseys your favourite players wear" } },
+        { "type": "feature", "settings": { "text": "Officially inspired team crests, stitched not printed" } },
+        { "type": "feature", "settings": { "text": "Heavyweight vintage-style fabric, built to last" } },
         { "type": "feature", "settings": { "text": "Trusted by 12,000+ Overtake customers" } }
       ]
     }
