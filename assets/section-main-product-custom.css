@@ -36,7 +36,7 @@
 
 .icon-trustpilot-star {
   display: inline-block;
-  object-fit: contain;
+  fill: #ffffff;
 }
 
 .trust-rating__star .icon-trustpilot-star {
