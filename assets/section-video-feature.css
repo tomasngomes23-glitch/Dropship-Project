@@ -8,12 +8,14 @@
 
 @media screen and (min-width: 750px) {
   .video-feature {
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 5rem;
   }
 
   .video-feature__media {
     order: 1;
+    max-width: 420px;
+    justify-self: end;
   }
 
   .video-feature__content {
@@ -21,11 +23,12 @@
   }
 
   .video-feature.video-feature--media-left {
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 1fr 1.6fr;
   }
 
   .video-feature.video-feature--media-left .video-feature__media {
     order: -1;
+    justify-self: start;
   }
 }
 
