@@ -236,7 +236,7 @@
         "body": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>",
         "button_label": "Shop vintage jackets",
         "button_link": "shopify://collections/vintage-jackets",
-        "media_position": "right",
+        "media_position": "left",
         "fallback_video_asset": "video-feature-showcase.mp4",
         "color_scheme": "scheme-1",
         "padding_top": 64,

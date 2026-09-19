@@ -91,7 +91,6 @@
 
   .comparison__image-wrap {
     position: relative;
-    perspective: 1400px;
     width: 100%;
     max-width: 460px;
     flex: 0 0 auto;
@@ -117,83 +116,6 @@
   .comparison__image-inner {
     position: relative;
     z-index: 1;
-    transform: scale(1.28);
-    transform-origin: center 42%;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
-    will-change: transform;
-  }
-
-  .comparison__image-wrap.is-zoomed .comparison__image-inner {
-    filter: blur(6px) brightness(0.85);
-  }
-
-  .comparison__magnifier {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(10, 10, 10, 0.6);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-  }
-
-  .comparison__magnifier.is-visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .comparison__magnifier-glass {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    max-width: 78vw;
-    max-height: 78vw;
-    border-radius: 20px;
-    background-color: #ffffff;
-    background-repeat: no-repeat;
-    border: 4px solid #ffffff;
-    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.06);
-    transform: scale(0.82);
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .comparison__magnifier.is-visible .comparison__magnifier-glass {
-    transform: scale(1);
-  }
-
-  .comparison__magnifier-close {
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #191919;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .comparison__magnifier-close svg {
-    width: 14px;
-    height: 14px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2.5;
-    stroke-linecap: round;
   }
 
   .comparison__image {
@@ -354,7 +276,7 @@
     </p>
 
     <div class="comparison__layout">
-      <div class="comparison__image-wrap" data-comparison-tilt>
+      <div class="comparison__image-wrap">
         <div class="comparison__image-inner">
           {%- if section.settings.showcase_image != blank -%}
             <img
@@ -374,8 +296,6 @@
                 class="comparison__marker"
                 style="top: {{ block.settings.position_top }}%; left: {{ block.settings.position_left }}%;"
                 data-marker-index="{{ forloop.index }}"
-                data-top="{{ block.settings.position_top }}"
-                data-left="{{ block.settings.position_left }}"
                 aria-label="{{ block.settings.heading | escape }}"
                 {{ block.shopify_attributes }}
               >{{ forloop.index }}</button>
@@ -398,14 +318,6 @@
         {%- endfor -%}
       </div>
     </div>
-
-    <div class="comparison__magnifier" data-magnifier aria-hidden="true">
-      <div class="comparison__magnifier-glass" data-magnifier-glass>
-        <button type="button" class="comparison__magnifier-close" data-magnifier-close aria-label="{{ 'accessibility.close' | t }}">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -416,54 +328,10 @@
 
     var markers = section.querySelectorAll('.comparison__marker');
     var legendItems = section.querySelectorAll('.comparison__legend-item');
-    var inner = section.querySelector('.comparison__image-inner');
-    var outer = section.querySelector('[data-comparison-tilt]');
-    var image = section.querySelector('.comparison__image');
-    var magnifier = section.querySelector('[data-magnifier]');
-    var magnifierGlass = section.querySelector('[data-magnifier-glass]');
-    var magnifierClose = section.querySelector('[data-magnifier-close]');
-
-    var zoomFactor = 2.6;
-    var lastRotate = { x: 0, y: 0 };
-
-    function applyTransform() {
-      if (!inner) return;
-      inner.style.transform = 'scale(1.28) rotateX(' + lastRotate.x + 'deg) rotateY(' + lastRotate.y + 'deg)';
-    }
-
-    function showMagnifier(marker) {
-      if (!magnifier || !magnifierGlass || !image) return;
-      var renderedWidth = image.offsetWidth;
-      var renderedHeight = image.offsetHeight;
-      if (!renderedWidth || !renderedHeight) return;
-
-      var leftPercent = parseFloat(marker.getAttribute('data-left')) || 0;
-      var topPercent = parseFloat(marker.getAttribute('data-top')) || 0;
-      var targetX = (leftPercent / 100) * renderedWidth;
-      var targetY = (topPercent / 100) * renderedHeight;
-
-      var glassWidth = magnifierGlass.offsetWidth;
-      var glassHeight = magnifierGlass.offsetHeight;
-
-      magnifierGlass.style.backgroundImage = 'url(' + image.src + ')';
-      magnifierGlass.style.backgroundSize = (renderedWidth * zoomFactor) + 'px ' + (renderedHeight * zoomFactor) + 'px';
-      magnifierGlass.style.backgroundPosition =
-        (-(targetX * zoomFactor - glassWidth / 2)) + 'px ' +
-        (-(targetY * zoomFactor - glassHeight / 2)) + 'px';
-
-      magnifier.classList.add('is-visible');
-      if (outer) outer.classList.add('is-zoomed');
-    }
-
-    function hideMagnifier() {
-      if (magnifier) magnifier.classList.remove('is-visible');
-      if (outer) outer.classList.remove('is-zoomed');
-    }
 
     function clearActive() {
       markers.forEach(function (m) { m.classList.remove('is-active'); });
       legendItems.forEach(function (l) { l.classList.remove('is-active'); });
-      hideMagnifier();
     }
 
     function setActive(index) {
@@ -472,10 +340,7 @@
       if (alreadyActive) return;
       var marker = section.querySelector('.comparison__marker[data-marker-index="' + index + '"]');
       var legendItem = section.querySelector('.comparison__legend-item[data-legend-index="' + index + '"]');
-      if (marker) {
-        marker.classList.add('is-active');
-        showMagnifier(marker);
-      }
+      if (marker) marker.classList.add('is-active');
       if (legendItem) legendItem.classList.add('is-active');
     }
 
@@ -492,38 +357,6 @@
       item.addEventListener('click', function () {
         setActive(item.getAttribute('data-legend-index'));
       });
-    });
-
-    if (magnifierClose) {
-      magnifierClose.addEventListener('click', function (event) {
-        event.stopPropagation();
-        clearActive();
-      });
-    }
-
-    if (magnifier) {
-      magnifier.addEventListener('click', function (event) {
-        if (event.target === magnifier) clearActive();
-      });
-    }
-
-    if (!outer || !inner) return;
-
-    var maxTilt = 12;
-
-    outer.addEventListener('mousemove', function (event) {
-      var rect = outer.getBoundingClientRect();
-      var x = (event.clientX - rect.left) / rect.width;
-      var y = (event.clientY - rect.top) / rect.height;
-      lastRotate.y = (x - 0.5) * maxTilt * 2;
-      lastRotate.x = (0.5 - y) * maxTilt;
-      applyTransform();
-    });
-
-    outer.addEventListener('mouseleave', function () {
-      lastRotate.x = 0;
-      lastRotate.y = 0;
-      applyTransform();
     });
   })();
 </script>
