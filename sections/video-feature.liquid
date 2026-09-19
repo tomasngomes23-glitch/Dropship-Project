@@ -77,6 +77,29 @@
         <div class="video-feature__body rte">{{ section.settings.body }}</div>
       {%- endif -%}
 
+      {%- if section.settings.stat_1_value != blank or section.settings.stat_2_value != blank or section.settings.stat_3_value != blank -%}
+        <div class="video-feature__stats">
+          {%- if section.settings.stat_1_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number">{{ section.settings.stat_1_value | escape }}</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_1_label | escape }}</p>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_2_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number">{{ section.settings.stat_2_value | escape }}</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_2_label | escape }}</p>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_3_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number">{{ section.settings.stat_3_value | escape }}</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_3_label | escape }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
       {%- liquid
         assign feature_blocks = section.blocks | where: 'type', 'feature'
       -%}
@@ -105,6 +128,10 @@
           <span class="video-feature__button-stripe" aria-hidden="true"></span>
           {{ section.settings.button_label | escape }}
         </a>
+      {%- endif -%}
+
+      {%- if section.settings.trust_line != blank -%}
+        <p class="video-feature__trust-line">{{ section.settings.trust_line | escape }}</p>
       {%- endif -%}
     </div>
   </div>
@@ -182,6 +209,50 @@
       "default": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>"
     },
     {
+      "type": "header",
+      "content": "Stats row (optional)"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "12,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "happy customers"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "4.8/5"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "average rating"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 value",
+      "default": "€80+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "free shipping"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
       "type": "text",
       "id": "button_label",
       "label": "Button text",
@@ -197,6 +268,12 @@
       "id": "button_style_secondary",
       "label": "Secondary style (outline)",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "trust_line",
+      "label": "Trust line under button (optional)",
+      "default": "Free shipping over €80 · Easy 14-day returns"
     },
     {
       "type": "header",
@@ -249,7 +326,8 @@
       "blocks": [
         { "type": "feature", "settings": { "text": "Officially inspired team crests, stitched not printed" } },
         { "type": "feature", "settings": { "text": "Heavyweight vintage-style fabric, built to last" } },
-        { "type": "feature", "settings": { "text": "Trusted by 12,000+ Overtake customers" } }
+        { "type": "feature", "settings": { "text": "Trusted by 12,000+ Overtake customers" } },
+        { "type": "feature", "settings": { "text": "Fast shipping across Europe" } }
       ]
     }
   ]
