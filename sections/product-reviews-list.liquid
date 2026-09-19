@@ -235,9 +235,24 @@
 
   @media screen and (min-width: 990px) {
     .trustreviews-{{ section.id }} .trustreviews__grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
     }
   }
+
+  {%- if section.settings.full_width -%}
+    .trustreviews-outer-{{ section.id }} .trustreviews-{{ section.id }} {
+      max-width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .trustreviews-outer-{{ section.id }} .trustreviews-{{ section.id }} {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+  {%- endif -%}
 
   .trustreviews-{{ section.id }} .trustreviews__card {
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -631,6 +646,27 @@
       "id": "subheading",
       "label": "Subtitle",
       "default": "Real reviews from real Overtake customers"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
     },
     {
       "type": "header",
