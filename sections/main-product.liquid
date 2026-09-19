@@ -539,10 +539,7 @@
                       {%- assign trust_stars = block.settings.rating | times: 1 -%}
                       {%- for star_i in (1..5) -%}
                         <span class="trust-rating__star{% unless star_i <= trust_stars %} trust-rating__star--empty{% endunless %}">
-                          <svg viewbox="0 0 20 19" aria-hidden="true">
-                            <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"></path>
-                            <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"></path>
-                          </svg>
+                          <span class="icon-trustpilot-star" aria-hidden="true"></span>
                         </span>
                       {%- endfor -%}
                     </span>

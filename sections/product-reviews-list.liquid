@@ -177,10 +177,22 @@
     background: #007f4e;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__star-box svg {
+  .trustreviews-{{ section.id }} .trustreviews__star-box .icon-trustpilot-star {
     width: 1.05rem;
     height: 1.05rem;
-    fill: #ffffff;
+  }
+
+  .icon-trustpilot-star {
+    display: inline-block;
+    background-color: #ffffff;
+    -webkit-mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
+    mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
   }
 
   .trustreviews-{{ section.id }} .trustreviews__score-stars {
@@ -201,7 +213,7 @@
     background: #007f4e;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__star-box--partial svg {
+  .trustreviews-{{ section.id }} .trustreviews__star-box--partial .icon-trustpilot-star {
     position: relative;
     z-index: 1;
   }
@@ -212,7 +224,7 @@
     border-radius: 4px;
   }
 
-  .trustreviews-{{ section.id }} .trustreviews__star-box--lg svg {
+  .trustreviews-{{ section.id }} .trustreviews__star-box--lg .icon-trustpilot-star {
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -434,25 +446,16 @@
               {%- for i in (1..5) -%}
                 {%- if i <= full_stars -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg is-filled">
-                    <svg viewBox="0 0 20 19">
-                      <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"/>
-                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"/>
-                    </svg>
+                    <span class="icon-trustpilot-star" aria-hidden="true"></span>
                   </span>
                 {%- elsif i == next_star and partial_percent > 0 -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg trustreviews__star-box--partial" style="--fill-percent: {{ partial_percent }}%;">
                     <span class="trustreviews__star-box-fill"></span>
-                    <svg viewBox="0 0 20 19">
-                      <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"/>
-                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"/>
-                    </svg>
+                    <span class="icon-trustpilot-star" aria-hidden="true"></span>
                   </span>
                 {%- else -%}
                   <span class="trustreviews__star-box trustreviews__star-box--lg">
-                    <svg viewBox="0 0 20 19">
-                      <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"/>
-                      <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"/>
-                    </svg>
+                    <span class="icon-trustpilot-star" aria-hidden="true"></span>
                   </span>
                 {%- endif -%}
               {%- endfor -%}
@@ -526,10 +529,7 @@
               {%- assign stars = block.settings.rating | times: 1 -%}
               {%- for i in (1..5) -%}
                 <span class="trustreviews__star-box{% if i <= stars %} is-filled{% endif %}">
-                  <svg viewBox="0 0 20 19">
-                    <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"/>
-                    <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"/>
-                  </svg>
+                  <span class="icon-trustpilot-star" aria-hidden="true"></span>
                 </span>
               {%- endfor -%}
             </div>

@@ -38,7 +38,7 @@
     background: #00b67a;
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row svg {
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row .icon-trustpilot-star {
     width: 16px;
     height: 16px;
   }
@@ -137,11 +137,23 @@
     background: rgba(0, 182, 122, 0.25);
   }
 
-  #photo-reviews-{{ section.id }} .photo-reviews__stars svg,
-  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row svg {
+  #photo-reviews-{{ section.id }} .photo-reviews__stars .icon-trustpilot-star,
+  #photo-reviews-{{ section.id }} .photo-reviews__summary-stars-row .icon-trustpilot-star {
     width: 12px;
     height: 12px;
-    fill: #ffffff;
+  }
+
+  .icon-trustpilot-star {
+    display: inline-block;
+    background-color: #ffffff;
+    -webkit-mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
+    mask-image: url({{ 'icon-trustpilot-star.png' | asset_url }});
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
   }
 
   #photo-reviews-{{ section.id }} .photo-reviews__date {
@@ -219,10 +231,7 @@
                 class="photo-reviews__star-tile"
                 style="background: linear-gradient(90deg, #00b67a {{ star_fill }}%, rgba(0, 182, 122, 0.25) {{ star_fill }}%);"
               >
-                <svg viewbox="0 0 20 19">
-                  <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"></path>
-                  <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"></path>
-                </svg>
+                <span class="icon-trustpilot-star" aria-hidden="true"></span>
               </span>
             {%- endfor -%}
           </span>
@@ -245,10 +254,7 @@
                     {%- assign stars = block.settings.rating | times: 1 -%}
                     {%- for star_i in (1..5) -%}
                       <span class="photo-reviews__star-tile{% unless star_i <= stars %} photo-reviews__star--empty{% endunless %}">
-                        <svg viewbox="0 0 20 19">
-                          <path d="M10 0 7.1 6.6 0 7.2l5.4 4.7-1.6 7 6.2-3.9z" fill="#a7dec2"></path>
-                          <path d="M10 0l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9z" fill="#ffffff"></path>
-                        </svg>
+                        <span class="icon-trustpilot-star" aria-hidden="true"></span>
                       </span>
                     {%- endfor -%}
                   </span>
