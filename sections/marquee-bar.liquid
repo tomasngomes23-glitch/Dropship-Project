@@ -23,6 +23,11 @@
     animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
   }
 
+  .marquee-bar-{{ section.id }} .marquee-bar__set {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .marquee-bar-{{ section.id }} .marquee-bar__item {
     display: inline-flex;
     align-items: center;
@@ -46,7 +51,7 @@
 
   @keyframes marquee-scroll-{{ section.id }} {
     from { transform: translateX(0); }
-    to { transform: translateX(-25%); }
+    to { transform: translateX(calc(-1 * var(--marquee-shift, 25%))); }
   }
 
   .marquee-bar-{{ section.id }} .marquee-bar__localization {
@@ -82,21 +87,32 @@
 -%}
 
 {%- if message_blocks.size > 0 -%}
+  <script src="{{ 'marquee-bar.js' | asset_url }}" defer="defer"></script>
   <div class="color-{{ section.settings.color_scheme }} marquee-bar marquee-bar-{{ section.id }}">
     <div class="marquee-bar__viewport">
-      <div class="marquee-bar__track" aria-hidden="false">
-        {%- comment -%} render the message list 4x back-to-back so the -25% translateX loop stays seamless even with few/short messages on wide screens {%- endcomment -%}
+      <div class="marquee-bar__track" data-marquee-track>
+        {%- comment -%}
+          Render the message list 4x back-to-back as a fallback so the loop
+          has a chance of staying seamless without JS. marquee-bar.js then
+          measures one set's real pixel width and clones more of them at
+          runtime until there's always enough content to cover the widest
+          screen twice over, so the ticker can never visibly "run out" -
+          it also sets --marquee-shift so the animation always slides by
+          exactly one set width instead of an assumed 25%.
+        {%- endcomment -%}
         {%- for i in (1..4) -%}
-          {%- for block in message_blocks -%}
-            <span class="marquee-bar__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
-              {%- if block.settings.link != blank -%}
-                <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
-              {%- else -%}
-                {{ block.settings.text | escape }}
-              {%- endif -%}
-            </span>
-            <span class="marquee-bar__dot" aria-hidden="true">&bull;</span>
-          {%- endfor -%}
+          <div class="marquee-bar__set" {% if i > 1 %}aria-hidden="true"{% endif %}>
+            {%- for block in message_blocks -%}
+              <span class="marquee-bar__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
+                {%- else -%}
+                  {{ block.settings.text | escape }}
+                {%- endif -%}
+              </span>
+              <span class="marquee-bar__dot" aria-hidden="true">&bull;</span>
+            {%- endfor -%}
+          </div>
         {%- endfor -%}
       </div>
     </div>
