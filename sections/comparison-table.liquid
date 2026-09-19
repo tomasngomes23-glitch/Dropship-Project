@@ -114,18 +114,83 @@
     }
   }
 
-  .comparison__image-wrap.is-zoomed {
-    overflow: hidden;
-    border-radius: 18px;
-  }
-
   .comparison__image-inner {
     position: relative;
     z-index: 1;
     transform: scale(1.28);
     transform-origin: center 42%;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
     will-change: transform;
+  }
+
+  .comparison__image-wrap.is-zoomed .comparison__image-inner {
+    filter: blur(6px) brightness(0.85);
+  }
+
+  .comparison__magnifier {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .comparison__magnifier.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .comparison__magnifier-card {
+    position: relative;
+    width: clamp(180px, 58%, 260px);
+    height: clamp(180px, 58%, 260px);
+    transform: scale(0.82);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .comparison__magnifier.is-visible .comparison__magnifier-card {
+    transform: scale(1);
+  }
+
+  .comparison__magnifier-glass {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    border: 4px solid #ffffff;
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  }
+
+  .comparison__magnifier-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #191919;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .comparison__magnifier-close svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
   }
 
   .comparison__image {
@@ -314,6 +379,15 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
+
+        <div class="comparison__magnifier" data-magnifier aria-hidden="true">
+          <div class="comparison__magnifier-card">
+            <div class="comparison__magnifier-glass" data-magnifier-glass></div>
+            <button type="button" class="comparison__magnifier-close" data-magnifier-close aria-label="{{ 'accessibility.close' | t }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="comparison__legend">
@@ -342,26 +416,52 @@
     var legendItems = section.querySelectorAll('.comparison__legend-item');
     var inner = section.querySelector('.comparison__image-inner');
     var outer = section.querySelector('[data-comparison-tilt]');
+    var image = section.querySelector('.comparison__image');
+    var magnifier = section.querySelector('[data-magnifier]');
+    var magnifierGlass = section.querySelector('[data-magnifier-glass]');
+    var magnifierClose = section.querySelector('[data-magnifier-close]');
 
-    var defaultOrigin = 'center 42%';
-    var defaultScale = 1.28;
-    var zoomScale = 2.3;
-    var isZoomed = false;
+    var zoomFactor = 2.6;
     var lastRotate = { x: 0, y: 0 };
 
     function applyTransform() {
       if (!inner) return;
-      var scale = isZoomed ? zoomScale : defaultScale;
-      inner.style.transform = 'scale(' + scale + ') rotateX(' + lastRotate.x + 'deg) rotateY(' + lastRotate.y + 'deg)';
+      inner.style.transform = 'scale(1.28) rotateX(' + lastRotate.x + 'deg) rotateY(' + lastRotate.y + 'deg)';
+    }
+
+    function showMagnifier(marker) {
+      if (!magnifier || !magnifierGlass || !image) return;
+      var renderedWidth = image.offsetWidth;
+      var renderedHeight = image.offsetHeight;
+      if (!renderedWidth || !renderedHeight) return;
+
+      var leftPercent = parseFloat(marker.getAttribute('data-left')) || 0;
+      var topPercent = parseFloat(marker.getAttribute('data-top')) || 0;
+      var targetX = (leftPercent / 100) * renderedWidth;
+      var targetY = (topPercent / 100) * renderedHeight;
+
+      var glassWidth = magnifierGlass.offsetWidth;
+      var glassHeight = magnifierGlass.offsetHeight;
+
+      magnifierGlass.style.backgroundImage = 'url(' + image.src + ')';
+      magnifierGlass.style.backgroundSize = (renderedWidth * zoomFactor) + 'px ' + (renderedHeight * zoomFactor) + 'px';
+      magnifierGlass.style.backgroundPosition =
+        (-(targetX * zoomFactor - glassWidth / 2)) + 'px ' +
+        (-(targetY * zoomFactor - glassHeight / 2)) + 'px';
+
+      magnifier.classList.add('is-visible');
+      if (outer) outer.classList.add('is-zoomed');
+    }
+
+    function hideMagnifier() {
+      if (magnifier) magnifier.classList.remove('is-visible');
+      if (outer) outer.classList.remove('is-zoomed');
     }
 
     function clearActive() {
       markers.forEach(function (m) { m.classList.remove('is-active'); });
       legendItems.forEach(function (l) { l.classList.remove('is-active'); });
-      isZoomed = false;
-      if (inner) inner.style.transformOrigin = defaultOrigin;
-      if (outer) outer.classList.remove('is-zoomed');
-      applyTransform();
+      hideMagnifier();
     }
 
     function setActive(index) {
@@ -372,12 +472,7 @@
       var legendItem = section.querySelector('.comparison__legend-item[data-legend-index="' + index + '"]');
       if (marker) {
         marker.classList.add('is-active');
-        if (inner) {
-          inner.style.transformOrigin = marker.getAttribute('data-left') + '% ' + marker.getAttribute('data-top') + '%';
-        }
-        isZoomed = true;
-        if (outer) outer.classList.add('is-zoomed');
-        applyTransform();
+        showMagnifier(marker);
       }
       if (legendItem) legendItem.classList.add('is-active');
     }
@@ -396,6 +491,19 @@
         setActive(item.getAttribute('data-legend-index'));
       });
     });
+
+    if (magnifierClose) {
+      magnifierClose.addEventListener('click', function (event) {
+        event.stopPropagation();
+        clearActive();
+      });
+    }
+
+    if (magnifier) {
+      magnifier.addEventListener('click', function (event) {
+        if (event.target === magnifier) clearActive();
+      });
+    }
 
     if (!outer || !inner) return;
 
