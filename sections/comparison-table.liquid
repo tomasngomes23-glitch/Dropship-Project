@@ -114,6 +114,11 @@
     }
   }
 
+  .comparison__image-wrap.is-zoomed {
+    overflow: hidden;
+    border-radius: 18px;
+  }
+
   .comparison__image-inner {
     position: relative;
     z-index: 1;
@@ -301,6 +306,8 @@
                 class="comparison__marker"
                 style="top: {{ block.settings.position_top }}%; left: {{ block.settings.position_left }}%;"
                 data-marker-index="{{ forloop.index }}"
+                data-top="{{ block.settings.position_top }}"
+                data-left="{{ block.settings.position_left }}"
                 aria-label="{{ block.settings.heading | escape }}"
                 {{ block.shopify_attributes }}
               >{{ forloop.index }}</button>
@@ -333,10 +340,28 @@
 
     var markers = section.querySelectorAll('.comparison__marker');
     var legendItems = section.querySelectorAll('.comparison__legend-item');
+    var inner = section.querySelector('.comparison__image-inner');
+    var outer = section.querySelector('[data-comparison-tilt]');
+
+    var defaultOrigin = 'center 42%';
+    var defaultScale = 1.28;
+    var zoomScale = 2.3;
+    var isZoomed = false;
+    var lastRotate = { x: 0, y: 0 };
+
+    function applyTransform() {
+      if (!inner) return;
+      var scale = isZoomed ? zoomScale : defaultScale;
+      inner.style.transform = 'scale(' + scale + ') rotateX(' + lastRotate.x + 'deg) rotateY(' + lastRotate.y + 'deg)';
+    }
 
     function clearActive() {
       markers.forEach(function (m) { m.classList.remove('is-active'); });
       legendItems.forEach(function (l) { l.classList.remove('is-active'); });
+      isZoomed = false;
+      if (inner) inner.style.transformOrigin = defaultOrigin;
+      if (outer) outer.classList.remove('is-zoomed');
+      applyTransform();
     }
 
     function setActive(index) {
@@ -345,7 +370,15 @@
       if (alreadyActive) return;
       var marker = section.querySelector('.comparison__marker[data-marker-index="' + index + '"]');
       var legendItem = section.querySelector('.comparison__legend-item[data-legend-index="' + index + '"]');
-      if (marker) marker.classList.add('is-active');
+      if (marker) {
+        marker.classList.add('is-active');
+        if (inner) {
+          inner.style.transformOrigin = marker.getAttribute('data-left') + '% ' + marker.getAttribute('data-top') + '%';
+        }
+        isZoomed = true;
+        if (outer) outer.classList.add('is-zoomed');
+        applyTransform();
+      }
       if (legendItem) legendItem.classList.add('is-active');
     }
 
@@ -364,24 +397,23 @@
       });
     });
 
-    var outer = section.querySelector('[data-comparison-tilt]');
-    var inner = section.querySelector('.comparison__image-inner');
     if (!outer || !inner) return;
 
     var maxTilt = 12;
-    var baseScale = 'scale(1.28) ';
 
     outer.addEventListener('mousemove', function (event) {
       var rect = outer.getBoundingClientRect();
       var x = (event.clientX - rect.left) / rect.width;
       var y = (event.clientY - rect.top) / rect.height;
-      var rotateY = (x - 0.5) * maxTilt * 2;
-      var rotateX = (0.5 - y) * maxTilt;
-      inner.style.transform = baseScale + 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+      lastRotate.y = (x - 0.5) * maxTilt * 2;
+      lastRotate.x = (0.5 - y) * maxTilt;
+      applyTransform();
     });
 
     outer.addEventListener('mouseleave', function () {
-      inner.style.transform = baseScale + 'rotateX(0deg) rotateY(0deg)';
+      lastRotate.x = 0;
+      lastRotate.y = 0;
+      applyTransform();
     });
   })();
 </script>
