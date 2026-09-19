@@ -3,14 +3,51 @@
     "ugc_gallery": {
       "type": "ugc-gallery",
       "blocks": {
-        "media-1": { "type": "media_item", "settings": { "show_verified": true } },
-        "media-2": { "type": "media_item", "settings": { "show_verified": true } },
-        "media-3": { "type": "media_item", "settings": { "show_verified": true } },
-        "media-4": { "type": "media_item", "settings": { "show_verified": true } },
-        "media-5": { "type": "media_item", "settings": { "show_verified": true } },
-        "media-6": { "type": "media_item", "settings": { "show_verified": true } }
+        "media-1": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-2": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-3": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-4": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-5": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-6": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        }
       },
-      "block_order": ["media-1", "media-2", "media-3", "media-4", "media-5", "media-6"],
+      "block_order": [
+        "media-1",
+        "media-2",
+        "media-3",
+        "media-4",
+        "media-5",
+        "media-6"
+      ],
       "settings": {
         "heading": "See it for yourself, no filters",
         "heading_size": "h2",
@@ -319,11 +356,28 @@
         "padding_top": 80,
         "padding_bottom": 44
       }
+    },
+    "video_feature": {
+      "type": "video-feature",
+      "settings": {
+        "caption": "OVERTAKE",
+        "heading": "Wear the game",
+        "heading_size": "h1",
+        "body": "<p>The jerseys your favourite players take to the court, filmed straight off it. See the fit, the fabric, the finish, before you buy.</p>",
+        "button_label": "Shop all jerseys",
+        "button_link": "",
+        "media_position": "right",
+        "fallback_video_asset": "video-feature-showcase.mp4",
+        "color_scheme": "scheme-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
     }
   },
   "order": [
     "hero_banner",
     "best_sellers",
+    "video_feature",
     "comparison",
     "ugc_gallery",
     "photo_reviews",

@@ -1,0 +1,215 @@
+{{ 'section-video-feature.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="video-feature page-width section-{{ section.id }}-padding{% if section.settings.media_position == 'left' %} video-feature--media-left{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="video-feature__media">
+      {%- if section.settings.video != null -%}
+        <video
+          class="video-feature__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          {% if section.settings.poster != blank %}
+            poster="{{ section.settings.poster | image_url: width: 1200 }}"
+          {% endif %}
+        >
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
+        </video>
+      {%- elsif section.settings.fallback_video_asset != blank -%}
+        <video
+          class="video-feature__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          {% if section.settings.poster != blank %}
+            poster="{{ section.settings.poster | image_url: width: 1200 }}"
+          {% endif %}
+        >
+          <source src="{{ section.settings.fallback_video_asset | asset_url }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.poster != blank -%}
+        {{
+          section.settings.poster
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 750px) 50vw, 100vw',
+            class: 'video-feature__image',
+            alt: section.settings.poster.alt | default: section.settings.heading
+        }}
+      {%- else -%}
+        <div class="video-feature__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg video-feature__placeholder' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="video-feature__content">
+      {%- if section.settings.caption != blank -%}
+        <p class="video-feature__caption caption-with-letter-spacing">{{ section.settings.caption | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="video-feature__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="video-feature__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video feature",
+  "tag": "section",
+  "class": "section section--video-feature",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (upload here to override the default)",
+      "info": "If left empty, the bundled showcase video below is used."
+    },
+    {
+      "type": "text",
+      "id": "fallback_video_asset",
+      "label": "Default video filename (advanced)",
+      "default": "video-feature-showcase.mp4",
+      "info": "Filename of a video already uploaded to the theme's assets folder. Only used when no video is picked above."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster",
+      "label": "Poster / fallback image"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Video position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Small label (optional)",
+      "default": "OVERTAKE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for the court"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Large" },
+        { "value": "h0", "label": "Extra large" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>Every piece is tested on real courts, by real players, before it ever reaches your door.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Secondary style (outline)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Color and padding"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video feature"
+    }
+  ]
+}
+{% endschema %}
