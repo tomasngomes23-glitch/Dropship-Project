@@ -1,0 +1,62 @@
+{% comment %}
+  Renders a "buy more" bundle row, pulling up to 3 products from a
+  merchant-chosen collection (excluding the product currently being viewed),
+  with working add-to-cart buttons.
+  Accepts:
+  - block: {Object} the bundle_products block
+
+  Usage:
+  {% render 'product-bundle', block: block %}
+{% endcomment %}
+{%- assign bundle_collection = block.settings.collection -%}
+{%- if bundle_collection != blank -%}
+  {%- assign bundle_count = 0 -%}
+  <div class="bundle-products" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <p class="bundle-products__heading">{{ block.settings.heading }}</p>
+    {%- endif -%}
+    <div class="bundle-products__list">
+      {%- for bundle_product in bundle_collection.products -%}
+        {%- if bundle_product.handle == product.handle -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- if bundle_count >= 3 -%}
+          {%- break -%}
+        {%- endif -%}
+        {%- assign bundle_count = bundle_count | plus: 1 -%}
+        {%- assign bundle_variant = bundle_product.selected_or_first_available_variant -%}
+        <div class="bundle-products__item">
+          <a href="{{ bundle_product.url }}" class="bundle-products__image">
+            <img
+              src="{{ bundle_product.featured_image | image_url: width: 160 }}"
+              alt="{{ bundle_product.featured_image.alt | escape }}"
+              loading="lazy"
+              width="80"
+              height="80"
+            >
+          </a>
+          <div class="bundle-products__info">
+            <a href="{{ bundle_product.url }}" class="bundle-products__title">{{ bundle_product.title | escape }}</a>
+            <p class="bundle-products__price">{{ bundle_variant.price | money }}</p>
+          </div>
+          {%- form 'product', bundle_product, class: 'bundle-products__form' -%}
+            <input type="hidden" name="id" value="{{ bundle_variant.id }}">
+            <button
+              type="submit"
+              class="button button--secondary bundle-products__add"
+              {% if bundle_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              {%- if bundle_variant.available -%}
+                + Add
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </button>
+          {%- endform -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}

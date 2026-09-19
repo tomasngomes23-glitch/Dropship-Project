@@ -1,0 +1,277 @@
+{{ 'section-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .hero-banner-{{ section.id }} {
+    --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    min-height: {{ section.settings.mobile_height }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .hero-banner-{{ section.id }} {
+      min-height: {{ section.settings.desktop_height }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="hero-banner hero-banner-{{ section.id }} section-{{ section.id }}-padding">
+    <div class="hero-banner__media">
+      {%- if section.settings.video != null -%}
+        <video
+          class="hero-banner__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          {% if section.settings.image != blank %}
+            poster="{{ section.settings.image | image_url: width: 1920 }}"
+          {% endif %}
+        >
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
+        </video>
+      {%- elsif section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            widths: '375, 750, 1100, 1500, 1780, 2000',
+            class: 'hero-banner__image',
+            alt: section.settings.image.alt | default: section.settings.heading
+        }}
+      {%- else -%}
+        <div class="hero-banner__placeholder">
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg hero-banner__image' }}
+          <p class="hero-banner__placeholder-label caption-with-letter-spacing">
+            [PLACEHOLDER — replace with a photo/video of the jacket in use]
+          </p>
+        </div>
+      {%- endif -%}
+      <div class="hero-banner__overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-banner__content hero-banner__content--{{ section.settings.content_position }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if section.settings.caption != blank -%}
+        <p class="hero-banner__caption caption-with-letter-spacing">{{ section.settings.caption | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero-banner__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'brand_quote' -%}
+            <blockquote class="hero-banner__brand-quote" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.quote | default: '[PLACEHOLDER — brand/authenticity quote, e.g. the story of how Overtake started]' }}</p>
+              {%- if block.settings.attribution != blank -%}
+                <cite>{{ block.settings.attribution | escape }}</cite>
+              {%- endif -%}
+            </blockquote>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section section--hero-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media (image is always required)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video (optional)",
+      "info": "If set, plays on silent loop over the image. The image above is used as poster/fallback."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark overlay opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Small label (optional)",
+      "default": "OVERTAKE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Vintage racing wear, built to last"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Headline size",
+      "options": [
+        { "value": "h1", "label": "Normal" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Maximum" }
+      ],
+      "default": "hxl"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Secondary style (outline)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "center-left", "label": "Center left" },
+        { "value": "center-center", "label": "Center" }
+      ],
+      "default": "bottom-left"
+    },
+    {
+      "type": "header",
+      "content": "Color and height"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height (mobile)",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height (desktop)",
+      "default": 650
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_quote",
+      "name": "Brand quote",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>[PLACEHOLDER — brand/authenticity quote, e.g. the story of how Overtake started]</p>"
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Attribution (optional)",
+          "default": "— Overtake Founder"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "brand_quote" }
+      ]
+    }
+  ]
+}
+{% endschema %}

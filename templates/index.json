@@ -1,0 +1,592 @@
+{
+  "sections": {
+    "ugc_gallery": {
+      "type": "ugc-gallery",
+      "blocks": {
+        "media-1": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-2": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-3": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-4": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-5": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        },
+        "media-6": {
+          "type": "media_item",
+          "settings": {
+            "show_verified": true
+          }
+        }
+      },
+      "block_order": [
+        "media-1",
+        "media-2",
+        "media-3",
+        "media-4",
+        "media-5",
+        "media-6"
+      ],
+      "settings": {
+        "heading": "See it for yourself, no filters",
+        "heading_size": "h2",
+        "subtext": "Real customers unboxing their Overtake jackets. Nothing retouched.",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 40
+      }
+    },
+    "hero_banner": {
+      "type": "hero-banner",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_17_09_2026_22_12_53.png",
+        "caption": "",
+        "heading": "",
+        "heading_size": "hxl",
+        "button_label": "",
+        "button_link": "shopify://collections/vintage-jackets",
+        "button_style_secondary": false,
+        "content_position": "bottom-left",
+        "overlay_opacity": 0,
+        "color_scheme": "scheme-1",
+        "mobile_height": 420,
+        "desktop_height": 560,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "vintage-jackets",
+        "products_to_show": 6,
+        "columns_desktop": 5,
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 64
+      }
+    },
+    "comparison": {
+      "type": "comparison-table",
+      "blocks": {
+        "detail-1": {
+          "type": "detail",
+          "settings": {
+            "position_top": 17,
+            "position_left": 52,
+            "heading": "Full-zip heavyweight build",
+            "text": "A sturdy front zip and heavyweight fabric that holds its shape wear after wear."
+          }
+        },
+        "detail-2": {
+          "type": "detail",
+          "settings": {
+            "position_top": 35,
+            "position_left": 58,
+            "heading": "Embroidered team crest",
+            "text": "Officially inspired crest patch, stitched (not printed) for a durable finish."
+          }
+        },
+        "detail-3": {
+          "type": "detail",
+          "settings": {
+            "position_top": 58,
+            "position_left": 18,
+            "heading": "Bold sleeve branding",
+            "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
+          }
+        },
+        "detail-4": {
+          "type": "detail",
+          "settings": {
+            "position_top": 77,
+            "position_left": 50,
+            "heading": "Ribbed cuffs & hem",
+            "text": "Reinforced ribbing keeps the fit snug and the jacket looking sharp longer."
+          }
+        }
+      },
+      "block_order": [
+        "detail-1",
+        "detail-2",
+        "detail-3",
+        "detail-4"
+      ],
+      "settings": {
+        "heading": "Overtake vs the rest",
+        "heading_size": "h1",
+        "showcase_image": "shopify://shop_images/porsche-vintage-jacket-cutout.png",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 64
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq-shipping": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "icon": "truck",
+            "row_content": "<p>Orders are processed within 1-2 business days. Delivery takes 3-5 business days within Portugal and 5-10 business days for the rest of Europe. You'll get a shipping confirmation email as soon as your order is on its way. Full details on our <a href=\"/pages/shipping-policy\">Shipping Policy</a> page.</p>"
+          }
+        },
+        "faq-tracking": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I track my order?",
+            "icon": "box",
+            "row_content": "<p>As soon as your order ships, we'll email you a tracking number and a link so you can follow your package every step of the way. You can also track your order anytime from our <a href=\"/pages/track-your-order\">Track Your Order</a> page.</p>"
+          }
+        },
+        "faq-returns": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I return or exchange?",
+            "icon": "return",
+            "row_content": "<p>Yes! We accept returns and exchanges within 14 days of delivery, as long as the item is unused, unworn and in its original packaging. See our full <a href=\"/pages/refund-policy\">Refund Policy</a> or email us at <a href=\"mailto:support@overtake.pt\">support@overtake.pt</a> and we'll walk you through the process.</p>"
+          }
+        },
+        "faq-sizing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I choose the right size?",
+            "icon": "ruler",
+            "row_content": "<p>Check the size chart on each product page, or our full <a href=\"/pages/size-guide\">Size Guide</a>, for detailed measurements. If you're between sizes, we recommend sizing up for a more relaxed, oversized fit. Still unsure? <a href=\"/pages/contact-us\">Reach out</a> and our team will help you pick the right size.</p>"
+          }
+        },
+        "faq-payment": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "icon": "price_tag",
+            "row_content": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express) through our secure checkout. If you run into any issues completing your payment, <a href=\"/pages/contact-us\">reach out</a> and we'll help you sort it out.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-shipping",
+        "faq-tracking",
+        "faq-returns",
+        "faq-sizing",
+        "faq-payment"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "Frequently asked questions",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 80,
+        "padding_bottom": 44
+      }
+    },
+    "video_feature": {
+      "type": "video-feature",
+      "settings": {
+        "caption": "VINTAGE RACEWEAR",
+        "heading": "Built like the real thing.",
+        "heading_size": "h0",
+        "body": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>",
+        "button_label": "Shop vintage jackets",
+        "button_link": "shopify://collections/vintage-jackets",
+        "media_position": "right",
+        "fallback_video_asset": "video-feature-showcase.mp4",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "Officially inspired team crests, stitched not printed"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "Heavyweight vintage-style fabric, built to last"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Trusted by 12,000+ Overtake customers"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
+    },
+    "product_reviews": {
+      "type": "product-reviews-list",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Quality that impresses",
+            "quote": "I bought the Ferrari jacket and the quality completely surprised me. It arrived fast and the material is way more durable than I expected for the price.",
+            "author": "Ricardo M.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "This one's staying in the family",
+            "quote": "This is already my second jacket from Overtake. The first one still looks flawless after months of wear, and this one turned out even better.",
+            "author": "Beatriz S.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Looks exactly like the photos",
+            "quote": "I was a bit worried about buying online, but the jacket arrived just like the pictures, with all the details and embroidery done really well.",
+            "author": "Sanne V.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "5-star service",
+            "quote": "I had a question about sizing and customer support replied super fast. I'd recommend it to anyone who loves F1.",
+            "author": "Emily R.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Already got 3 compliments",
+            "quote": "I wear the Red Bull jacket for everything, I've already gotten several compliments on the street. Totally worth it.",
+            "author": "Lukas M.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_6": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Fits perfectly",
+            "quote": "Ordered a size up like the size guide suggested and it fits like a glove. Couldn't be happier.",
+            "author": "James O.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review_7": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Fast shipping",
+            "quote": "Placed my order on a Monday and it was on my doorstep by Thursday. Packaging was solid too.",
+            "author": "Camille D.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review_8": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Better than expected",
+            "quote": "Honestly didn't expect this level of quality for the price. The Mercedes jacket is now my favorite piece.",
+            "author": "Daan B.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_9": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "My go-to gift",
+            "quote": "Bought one for my brother's birthday and he hasn't taken it off since. Already planning my next order.",
+            "author": "Carla N.",
+            "date": "6 days ago",
+            "verified": true
+          }
+        },
+        "review_10": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Obsessed with the Porsche jacket",
+            "quote": "The Porsche jacket is even better in person, the embroidery is super clean and the fit is spot on. Already eyeing my next one.",
+            "author": "Hannah S.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review_11": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "title": "Great jacket, delivery took a bit longer",
+            "quote": "Love the Ford jacket, the colors are really vibrant. Delivery took a couple extra days but support kept me updated the whole time.",
+            "author": "Hugo L.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_12": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Exactly what I wanted",
+            "quote": "Been wanting a Ferrari jacket for ages and this one nailed it. Warm, well made, and the zippers feel premium.",
+            "author": "Femke K.",
+            "date": "4 days ago",
+            "verified": true
+          }
+        },
+        "review_13": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Delivery time was spot on",
+            "quote": "Tracked my order the whole way and it arrived exactly when they said it would. No surprises, very professional.",
+            "author": "Oliver T.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review_14": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Audi fan for life",
+            "quote": "The Audi jacket is insanely comfortable and the quilting keeps me warm even on cold mornings. Get compliments every time I wear it.",
+            "author": "Lena K.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_15": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Lamborghini jacket is a showstopper",
+            "quote": "Everyone asks where I got it. The stitching on the Lamborghini logo is way better quality than I expected.",
+            "author": "Theo R.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review_16": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Support went above and beyond",
+            "quote": "I needed to swap sizes and the team sorted it out same day, no hassle at all. That kind of service keeps me coming back.",
+            "author": "Anne V.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review_17": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "BMW jacket exceeded expectations",
+            "quote": "Wasn't sure about the fit from the photos but it's perfect. The BMW colorway looks even sharper in real life.",
+            "author": "Carlos D.",
+            "date": "5 days ago",
+            "verified": true
+          }
+        },
+        "review_18": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "McLaren jacket, zero complaints",
+            "quote": "Fast delivery, great packaging, and the jacket itself feels heavy duty. This is my third order and every one has been perfect.",
+            "author": "Charlotte M.",
+            "date": "3 weeks ago",
+            "verified": true
+          }
+        },
+        "review_19": {
+          "type": "review",
+          "settings": {
+            "rating": "4",
+            "title": "Subaru jacket, super happy",
+            "quote": "Really solid quality for the price. Only wish it came in more sizes, but the one I got fits great.",
+            "author": "Felix B.",
+            "date": "1 month ago",
+            "verified": true
+          }
+        },
+        "review_20": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "International shipping was smooth",
+            "quote": "Ordered from outside Europe and it still arrived quicker than expected with no extra fees. Very impressed.",
+            "author": "Laura W.",
+            "date": "2 weeks ago",
+            "verified": true
+          }
+        },
+        "review_21": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Easy exchange process",
+            "quote": "Needed a different size and the exchange was handled quickly with no extra shipping costs. Great customer service overall.",
+            "author": "Joao B.",
+            "date": "6 weeks ago",
+            "verified": true
+          }
+        },
+        "review_22": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Third jacket and counting",
+            "quote": "I keep coming back for more. The material quality is consistent across every jacket I've bought so far.",
+            "author": "Greta S.",
+            "date": "2 months ago",
+            "verified": true
+          }
+        },
+        "review_23": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Perfect birthday gift",
+            "quote": "Got this for my dad and he loved it. The packaging alone made it feel like a premium unboxing experience.",
+            "author": "Chloe B.",
+            "date": "1 week ago",
+            "verified": true
+          }
+        },
+        "review_24": {
+          "type": "review",
+          "settings": {
+            "rating": "5",
+            "title": "Material is genuinely impressive",
+            "quote": "Didn't expect the lining to be this soft or the outer shell to feel this sturdy. Overtake really nailed the quality here.",
+            "author": "Pedro C.",
+            "date": "4 weeks ago",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6",
+        "review_7",
+        "review_8",
+        "review_9",
+        "review_10",
+        "review_11",
+        "review_12",
+        "review_13",
+        "review_14",
+        "review_15",
+        "review_16",
+        "review_17",
+        "review_18",
+        "review_19",
+        "review_20",
+        "review_21",
+        "review_22",
+        "review_23",
+        "review_24"
+      ],
+      "settings": {
+        "heading": "12,000+ customers already wear Overtake",
+        "subheading": "Real reviews from real Overtake customers",
+        "rating_5_count": 260,
+        "rating_4_count": 30,
+        "rating_3_count": 8,
+        "rating_2_count": 2,
+        "rating_1_count": 1,
+        "reviews_per_page": 8,
+        "load_more_label": "Load more reviews",
+        "color_scheme": "scheme-1",
+        "padding_top": 56,
+        "padding_bottom": 80,
+        "full_width": true,
+        "columns_desktop": "4"
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "best_sellers",
+    "video_feature",
+    "comparison",
+    "ugc_gallery",
+    "product_reviews",
+    "faq"
+  ]
+}

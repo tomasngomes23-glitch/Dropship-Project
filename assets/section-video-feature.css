@@ -1,0 +1,146 @@
+.video-feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 750px) {
+  .video-feature {
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 6rem;
+  }
+
+  .video-feature.video-feature--media-left {
+    grid-template-columns: 1.08fr 0.92fr;
+  }
+
+  .video-feature.video-feature--media-left .video-feature__media {
+    order: -1;
+  }
+}
+
+.video-feature__media {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  isolation: isolate;
+  box-shadow:
+    0 0 0 1px rgba(0, 182, 122, 0.15),
+    0 0 40px 6px rgba(0, 182, 122, 0.18),
+    0 30px 60px -25px rgba(0, 0, 0, 0.35);
+}
+
+@media screen and (min-width: 750px) {
+  .video-feature__media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .video-feature__video,
+  .video-feature__image {
+    object-position: center 30%;
+  }
+}
+
+.video-feature__video,
+.video-feature__image,
+.video-feature__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-feature__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.75rem;
+  padding-top: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .video-feature__content {
+    padding-top: 0;
+  }
+}
+
+.video-feature__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #00b67a;
+}
+
+.video-feature__caption-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #00b67a;
+  flex-shrink: 0;
+}
+
+.video-feature__heading {
+  margin: 0;
+  text-wrap: balance;
+  line-height: 1.02;
+  font-size: clamp(3.4rem, 2vw + 3rem, 5.6rem);
+}
+
+.video-feature__body {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  opacity: 0.82;
+}
+
+.video-feature__body :last-child {
+  margin-bottom: 0;
+}
+
+.video-feature__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.video-feature__list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+.video-feature__list-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(0, 182, 122, 0.14);
+  flex-shrink: 0;
+}
+
+.video-feature__list-icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: #00b67a;
+}
+
+.video-feature__button {
+  margin-top: 0.75rem;
+}

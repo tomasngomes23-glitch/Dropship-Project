@@ -1,0 +1,825 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0 0 1.75rem;
+    margin: 0 0 2.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__header-title {
+    font-weight: 800;
+    font-size: 3.2rem;
+    margin: 0;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary {
+    position: relative;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars-text {
+    color: #007f4e;
+    font-size: 1.9rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-count {
+    font-weight: 700;
+    font-size: 1.35rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-chevron {
+    display: inline-flex;
+    transition: transform 0.2s ease;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-chevron svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-toggle[aria-expanded="true"] .trustreviews__summary-chevron {
+    transform: rotate(180deg);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    z-index: 5;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 1.5rem 1.75rem;
+    width: 320px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-panel[hidden] {
+    display: none;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__summary-top .trustreviews__score-number {
+    font-size: 2rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-label {
+    flex: 0 0 auto;
+    width: 2.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #191919;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-bar {
+    flex: 1 1 auto;
+    height: 0.6rem;
+    background: #e5e5ea;
+    border-radius: 999px;
+    overflow: hidden;
+    min-width: 120px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #007f4e;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__breakdown-count {
+    flex: 0 0 auto;
+    width: 2.75rem;
+    text-align: right;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars-row {
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box {
+    width: 1.6rem;
+    height: 1.6rem;
+    background: #dcdce6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box.is-filled {
+    background: #007f4e;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box .icon-trustpilot-star {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .icon-trustpilot-star {
+    display: inline-block;
+    fill: #ffffff;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__score-stars {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--partial {
+    position: relative;
+    overflow: hidden;
+    background: #dcdce6;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box-fill {
+    position: absolute;
+    inset: 0;
+    width: var(--fill-percent, 0%);
+    background: #007f4e;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--partial .icon-trustpilot-star {
+    position: relative;
+    z-index: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--lg {
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 4px;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__star-box--lg .icon-trustpilot-star {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .trustreviews-{{ section.id }} .trustreviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .trustreviews-{{ section.id }} .trustreviews__grid {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    }
+  }
+
+  {%- if section.settings.full_width -%}
+    .trustreviews-outer-{{ section.id }} .trustreviews-{{ section.id }} {
+      max-width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .trustreviews-outer-{{ section.id }} .trustreviews-{{ section.id }} {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+  {%- endif -%}
+
+  .trustreviews-{{ section.id }} .trustreviews__card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    padding: 1.85rem;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card--hidden {
+    display: none;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card--enter {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__avatar {
+    width: 3.8rem;
+    height: 3.8rem;
+    border-radius: 50%;
+    background: #e7f4ee;
+    color: #007f4e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.35rem;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__identity {
+    min-width: 0;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__author {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__verified svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: #007f4e;
+    flex: 0 0 auto;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__stars {
+    margin: 0 0 0.85rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__title {
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin: 0 0 0.6rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__quote {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin: 0 0 1.1rem;
+    color: rgba(var(--color-foreground), 0.85);
+    flex-grow: 1;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 0 1rem;
+    background: rgba(var(--color-foreground), 0.05);
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px dashed rgba(var(--color-foreground), 0.25);
+    border-radius: 8px;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: rgba(var(--color-foreground), 0.4);
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__date {
+    font-size: 0.9rem;
+    color: rgba(var(--color-foreground), 0.5);
+    margin: 0;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__footer {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .trustreviews-{{ section.id }} .trustreviews__load-more {
+    cursor: pointer;
+    font-size: 1.05rem;
+    padding: 1rem 2rem;
+  }
+
+  .trustreviews-outer-{{ section.id }} {
+    background: #ffffff;
+  }
+{%- endstyle -%}
+
+<div class="trustreviews-outer-{{ section.id }}">
+  <div class="page-width section-{{ section.id }}-padding trustreviews trustreviews-{{ section.id }}" data-trustreviews-batch="{{ section.settings.reviews_per_page }}">
+    {%- liquid
+      assign count_5 = section.settings.rating_5_count
+      assign count_4 = section.settings.rating_4_count
+      assign count_3 = section.settings.rating_3_count
+      assign count_2 = section.settings.rating_2_count
+      assign count_1 = section.settings.rating_1_count
+      assign total_reviews = count_5 | plus: count_4 | plus: count_3 | plus: count_2 | plus: count_1
+
+      assign weighted_sum = count_5 | times: 5
+      assign temp = count_4 | times: 4
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_3 | times: 3
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_2 | times: 2
+      assign weighted_sum = weighted_sum | plus: temp
+      assign temp = count_1 | times: 1
+      assign weighted_sum = weighted_sum | plus: temp
+
+      if total_reviews > 0
+        assign average_rating = weighted_sum | times: 1.0 | divided_by: total_reviews | round: 1
+      else
+        assign average_rating = 0
+      endif
+      assign rounded_stars = average_rating | round
+    -%}
+
+    <div class="trustreviews__header">
+      <p class="trustreviews__header-title">{{ section.settings.heading }}</p>
+      <div class="trustreviews__summary" data-trustreviews-summary>
+        <button type="button" class="trustreviews__summary-toggle" aria-expanded="false">
+          <span class="trustreviews__stars-text" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              {%- if i <= rounded_stars -%}★{%- else -%}☆{%- endif -%}
+            {%- endfor -%}
+          </span>
+          <span class="trustreviews__summary-count">{{ total_reviews }} Reviews</span>
+          <span class="trustreviews__summary-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </span>
+        </button>
+
+        <div class="trustreviews__summary-panel" hidden>
+          <div class="trustreviews__summary-top">
+            {%- liquid
+              assign full_stars = average_rating | floor
+              assign decimal = average_rating | minus: full_stars
+              assign partial_percent = decimal | times: 100 | round
+              assign next_star = full_stars | plus: 1
+            -%}
+            <span class="trustreviews__score-stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                {%- if i <= full_stars -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg is-filled">
+                    <svg class="icon-trustpilot-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 1.5l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.24L7 13.63l-5-4.87 6.91-1L12 1.5z"/></svg>
+                  </span>
+                {%- elsif i == next_star and partial_percent > 0 -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg trustreviews__star-box--partial" style="--fill-percent: {{ partial_percent }}%;">
+                    <span class="trustreviews__star-box-fill"></span>
+                    <svg class="icon-trustpilot-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 1.5l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.24L7 13.63l-5-4.87 6.91-1L12 1.5z"/></svg>
+                  </span>
+                {%- else -%}
+                  <span class="trustreviews__star-box trustreviews__star-box--lg">
+                    <svg class="icon-trustpilot-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 1.5l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.24L7 13.63l-5-4.87 6.91-1L12 1.5z"/></svg>
+                  </span>
+                {%- endif -%}
+              {%- endfor -%}
+            </span>
+            <p class="trustreviews__score-number">{{ average_rating }}</p>
+          </div>
+
+          <div class="trustreviews__breakdown">
+            {%- for star in (1..5) reversed -%}
+              {%- case star -%}
+                {%- when 5 -%}{%- assign count = count_5 -%}
+                {%- when 4 -%}{%- assign count = count_4 -%}
+                {%- when 3 -%}{%- assign count = count_3 -%}
+                {%- when 2 -%}{%- assign count = count_2 -%}
+                {%- when 1 -%}{%- assign count = count_1 -%}
+              {%- endcase -%}
+              {%- if total_reviews > 0 -%}
+                {%- assign fill_percent = count | times: 100 | divided_by: total_reviews -%}
+              {%- else -%}
+                {%- assign fill_percent = 0 -%}
+              {%- endif -%}
+              <div class="trustreviews__breakdown-row">
+                <span class="trustreviews__breakdown-label">{{ star }}★</span>
+                <span class="trustreviews__breakdown-bar">
+                  <span class="trustreviews__breakdown-bar-fill" data-target-width="{{ fill_percent }}"></span>
+                </span>
+                <span class="trustreviews__breakdown-count">({{ count }})</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trustreviews__grid">
+      {%- assign visible_count = section.settings.reviews_per_page -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div
+            class="trustreviews__card{% if forloop.index > visible_count %} trustreviews__card--hidden{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.photo != blank -%}
+              <div class="trustreviews__photo">
+                <img
+                  src="{{ block.settings.photo | image_url: width: 500 }}"
+                  alt="{{ block.settings.photo.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.photo.width }}"
+                  height="{{ block.settings.photo.height }}"
+                >
+              </div>
+            {%- elsif block.settings.show_photo_placeholder -%}
+              <div class="trustreviews__photo-placeholder">[PLACEHOLDER — customer photo]</div>
+            {%- endif -%}
+
+            <div class="trustreviews__card-top">
+              <div class="trustreviews__avatar" aria-hidden="true">{{ block.settings.author | slice: 0 }}</div>
+              <div class="trustreviews__identity">
+                <p class="trustreviews__author">{{ block.settings.author | default: '[Customer name]' }}</p>
+                {%- if block.settings.verified -%}
+                  <p class="trustreviews__verified">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+                    Verified purchase
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="trustreviews__stars trustreviews__stars-row" aria-hidden="true">
+              {%- assign stars = block.settings.rating | times: 1 -%}
+              {%- for i in (1..5) -%}
+                <span class="trustreviews__star-box{% if i <= stars %} is-filled{% endif %}">
+                  <svg class="icon-trustpilot-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 1.5l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.24L7 13.63l-5-4.87 6.91-1L12 1.5z"/></svg>
+                </span>
+              {%- endfor -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <p class="trustreviews__title">{{ block.settings.title }}</p>
+            {%- endif -%}
+
+            <p class="trustreviews__quote">{{ block.settings.quote | default: '[PLACEHOLDER — real customer review]' }}</p>
+            <p class="trustreviews__date">{{ block.settings.date }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="trustreviews__footer">
+      <button type="button" class="button button--secondary trustreviews__load-more">
+        {{ section.settings.load_more_label }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.currentScript.closest('.trustreviews-{{ section.id }}') || document.querySelector('.trustreviews-{{ section.id }}');
+    if (!section) return;
+
+    var summaryToggle = section.querySelector('.trustreviews__summary-toggle');
+    var summaryPanel = section.querySelector('.trustreviews__summary-panel');
+    var barFills = section.querySelectorAll('.trustreviews__breakdown-bar-fill');
+
+    function animateBars() {
+      barFills.forEach(function (bar) {
+        bar.style.width = '0%';
+      });
+      barFills.forEach(function (bar, index) {
+        var target = bar.getAttribute('data-target-width') || 0;
+        setTimeout(function () {
+          bar.style.width = target + '%';
+        }, 30 + index * 90);
+      });
+    }
+
+    if (summaryToggle && summaryPanel) {
+      summaryToggle.addEventListener('click', function () {
+        var isOpen = summaryToggle.getAttribute('aria-expanded') === 'true';
+        summaryToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        summaryPanel.hidden = isOpen;
+        if (!isOpen) {
+          animateBars();
+        }
+      });
+      document.addEventListener('click', function (event) {
+        if (!section.contains(event.target)) {
+          summaryToggle.setAttribute('aria-expanded', 'false');
+          summaryPanel.hidden = true;
+        }
+      });
+    }
+
+    var batchSize = parseInt(section.getAttribute('data-trustreviews-batch'), 10) || 6;
+    var button = section.querySelector('.trustreviews__load-more');
+    if (!button) return;
+
+    function revealNextBatch() {
+      var hiddenCards = section.querySelectorAll('.trustreviews__card--hidden');
+      if (!hiddenCards.length) {
+        button.hidden = true;
+        return;
+      }
+      var toReveal = Array.prototype.slice.call(hiddenCards, 0, batchSize);
+      toReveal.forEach(function (card, index) {
+        card.classList.remove('trustreviews__card--hidden');
+        card.classList.add('trustreviews__card--enter');
+        setTimeout(function () {
+          card.classList.remove('trustreviews__card--enter');
+        }, 20 + index * 60);
+      });
+      if (section.querySelectorAll('.trustreviews__card--hidden').length === 0) {
+        button.hidden = true;
+      }
+    }
+
+    if (section.querySelectorAll('.trustreviews__card--hidden').length === 0) {
+      button.hidden = true;
+    }
+
+    button.addEventListener('click', revealNextBatch);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Trust reviews list",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Title",
+      "default": "Join 2,400+ satisfied customers"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subtitle",
+      "default": "Real reviews from real Overtake customers"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "header",
+      "content": "Rating breakdown"
+    },
+    {
+      "type": "number",
+      "id": "rating_5_count",
+      "label": "5-star review count",
+      "default": 260
+    },
+    {
+      "type": "number",
+      "id": "rating_4_count",
+      "label": "4-star review count",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "rating_3_count",
+      "label": "3-star review count",
+      "default": 8
+    },
+    {
+      "type": "number",
+      "id": "rating_2_count",
+      "label": "2-star review count",
+      "default": 2
+    },
+    {
+      "type": "number",
+      "id": "rating_1_count",
+      "label": "1-star review count",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "reviews_per_page",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "label": "Reviews shown per page/click",
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Load more button text",
+      "default": "Load more reviews"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Customer photo (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_photo_placeholder",
+          "label": "Show empty photo placeholder if no photo is set",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "rating",
+          "label": "Stars",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" }
+          ],
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "[PLACEHOLDER — short title]"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text",
+          "default": "[PLACEHOLDER — real customer review]"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer name",
+          "default": "[Customer name]"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date text",
+          "default": "[PLACEHOLDER — e.g. 2 weeks ago]"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show \"Verified purchase\" badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust reviews list",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
