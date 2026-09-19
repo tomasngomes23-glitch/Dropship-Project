@@ -233,7 +233,7 @@
         "caption": "VINTAGE RACEWEAR",
         "heading": "Built like the real thing.",
         "heading_size": "h0",
-        "body": "<p>No stock photos. This is the actual weight of the fabric, the stitching on every crest, and the vintage wash on every jacket, filmed up close before it ships to your door.</p>",
+        "body": "<p>No filters, no stock photos. Just the real weight of the fabric, every stitch on the crest, and the vintage wash, filmed up close before it ships to your door.</p>",
         "button_label": "Shop vintage jackets",
         "button_link": "shopify://collections/vintage-jackets",
         "media_position": "right",
@@ -241,13 +241,13 @@
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64,
-        "stat_1_value": "12,000+",
+        "stat_1_value": "2,030+",
         "stat_1_label": "happy customers",
         "stat_2_value": "4.8/5",
         "stat_2_label": "average rating",
         "stat_3_value": "\u20ac80+",
         "stat_3_label": "free shipping",
-        "trust_line": "Free shipping over \u20ac80 \u00b7 Easy 14-day returns"
+        "trust_line": ""
       },
       "blocks": {
         "feature_1": {
