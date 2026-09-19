@@ -8,7 +8,7 @@
 
 @media screen and (min-width: 750px) {
   .video-feature {
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.7fr 1fr;
     gap: 5rem;
   }
 
@@ -21,7 +21,7 @@
   }
 
   .video-feature.video-feature--media-left {
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: 1fr 1.7fr;
   }
 
   .video-feature.video-feature--media-left .video-feature__media {
@@ -31,11 +31,11 @@
 
 @media screen and (min-width: 1200px) {
   .video-feature {
-    grid-template-columns: 1.6fr 1fr;
+    grid-template-columns: 2.1fr 1fr;
   }
 
   .video-feature.video-feature--media-left {
-    grid-template-columns: 1fr 1.6fr;
+    grid-template-columns: 1fr 2.1fr;
   }
 }
 
@@ -47,14 +47,20 @@
   aspect-ratio: 16 / 9;
   isolation: isolate;
   box-shadow:
-    0 0 0 1px rgba(0, 182, 122, 0.15),
-    0 0 40px 6px rgba(0, 182, 122, 0.18),
+    0 0 0 1px rgba(217, 33, 51, 0.18),
+    0 0 40px 6px rgba(217, 33, 51, 0.22),
     0 30px 60px -25px rgba(0, 0, 0, 0.35);
 }
 
 @media screen and (min-width: 750px) {
   .video-feature__media {
     aspect-ratio: 4 / 5;
+    max-width: 380px;
+    justify-self: end;
+  }
+
+  .video-feature.video-feature--media-left .video-feature__media {
+    justify-self: start;
   }
 
   .video-feature__video,
@@ -95,14 +101,14 @@
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  color: #00b67a;
+  color: #d92133;
 }
 
 .video-feature__caption-dot {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  background: #00b67a;
+  background: #d92133;
   flex-shrink: 0;
 }
 
@@ -150,14 +156,14 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
-  background: rgba(0, 182, 122, 0.14);
+  background: rgba(217, 33, 51, 0.14);
   flex-shrink: 0;
 }
 
 .video-feature__list-icon svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: #00b67a;
+  fill: #d92133;
 }
 
 .video-feature__button {
@@ -196,7 +202,7 @@
 }
 
 .video-feature__button:hover {
-  background: #00b67a;
+  background: #d92133;
 }
 
 .video-feature__button:hover .video-feature__button-stripe {
