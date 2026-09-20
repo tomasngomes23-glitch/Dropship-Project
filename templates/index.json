@@ -253,7 +253,7 @@
     "video_feature": {
       "type": "video-feature",
       "settings": {
-        "video": "gid://shopify/Video/61129675243843",
+        "video": "shopify://shop_videos/IMG_7227.mov",
         "caption": "VINTAGE RACEWEAR",
         "heading": "Feel it before you buy it.",
         "heading_size": "h0",
