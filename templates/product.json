@@ -175,7 +175,7 @@
     "ugc_gallery": {
       "type": "ugc-gallery",
       "blocks": {
-        "media-1": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-1": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/2c43c2299c994c80b8dff1f17b7e66e4/2c43c2299c994c80b8dff1f17b7e66e4.HD-1080p-4.8Mbps-94995178.mp4", "show_verified": true } },
         "media-2": { "type": "media_item", "settings": { "show_verified": true } },
         "media-3": { "type": "media_item", "settings": { "show_verified": true } },
         "media-4": { "type": "media_item", "settings": { "show_verified": true } },
@@ -494,7 +494,7 @@
         "rating_3_count": 8,
         "rating_2_count": 2,
         "rating_1_count": 1,
-        "reviews_per_page": 3,
+        "reviews_per_page": 4,
         "load_more_label": "Load more reviews",
         "color_scheme": "scheme-1",
         "padding_top": 72,
