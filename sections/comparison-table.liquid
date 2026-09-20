@@ -273,7 +273,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 640px;
+    max-width: 380px;
     background: var(--color-background, #ffffff);
     border-radius: 20px;
     overflow: hidden;
@@ -322,37 +322,19 @@
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform-origin 0.5s ease;
   }
 
-  .comparison__zoom-marker {
-    position: absolute;
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 50%;
-    background: #d92133;
-    color: #ffffff;
-    border: 3px solid #ffffff;
-    font-weight: 800;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-  }
-
   .comparison__zoom-caption {
-    padding: 1.5rem 1.75rem 1.75rem;
+    padding: 1.25rem 1.5rem 1.5rem;
   }
 
   .comparison__zoom-heading {
     font-weight: 800;
-    font-size: 1.3rem;
-    margin: 0 0 0.4rem;
+    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
   }
 
   .comparison__zoom-text {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 0.9rem;
+    line-height: 1.45;
     color: rgba(var(--color-foreground), 0.7);
     margin: 0;
   }
@@ -443,7 +425,6 @@
               alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
             >
           {%- endif -%}
-          <span class="comparison__zoom-marker"></span>
         </div>
         <div class="comparison__zoom-caption">
           <h3 class="comparison__zoom-heading"></h3>
@@ -481,7 +462,6 @@
 
     var zoomModal = section.querySelector('.comparison__zoom-modal');
     var zoomImage = section.querySelector('.comparison__zoom-image');
-    var zoomMarker = section.querySelector('.comparison__zoom-marker');
     var zoomHeading = section.querySelector('.comparison__zoom-heading');
     var zoomText = section.querySelector('.comparison__zoom-text');
     var zoomClose = section.querySelector('.comparison__zoom-modal-close');
@@ -492,15 +472,11 @@
       var left = el.getAttribute('data-position-left');
       var heading = el.getAttribute('data-heading');
       var text = el.getAttribute('data-text');
-      var index = el.getAttribute('data-marker-index') || el.getAttribute('data-legend-index');
 
       if (!zoomModal || !zoomImage) return;
 
       zoomImage.style.transformOrigin = left + '% ' + top + '%';
       zoomImage.style.transform = 'scale(1)';
-      zoomMarker.style.top = top + '%';
-      zoomMarker.style.left = left + '%';
-      zoomMarker.textContent = index;
       zoomHeading.textContent = heading;
       zoomText.textContent = text;
 
@@ -508,7 +484,7 @@
       zoomModal.setAttribute('aria-hidden', 'false');
 
       requestAnimationFrame(function () {
-        zoomImage.style.transform = 'scale(2.6)';
+        zoomImage.style.transform = 'scale(3.6)';
       });
     }
 
