@@ -16,9 +16,11 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
-    <p class="contact__caption caption-with-letter-spacing">
-      <span class="contact__caption-dot" aria-hidden="true"></span>{{ section.settings.caption | default: 'GET IN TOUCH' | escape }}
-    </p>
+    {%- if section.settings.caption != blank -%}
+      <p class="contact__caption caption-with-letter-spacing">
+        <span class="contact__caption-dot" aria-hidden="true"></span>{{ section.settings.caption | escape }}
+      </p>
+    {%- endif -%}
 
     {%- if section.settings.heading != blank -%}
       <h2 class="contact__heading title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
