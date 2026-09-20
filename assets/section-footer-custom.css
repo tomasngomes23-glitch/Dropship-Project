@@ -53,7 +53,7 @@
 }
 
 .footer-block__heading {
-  font-size: clamp(1.05rem, 0.9rem + 0.35vw, 1.3rem) !important;
+  font-size: clamp(1.15rem, 1rem + 0.4vw, 1.45rem) !important;
   white-space: nowrap;
 }
 
@@ -64,15 +64,15 @@
 .footer__localization,
 .footer__copyright,
 .footer__column--info {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .footer-block__details-content p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .footer-block__details-content p a {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .footer-block__newsletter .newsletter-form__button {
