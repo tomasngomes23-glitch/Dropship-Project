@@ -16,17 +16,26 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="contact__caption caption-with-letter-spacing">
+      <span class="contact__caption-dot" aria-hidden="true"></span>{{ section.settings.caption | default: 'GET IN TOUCH' | escape }}
+    </p>
+
     {%- if section.settings.heading != blank -%}
-      <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <h2 class="contact__heading title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {{ section.settings.heading }}
       </h2>
     {%- else -%}
       <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
     {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <div class="contact__subtext rte">{{ section.settings.subtext }}</div>
+    {%- endif -%}
+
     {%- liquid
-      assign contact_form_class = 'isolate'
+      assign contact_form_class = 'contact__form isolate'
       if settings.animations_reveal_on_scroll
-        assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
+        assign contact_form_class = 'contact__form isolate scroll-trigger animate--slide-in'
       endif
     -%}
     {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
@@ -51,10 +60,12 @@
           </li>
         </ul>
       {%- endif -%}
+
       <div class="contact__fields">
-        <div class="field">
+        <div class="contact__field">
+          <label class="contact__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
           <input
-            class="field__input"
+            class="contact__input"
             autocomplete="name"
             type="text"
             id="ContactForm-name"
@@ -62,14 +73,17 @@
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
             placeholder="{{ 'templates.contact.form.name' | t }}"
           >
-          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
         </div>
-        <div class="field field--with-error">
+        <div class="contact__field contact__field--with-error">
+          <label class="contact__label" for="ContactForm-email">
+            {{- 'templates.contact.form.email' | t }}
+            <span class="contact__required" aria-hidden="true">*</span>
+          </label>
           <input
             autocomplete="email"
             type="email"
             id="ContactForm-email"
-            class="field__input"
+            class="contact__input"
             name="contact[email]"
             spellcheck="false"
             autocapitalize="off"
@@ -80,10 +94,6 @@
               aria-describedby="ContactForm-email-error"
             {% endif %}
             placeholder="{{ 'templates.contact.form.email' | t }}"
-          >
-          <label class="field__label" for="ContactForm-email">
-            {{- 'templates.contact.form.email' | t }}
-            <span aria-hidden="true">*</span></label
           >
           {%- if form.errors contains 'email' -%}
             <small class="contact__field-error" id="ContactForm-email-error">
@@ -99,37 +109,36 @@
           {%- endif -%}
         </div>
       </div>
-      <div class="field">
+
+      <div class="contact__field">
+        <label class="contact__label" for="ContactForm-order-number">Order number (if applicable)</label>
         <input
-          type="tel"
-          id="ContactForm-phone"
-          class="field__input"
-          autocomplete="tel"
-          name="contact[{{ 'templates.contact.form.phone' | t }}]"
-          pattern="[0-9\-]*"
-          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder="{{ 'templates.contact.form.phone' | t }}"
+          type="text"
+          id="ContactForm-order-number"
+          class="contact__input"
+          name="contact[Order number]"
+          value="{% if form.order_number %}{{ form.order_number }}{% endif %}"
+          placeholder="e.g. #1042"
         >
-        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
       </div>
-      <div class="field">
+
+      <div class="contact__field">
+        <label class="contact__label" for="ContactForm-body">{{ 'templates.contact.form.comment' | t }}</label>
         <textarea
-          rows="10"
+          rows="6"
           id="ContactForm-body"
-          class="text-area field__input"
+          class="contact__input contact__textarea"
           name="contact[{{ 'templates.contact.form.comment' | t }}]"
-          placeholder="{{ 'templates.contact.form.comment' | t }}"
-        >
-          {{- form.body -}}
-        </textarea>
-        <label class="form__label field__label" for="ContactForm-body">
-          {{- 'templates.contact.form.comment' | t -}}
-        </label>
+          placeholder="Tell us what's up"
+        >{{- form.body -}}</textarea>
       </div>
+
       <div class="contact__button">
-        <button type="submit" class="button">
-          {{ 'templates.contact.form.send' | t }}
+        <button type="submit" class="contact__submit">
+          <span class="contact__submit-stripe" aria-hidden="true"></span>
+          {{ section.settings.button_label | default: 'Send message' | escape }}
         </button>
+        <p class="contact__reply-time">{{ section.settings.reply_time | default: "We usually reply within 24 hours." | escape }}</p>
       </div>
     {%- endform -%}
   </div>
@@ -145,9 +154,15 @@
   },
   "settings": [
     {
+      "type": "text",
+      "id": "caption",
+      "label": "Small label (optional)",
+      "default": "GET IN TOUCH"
+    },
+    {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "t:sections.contact-form.settings.title.default",
+      "default": "Contact us",
       "label": "t:sections.contact-form.settings.title.label"
     },
     {
@@ -179,6 +194,24 @@
       "label": "t:sections.all.heading_size.label"
     },
     {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Got a question about your order, sizing, or your next vintage jacket? Send us a message and our team will get back to you within 24 hours.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send message"
+    },
+    {
+      "type": "text",
+      "id": "reply_time",
+      "label": "Note under button",
+      "default": "We usually reply within 24 hours."
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
@@ -196,7 +229,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "default": 44
     },
     {
       "type": "range",
@@ -206,7 +239,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "default": 64
     }
   ],
   "presets": [
