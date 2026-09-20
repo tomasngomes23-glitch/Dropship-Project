@@ -430,25 +430,25 @@
         {%- endfor -%}
       </div>
     </div>
-  </div>
 
-  <div class="comparison__zoom-modal" aria-hidden="true">
-    <div class="comparison__zoom-modal-backdrop"></div>
-    <div class="comparison__zoom-modal-content">
-      <button type="button" class="comparison__zoom-modal-close" aria-label="Close">&times;</button>
-      <div class="comparison__zoom-viewport">
-        {%- if section.settings.showcase_image != blank -%}
-          <img
-            class="comparison__zoom-image"
-            src="{{ section.settings.showcase_image | image_url: width: 2000 }}"
-            alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
-          >
-        {%- endif -%}
-        <span class="comparison__zoom-marker"></span>
-      </div>
-      <div class="comparison__zoom-caption">
-        <h3 class="comparison__zoom-heading"></h3>
-        <p class="comparison__zoom-text"></p>
+    <div class="comparison__zoom-modal" aria-hidden="true">
+      <div class="comparison__zoom-modal-backdrop"></div>
+      <div class="comparison__zoom-modal-content">
+        <button type="button" class="comparison__zoom-modal-close" aria-label="Close">&times;</button>
+        <div class="comparison__zoom-viewport">
+          {%- if section.settings.showcase_image != blank -%}
+            <img
+              class="comparison__zoom-image"
+              src="{{ section.settings.showcase_image | image_url: width: 2000 }}"
+              alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
+            >
+          {%- endif -%}
+          <span class="comparison__zoom-marker"></span>
+        </div>
+        <div class="comparison__zoom-caption">
+          <h3 class="comparison__zoom-heading"></h3>
+          <p class="comparison__zoom-text"></p>
+        </div>
       </div>
     </div>
   </div>
