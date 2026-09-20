@@ -122,7 +122,7 @@
           "settings": {
             "heading": "Fit & Sizing",
             "icon": "none",
-            "row_content": "<p>Our jackets run true to size with a slightly relaxed, vintage-inspired cut. Want the oversized look? Size up.</p><table><thead><tr><th>Size</th><th>Chest (cm)</th><th>Length (cm)</th><th>Sleeve (cm)</th></tr></thead><tbody><tr><td>S</td><td>104</td><td>68</td><td>62</td></tr><tr><td>M</td><td>110</td><td>70</td><td>64</td></tr><tr><td>L</td><td>116</td><td>72</td><td>66</td></tr><tr><td>XL</td><td>122</td><td>74</td><td>68</td></tr><tr><td>XXL</td><td>128</td><td>76</td><td>70</td></tr></tbody></table><p>Still unsure? Check our full <a href=\"/pages/size-guide\">Size Guide</a> or <a href=\"/pages/contact-us\">reach out</a> and we'll help you pick.</p>"
+            "row_content": "<p>Our jackets run true to size with a slightly relaxed, vintage-inspired cut. Want the oversized look? Size up.</p><ul><li><strong>S</strong> — Chest 104cm, Length 68cm, Sleeve 62cm</li><li><strong>M</strong> — Chest 110cm, Length 70cm, Sleeve 64cm</li><li><strong>L</strong> — Chest 116cm, Length 72cm, Sleeve 66cm</li><li><strong>XL</strong> — Chest 122cm, Length 74cm, Sleeve 68cm</li><li><strong>XXL</strong> — Chest 128cm, Length 76cm, Sleeve 70cm</li></ul><p>Still unsure? Check our full <a href=\"/pages/size-guide\">Size Guide</a> or <a href=\"/pages/contact-us\">reach out</a> and we'll help you pick.</p>"
           }
         },
         "packaging_shipping": {
@@ -130,7 +130,7 @@
           "settings": {
             "heading": "Shipping & Delivery",
             "icon": "none",
-            "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition.</p><table><tbody><tr><td>Processing time</td><td>2-3 business days</td></tr><tr><td>Delivery \u2014 Europe</td><td>10-13 business days</td></tr><tr><td>Delivery \u2014 Americas</td><td>10-15 business days</td></tr></tbody></table><p>You'll get a tracking link by email the moment your jacket ships. Full details on our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
+            "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition.</p><ul><li><strong>Processing time:</strong> 2-3 business days</li><li><strong>Delivery \u2014 Europe:</strong> 10-13 business days</li><li><strong>Delivery \u2014 Americas:</strong> 10-15 business days</li></ul><p>You'll get a tracking link by email the moment your jacket ships. Full details on our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "details_2": {
@@ -146,7 +146,7 @@
           "settings": {
             "heading": "Care Instructions",
             "icon": "none",
-            "row_content": "<p>Treat it right and it'll outlast a full season on the terraces.</p><table><thead><tr><th>Do</th><th>Avoid</th></tr></thead><tbody><tr><td>Machine wash cold, gentle cycle</td><td>Bleach or fabric softener</td></tr><tr><td>Hang to dry or tumble dry low</td><td>Ironing directly over patches</td></tr><tr><td>Wash inside out</td><td>High heat drying</td></tr></tbody></table>"
+            "row_content": "<p>Treat it right and it'll outlast a full season on the terraces.</p><ul><li>Machine wash cold, gentle cycle — avoid bleach or fabric softener</li><li>Hang to dry or tumble dry low — avoid high heat drying</li><li>Wash inside out — avoid ironing directly over patches</li></ul>"
           }
         }
       },
