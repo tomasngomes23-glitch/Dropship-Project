@@ -132,14 +132,14 @@
 
   .comparison__marker {
     position: absolute;
-    width: clamp(1.5rem, 1.2rem + 1vw, 2rem);
-    height: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    width: clamp(2.1rem, 1.6rem + 1.4vw, 2.8rem);
+    height: clamp(2.1rem, 1.6rem + 1.4vw, 2.8rem);
     border-radius: 50%;
     background: #d92133;
     color: #ffffff;
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
     font-weight: 800;
-    font-size: clamp(0.75rem, 0.65rem + 0.4vw, 0.95rem);
+    font-size: clamp(0.9rem, 0.75rem + 0.5vw, 1.15rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,14 +171,14 @@
   .comparison__legend {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 1rem;
     width: 100%;
-    border-top: 1px solid rgba(var(--color-foreground), 0.1);
   }
 
   @media screen and (min-width: 700px) {
     .comparison__legend {
       grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
     }
   }
 
@@ -194,36 +194,34 @@
     display: flex;
     gap: 1rem;
     align-items: flex-start;
-    padding: 1.25rem 1rem;
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
-    border-right: 1px solid transparent;
-    transition: background 0.2s ease;
+    padding: 1.5rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 16px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-  }
-
-  @media screen and (min-width: 700px) {
-    .comparison__legend-item:nth-child(odd) {
-      border-right-color: rgba(var(--color-foreground), 0.1);
-    }
   }
 
   .comparison__legend-item:hover {
     background: rgba(217, 33, 51, 0.04);
+    border-color: rgba(217, 33, 51, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.35);
   }
 
   .comparison__legend-item.is-active {
     background: rgba(217, 33, 51, 0.08);
+    border-color: #d92133;
   }
 
   .comparison__legend-number {
     flex: 0 0 auto;
-    width: 2rem;
-    height: 2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
     background: #191919;
     color: #ffffff;
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,6 +242,118 @@
     font-size: 0.95rem;
     line-height: 1.45;
     color: rgba(var(--color-foreground), 0.65);
+    margin: 0;
+  }
+
+  .comparison__zoom-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .comparison__zoom-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .comparison__zoom-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.72);
+  }
+
+  .comparison__zoom-modal-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 640px;
+    background: var(--color-background, #ffffff);
+    border-radius: 20px;
+    overflow: hidden;
+    transform: scale(0.94);
+    transition: transform 0.25s ease;
+  }
+
+  .comparison__zoom-modal.is-open .comparison__zoom-modal-content {
+    transform: scale(1);
+  }
+
+  .comparison__zoom-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.55);
+    color: #ffffff;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .comparison__zoom-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #f2f2f2;
+  }
+
+  .comparison__zoom-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform-origin 0.5s ease;
+  }
+
+  .comparison__zoom-marker {
+    position: absolute;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: #d92133;
+    color: #ffffff;
+    border: 3px solid #ffffff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  }
+
+  .comparison__zoom-caption {
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+
+  .comparison__zoom-heading {
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .comparison__zoom-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.7);
     margin: 0;
   }
 
@@ -287,6 +397,10 @@
                 class="comparison__marker"
                 style="top: {{ block.settings.position_top }}%; left: {{ block.settings.position_left }}%;"
                 data-marker-index="{{ forloop.index }}"
+                data-position-top="{{ block.settings.position_top }}"
+                data-position-left="{{ block.settings.position_left }}"
+                data-heading="{{ block.settings.heading | escape }}"
+                data-text="{{ block.settings.text | escape }}"
                 aria-label="{{ block.settings.heading | escape }}"
                 {{ block.shopify_attributes }}
               >{{ forloop.index }}</button>
@@ -298,7 +412,14 @@
       <div class="comparison__legend">
         {%- for block in section.blocks -%}
           {%- if block.type == 'detail' -%}
-            <div class="comparison__legend-item" data-legend-index="{{ forloop.index }}">
+            <div
+              class="comparison__legend-item"
+              data-legend-index="{{ forloop.index }}"
+              data-position-top="{{ block.settings.position_top }}"
+              data-position-left="{{ block.settings.position_left }}"
+              data-heading="{{ block.settings.heading | escape }}"
+              data-text="{{ block.settings.text | escape }}"
+            >
               <span class="comparison__legend-number">{{ forloop.index }}</span>
               <div>
                 <p class="comparison__legend-heading">{{ block.settings.heading | escape }}</p>
@@ -307,6 +428,27 @@
             </div>
           {%- endif -%}
         {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison__zoom-modal" aria-hidden="true">
+    <div class="comparison__zoom-modal-backdrop"></div>
+    <div class="comparison__zoom-modal-content">
+      <button type="button" class="comparison__zoom-modal-close" aria-label="Close">&times;</button>
+      <div class="comparison__zoom-viewport">
+        {%- if section.settings.showcase_image != blank -%}
+          <img
+            class="comparison__zoom-image"
+            src="{{ section.settings.showcase_image | image_url: width: 2000 }}"
+            alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
+          >
+        {%- endif -%}
+        <span class="comparison__zoom-marker"></span>
+      </div>
+      <div class="comparison__zoom-caption">
+        <h3 class="comparison__zoom-heading"></h3>
+        <p class="comparison__zoom-text"></p>
       </div>
     </div>
   </div>
@@ -337,9 +479,56 @@
       if (legendItem) legendItem.classList.add('is-active');
     }
 
+    var zoomModal = section.querySelector('.comparison__zoom-modal');
+    var zoomImage = section.querySelector('.comparison__zoom-image');
+    var zoomMarker = section.querySelector('.comparison__zoom-marker');
+    var zoomHeading = section.querySelector('.comparison__zoom-heading');
+    var zoomText = section.querySelector('.comparison__zoom-text');
+    var zoomClose = section.querySelector('.comparison__zoom-modal-close');
+    var zoomBackdrop = section.querySelector('.comparison__zoom-modal-backdrop');
+
+    function openZoom(el) {
+      var top = el.getAttribute('data-position-top');
+      var left = el.getAttribute('data-position-left');
+      var heading = el.getAttribute('data-heading');
+      var text = el.getAttribute('data-text');
+      var index = el.getAttribute('data-marker-index') || el.getAttribute('data-legend-index');
+
+      if (!zoomModal || !zoomImage) return;
+
+      zoomImage.style.transformOrigin = left + '% ' + top + '%';
+      zoomImage.style.transform = 'scale(1)';
+      zoomMarker.style.top = top + '%';
+      zoomMarker.style.left = left + '%';
+      zoomMarker.textContent = index;
+      zoomHeading.textContent = heading;
+      zoomText.textContent = text;
+
+      zoomModal.classList.add('is-open');
+      zoomModal.setAttribute('aria-hidden', 'false');
+
+      requestAnimationFrame(function () {
+        zoomImage.style.transform = 'scale(2.6)';
+      });
+    }
+
+    function closeZoom() {
+      if (!zoomModal) return;
+      zoomModal.classList.remove('is-open');
+      zoomModal.setAttribute('aria-hidden', 'true');
+      if (zoomImage) zoomImage.style.transform = 'scale(1)';
+    }
+
+    if (zoomClose) zoomClose.addEventListener('click', closeZoom);
+    if (zoomBackdrop) zoomBackdrop.addEventListener('click', closeZoom);
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeZoom();
+    });
+
     markers.forEach(function (marker) {
       marker.addEventListener('click', function () {
         setActive(marker.getAttribute('data-marker-index'));
+        openZoom(marker);
       });
     });
 
@@ -349,6 +538,7 @@
       });
       item.addEventListener('click', function () {
         setActive(item.getAttribute('data-legend-index'));
+        openZoom(item);
       });
     });
 

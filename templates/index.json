@@ -265,21 +265,14 @@
         "feature_3": {
           "type": "feature",
           "settings": {
-            "text": "Trusted by 12,000+ Overtake customers"
-          }
-        },
-        "feature_4": {
-          "type": "feature",
-          "settings": {
-            "text": "Fast shipping across Europe"
+            "text": "Fast shipping across Europe, get your order in 14 business days"
           }
         }
       },
       "block_order": [
         "feature_1",
         "feature_2",
-        "feature_3",
-        "feature_4"
+        "feature_3"
       ]
     },
     "product_reviews": {
