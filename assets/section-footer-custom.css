@@ -59,20 +59,15 @@
 
 .footer-block__details-content,
 .footer-block__details-content a,
+.footer-block__details-content p,
+.footer-block__details-content p a,
 .footer__list-social,
 .footer-block__brand-info,
 .footer__localization,
 .footer__copyright,
-.footer__column--info {
-  font-size: 0.8rem;
-}
-
-.footer-block__details-content p {
-  font-size: 1.2rem;
-}
-
-.footer-block__details-content p a {
-  font-size: 1.2rem;
+.footer__column--info,
+.footer-block__newsletter-subtext {
+  font-size: 0.85rem !important;
 }
 
 .footer-block__newsletter .newsletter-form__button {
@@ -92,7 +87,6 @@
 }
 
 .footer-block__newsletter-subtext {
-  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem);
   color: rgba(var(--color-foreground), 0.75);
   margin: 0 0 1.25rem;
 }
