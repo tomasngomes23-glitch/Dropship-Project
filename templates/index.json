@@ -112,37 +112,55 @@
         "detail-1": {
           "type": "detail",
           "settings": {
-            "position_top": 17,
-            "position_left": 52,
-            "heading": "Full-zip heavyweight build",
-            "text": "A sturdy front zip and heavyweight fabric that holds its shape wear after wear."
+            "position_top": 32,
+            "position_left": 35,
+            "heading": "Shell & OMP, stitched not stuck",
+            "text": "High-density embroidery on every patch, because iron-on logos peel off before turn one."
           }
         },
         "detail-2": {
           "type": "detail",
           "settings": {
-            "position_top": 35,
-            "position_left": 58,
-            "heading": "Embroidered team crest",
-            "text": "Officially inspired crest patch, stitched (not printed) for a durable finish."
+            "position_top": 20,
+            "position_left": 50,
+            "heading": "A zipper built for the podium",
+            "text": "Heavy-duty metal zip, smooth enough for the victory lane and tough enough for actual traffic."
           }
         },
         "detail-3": {
           "type": "detail",
           "settings": {
-            "position_top": 58,
-            "position_left": 18,
-            "heading": "Bold sleeve branding",
-            "text": "Vintage-style lettering down the sleeve, a detail fast-fashion copies skip."
+            "position_top": 44,
+            "position_left": 83,
+            "heading": "Straight off the '90s grid",
+            "text": "Vintage racing design inspired by the pit wall, minus the fuel spills and radio static."
           }
         },
         "detail-4": {
           "type": "detail",
           "settings": {
-            "position_top": 77,
+            "position_top": 62,
+            "position_left": 22,
+            "heading": "Built to survive the season",
+            "text": "Durable, wind-resistant outer shell that shrugs off rain, wind, and your rival's trash talk."
+          }
+        },
+        "detail-5": {
+          "type": "detail",
+          "settings": {
+            "position_top": 78,
             "position_left": 50,
-            "heading": "Ribbed cuffs & hem",
-            "text": "Reinforced ribbing keeps the fit snug and the jacket looking sharp longer."
+            "heading": "Soft inside, loud outside",
+            "text": "A cosy inner lining so comfortable you'll forget you're wearing a full sponsor board."
+          }
+        },
+        "detail-6": {
+          "type": "detail",
+          "settings": {
+            "position_top": 90,
+            "position_left": 78,
+            "heading": "Locked-in bomber fit",
+            "text": "Ribbed cuffs and waistband keep the silhouette sharp, no baggy sleeves on this grid."
           }
         }
       },
@@ -150,12 +168,14 @@
         "detail-1",
         "detail-2",
         "detail-3",
-        "detail-4"
+        "detail-4",
+        "detail-5",
+        "detail-6"
       ],
       "settings": {
         "heading": "Overtake vs the rest",
         "heading_size": "h1",
-        "showcase_image": "shopify://shop_images/porsche-vintage-jacket-cutout.png",
+        "showcase_image": "shopify://shop_images/Ferrari_Black_Vintage_Jacket_-_Front_2be6f456-4150-4b28-9a41-511c08700e85.png",
         "color_scheme": "scheme-1",
         "padding_top": 44,
         "padding_bottom": 64
