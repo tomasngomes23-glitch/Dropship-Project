@@ -370,6 +370,13 @@
               height="{{ section.settings.showcase_image.height }}"
               loading="lazy"
             >
+          {%- else -%}
+            <img
+              class="comparison__image"
+              src="{{ 'comparison-ferrari-black-cutout.webp' | asset_url }}"
+              alt="Featured jacket"
+              loading="lazy"
+            >
           {%- endif -%}
 
           {%- for block in section.blocks -%}
@@ -423,6 +430,12 @@
               class="comparison__zoom-image"
               src="{{ section.settings.showcase_image | image_url: width: 2000 }}"
               alt="{{ section.settings.showcase_image.alt | default: 'Featured jacket' | escape }}"
+            >
+          {%- else -%}
+            <img
+              class="comparison__zoom-image"
+              src="{{ 'comparison-ferrari-black-cutout.webp' | asset_url }}"
+              alt="Featured jacket"
             >
           {%- endif -%}
         </div>
