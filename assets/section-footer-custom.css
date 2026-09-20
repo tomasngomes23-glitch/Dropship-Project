@@ -75,9 +75,14 @@
   font-size: 1.4rem;
 }
 
+.footer-block__newsletter .newsletter-form__button {
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 .footer-block__newsletter .newsletter-form__button:hover {
-  background-color: #d92133 !important;
-  border-color: #d92133 !important;
+  background-color: #d92133;
+  color: #ffffff;
 }
 
 .footer-block__newsletter .footer-block__heading {
