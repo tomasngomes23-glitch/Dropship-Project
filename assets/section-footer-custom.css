@@ -53,7 +53,8 @@
 }
 
 .footer-block__heading {
-  font-size: 2rem !important;
+  font-size: clamp(1.3rem, 1.05rem + 0.6vw, 1.7rem) !important;
+  white-space: nowrap;
 }
 
 .footer-block__details-content,

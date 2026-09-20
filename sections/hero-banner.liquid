@@ -105,8 +105,9 @@
         </div>
       {%- endif -%}
       {%- if section.settings.trust_badges != blank -%}
+        {%- assign trust_badge_items = section.settings.trust_badges | split: '·' -%}
         <ul class="hero-banner__trust">
-          {%- for item in section.settings.trust_badges | split: '·' -%}
+          {%- for item in trust_badge_items -%}
             <li class="hero-banner__trust-item">{{ item | strip }}</li>
           {%- endfor -%}
         </ul>
