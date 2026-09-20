@@ -135,14 +135,6 @@
             "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition.</p><ul><li><strong>Processing time:</strong> 2-3 business days</li><li><strong>Delivery \u2014 Europe:</strong> 10-13 business days</li><li><strong>Delivery \u2014 Americas:</strong> 10-15 business days</li></ul><p>You'll get a tracking link by email the moment your jacket ships. Full details on our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
-        "details_2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Vintage Look, Zero Wear",
-            "icon": "none",
-            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets \u2014 from the fabric weight to the embroidered patches \u2014 rather than a used or pre-owned item.</p><p>We study archive photos from the golden era of the paddock and rebuild every detail from scratch: the wash, the weight, the stitch pattern. You get the vintage look, without the vintage wear.</p>"
-          }
-        },
         "details_3": {
           "type": "collapsible_row",
           "settings": {
@@ -156,7 +148,6 @@
         "details_1",
         "sizing",
         "packaging_shipping",
-        "details_2",
         "details_3"
       ],
       "settings": {

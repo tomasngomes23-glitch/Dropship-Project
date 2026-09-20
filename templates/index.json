@@ -64,7 +64,7 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "image": "shopify://shop_images/new_banner.png",
+        "image": "shopify://shop_images/new_new1.png",
         "caption": "",
         "heading": "OWN THE GRID.\nEVERY ERA.",
         "heading_size": "hxl",
@@ -76,7 +76,7 @@
         "button_link_2": "shopify://collections/vintage-jackets",
         "trust_badges": "Free Shipping · 14-Day Returns · Secure Checkout",
         "content_position": "center-center",
-        "overlay_opacity": 55,
+        "overlay_opacity": 65,
         "color_scheme": "scheme-1",
         "mobile_height": 420,
         "desktop_height": 560,
