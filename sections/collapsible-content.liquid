@@ -32,6 +32,57 @@
     text-transform: uppercase;
   }
   {% endif %}
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-opener {
+    display: block;
+    margin-top: 1.4rem;
+  }
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem 2.6rem;
+    background: #191919;
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    text-decoration: none;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-btn:hover {
+    background: #d92133;
+  }
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-btn-stripe {
+    display: inline-block;
+    width: 0;
+    height: 1.3rem;
+    overflow: hidden;
+    transition: width 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-btn-stripe::after {
+    content: "";
+    display: block;
+    width: 1.3rem;
+    height: 1.3rem;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13 5l7 7-7 7-1.4-1.4L16.2 13H4v-2h12.2l-4.6-4.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13 5l7 7-7 7-1.4-1.4L16.2 13H4v-2h12.2l-4.6-4.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  #shopify-section-{{ section.id }} .collapsible-row-popup-btn:hover .collapsible-row-popup-btn-stripe {
+    width: 1.3rem;
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -115,8 +166,9 @@
                     {{ block.settings.row_content }}
                     {{ block.settings.page.content }}
                     {%- if block.settings.popup_image != blank -%}
-                      <modal-opener class="product-popup-modal__opener" data-modal="#CollapsiblePopupModal-{{ block.id }}">
-                        <button type="button" class="product-popup-modal__button link" aria-haspopup="dialog">
+                      <modal-opener class="collapsible-row-popup-opener" data-modal="#CollapsiblePopupModal-{{ block.id }}">
+                        <button type="button" class="collapsible-row-popup-btn" aria-haspopup="dialog">
+                          <span class="collapsible-row-popup-btn-stripe" aria-hidden="true"></span>
                           {{ block.settings.popup_image_label }}
                         </button>
                       </modal-opener>
@@ -143,6 +195,7 @@
         tabindex="-1"
       >
         <button
+          id="ModalClose-{{ block.id }}"
           type="button"
           class="product-popup-modal__toggle"
           aria-label="{{ 'accessibility.close' | t }}"
