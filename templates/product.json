@@ -112,25 +112,33 @@
         "details_1": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Details",
+            "heading": "Built for the Paddock, Not Just the Photo",
             "icon": "none",
-            "row_content": "<p>Heavyweight racing-style jacket with a durable full-zip front, ribbed cuffs and hem, and stitched (not printed) team-inspired patches for a finish that holds up wash after wash.</p>"
+            "row_content": "<p>Every Overtake jacket starts with a heavyweight racing-style shell, built to survive a full season on the terraces, not just a few photos.</p><ul><li>Durable full-zip front with a smooth, heavy-duty metal zipper</li><li>Ribbed cuffs and hem that lock in warmth and hold their shape wash after wash</li><li>Team-inspired crests stitched, not printed, so they never peel or crack</li><li>Soft inner lining for all-day comfort, even layered up on matchday</li></ul>"
+          }
+        },
+        "sizing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Fit & Sizing",
+            "icon": "none",
+            "row_content": "<p>Our jackets run true to size with a slightly relaxed, vintage-inspired cut. Want the oversized look? Size up.</p><table><thead><tr><th>Size</th><th>Chest (cm)</th><th>Length (cm)</th><th>Sleeve (cm)</th></tr></thead><tbody><tr><td>S</td><td>104</td><td>68</td><td>62</td></tr><tr><td>M</td><td>110</td><td>70</td><td>64</td></tr><tr><td>L</td><td>116</td><td>72</td><td>66</td></tr><tr><td>XL</td><td>122</td><td>74</td><td>68</td></tr><tr><td>XXL</td><td>128</td><td>76</td><td>70</td></tr></tbody></table><p>Still unsure? Check our full <a href=\"/pages/size-guide\">Size Guide</a> or <a href=\"/pages/contact-us\">reach out</a> and we'll help you pick.</p>"
           }
         },
         "packaging_shipping": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Packaging & Shipping",
+            "heading": "Shipping & Delivery",
             "icon": "none",
-            "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition. Orders are processed within 1-2 business days, with delivery in 3-5 business days within Portugal and 5-10 business days for the rest of Europe.</p>"
+            "row_content": "<p>Every order ships in protective packaging to keep your jacket in perfect condition.</p><table><tbody><tr><td>Processing time</td><td>2-3 business days</td></tr><tr><td>Delivery \u2014 Europe</td><td>10-13 business days</td></tr><tr><td>Delivery \u2014 Americas</td><td>10-15 business days</td></tr></tbody></table><p>You'll get a tracking link by email the moment your jacket ships. Full details on our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "details_2": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "How do I know it's genuine vintage?",
+            "heading": "Vintage Look, Zero Wear",
             "icon": "none",
-            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets \u2014 from the fabric weight to the embroidered patches \u2014 rather than a used or pre-owned item.</p>"
+            "row_content": "<p>Every jacket is brand new, made to authentically capture the look and feel of classic racing paddock jackets \u2014 from the fabric weight to the embroidered patches \u2014 rather than a used or pre-owned item.</p><p>We study archive photos from the golden era of the paddock and rebuild every detail from scratch: the wash, the weight, the stitch pattern. You get the vintage look, without the vintage wear.</p>"
           }
         },
         "details_3": {
@@ -138,12 +146,13 @@
           "settings": {
             "heading": "Care Instructions",
             "icon": "none",
-            "row_content": "<p>Machine wash cold on a gentle cycle, or hand wash for best results. Do not bleach. Tumble dry low or hang to dry, and avoid ironing directly over embroidered patches.</p>"
+            "row_content": "<p>Treat it right and it'll outlast a full season on the terraces.</p><table><thead><tr><th>Do</th><th>Avoid</th></tr></thead><tbody><tr><td>Machine wash cold, gentle cycle</td><td>Bleach or fabric softener</td></tr><tr><td>Hang to dry or tumble dry low</td><td>Ironing directly over patches</td></tr><tr><td>Wash inside out</td><td>High heat drying</td></tr></tbody></table>"
           }
         }
       },
       "block_order": [
         "details_1",
+        "sizing",
         "packaging_shipping",
         "details_2",
         "details_3"
