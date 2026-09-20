@@ -36,7 +36,7 @@
      edge, matching the reference layout. */
   .footer__blocks-wrapper {
     justify-content: space-between;
-    gap: 6rem;
+    gap: 2.5rem;
     flex-wrap: wrap;
   }
 
@@ -53,7 +53,7 @@
 }
 
 .footer-block__heading {
-  font-size: clamp(1.3rem, 1.05rem + 0.6vw, 1.7rem) !important;
+  font-size: clamp(1.05rem, 0.9rem + 0.35vw, 1.3rem) !important;
   white-space: nowrap;
 }
 
@@ -102,8 +102,8 @@
      other three columns slightly further to the side to balance it. */
   .footer__blocks-wrapper > .footer-block--newsletter-col {
     flex: 0 0 auto;
-    min-width: 360px;
-    max-width: 420px;
+    min-width: 260px;
+    max-width: 320px;
   }
 
   .footer__blocks-wrapper > .footer-block--newsletter-col .footer__newsletter {
@@ -115,11 +115,7 @@
   }
 
   .footer__blocks-wrapper {
-    gap: 6rem 4rem;
-  }
-
-  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand):not(.footer-block--newsletter-col) {
-    margin-left: 1.5rem;
+    gap: 2.5rem;
   }
 }
 
