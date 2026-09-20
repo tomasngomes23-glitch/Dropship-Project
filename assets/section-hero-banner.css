@@ -105,6 +105,7 @@
 .hero-banner__heading {
   margin: 0;
   text-wrap: balance;
+  white-space: pre-line;
   text-transform: uppercase;
   font-weight: 800;
   line-height: 0.98;
