@@ -55,8 +55,8 @@
         "heading_size": "h2",
         "subtext": "Real customers unboxing their Overtake jackets. Nothing retouched.",
         "color_scheme": "scheme-1",
-        "padding_top": 64,
-        "padding_bottom": 40
+        "padding_top": 44,
+        "padding_bottom": 28
       }
     },
     "hero_banner": {
@@ -108,8 +108,8 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 64
+        "padding_top": 32,
+        "padding_bottom": 44
       }
     },
     "comparison": {
@@ -182,8 +182,8 @@
         "heading": "Overtake vs the rest",
         "heading_size": "h1",
         "color_scheme": "scheme-1",
-        "padding_top": 44,
-        "padding_bottom": 64
+        "padding_top": 32,
+        "padding_bottom": 44
       }
     },
     "faq": {
@@ -248,8 +248,8 @@
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
-        "padding_top": 80,
-        "padding_bottom": 44
+        "padding_top": 52,
+        "padding_bottom": 32
       }
     },
     "video_feature": {
@@ -264,8 +264,8 @@
         "media_position": "right",
         "fallback_video_asset": "video-feature-showcase.mp4",
         "color_scheme": "scheme-1",
-        "padding_top": 64,
-        "padding_bottom": 64,
+        "padding_top": 44,
+        "padding_bottom": 44,
         "stat_1_value": "2,030+",
         "stat_1_label": "happy customers",
         "stat_2_value": "4.8/5",
@@ -605,8 +605,8 @@
         "reviews_per_page": 8,
         "load_more_label": "Load more reviews",
         "color_scheme": "scheme-1",
-        "padding_top": 56,
-        "padding_bottom": 80,
+        "padding_top": 40,
+        "padding_bottom": 52,
         "full_width": true,
         "columns_desktop": "4"
       }

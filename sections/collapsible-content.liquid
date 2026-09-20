@@ -114,6 +114,13 @@
                   >
                     {{ block.settings.row_content }}
                     {{ block.settings.page.content }}
+                    {%- if block.settings.popup_image != blank -%}
+                      <modal-opener class="product-popup-modal__opener" data-modal="#CollapsiblePopupModal-{{ block.id }}">
+                        <button type="button" class="product-popup-modal__button link" aria-haspopup="dialog">
+                          {{ block.settings.popup_image_label }}
+                        </button>
+                      </modal-opener>
+                    {%- endif -%}
                   </div>
                 </details>
               </div>
@@ -124,6 +131,35 @@
     </div>
   </div>
 </div>
+
+{%- for block in section.blocks -%}
+  {%- if block.settings.popup_image != blank -%}
+    <modal-dialog id="CollapsiblePopupModal-{{ block.id }}" class="product-popup-modal product-popup-modal--image-only">
+      <div
+        role="dialog"
+        aria-label="{{ block.settings.popup_image_label }}"
+        aria-modal="true"
+        class="product-popup-modal__content"
+        tabindex="-1"
+      >
+        <button
+          type="button"
+          class="product-popup-modal__toggle"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+        <div class="product-popup-modal__content-info">
+          {{
+            block.settings.popup_image
+            | image_url: width: 1500
+            | image_tag: loading: 'lazy'
+          }}
+        </div>
+      </div>
+    </modal-dialog>
+  {%- endif -%}
+{%- endfor -%}
 
 {% schema %}
 {
@@ -521,6 +557,17 @@
           "type": "page",
           "id": "page",
           "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.page.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "popup_image",
+          "label": "Popup image"
+        },
+        {
+          "type": "text",
+          "id": "popup_image_label",
+          "label": "Popup image link text",
+          "default": "View diagram"
         }
       ]
     }
