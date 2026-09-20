@@ -176,7 +176,7 @@
       "type": "ugc-gallery",
       "blocks": {
         "media-1": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/2c43c2299c994c80b8dff1f17b7e66e4/2c43c2299c994c80b8dff1f17b7e66e4.HD-1080p-4.8Mbps-94995178.mp4", "show_verified": true } },
-        "media-2": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-2": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/7525f91f3cab45a5afb99ce030868683/7525f91f3cab45a5afb99ce030868683.HD-1080p-7.2Mbps-94991010.mp4", "show_verified": true } },
         "media-3": { "type": "media_item", "settings": { "show_verified": true } },
         "media-4": { "type": "media_item", "settings": { "show_verified": true } },
         "media-5": { "type": "media_item", "settings": { "show_verified": true } },
