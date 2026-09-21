@@ -248,7 +248,7 @@
   .comparison__zoom-modal {
     position: fixed;
     inset: 0;
-    z-index: 1000;
+    z-index: 9000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -695,11 +695,14 @@
     }
 
     var zoomModal = section.querySelector('.comparison__zoom-modal');
-    var zoomImage = section.querySelector('.comparison__zoom-image');
-    var zoomHeading = section.querySelector('.comparison__zoom-heading');
-    var zoomText = section.querySelector('.comparison__zoom-text');
-    var zoomClose = section.querySelector('.comparison__zoom-modal-close');
-    var zoomBackdrop = section.querySelector('.comparison__zoom-modal-backdrop');
+    if (zoomModal && zoomModal.parentNode !== document.body) {
+      document.body.appendChild(zoomModal);
+    }
+    var zoomImage = zoomModal ? zoomModal.querySelector('.comparison__zoom-image') : null;
+    var zoomHeading = zoomModal ? zoomModal.querySelector('.comparison__zoom-heading') : null;
+    var zoomText = zoomModal ? zoomModal.querySelector('.comparison__zoom-text') : null;
+    var zoomClose = zoomModal ? zoomModal.querySelector('.comparison__zoom-modal-close') : null;
+    var zoomBackdrop = zoomModal ? zoomModal.querySelector('.comparison__zoom-modal-backdrop') : null;
     var defaultZoomSrc = zoomImage ? zoomImage.getAttribute('src') : '';
 
     function openZoom(el) {
