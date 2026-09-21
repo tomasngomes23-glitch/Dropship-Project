@@ -155,4 +155,27 @@
   .footer__blocks-wrapper > .footer-block--brand {
     margin-top: 0;
   }
+
+  /* Mobile-only: tighten the large default gaps between footer blocks
+     (desktop spacing above is untouched). */
+  .footer-block.grid__item {
+    margin: 1.75rem 0;
+  }
+
+  .footer-block__details-content {
+    margin-bottom: 1.75rem;
+  }
+
+  .footer-block--newsletter {
+    gap: 1.5rem;
+  }
+
+  .footer__content-top {
+    padding-bottom: 1.75rem;
+  }
+
+  .footer__content-bottom,
+  .footer__content-bottom-wrapper {
+    row-gap: 0.85rem;
+  }
 }

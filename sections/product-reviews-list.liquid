@@ -627,6 +627,7 @@
 
     var summaryToggle = section.querySelector('.trustreviews__summary-toggle');
     var summaryPanel = section.querySelector('.trustreviews__summary-panel');
+    var summaryWrap = section.querySelector('[data-trustreviews-summary]');
     var barFills = section.querySelectorAll('.trustreviews__breakdown-bar-fill');
 
     function animateBars() {
@@ -651,7 +652,7 @@
         }
       });
       document.addEventListener('click', function (event) {
-        if (!section.contains(event.target)) {
+        if (summaryWrap && !summaryWrap.contains(event.target)) {
           summaryToggle.setAttribute('aria-expanded', 'false');
           summaryPanel.hidden = true;
         }
