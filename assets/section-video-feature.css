@@ -362,6 +362,8 @@
 
   .video-feature__button {
     order: 6;
+    justify-self: start;
+    width: fit-content;
   }
 
   .video-feature__trust-line {

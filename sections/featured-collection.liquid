@@ -128,6 +128,13 @@
   #collection-{{ section.id }} .card__badge .badge {
     text-transform: uppercase;
   }
+
+  /* Mobile-only: tighten the gap to the next section (desktop untouched) */
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding {
+      padding-bottom: 12px;
+    }
+  }
 {%- endstyle -%}
 
 {%- liquid
