@@ -118,6 +118,18 @@
     font-size: 0.8rem;
     color: rgba(var(--color-foreground), 0.55);
   }
+
+  /* Mobile-only: smaller items, faster scroll (desktop rules above are untouched) */
+  @media screen and (max-width: 749px) {
+    #ugc-gallery-{{ section.id }} .ugc-gallery__item {
+      width: 108px;
+    }
+
+    #ugc-gallery-{{ section.id }} .ugc-gallery__track {
+      animation-duration: {{ section.settings.speed | times: 0.45 | round }}s;
+      gap: 0.6rem;
+    }
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
