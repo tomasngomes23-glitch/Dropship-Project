@@ -396,6 +396,55 @@
   .trustreviews-outer-{{ section.id }} {
     background: #ffffff;
   }
+
+  /* Mobile-only: swipeable slider instead of stacked grid + load more (desktop rules above are untouched) */
+  @media screen and (max-width: 749px) {
+    .trustreviews-{{ section.id }} .trustreviews__grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0.85rem;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__card {
+      display: flex !important;
+      flex: 0 0 78%;
+      max-width: 78%;
+      scroll-snap-align: start;
+      padding: 1.25rem;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__avatar {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__title {
+      font-size: 1.05rem;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__quote {
+      font-size: 0.95rem;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__footer {
+      display: none;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__header-title {
+      font-size: 2rem;
+    }
+  }
 {%- endstyle -%}
 
 <div class="trustreviews-outer-{{ section.id }}">
