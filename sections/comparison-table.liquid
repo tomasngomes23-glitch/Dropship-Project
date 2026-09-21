@@ -339,6 +339,100 @@
     margin: 0;
   }
 
+  .comparison__legend-nav {
+    display: none;
+  }
+
+  /* Mobile-only layout (desktop rules above are untouched) */
+  @media screen and (max-width: 749px) {
+    .comparison__layout {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .comparison__image-wrap {
+      flex: 0 0 38%;
+      max-width: 38%;
+    }
+
+    .comparison__legend {
+      display: block;
+      flex: 1 1 auto;
+    }
+
+    .comparison__legend-item {
+      display: none;
+      padding: 1.1rem;
+    }
+
+    .comparison__legend-item.is-current {
+      display: flex;
+    }
+
+    .comparison__legend-number {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .comparison__legend-heading {
+      font-size: 1rem;
+    }
+
+    .comparison__legend-text {
+      font-size: 0.85rem;
+    }
+
+    .comparison__legend-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.25rem auto 0;
+    }
+
+    .comparison__legend-nav-btn {
+      flex: 0 0 auto;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--color-foreground), 0.18);
+      background: transparent;
+      color: rgba(var(--color-foreground), 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .comparison__legend-nav-btn:active {
+      background: rgba(217, 33, 51, 0.1);
+      border-color: #d92133;
+    }
+
+    .comparison__legend-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .comparison__legend-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: rgba(var(--color-foreground), 0.22);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .comparison__legend-dot.is-current {
+      background: #d92133;
+      transform: scale(1.2);
+    }
+  }
+
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -418,6 +512,18 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+    </div>
+
+    <div class="comparison__legend-nav">
+      <button type="button" class="comparison__legend-nav-btn comparison__legend-nav-btn--prev" aria-label="Previous detail">‹</button>
+      <div class="comparison__legend-dots">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'detail' -%}
+            <span class="comparison__legend-dot" data-dot-index="{{ forloop.index }}"></span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <button type="button" class="comparison__legend-nav-btn comparison__legend-nav-btn--next" aria-label="Next detail">›</button>
     </div>
 
     <div class="comparison__zoom-modal" aria-hidden="true">
@@ -530,6 +636,39 @@
         openZoom(item);
       });
     });
+
+    var legendNavPrev = section.querySelector('.comparison__legend-nav-btn--prev');
+    var legendNavNext = section.querySelector('.comparison__legend-nav-btn--next');
+    var legendDots = section.querySelectorAll('.comparison__legend-dot');
+    var totalLegendItems = legendItems.length;
+    var currentLegendIndex = 1;
+
+    function showLegendItem(index) {
+      if (!totalLegendItems) return;
+      if (index < 1) index = totalLegendItems;
+      if (index > totalLegendItems) index = 1;
+      currentLegendIndex = index;
+      legendItems.forEach(function (item) {
+        item.classList.toggle('is-current', item.getAttribute('data-legend-index') === String(index));
+      });
+      legendDots.forEach(function (dot) {
+        dot.classList.toggle('is-current', dot.getAttribute('data-dot-index') === String(index));
+      });
+    }
+
+    showLegendItem(1);
+
+    if (legendNavPrev) {
+      legendNavPrev.addEventListener('click', function () {
+        showLegendItem(currentLegendIndex - 1);
+      });
+    }
+
+    if (legendNavNext) {
+      legendNavNext.addEventListener('click', function () {
+        showLegendItem(currentLegendIndex + 1);
+      });
+    }
 
     if (!outer || !inner) return;
 
