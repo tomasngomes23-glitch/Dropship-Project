@@ -397,86 +397,12 @@
     background: #ffffff;
   }
 
-  .trustreviews__modal {
-    display: none;
-  }
-
   /* Mobile-only: swipeable slider instead of stacked grid + load more (desktop rules above are untouched) */
   @media screen and (max-width: 749px) {
     .trustreviews-{{ section.id }} .trustreviews__header {
       border-bottom: none;
     }
 
-    .trustreviews-{{ section.id }} .trustreviews__card {
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .trustreviews-{{ section.id }} .trustreviews__card:active {
-      transform: scale(0.97);
-    }
-
-    .trustreviews__modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      height: 100dvh;
-      margin: 0;
-      z-index: 9000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      background: rgba(10, 10, 10, 0.72);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
-    }
-
-    .trustreviews__modal.is-open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .trustreviews-{{ section.id }} .trustreviews__modal-inner {
-      position: relative;
-      width: 100%;
-      max-width: 360px;
-      max-height: 85vh;
-      transform: scale(0.94);
-      transition: transform 0.25s ease;
-    }
-
-    .trustreviews__modal.is-open .trustreviews__modal-inner {
-      transform: scale(1);
-    }
-
-    .trustreviews-{{ section.id }} .trustreviews__modal-body {
-      max-height: 85vh;
-      overflow-y: auto;
-      cursor: default;
-    }
-
-    .trustreviews-{{ section.id }} .trustreviews__modal-close {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      z-index: 2;
-      width: 2.2rem;
-      height: 2.2rem;
-      border-radius: 50%;
-      border: none;
-      background: rgba(0, 0, 0, 0.55);
-      color: #ffffff;
-      font-size: 1.3rem;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
     .trustreviews-{{ section.id }} .trustreviews__grid {
       display: flex;
       grid-template-columns: none;
@@ -497,6 +423,9 @@
       display: flex !important;
       flex: 0 0 78%;
       max-width: 78%;
+      max-height: 62vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       scroll-snap-align: start;
       padding: 1.25rem;
     }
@@ -512,7 +441,8 @@
     }
 
     .trustreviews-{{ section.id }} .trustreviews__quote {
-      font-size: 0.95rem;
+      font-size: 1.15rem;
+      line-height: 1.5;
     }
 
     .trustreviews-{{ section.id }} .trustreviews__footer {
@@ -524,6 +454,7 @@
     }
 
     .trustreviews__summary-modal {
+      box-sizing: border-box;
       position: fixed;
       top: 0;
       left: 0;
@@ -746,12 +677,6 @@
       </button>
     </div>
 
-    <div class="trustreviews__modal trustreviews-{{ section.id }}" aria-hidden="true">
-      <div class="trustreviews__modal-inner">
-        <button type="button" class="trustreviews__modal-close" aria-label="Close">&times;</button>
-        <div class="trustreviews__modal-body trustreviews__card"></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -844,45 +769,6 @@
           summaryToggle.setAttribute('aria-expanded', 'false');
           summaryPanel.hidden = true;
         }
-      });
-    }
-
-    var reviewModal = section.querySelector('.trustreviews__modal');
-    if (isMobile && reviewModal && reviewModal.parentNode !== document.body) {
-      document.body.appendChild(reviewModal);
-    }
-    var reviewModalBody = reviewModal ? reviewModal.querySelector('.trustreviews__modal-body') : null;
-    var reviewModalClose = reviewModal ? reviewModal.querySelector('.trustreviews__modal-close') : null;
-    var reviewCards = section.querySelectorAll('.trustreviews__card');
-
-    function openReviewModal(card) {
-      if (!reviewModal || !reviewModalBody) return;
-      reviewModalBody.innerHTML = card.innerHTML;
-      reviewModal.classList.add('is-open');
-      reviewModal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeReviewModal() {
-      if (!reviewModal) return;
-      reviewModal.classList.remove('is-open');
-      reviewModal.setAttribute('aria-hidden', 'true');
-    }
-
-    if (isMobile) {
-      reviewCards.forEach(function (card) {
-        card.addEventListener('click', function () {
-          openReviewModal(card);
-        });
-      });
-
-      if (reviewModalClose) reviewModalClose.addEventListener('click', closeReviewModal);
-      if (reviewModal) {
-        reviewModal.addEventListener('click', function (event) {
-          if (event.target === reviewModal) closeReviewModal();
-        });
-      }
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') closeReviewModal();
       });
     }
 
