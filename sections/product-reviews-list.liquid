@@ -397,6 +397,10 @@
     background: #ffffff;
   }
 
+  .trustreviews__swipe-hint {
+    display: none;
+  }
+
   /* Mobile-only: swipeable slider instead of stacked grid + load more (desktop rules above are untouched) */
   @media screen and (max-width: 749px) {
     .trustreviews-{{ section.id }} .trustreviews__header {
@@ -451,6 +455,35 @@
 
     .trustreviews-{{ section.id }} .trustreviews__header-title {
       font-size: 2rem;
+    }
+
+    .trustreviews__swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(var(--color-foreground), 0.45);
+    }
+
+    .trustreviews__swipe-hint svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: trustreviews-swipe-hint 1.6s ease-in-out infinite;
+    }
+
+    @keyframes trustreviews-swipe-hint {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
     }
 
     .trustreviews__summary-modal {
@@ -670,6 +703,11 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+
+    <p class="trustreviews__swipe-hint" aria-hidden="true">
+      Swipe for more reviews
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </p>
 
     <div class="trustreviews__footer">
       <button type="button" class="button button--secondary trustreviews__load-more">
