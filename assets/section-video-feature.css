@@ -37,7 +37,7 @@
   width: 100%;
   border-radius: 24px;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 5;
   isolation: isolate;
   box-shadow:
     0 0 0 1px rgba(217, 33, 51, 0.18),
@@ -320,4 +320,27 @@
   font-size: 1.25rem;
   font-weight: 600;
   opacity: 0.65;
+}
+
+/* Mobile-only sizing (desktop rules above are untouched) */
+@media screen and (max-width: 749px) {
+  .video-feature__heading {
+    font-size: 2.8rem;
+  }
+
+  .video-feature__body {
+    font-size: 1.55rem;
+  }
+
+  .video-feature__list-item {
+    font-size: 1.5rem;
+  }
+
+  .video-feature__stat-number {
+    font-size: 1.9rem;
+  }
+
+  .video-feature__stat-label {
+    font-size: 1rem;
+  }
 }
