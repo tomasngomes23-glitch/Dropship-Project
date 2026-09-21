@@ -347,6 +347,10 @@
     display: none;
   }
 
+  .comparison__legend-cta {
+    display: none;
+  }
+
   /* Mobile-only layout (desktop rules above are untouched) */
   @media screen and (max-width: 749px) {
     .comparison__hint {
@@ -381,6 +385,7 @@
       padding: 2.25rem 1.75rem 2rem;
       flex-direction: column;
       gap: 1.1rem;
+      cursor: default;
     }
 
     .comparison__legend-item::before {
@@ -447,6 +452,34 @@
     .comparison__legend-text {
       font-size: 1.05rem;
       line-height: 1.5;
+    }
+
+    .comparison__legend-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      align-self: flex-start;
+      margin-top: 0.25rem;
+      padding: 0.65rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: #191919;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .comparison__legend-cta svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      fill: currentColor;
+    }
+
+    .comparison__legend-cta:active {
+      background: #d92133;
+      transform: scale(0.96);
     }
 
     .comparison__legend-nav {
@@ -569,6 +602,9 @@
               data-position-left="{{ block.settings.position_left }}"
               data-heading="{{ block.settings.heading | escape }}"
               data-text="{{ block.settings.text | escape }}"
+              {%- if block.settings.detail_image != blank %}
+              data-image="{{ block.settings.detail_image | image_url: width: 900 }}"
+              {%- endif %}
             >
               <div class="comparison__legend-item-top">
                 <span class="comparison__legend-number">{{ forloop.index }}</span>
@@ -581,6 +617,12 @@
                 <p class="comparison__legend-heading">{{ block.settings.heading | escape }}</p>
                 <p class="comparison__legend-text">{{ block.settings.text | escape }}</p>
               </div>
+              <button type="button" class="comparison__legend-cta">
+                <span aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79l5 4.99L20.49 19l-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+                </span>
+                Tap to see the detail
+              </button>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -658,26 +700,35 @@
     var zoomText = section.querySelector('.comparison__zoom-text');
     var zoomClose = section.querySelector('.comparison__zoom-modal-close');
     var zoomBackdrop = section.querySelector('.comparison__zoom-modal-backdrop');
+    var defaultZoomSrc = zoomImage ? zoomImage.getAttribute('src') : '';
 
     function openZoom(el) {
       var top = el.getAttribute('data-position-top');
       var left = el.getAttribute('data-position-left');
       var heading = el.getAttribute('data-heading');
       var text = el.getAttribute('data-text');
+      var image = el.getAttribute('data-image');
 
       if (!zoomModal || !zoomImage) return;
 
-      zoomImage.style.transformOrigin = left + '% ' + top + '%';
-      zoomImage.style.transform = 'scale(1)';
       zoomHeading.textContent = heading;
       zoomText.textContent = text;
 
       zoomModal.classList.add('is-open');
       zoomModal.setAttribute('aria-hidden', 'false');
 
-      requestAnimationFrame(function () {
-        zoomImage.style.transform = 'scale(3.6)';
-      });
+      if (image) {
+        zoomImage.src = image;
+        zoomImage.style.transformOrigin = '50% 50%';
+        zoomImage.style.transform = 'scale(1)';
+      } else {
+        zoomImage.src = defaultZoomSrc;
+        zoomImage.style.transformOrigin = left + '% ' + top + '%';
+        zoomImage.style.transform = 'scale(1)';
+        requestAnimationFrame(function () {
+          zoomImage.style.transform = 'scale(3.6)';
+        });
+      }
     }
 
     function closeZoom() {
@@ -885,6 +936,12 @@
             { "value": "ruler", "label": "Ruler" }
           ],
           "default": "none"
+        },
+        {
+          "type": "image_picker",
+          "id": "detail_image",
+          "label": "Detail photo (optional)",
+          "info": "Shown in the popup on mobile instead of the zoomed main photo."
         }
       ]
     }

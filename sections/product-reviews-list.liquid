@@ -397,8 +397,70 @@
     background: #ffffff;
   }
 
+  .trustreviews-{{ section.id }} .trustreviews__modal {
+    display: none;
+  }
+
   /* Mobile-only: swipeable slider instead of stacked grid + load more (desktop rules above are untouched) */
   @media screen and (max-width: 749px) {
+    .trustreviews-{{ section.id }} .trustreviews__header {
+      border-bottom: none;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__card {
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__card:active {
+      transform: scale(0.97);
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__modal {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(10, 10, 10, 0.72);
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__modal.is-open {
+      display: flex;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      max-height: 85vh;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__modal-body {
+      max-height: 85vh;
+      overflow-y: auto;
+      cursor: default;
+    }
+
+    .trustreviews-{{ section.id }} .trustreviews__modal-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      z-index: 2;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+      font-size: 1.3rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
     .trustreviews-{{ section.id }} .trustreviews__grid {
       display: flex;
       grid-template-columns: none;
@@ -617,6 +679,13 @@
         {{ section.settings.load_more_label }}
       </button>
     </div>
+
+    <div class="trustreviews__modal" aria-hidden="true">
+      <div class="trustreviews__modal-inner">
+        <button type="button" class="trustreviews__modal-close" aria-label="Close">&times;</button>
+        <div class="trustreviews__modal-body trustreviews__card"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -658,6 +727,40 @@
         }
       });
     }
+
+    var reviewModal = section.querySelector('.trustreviews__modal');
+    var reviewModalBody = section.querySelector('.trustreviews__modal-body');
+    var reviewModalClose = section.querySelector('.trustreviews__modal-close');
+    var reviewCards = section.querySelectorAll('.trustreviews__card');
+
+    function openReviewModal(card) {
+      if (!reviewModal || !reviewModalBody) return;
+      reviewModalBody.innerHTML = card.innerHTML;
+      reviewModal.classList.add('is-open');
+      reviewModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeReviewModal() {
+      if (!reviewModal) return;
+      reviewModal.classList.remove('is-open');
+      reviewModal.setAttribute('aria-hidden', 'true');
+    }
+
+    reviewCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        openReviewModal(card);
+      });
+    });
+
+    if (reviewModalClose) reviewModalClose.addEventListener('click', closeReviewModal);
+    if (reviewModal) {
+      reviewModal.addEventListener('click', function (event) {
+        if (event.target === reviewModal) closeReviewModal();
+      });
+    }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeReviewModal();
+    });
 
     var batchSize = parseInt(section.getAttribute('data-trustreviews-batch'), 10) || 6;
     var button = section.querySelector('.trustreviews__load-more');
