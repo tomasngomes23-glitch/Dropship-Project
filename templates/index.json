@@ -262,6 +262,7 @@
         "button_label": "Shop vintage jackets",
         "button_link": "shopify://collections/vintage-jackets",
         "media_position": "right",
+        "custom_video_url": "https://cdn.shopify.com/videos/c/vp/c63535515e2d4397a74a73b9fbcbf9ef/c63535515e2d4397a74a73b9fbcbf9ef.HD-1080p-7.2Mbps-95055082.mp4",
         "fallback_video_asset": "video-feature-showcase.mp4",
         "color_scheme": "scheme-1",
         "padding_top": 44,
