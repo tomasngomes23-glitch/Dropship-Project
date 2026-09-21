@@ -98,12 +98,25 @@
 .product__info-container .product-form__buttons .button,
 .product__info-container .product-form__submit,
 .product__info-container .shopify-payment-button__button {
-  font-size: 1.9rem;
+  font-size: 1.55rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   min-height: 5.5rem;
   border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product__info-container .product-form__buttons .button:not([disabled]):hover,
+.product__info-container .product-form__submit:not([disabled]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.45);
+}
+
+.product__info-container .product-form__buttons .button:not([disabled]):active,
+.product__info-container .product-form__submit:not([disabled]):active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.4);
 }
 
 .product__info-container .product-form__buttons .button:before,
