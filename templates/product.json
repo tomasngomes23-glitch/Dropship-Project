@@ -124,7 +124,9 @@
           "settings": {
             "heading": "Fit & Sizing",
             "icon": "none",
-            "row_content": "<p>Our jackets run true to size with a slightly relaxed, vintage-inspired cut. Want the oversized look? Size up.</p><ul><li><strong>S</strong> — Chest 104cm, Length 68cm, Sleeve 62cm</li><li><strong>M</strong> — Chest 110cm, Length 70cm, Sleeve 64cm</li><li><strong>L</strong> — Chest 116cm, Length 72cm, Sleeve 66cm</li><li><strong>XL</strong> — Chest 122cm, Length 74cm, Sleeve 68cm</li><li><strong>XXL</strong> — Chest 128cm, Length 76cm, Sleeve 70cm</li></ul><p>Still unsure? Check our full <a href=\"/pages/size-guide\">Size Guide</a> or <a href=\"/pages/contact-us\">reach out</a> and we'll help you pick.</p>"
+            "row_content": "<p>Our jackets run true to size with a slightly relaxed, vintage-inspired cut. Want the oversized look? Size up. Still unsure? <a href=\"/pages/contact-us\">Reach out</a> and we'll help you pick.</p>",
+            "popup_image": "shopify://shop_images/New_size_chart.png",
+            "popup_image_label": "See the size chart"
           }
         },
         "packaging_shipping": {
