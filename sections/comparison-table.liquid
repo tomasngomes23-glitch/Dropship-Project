@@ -345,25 +345,28 @@
 
   /* Mobile-only layout (desktop rules above are untouched) */
   @media screen and (max-width: 749px) {
+    .comparison__hint {
+      display: none;
+    }
+
     .comparison__layout {
-      flex-direction: row;
-      align-items: center;
-      gap: 1.25rem;
+      flex-direction: column;
     }
 
     .comparison__image-wrap {
-      flex: 0 0 38%;
-      max-width: 38%;
+      display: none;
     }
 
     .comparison__legend {
       display: block;
-      flex: 1 1 auto;
+      flex: 1 1 100%;
+      width: 100%;
     }
 
     .comparison__legend-item {
       display: none;
-      padding: 1.1rem;
+      width: 100%;
+      padding: 1.5rem;
     }
 
     .comparison__legend-item.is-current {
@@ -371,17 +374,17 @@
     }
 
     .comparison__legend-number {
-      width: 2rem;
-      height: 2rem;
-      font-size: 0.9rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: 1.05rem;
     }
 
     .comparison__legend-heading {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
 
     .comparison__legend-text {
-      font-size: 0.85rem;
+      font-size: 1rem;
     }
 
     .comparison__legend-nav {

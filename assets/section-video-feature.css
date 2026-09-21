@@ -325,25 +325,47 @@
 /* Mobile-only sizing (desktop rules above are untouched) */
 @media screen and (max-width: 749px) {
   .video-feature__content {
-    order: -1;
+    display: contents;
   }
 
-  .video-feature__media {
-    order: 1;
-    max-width: 70%;
-    margin: 0 auto;
+  .video-feature__caption {
+    display: none;
   }
 
   .video-feature__heading {
+    order: 1;
     font-size: 2.8rem;
   }
 
   .video-feature__body {
+    order: 2;
     font-size: 1.55rem;
+  }
+
+  .video-feature__stats {
+    order: 3;
+  }
+
+  .video-feature__media {
+    order: 4;
+    max-width: 70%;
+    margin: 0 auto;
+  }
+
+  .video-feature__list {
+    order: 5;
   }
 
   .video-feature__list-item {
     font-size: 1.5rem;
+  }
+
+  .video-feature__button {
+    order: 6;
+  }
+
+  .video-feature__trust-line {
+    order: 7;
   }
 
   .video-feature__stat-number {

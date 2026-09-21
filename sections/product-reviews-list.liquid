@@ -444,6 +444,17 @@
     .trustreviews-{{ section.id }} .trustreviews__header-title {
       font-size: 2rem;
     }
+
+    .trustreviews-{{ section.id }} .trustreviews__summary-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
+      width: 260px;
+      max-width: 82vw;
+      z-index: 100;
+    }
   }
 {%- endstyle -%}
 

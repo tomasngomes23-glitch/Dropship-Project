@@ -140,3 +140,19 @@
   text-align: left !important;
   margin-top: 0;
 }
+
+/* Mobile-only: base.css forces `.footer .grid { display: block; }` below
+   750px, which silently disables the `order: -1` on .footer-block--brand
+   above (order only works in flex/grid contexts). Restore a flex context
+   here so the logo reliably renders before "Join the Team". Desktop grid
+   is untouched. */
+@media screen and (max-width: 749px) {
+  .footer .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__blocks-wrapper > .footer-block--brand {
+    margin-top: 0;
+  }
+}
