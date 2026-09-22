@@ -752,3 +752,42 @@ media-gallery .product__media {
 .product__info-container :is(.product-form__input--pill, .product-form__input--swatch) .form__label {
   margin-bottom: 0.6rem;
 }
+
+/* Cotton / No Cotton: render as a segmented switch instead of separate pills */
+.product-form__input--switch input[type='radio'] + label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  max-width: 150px;
+  margin: 0.7rem 0 0.2rem !important;
+  padding: 1rem 0.5rem !important;
+  border: 1px solid rgba(var(--color-foreground), 0.35) !important;
+  border-radius: 0 !important;
+  background: rgb(var(--color-background)) !important;
+  color: rgb(var(--color-foreground)) !important;
+  text-align: center;
+  box-shadow: none !important;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.product-form__input--switch input[type='radio']:before {
+  display: none;
+}
+
+.product-form__input--switch input[type='radio']:first-of-type + label {
+  border-radius: 999px 0 0 999px !important;
+}
+
+.product-form__input--switch input[type='radio']:last-of-type + label {
+  border-radius: 0 999px 999px 0 !important;
+  margin-left: -1px !important;
+}
+
+.product-form__input--switch input[type='radio']:checked + label {
+  background: rgb(var(--color-foreground)) !important;
+  color: rgb(var(--color-background)) !important;
+  border-color: rgb(var(--color-foreground)) !important;
+  position: relative;
+  z-index: 1;
+}

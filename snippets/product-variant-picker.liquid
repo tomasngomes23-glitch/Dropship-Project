@@ -40,7 +40,7 @@
         {%- assign show_size_chart = true -%}
       {%- endif -%}
       {%- assign show_material_info = false -%}
-      {%- if option.name contains 'Material' and block.settings.material_info_image != blank -%}
+      {%- if option.name contains 'Material' -%}
         {%- assign show_material_info = true -%}
       {%- endif -%}
       {%- if picker_type == 'swatch' -%}
@@ -67,7 +67,7 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+        <fieldset class="js product-form__input product-form__input--pill{% if option.name contains 'Material' %} product-form__input--switch{% endif %}">
           <div class="variant-picker__header">
             <legend class="form__label">{{ option.name }}</legend>
             {%- if show_size_chart -%}

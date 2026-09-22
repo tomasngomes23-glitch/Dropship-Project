@@ -735,29 +735,32 @@
       {% render 'product-media-modal', variant_images: variant_images %}
 
       {%- assign material_picker_block = section.blocks | where: 'type', 'variant_picker' | first -%}
-      {%- if material_picker_block.settings.material_info_image != blank -%}
-        <modal-dialog id="MaterialInfoModal-{{ material_picker_block.id }}" class="product-popup-modal product-popup-modal--image-only">
-          <div
-            role="dialog"
-            aria-label="{{ material_picker_block.settings.material_info_label }}"
-            aria-modal="true"
-            class="product-popup-modal__content"
-            tabindex="-1"
+      <modal-dialog id="MaterialInfoModal-{{ material_picker_block.id }}" class="product-popup-modal{% if material_picker_block.settings.material_info_image != blank %} product-popup-modal--image-only{% endif %}">
+        <div
+          role="dialog"
+          aria-label="{{ material_picker_block.settings.material_info_label }}"
+          aria-modal="true"
+          class="product-popup-modal__content"
+          tabindex="-1"
+        >
+          <button
+            id="ModalClose-{{ material_picker_block.id }}"
+            type="button"
+            class="product-popup-modal__toggle"
+            aria-label="{{ 'accessibility.close' | t }}"
           >
-            <button
-              id="ModalClose-{{ material_picker_block.id }}"
-              type="button"
-              class="product-popup-modal__toggle"
-              aria-label="{{ 'accessibility.close' | t }}"
-            >
-              {{- 'icon-close.svg' | inline_asset_content -}}
-            </button>
-            <div class="product-popup-modal__content-info">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </button>
+          <div class="product-popup-modal__content-info">
+            {%- if material_picker_block.settings.material_info_image != blank -%}
               {{ material_picker_block.settings.material_info_image | image_url: width: 1500 | image_tag }}
-            </div>
+            {%- else -%}
+              <h1 class="h2">{{ material_picker_block.settings.material_info_label }}</h1>
+              <p>Explicacao da diferenca entre Cotton e No Cotton a adicionar em breve.</p>
+            {%- endif -%}
           </div>
-        </modal-dialog>
-      {%- endif -%}
+        </div>
+      </modal-dialog>
 
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}
