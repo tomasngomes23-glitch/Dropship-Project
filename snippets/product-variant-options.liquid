@@ -97,6 +97,9 @@
     >
     <label for="{{ input_id }}">
       {{ value -}}
+      {%- if show_material_price and value == 'Cotton' -%}
+        <span class="variant-option__extra-price">+6,99€</span>
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
