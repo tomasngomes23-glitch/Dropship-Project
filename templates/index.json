@@ -65,6 +65,10 @@
       "block_order": [],
       "settings": {
         "image": "shopify://shop_images/new_new1.png",
+        "mobile_image_1": "shopify://shop_images/Banner_1.png",
+        "mobile_image_2": "shopify://shop_images/banner_2_2.png",
+        "mobile_image_3": "shopify://shop_images/1790112791030-6dz5kh3ws4r.png",
+        "rating_text": "Loved by 2,400+ F1 Fans",
         "caption": "",
         "heading": "OWN THE GRID.\nEVERY ERA.",
         "heading_size": "hxl",
@@ -157,8 +161,8 @@
           "settings": {
             "position_top": 20,
             "position_left": 50,
-            "heading": "A zipper built for the podium",
-            "text": "Heavy-duty metal zip, smooth enough for the victory lane and tough enough for actual traffic."
+            "heading": "Crests stitched, not printed",
+            "text": "Authentic embroidered logo detail with a premium finish that won't crack, fade, or peel like a cheap print."
           }
         },
         "detail-3": {

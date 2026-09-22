@@ -593,3 +593,8 @@
     clip-path: polygon(var(--shape--blob-5));
   }
 }
+
+.card-wrapper .price__regular .price-item--regular,
+.card-wrapper .price__sale .price-item--sale {
+  font-weight: 700;
+}

@@ -9,6 +9,7 @@
 
 .collection-hero__title {
   margin: 3rem 0 0.75rem;
+  text-transform: uppercase;
 }
 
 .collection-hero__title.h0 {

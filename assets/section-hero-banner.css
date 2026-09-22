@@ -97,6 +97,39 @@
   }
 }
 
+.hero-banner__mobile-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.hero-banner__mobile-slide.is-active {
+  opacity: 1;
+}
+
+.hero-banner__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.4rem;
+}
+
+.hero-banner__rating-stars {
+  color: #ffb020;
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+}
+
+.hero-banner__rating-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.92;
+}
+
 .hero-banner__caption {
   margin: 0;
   opacity: 0.9;
