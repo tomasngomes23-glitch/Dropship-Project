@@ -18,6 +18,7 @@ if (!customElements.get('product-form')) {
       }
 
       onSubmitHandler(evt) {
+        if (evt.submitter?.name === 'checkout') return;
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
 
