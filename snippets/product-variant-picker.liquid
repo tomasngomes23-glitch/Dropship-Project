@@ -77,12 +77,23 @@
               {% render 'material-info-opener', block: block %}
             {%- endif -%}
           </div>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+          {%- if option.name contains 'Material' -%}
+            <div class="switch-track">
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: picker_type
+              %}
+            </div>
+          {%- else -%}
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          {%- endif -%}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

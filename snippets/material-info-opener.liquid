@@ -12,13 +12,13 @@
 >
   <button
     id="MaterialInfoPopup-{{ block.id }}"
-    class="product-popup-modal__button link"
+    class="product-popup-modal__button product-popup-modal__button--icon-only link"
     type="button"
     aria-haspopup="dialog"
+    aria-label="{{ block.settings.material_info_label | escape }}"
   >
     <span class="svg-wrapper">
       {{- 'icon-info.svg' | inline_asset_content -}}
     </span>
-    {{ block.settings.material_info_label | escape }}
   </button>
 </modal-opener>

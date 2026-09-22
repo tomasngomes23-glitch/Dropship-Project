@@ -216,6 +216,11 @@
   height: 1.25rem;
 }
 
+.product-popup-modal__button--icon-only {
+  gap: 0;
+  text-decoration: none;
+}
+
 .product-popup-modal {
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
@@ -753,41 +758,69 @@ media-gallery .product__media {
   margin-bottom: 0.6rem;
 }
 
-/* Cotton / No Cotton: render as a segmented switch instead of separate pills */
-.product-form__input--switch input[type='radio'] + label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  max-width: 150px;
-  margin: 0.7rem 0 0.2rem !important;
-  padding: 1rem 0.5rem !important;
-  border: 1px solid rgba(var(--color-foreground), 0.35) !important;
-  border-radius: 0 !important;
-  background: rgb(var(--color-background)) !important;
-  color: rgb(var(--color-foreground)) !important;
-  text-align: center;
-  box-shadow: none !important;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+/* Cotton / No Cotton: render as a real toggle switch (track + sliding thumb) */
+.product-form__input--switch .variant-picker__header {
+  margin-bottom: 0.3rem;
 }
 
-.product-form__input--switch input[type='radio']:before {
-  display: none;
-}
-
-.product-form__input--switch input[type='radio']:first-of-type + label {
-  border-radius: 999px 0 0 999px !important;
-}
-
-.product-form__input--switch input[type='radio']:last-of-type + label {
-  border-radius: 0 999px 999px 0 !important;
-  margin-left: -1px !important;
-}
-
-.product-form__input--switch input[type='radio']:checked + label {
-  background: rgb(var(--color-foreground)) !important;
-  color: rgb(var(--color-background)) !important;
-  border-color: rgb(var(--color-foreground)) !important;
+.product-form__input--switch .switch-track {
   position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 30px;
+  margin: 0.3rem 0 0.2rem;
+  border-radius: 999px;
+  background: rgba(var(--color-foreground), 0.18);
+  transition: background-color 0.2s ease;
+}
+
+.product-form__input--switch .switch-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.product-form__input--switch .switch-track:has(input[type='radio']:last-of-type:checked) {
+  background: #d92133;
+}
+
+.product-form__input--switch .switch-track:has(input[type='radio']:last-of-type:checked)::after {
+  transform: translateX(22px);
+}
+
+.product-form__input--switch .switch-track input[type='radio'] + label {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 0;
+  color: transparent;
+  cursor: pointer;
   z-index: 1;
+}
+
+.product-form__input--switch .switch-track input[type='radio']:checked + label {
+  background: transparent !important;
+}
+
+.product-form__input--switch .switch-track input[type='radio']:first-of-type + label {
+  left: 0;
+}
+
+.product-form__input--switch .switch-track input[type='radio']:last-of-type + label {
+  left: 50%;
 }
