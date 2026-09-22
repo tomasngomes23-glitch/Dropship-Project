@@ -48,6 +48,13 @@
     animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
   }
 
+  /* Desktop-only: faster scroll (mobile rule below is untouched) */
+  @media screen and (min-width: 750px) {
+    #ugc-gallery-{{ section.id }} .ugc-gallery__track {
+      animation-duration: {{ section.settings.speed | times: 0.5 | round }}s;
+    }
+  }
+
   @keyframes ugc-gallery-scroll-{{ section.id }} {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
