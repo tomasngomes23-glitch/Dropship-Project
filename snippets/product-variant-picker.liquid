@@ -39,6 +39,10 @@
       {%- if size_chart_block and option.name contains 'Size' -%}
         {%- assign show_size_chart = true -%}
       {%- endif -%}
+      {%- assign show_material_info = false -%}
+      {%- if option.name contains 'Material' and block.settings.material_info_image != blank -%}
+        {%- assign show_material_info = true -%}
+      {%- endif -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
           <div class="variant-picker__header">
@@ -50,6 +54,9 @@
             </legend>
             {%- if show_size_chart -%}
               {% render 'size-chart-opener', size_chart_block: size_chart_block %}
+            {%- endif -%}
+            {%- if show_material_info -%}
+              {% render 'material-info-opener', block: block %}
             {%- endif -%}
           </div>
           {% render 'product-variant-options',
@@ -65,6 +72,9 @@
             <legend class="form__label">{{ option.name }}</legend>
             {%- if show_size_chart -%}
               {% render 'size-chart-opener', size_chart_block: size_chart_block %}
+            {%- endif -%}
+            {%- if show_material_info -%}
+              {% render 'material-info-opener', block: block %}
             {%- endif -%}
           </div>
           {% render 'product-variant-options',

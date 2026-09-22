@@ -1,0 +1,24 @@
+{% comment %}
+  Renders the Cotton vs No Cotton info popup opener button.
+
+  Accepts:
+  - block: {Object} the 'variant_picker' block whose settings drive the modal.
+  Usage:
+  {% render 'material-info-opener', block: block %}
+{% endcomment %}
+<modal-opener
+  class="product-popup-modal__opener quick-add-hidden"
+  data-modal="#MaterialInfoModal-{{ block.id }}"
+>
+  <button
+    id="MaterialInfoPopup-{{ block.id }}"
+    class="product-popup-modal__button link"
+    type="button"
+    aria-haspopup="dialog"
+  >
+    <span class="svg-wrapper">
+      {{- 'icon-info.svg' | inline_asset_content -}}
+    </span>
+    {{ block.settings.material_info_label | escape }}
+  </button>
+</modal-opener>
