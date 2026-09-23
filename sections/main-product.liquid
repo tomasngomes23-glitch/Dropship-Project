@@ -764,7 +764,7 @@
 
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}
-        <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal{% if block.id == size_chart_block.id %} product-popup-modal--image-only{% endif %}" {{ block.shopify_attributes }}>
+        <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal{% if block.id == size_chart_block.id %} product-popup-modal--image-only product-popup-modal--size-chart{% endif %}" {{ block.shopify_attributes }}>
           <div
             role="dialog"
             aria-label="{{ block.settings.text }}"

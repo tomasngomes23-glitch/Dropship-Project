@@ -225,19 +225,6 @@
   fill-opacity: 1;
 }
 
-/* Mobile-only: bump the Size Chart link up to roughly match the weight of
-   the Size/Material label next to it (desktop is untouched). */
-@media screen and (max-width: 749px) {
-  .variant-picker__header .product-popup-modal__button {
-    font-size: 1.4rem;
-  }
-
-  .variant-picker__header .product-popup-modal__button .svg-wrapper svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-}
-
 .product-popup-modal {
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
@@ -303,6 +290,24 @@
    behaves exactly like the other image-only popups. */
 .product-popup-modal--image-only .product-popup-modal__content-info > div {
   display: contents !important;
+}
+
+/* The Size Chart image comes from a linked Shopify page whose <img> carries
+   its own inline "max-width:100%" style, which (being inline) beats any
+   non-!important rule here and left it shrinking to a much smaller size
+   than the other image-only popups. Force an explicit box instead of
+   relying on shrink-to-fit, so it always matches their size. */
+.product-popup-modal--size-chart.product-popup-modal--image-only .product-popup-modal__content {
+  width: min(85vw, 640px) !important;
+  height: auto !important;
+}
+
+.product-popup-modal--size-chart .product-popup-modal__content-info img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: 85vh !important;
+  max-height: 85dvh !important;
 }
 
 .product-popup-modal--image-only .product-popup-modal__content-info img {
