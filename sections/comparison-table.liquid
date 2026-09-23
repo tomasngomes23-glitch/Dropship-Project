@@ -358,185 +358,140 @@
     display: none;
   }
 
-  /* Mobile-only layout (desktop rules above are untouched) */
+  /* Mobile-only layout (desktop rules above are untouched): a swipeable,
+     Instagram-story-style card deck instead of the old one-card-plus-arrows
+     legend. */
+  .comparison__mobile-stories {
+    display: none;
+  }
+
   @media screen and (max-width: 749px) {
     .comparison__hint {
       display: none;
     }
 
     .comparison__layout {
-      flex-direction: column;
-    }
-
-    .comparison__image-wrap {
       display: none;
-    }
-
-    .comparison__legend {
-      display: block;
-      flex: 1 1 100%;
-      width: 100%;
-    }
-
-    .comparison__legend-item {
-      display: none;
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      background: rgb(var(--color-background));
-      border: none;
-      border-radius: 20px;
-      box-shadow:
-        0 18px 36px -22px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(0, 0, 0, 0.06);
-      padding: 2.25rem 1.75rem 2rem;
-      flex-direction: column;
-      gap: 1.1rem;
-      cursor: default;
-    }
-
-    .comparison__legend-item::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #d92133, #ff6b76);
-    }
-
-    .comparison__legend-item.is-current {
-      display: flex;
-    }
-
-    .comparison__legend-item-top {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-    }
-
-    .comparison__legend-icon {
-      display: flex;
-      flex: 0 0 auto;
-      align-items: center;
-      justify-content: center;
-      width: 4.4rem;
-      height: 4.4rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #d92133, #a3101f);
-      box-shadow: 0 10px 20px -8px rgba(217, 33, 51, 0.55);
-    }
-
-    .comparison__legend-icon svg {
-      width: 2.2rem;
-      height: 2.2rem;
-      fill: #ffffff;
-    }
-
-    .comparison__legend-number {
-      flex: 0 0 auto;
-      width: auto;
-      height: auto;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(217, 33, 51, 0.1);
-      color: #d92133;
-      font-weight: 800;
-      font-size: 0.95rem;
-    }
-
-    .comparison__legend-item.is-active .comparison__legend-number {
-      background: #d92133;
-      color: #ffffff;
-    }
-
-    .comparison__legend-heading {
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-
-    .comparison__legend-text {
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
-
-    .comparison__legend-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      align-self: flex-start;
-      margin-top: 0.25rem;
-      padding: 0.65rem 1.1rem;
-      border-radius: 999px;
-      border: none;
-      background: #191919;
-      color: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .comparison__legend-cta svg {
-      width: 1.05rem;
-      height: 1.05rem;
-      fill: currentColor;
-    }
-
-    .comparison__legend-cta:active {
-      background: #d92133;
-      transform: scale(0.96);
     }
 
     .comparison__legend-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin: 1.5rem auto 0;
+      display: none;
     }
 
-    .comparison__legend-nav-btn {
-      flex: 0 0 auto;
-      width: 2.6rem;
-      height: 2.6rem;
-      border-radius: 50%;
-      border: none;
-      background: #191919;
-      color: #ffffff;
-      box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.45);
+    .comparison__mobile-stories {
+      display: block;
+    }
+
+    .comparison__mobile-progress {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      line-height: 1;
+      gap: 0.4rem;
+      margin: 0 0 1.1rem;
+    }
+
+    .comparison__mobile-progress-seg {
+      flex: 1 1 0;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(var(--color-foreground), 0.15);
+      overflow: hidden;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .comparison__legend-nav-btn:active {
+    .comparison__mobile-progress-fill {
+      display: block;
+      height: 100%;
+      width: 0%;
       background: #d92133;
-      transform: scale(0.94);
+      transition: width 0.3s ease;
     }
 
-    .comparison__legend-dots {
+    .comparison__mobile-progress-seg.is-active .comparison__mobile-progress-fill,
+    .comparison__mobile-progress-seg.is-done .comparison__mobile-progress-fill {
+      width: 100%;
+    }
+
+    .comparison__mobile-track {
       display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .comparison__mobile-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .comparison__mobile-card {
+      flex: 0 0 88%;
+      scroll-snap-align: start;
+      position: relative;
+      height: 62vh;
+      min-height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: #111;
+      background-size: 240%;
+      background-repeat: no-repeat;
+      box-shadow: 0 18px 36px -22px rgba(0, 0, 0, 0.45);
+    }
+
+    .comparison__mobile-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.85) 100%);
+    }
+
+    .comparison__mobile-card-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      padding: 1.75rem 1.5rem 2rem;
+      color: #ffffff;
+    }
+
+    .comparison__mobile-card-number {
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-    }
-
-    .comparison__legend-dot {
-      width: 0.55rem;
-      height: 0.55rem;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
       border-radius: 50%;
-      background: rgba(var(--color-foreground), 0.22);
-      transition: background 0.2s ease, transform 0.2s ease;
+      background: #d92133;
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .comparison__legend-dot.is-current {
-      background: #d92133;
-      transform: scale(1.2);
+    .comparison__mobile-card-heading {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0 0 0.4rem;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    .comparison__mobile-card-text {
+      font-size: 1rem;
+      line-height: 1.45;
+      margin: 0;
+      opacity: 0.92;
+    }
+
+    .comparison__mobile-swipe-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(var(--color-foreground), 0.45);
+      margin: 1rem 0 0;
     }
   }
 
@@ -634,6 +589,47 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+    </div>
+
+    {%- liquid
+      if section.settings.showcase_image != blank
+        assign comparison_mobile_bg = section.settings.showcase_image | image_url: width: 1200
+      else
+        assign comparison_mobile_bg = 'comparison-ferrari-black-cutout.webp' | asset_url
+      endif
+    -%}
+    <div class="comparison__mobile-stories">
+      <div class="comparison__mobile-progress">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'detail' -%}
+            <span
+              class="comparison__mobile-progress-seg{% if forloop.first %} is-active{% endif %}"
+              data-progress-index="{{ forloop.index0 }}"
+            >
+              <span class="comparison__mobile-progress-fill"></span>
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="comparison__mobile-track">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'detail' -%}
+            <div
+              class="comparison__mobile-card"
+              data-card-index="{{ forloop.index0 }}"
+              style="background-image: url('{{ comparison_mobile_bg }}'); background-position: {{ block.settings.position_left }}% {{ block.settings.position_top }}%;"
+              {{ block.shopify_attributes }}
+            >
+              <div class="comparison__mobile-card-overlay">
+                <span class="comparison__mobile-card-number">{{ forloop.index }}</span>
+                <h3 class="comparison__mobile-card-heading">{{ block.settings.heading | escape }}</h3>
+                <p class="comparison__mobile-card-text">{{ block.settings.text | escape }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <p class="comparison__mobile-swipe-hint">Swipe to see more →</p>
     </div>
 
     <div class="comparison__legend-nav">
@@ -801,6 +797,35 @@
     if (legendNavNext) {
       legendNavNext.addEventListener('click', function () {
         showLegendItem(currentLegendIndex + 1);
+      });
+    }
+
+    var mobileTrack = section.querySelector('.comparison__mobile-track');
+    var mobileCards = section.querySelectorAll('.comparison__mobile-card');
+    var progressSegs = section.querySelectorAll('.comparison__mobile-progress-seg');
+
+    if (mobileTrack && mobileCards.length && 'IntersectionObserver' in window) {
+      var cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.intersectionRatio < 0.6) return;
+          var index = parseInt(entry.target.getAttribute('data-card-index'), 10);
+          progressSegs.forEach(function (seg, i) {
+            seg.classList.toggle('is-active', i === index);
+            seg.classList.toggle('is-done', i < index);
+          });
+        });
+      }, { root: mobileTrack, threshold: [0.6] });
+
+      mobileCards.forEach(function (card) {
+        cardObserver.observe(card);
+      });
+
+      progressSegs.forEach(function (seg) {
+        seg.addEventListener('click', function () {
+          var index = parseInt(seg.getAttribute('data-progress-index'), 10);
+          var target = mobileCards[index];
+          if (target) target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        });
       });
     }
 

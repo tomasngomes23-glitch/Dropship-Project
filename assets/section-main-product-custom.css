@@ -221,6 +221,23 @@
   text-decoration: none;
 }
 
+.product-popup-modal__button--icon-only .svg-wrapper svg path {
+  fill-opacity: 1;
+}
+
+/* Mobile-only: bump the Size Chart link up to roughly match the weight of
+   the Size/Material label next to it (desktop is untouched). */
+@media screen and (max-width: 749px) {
+  .variant-picker__header .product-popup-modal__button {
+    font-size: 1.4rem;
+  }
+
+  .variant-picker__header .product-popup-modal__button .svg-wrapper svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
 .product-popup-modal {
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
@@ -657,6 +674,36 @@
   border-top: 1px solid rgba(var(--color-foreground), 0.1);
   border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
   column-gap: 0;
+  transition: background-color 0.15s ease;
+}
+
+.product__info-container .icon-with-text--horizontal .icon-with-text__item {
+  transition: transform 0.15s ease;
+}
+
+.product__info-container .icon-with-text--horizontal .icon-with-text__item:hover {
+  transform: translateY(-2px);
+}
+
+.product__info-container .icon-with-text--horizontal .icon-with-text__item:hover .svg-wrapper {
+  background: rgba(217, 33, 51, 0.16);
+  border-color: rgba(217, 33, 51, 0.4);
+}
+
+/* Mobile-only: close the gap between these icons and the accordion below
+   (desktop spacing is untouched). */
+@media screen and (max-width: 749px) {
+  .product__info-container .icon-with-text {
+    margin-bottom: 0 !important;
+  }
+
+  .product__info-container .product__description:empty {
+    display: none;
+  }
+
+  .shopify-section:has(.product__info-container .icon-with-text--horizontal) + .shopify-section .collapsible-content__wrapper {
+    padding-top: 0 !important;
+  }
 }
 
 .product__info-container .icon-with-text--horizontal .icon-with-text__item {

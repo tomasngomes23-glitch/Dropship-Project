@@ -102,19 +102,19 @@
         <div class="video-feature__stats">
           {%- if section.settings.stat_1_value != blank -%}
             <div class="video-feature__stat">
-              <p class="video-feature__stat-number">{{ section.settings.stat_1_value | escape }}</p>
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_1_value | escape }}">0</p>
               <p class="video-feature__stat-label">{{ section.settings.stat_1_label | escape }}</p>
             </div>
           {%- endif -%}
           {%- if section.settings.stat_2_value != blank -%}
             <div class="video-feature__stat">
-              <p class="video-feature__stat-number">{{ section.settings.stat_2_value | escape }}</p>
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_2_value | escape }}">0</p>
               <p class="video-feature__stat-label">{{ section.settings.stat_2_label | escape }}</p>
             </div>
           {%- endif -%}
           {%- if section.settings.stat_3_value != blank -%}
             <div class="video-feature__stat">
-              <p class="video-feature__stat-number">{{ section.settings.stat_3_value | escape }}</p>
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_3_value | escape }}">0</p>
               <p class="video-feature__stat-label">{{ section.settings.stat_3_label | escape }}</p>
             </div>
           {%- endif -%}
@@ -157,6 +157,59 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    var statValues = section.querySelectorAll('[data-video-feature-stat-value]');
+    if (!statValues.length) return;
+
+    function animateStat(el) {
+      var raw = el.getAttribute('data-value') || '';
+      var match = raw.match(/[\d.,]+/);
+      if (!match) return;
+      var numeric = parseFloat(match[0].replace(/,/g, ''));
+      if (isNaN(numeric)) return;
+      var prefix = raw.slice(0, match.index);
+      var suffix = raw.slice(match.index + match[0].length);
+      var duration = 1200;
+      var start = null;
+      var decimals = match[0].indexOf('.') > -1 ? match[0].split('.')[1].length : 0;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = (numeric * eased).toFixed(decimals);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = raw;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var statObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateStat(entry.target);
+          statObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.6 });
+      statValues.forEach(function (el) {
+        statObserver.observe(el);
+      });
+    } else {
+      statValues.forEach(function (el) {
+        el.textContent = el.getAttribute('data-value');
+      });
+    }
+  })();
+</script>
 
 {% schema %}
 {
