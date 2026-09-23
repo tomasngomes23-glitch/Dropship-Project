@@ -270,8 +270,8 @@
 
 .product-popup-modal--image-only .product-popup-modal__content-info * {
   display: block;
-  width: auto;
-  height: auto;
+  width: auto !important;
+  height: auto !important;
   max-width: 85vw;
   max-height: 85vh;
   max-height: 85dvh;
@@ -281,8 +281,8 @@
 
 .product-popup-modal--image-only .product-popup-modal__content-info img {
   display: block;
-  width: auto;
-  height: auto;
+  width: auto !important;
+  height: auto !important;
   max-width: 85vw;
   max-height: 85vh;
   max-height: 85dvh;
@@ -758,6 +758,62 @@ media-gallery .product__media {
   margin-bottom: 0.6rem;
 }
 
+/* "Racing tag" style for Size / Material pills and the Quantity stepper:
+   near-square corners, a bolder border, a hover lift (matching the Add to
+   cart button), and a small red corner flag on the selected pill. */
+.product__info-container .product-form__input--pill input[type='radio'] + label {
+  border-radius: 4px;
+  border-width: 2px;
+  padding: 1.1rem 1.9rem;
+  font-weight: 700;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease,
+    background-color 0.15s ease, color 0.15s ease;
+}
+
+.product__info-container .product-form__input--pill input[type='radio'] + label:before {
+  border-radius: 4px;
+}
+
+.product__info-container .product-form__input--pill input[type='radio']:not(:disabled):not(.disabled) + label:hover {
+  border-color: rgb(var(--color-foreground));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px -10px rgba(0, 0, 0, 0.45);
+}
+
+.product__info-container .product-form__input--pill input[type='radio']:checked + label {
+  position: relative;
+}
+
+.product__info-container .product-form__input--pill input[type='radio']:checked + label:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 1.1rem 1.1rem 0;
+  border-color: transparent #d92133 transparent transparent;
+}
+
+.product__info-container .quantity {
+  border-radius: 4px;
+  transition: box-shadow 0.15s ease;
+}
+
+.product__info-container .quantity:after,
+.product__info-container .quantity:before {
+  border-radius: 4px;
+}
+
+.product__info-container .quantity__button {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.product__info-container .quantity__button:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
 /* Cotton / No Cotton: render as a segmented switch instead of separate pills */
 .product-form__input--switch input[type='radio'] + label {
   display: inline-flex;
@@ -766,18 +822,28 @@ media-gallery .product__media {
   width: 50%;
   max-width: 160px;
   margin: 0.7rem 0 0.2rem !important;
-  padding: 1rem 0.5rem !important;
-  border: 1px solid rgba(var(--color-foreground), 0.35) !important;
+  padding: 1.1rem 0.5rem !important;
+  border: 2px solid rgba(var(--color-foreground), 0.35) !important;
   border-radius: 0 !important;
   background: rgb(var(--color-background)) !important;
   color: rgb(var(--color-foreground)) !important;
   text-align: center;
   box-shadow: none !important;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .product-form__input--switch input[type='radio']:before {
   display: none;
+}
+
+.product-form__input--switch input[type='radio']:not(:disabled):not(.disabled) + label:hover {
+  border-color: rgb(var(--color-foreground)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px -10px rgba(0, 0, 0, 0.45);
+  z-index: 2;
 }
 
 .product-form__input--switch input[type='radio']:first-of-type + label {
@@ -786,15 +852,31 @@ media-gallery .product__media {
 
 .product-form__input--switch input[type='radio']:last-of-type + label {
   border-radius: 0 999px 999px 0 !important;
-  margin-left: -1px !important;
+  margin-left: -2px !important;
 }
 
 .product-form__input--switch input[type='radio']:checked + label {
   background: rgb(var(--color-foreground)) !important;
   color: rgb(var(--color-background)) !important;
   border-color: rgb(var(--color-foreground)) !important;
-  position: relative;
   z-index: 1;
+}
+
+.product-form__input--switch input[type='radio']:checked + label:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 1.1rem 1.1rem 0;
+  border-color: transparent #d92133 transparent transparent;
+}
+
+.product-form__input--switch input[type='radio']:first-of-type:checked + label:after {
+  right: auto;
+  left: 0;
+  border-width: 0 0 1.1rem 1.1rem;
+  border-color: transparent transparent transparent #d92133;
 }
 
 .product-form__input--switch .variant-option__extra-price {
