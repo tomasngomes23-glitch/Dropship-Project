@@ -20,6 +20,7 @@
         "media-3": {
           "type": "media_item",
           "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/0205fe186dd949d0859f35e7a88f78b0/0205fe186dd949d0859f35e7a88f78b0.HD-1080p-4.8Mbps-95358643.mp4",
             "show_verified": true
           }
         },
@@ -44,8 +45,8 @@
       },
       "block_order": [
         "media-1",
-        "media-2",
         "media-3",
+        "media-2",
         "media-4",
         "media-5",
         "media-6"

@@ -183,12 +183,12 @@
       "blocks": {
         "media-1": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/2c43c2299c994c80b8dff1f17b7e66e4/2c43c2299c994c80b8dff1f17b7e66e4.HD-1080p-4.8Mbps-94995178.mp4", "show_verified": true } },
         "media-2": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/7525f91f3cab45a5afb99ce030868683/7525f91f3cab45a5afb99ce030868683.HD-1080p-7.2Mbps-94991010.mp4", "show_verified": true } },
-        "media-3": { "type": "media_item", "settings": { "show_verified": true } },
+        "media-3": { "type": "media_item", "settings": { "video_url": "https://cdn.shopify.com/videos/c/vp/0205fe186dd949d0859f35e7a88f78b0/0205fe186dd949d0859f35e7a88f78b0.HD-1080p-4.8Mbps-95358643.mp4", "show_verified": true } },
         "media-4": { "type": "media_item", "settings": { "show_verified": true } },
         "media-5": { "type": "media_item", "settings": { "show_verified": true } },
         "media-6": { "type": "media_item", "settings": { "show_verified": true } }
       },
-      "block_order": ["media-1", "media-2", "media-3", "media-4", "media-5", "media-6"],
+      "block_order": ["media-1", "media-3", "media-2", "media-4", "media-5", "media-6"],
       "settings": {
         "heading": "See it for yourself, no filters",
         "heading_size": "h2",

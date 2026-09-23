@@ -279,6 +279,15 @@
   padding: 0;
 }
 
+/* The linked Shopify page (e.g. the Size Chart page) wraps its image in its
+   own <div>, which - unlike a plain image_picker image - stretches to fill
+   the modal instead of shrinking to the image's size, making it render much
+   smaller. Collapse that wrapper out of the box model so its child <img>
+   behaves exactly like the other image-only popups. */
+.product-popup-modal--image-only .product-popup-modal__content-info > div {
+  display: contents !important;
+}
+
 .product-popup-modal--image-only .product-popup-modal__content-info img {
   display: block;
   width: auto !important;
