@@ -160,7 +160,7 @@
 
 <script>
   (function () {
-    var section = document.getElementById('shopify-section-{{ section.id }}');
+    var section = document.querySelector('.section-{{ section.id }}-padding');
     if (!section) return;
     var statValues = section.querySelectorAll('[data-video-feature-stat-value]');
     if (!statValues.length) return;
