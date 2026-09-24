@@ -1,0 +1,181 @@
+.footer__blocks-wrapper > .footer-block--brand {
+  flex: 1 0 100%;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  order: -1;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__brand-info {
+  align-items: center;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
+  margin: 0 auto 1rem;
+}
+
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper img {
+  filter: invert(1);
+}
+
+.footer__column--social {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .footer__column--social {
+    justify-content: flex-start;
+  }
+
+  /* Size non-brand footer columns to their content and give them equal
+     gaps, instead of stretching to equal-width columns (which leaves
+     uneven visual gaps since each column's content is a different length).
+     Left-aligned (not centered) so the newsletter block sits at the left
+     edge, matching the reference layout. */
+  .footer__blocks-wrapper {
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__blocks-wrapper > .footer-block:not(.footer-block--brand) {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }
+}
+
+/* Slightly larger logo */
+.footer__blocks-wrapper > .footer-block--brand .footer-block__image-wrapper {
+  max-width: min(100%, 190px) !important;
+}
+
+.footer-block__heading {
+  font-size: clamp(1.15rem, 1rem + 0.4vw, 1.45rem) !important;
+  white-space: nowrap;
+}
+
+.footer-block__details-content,
+.footer-block__details-content a,
+.footer-block__details-content p,
+.footer-block__details-content p a,
+.footer__list-social,
+.footer-block__brand-info,
+.footer__localization,
+.footer__copyright,
+.footer__column--info,
+.footer-block__newsletter-subtext {
+  font-size: 1.05rem !important;
+}
+
+.footer-block__newsletter .newsletter-form__button {
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.footer-block__newsletter .newsletter-form__button:hover {
+  background-color: #d92133;
+  color: #ffffff;
+}
+
+.footer-block__newsletter .footer-block__heading {
+  font-size: clamp(2.2rem, 1.7rem + 2vw, 3.2rem) !important;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.footer-block__newsletter-subtext {
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0 0 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  /* Give the newsletter/email column more visual weight and push the
+     other three columns slightly further to the side to balance it. */
+  .footer__blocks-wrapper > .footer-block--newsletter-col {
+    flex: 0 0 auto;
+    min-width: 260px;
+    max-width: 320px;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .footer__newsletter {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper > .footer-block--newsletter-col .newsletter-form__field-wrapper {
+    max-width: 100%;
+  }
+
+  .footer__blocks-wrapper {
+    gap: 2.5rem;
+  }
+}
+
+/* Stack Country/region, payment icons and copyright as a single
+   left-aligned column, matching the reference layout. */
+.footer__content-bottom-wrapper--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column {
+  width: auto;
+  align-items: flex-start;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__localization {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__column--info {
+  align-items: flex-start;
+  padding: 0;
+}
+
+.footer__content-bottom-wrapper--stacked .footer__copyright {
+  text-align: left !important;
+  margin-top: 0;
+}
+
+/* Mobile-only: base.css forces `.footer .grid { display: block; }` below
+   750px, which silently disables the `order: -1` on .footer-block--brand
+   above (order only works in flex/grid contexts). Restore a flex context
+   here so the logo reliably renders before "Join the Team". Desktop grid
+   is untouched. */
+@media screen and (max-width: 749px) {
+  .footer .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__blocks-wrapper > .footer-block--brand {
+    margin-top: 0;
+  }
+
+  /* Mobile-only: tighten the large default gaps between footer blocks
+     (desktop spacing above is untouched). */
+  .footer-block.grid__item {
+    margin: 1.75rem 0;
+  }
+
+  .footer-block__details-content {
+    margin-bottom: 1.75rem;
+  }
+
+  .footer-block--newsletter {
+    gap: 1.5rem;
+  }
+
+  .footer__content-top {
+    padding-bottom: 1.75rem;
+  }
+
+  .footer__content-bottom,
+  .footer__content-bottom-wrapper {
+    row-gap: 0.85rem;
+  }
+}

@@ -1,0 +1,86 @@
+{% comment %}
+  Renders a "Complete the Look" upsell card offering one other jacket
+  (picked pseudo-randomly from a collection, excluding the current
+  product). Checking the box does not add anything by itself: when the
+  shopper hits the page's main "Add to cart" button, this product is
+  bundled into that same cart request alongside the current product.
+  Accepts:
+  - block: {Object} the complete_the_look block
+
+  Usage:
+  {% render 'product-complete-look', block: block %}
+{% endcomment %}
+{%- liquid
+  assign look_collection = block.settings.collection
+  if look_collection == blank
+    assign look_collection = product.collections.first
+  endif
+-%}
+{%- if look_collection != blank -%}
+  {%- liquid
+    assign look_products = look_collection.products | where: 'available'
+    assign look_count = 0
+    for look_product in look_products
+      unless look_product.handle == product.handle
+        assign look_count = look_count | plus: 1
+      endunless
+    endfor
+  -%}
+  {%- if look_count > 0 -%}
+    {%- liquid
+      assign look_seed = 'now' | date: '%s' | modulo: look_count
+      assign look_index = 0
+      assign chosen_product = blank
+      for look_product in look_products
+        unless look_product.handle == product.handle
+          if look_index == look_seed
+            assign chosen_product = look_product
+          endif
+          assign look_index = look_index | plus: 1
+        endunless
+      endfor
+    -%}
+    {%- if chosen_product != blank -%}
+      {%- assign look_variant = chosen_product.selected_or_first_available_variant -%}
+      <div class="complete-look-wrap" {{ block.shopify_attributes }}>
+        {%- if block.settings.heading != blank -%}
+          <p class="complete-look__heading">{{ block.settings.heading }}</p>
+        {%- endif -%}
+        <div class="complete-look" data-complete-look data-variant-id="{{ look_variant.id }}">
+          <label class="complete-look__row">
+            <span class="complete-look__checkbox-wrap">
+              <input type="checkbox" class="complete-look__checkbox-input" data-complete-look-checkbox>
+              <span class="complete-look__checkbox" aria-hidden="true">
+                <svg class="complete-look__check-icon" viewbox="0 0 16 16">
+                  <path d="M3 8.5l3 3 7-7"></path>
+                </svg>
+              </span>
+            </span>
+            <span class="complete-look__image">
+              <img
+                src="{{ chosen_product.featured_image | image_url: width: 160 }}"
+                alt="{{ chosen_product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="64"
+                height="64"
+              >
+            </span>
+            <span class="complete-look__info">
+              <span class="complete-look__title">{{ chosen_product.title | escape }}</span>
+              {%- if block.settings.subtext != blank -%}
+                <span class="complete-look__subtext">{{ block.settings.subtext }}</span>
+              {%- endif -%}
+              <span class="complete-look__price">
+                {%- if look_variant.compare_at_price > look_variant.price -%}
+                  <s class="complete-look__price-compare">{{ look_variant.compare_at_price | money }}</s>
+                {%- endif -%}
+                {{ look_variant.price | money }}
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <script src="{{ 'product-complete-look.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

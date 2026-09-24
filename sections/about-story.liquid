@@ -1,0 +1,1425 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .about-{{ section.id }} {
+    overflow: hidden;
+  }
+
+  /* ---------- Hero ---------- */
+  .about__hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .about__hero {
+      min-height: 620px;
+      margin-bottom: 6rem;
+    }
+  }
+
+  .about__hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .about__hero-media img,
+  .about__hero-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.06);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about__hero.is-revealed .about__hero-media img,
+  .about__hero.is-revealed .about__hero-media video {
+    transform: scale(1);
+  }
+
+  .about__hero-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #191919, #3a3a3a);
+  }
+
+  .about__hero-placeholder svg {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0.35;
+  }
+
+  .about__hero-placeholder p {
+    max-width: 260px;
+    text-align: center;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .about__hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.15) 55%, rgba(10, 10, 10, 0.35) 100%);
+  }
+
+  .about__hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 2.5rem 1.5rem;
+    color: #ffffff;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about__hero.is-revealed .about__hero-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (min-width: 750px) {
+    .about__hero-content {
+      padding: 4rem;
+      max-width: 720px;
+    }
+  }
+
+  .about__hero-caption {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff6b76;
+    margin: 0 0 1rem;
+  }
+
+  .about__hero-caption::before {
+    content: "";
+    width: 2rem;
+    height: 2px;
+    background: #ff6b76;
+  }
+
+  .about__hero-heading {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin: 0 0 1rem;
+    font-size: clamp(2.4rem, 1.9rem + 3vw, 4.6rem);
+  }
+
+  .about__hero-subheading {
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 520px;
+    margin: 0;
+  }
+
+  /* ---------- Founding story ---------- */
+  .about__story {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+  }
+
+  @media screen and (min-width: 900px) {
+    .about__story {
+      flex-direction: row;
+      gap: 5rem;
+      margin-bottom: 7rem;
+    }
+
+    .about__story--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .about__story-media {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    flex: 0 0 auto;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about__story-media.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (min-width: 900px) {
+    .about__story-media {
+      flex: 0 0 42%;
+      max-width: none;
+    }
+  }
+
+  .about__story-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about__story-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px dashed rgba(var(--color-foreground), 0.25);
+    border-radius: 18px;
+  }
+
+  .about__story-placeholder svg {
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.3;
+  }
+
+  .about__story-placeholder p {
+    max-width: 220px;
+    text-align: center;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: rgba(var(--color-foreground), 0.45);
+    padding: 0 1rem;
+  }
+
+  .about__story-year {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    background: #191919;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .about__story-year::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #d92133;
+  }
+
+  .about__story-body {
+    flex: 1 1 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+  }
+
+  .about__story-body.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about__story-heading {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 1.6rem + 1.4vw, 2.6rem);
+  }
+
+  .about__story-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .about__story-text p {
+    margin: 0 0 1.1rem;
+  }
+
+  .about__story-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---------- Stats ---------- */
+  .about__stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 1100px;
+    margin: 0 auto 5rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    background: #191919;
+    color: #ffffff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .about__stats {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 3rem;
+      margin-bottom: 7rem;
+    }
+  }
+
+  .about__stat {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .about__stat.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about__stat-value {
+    display: block;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: clamp(2rem, 1.7rem + 1.2vw, 2.8rem);
+    color: #ffffff;
+    margin: 0 0 0.35rem;
+  }
+
+  .about__stat-value span {
+    color: #ff6b76;
+  }
+
+  .about__stat-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* ---------- Values ---------- */
+  .about__values-top {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .about__values-caption {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #d92133;
+    margin: 0 0 0.75rem;
+  }
+
+  .about__values-heading {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-size: clamp(1.9rem, 1.6rem + 1.4vw, 2.6rem);
+  }
+
+  .about__values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+  }
+
+  @media screen and (min-width: 700px) {
+    .about__values {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .about__values {
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 7rem;
+    }
+  }
+
+  .about__value {
+    padding: 2rem 1.75rem;
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 18px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .about__value.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .about__value:hover {
+    transform: translateY(-4px);
+    border-color: rgba(217, 33, 51, 0.3);
+    box-shadow: 0 16px 32px -20px rgba(0, 0, 0, 0.35);
+  }
+
+  .about__value-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: rgba(217, 33, 51, 0.1);
+    margin: 0 0 1.25rem;
+  }
+
+  .about__value-icon svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: #d92133;
+  }
+
+  .about__value-heading {
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .about__value-text {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgba(var(--color-foreground), 0.65);
+    margin: 0;
+  }
+
+  /* ---------- Timeline ---------- */
+  .about__timeline-top {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .about__timeline {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 0.5rem 1.5rem 1.5rem;
+    margin: 0 -1.5rem 5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .about__timeline::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .about__timeline {
+      max-width: 1200px;
+      margin: 0 auto 7rem;
+      padding: 0.5rem 0 1.5rem;
+      overflow: visible;
+      display: grid;
+      grid-template-columns: repeat(var(--milestone-count, 4), 1fr);
+    }
+  }
+
+  .about__milestone {
+    flex: 0 0 78%;
+    max-width: 300px;
+    scroll-snap-align: start;
+    padding: 1.75rem 1.5rem;
+    border-radius: 16px;
+    background: rgb(var(--color-background));
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .about__milestone.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (min-width: 990px) {
+    .about__milestone {
+      flex: none;
+      max-width: none;
+    }
+  }
+
+  .about__milestone::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #d92133, #ff6b76);
+  }
+
+  .about__milestone-year {
+    display: block;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #d92133;
+    margin: 0.5rem 0 0.6rem;
+  }
+
+  .about__milestone-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.7);
+    margin: 0;
+  }
+
+  /* ---------- Gallery ---------- */
+  .about__gallery-top {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .about__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+  }
+
+  @media screen and (min-width: 700px) {
+    .about__gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .about__gallery {
+      margin-bottom: 7rem;
+    }
+
+    .about__gallery-item:nth-child(5n+1) {
+      grid-row: span 2;
+    }
+  }
+
+  .about__gallery-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(var(--color-foreground), 0.05);
+    border: none;
+    padding: 0;
+    display: block;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .about__gallery-item.is-revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @media screen and (min-width: 990px) {
+    .about__gallery-item:nth-child(5n+1) {
+      aspect-ratio: auto;
+    }
+  }
+
+  .about__gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .about__gallery-item:hover img {
+    transform: scale(1.06);
+  }
+
+  .about__gallery-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px dashed rgba(var(--color-foreground), 0.25);
+    border-radius: 14px;
+  }
+
+  .about__gallery-placeholder svg {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.3;
+  }
+
+  .about__gallery-placeholder p {
+    max-width: 140px;
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: rgba(var(--color-foreground), 0.4);
+    padding: 0 0.5rem;
+  }
+
+  .about__gallery-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about__gallery-play svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #ffffff;
+  }
+
+  .about__gallery-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 1.5rem 1rem 0.85rem;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .about__gallery-item:hover .about__gallery-caption {
+    opacity: 1;
+  }
+
+  /* ---------- Lightbox ---------- */
+  .about__lightbox {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    margin: 0;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(10, 10, 10, 0.82);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .about__lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .about__lightbox-inner {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+    background: #000;
+    transform: scale(0.94);
+    transition: transform 0.25s ease;
+  }
+
+  .about__lightbox.is-open .about__lightbox-inner {
+    transform: scale(1);
+  }
+
+  .about__lightbox-inner img,
+  .about__lightbox-inner video {
+    width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .about__lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  /* ---------- CTA ---------- */
+  .about__cta {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .about__cta-heading {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+    font-size: clamp(1.9rem, 1.6rem + 1.4vw, 2.6rem);
+  }
+
+  .about__cta-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.65);
+    margin: 0 0 1.75rem;
+  }
+
+  .about__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.2rem;
+    border-radius: 999px;
+    background: #d92133;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .about__cta-btn:hover {
+    background: #191919;
+    transform: translateY(-2px);
+  }
+
+  .about__cta-btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: currentColor;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding about about-{{ section.id }}">
+
+    <div class="about__hero" data-about-reveal>
+      <div class="about__hero-media">
+        {%- if section.settings.hero_video != blank -%}
+          <video autoplay muted loop playsinline {% if section.settings.hero_image != blank %}poster="{{ section.settings.hero_image | image_url: width: 1600 }}"{% endif %}>
+            {%- for source in section.settings.hero_video.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- endfor -%}
+          </video>
+        {%- elsif section.settings.hero_image != blank -%}
+          <img
+            src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.hero_image.alt | default: section.settings.hero_heading | escape }}"
+            loading="eager"
+            width="{{ section.settings.hero_image.width }}"
+            height="{{ section.settings.hero_image.height }}"
+          >
+        {%- else -%}
+          <div class="about__hero-placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+            <p>[PLACEHOLDER — hero photo or video of the two of you / the jackets in action]</p>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="about__hero-overlay" aria-hidden="true"></div>
+      <div class="about__hero-content">
+        {%- if section.settings.hero_caption != blank -%}
+          <p class="about__hero-caption">{{ section.settings.hero_caption | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.hero_heading != blank -%}
+          <h1 class="about__hero-heading">{{ section.settings.hero_heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.hero_subheading != blank -%}
+          <p class="about__hero-subheading">{{ section.settings.hero_subheading }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="about__story" data-about-reveal>
+      <div class="about__story-media" data-about-reveal-child>
+        {%- if section.settings.story_image != blank -%}
+          <img
+            src="{{ section.settings.story_image | image_url: width: 900 }}"
+            alt="{{ section.settings.story_image.alt | default: 'Overtake founders' | escape }}"
+            loading="lazy"
+            width="{{ section.settings.story_image.width }}"
+            height="{{ section.settings.story_image.height }}"
+          >
+        {%- else -%}
+          <div class="about__story-placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+            <p>[PLACEHOLDER — photo of you and your co-founder, or the first jacket you shipped]</p>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.founded_year != blank -%}
+          <span class="about__story-year">Est. {{ section.settings.founded_year }}</span>
+        {%- endif -%}
+      </div>
+      <div class="about__story-body" data-about-reveal-child>
+        {%- if section.settings.story_heading != blank -%}
+          <h2 class="about__story-heading">{{ section.settings.story_heading }}</h2>
+        {%- endif -%}
+        <div class="about__story-text">
+          {{ section.settings.story_text }}
+        </div>
+      </div>
+    </div>
+
+    {%- liquid
+      assign stat_blocks = section.blocks | where: 'type', 'stat'
+      assign value_blocks = section.blocks | where: 'type', 'value'
+      assign milestone_blocks = section.blocks | where: 'type', 'milestone'
+      assign gallery_blocks = section.blocks | where: 'type', 'gallery_item'
+    -%}
+
+    {%- if stat_blocks.size > 0 -%}
+      <div class="about__stats" data-about-reveal>
+        {%- for block in stat_blocks -%}
+          <div class="about__stat" data-about-reveal-child {{ block.shopify_attributes }}>
+            <span class="about__stat-value" data-about-stat-value data-value="{{ block.settings.value | escape }}">{{ block.settings.value }}</span>
+            <span class="about__stat-label">{{ block.settings.label }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if value_blocks.size > 0 -%}
+      <div class="about__values-top">
+        {%- if section.settings.values_caption != blank -%}
+          <p class="about__values-caption">{{ section.settings.values_caption | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.values_heading != blank -%}
+          <h2 class="about__values-heading">{{ section.settings.values_heading }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="about__values" data-about-reveal>
+        {%- for block in value_blocks -%}
+          {%- liquid
+            assign icon_file = block.settings.icon | replace: '_', '-' | prepend: 'icon-' | append: '.svg'
+          -%}
+          <div class="about__value" data-about-reveal-child {{ block.shopify_attributes }}>
+            <span class="about__value-icon">{{ icon_file | inline_asset_content }}</span>
+            <p class="about__value-heading">{{ block.settings.heading }}</p>
+            <p class="about__value-text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if milestone_blocks.size > 0 -%}
+      <div class="about__timeline-top">
+        {%- if section.settings.timeline_caption != blank -%}
+          <p class="about__values-caption">{{ section.settings.timeline_caption | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.timeline_heading != blank -%}
+          <h2 class="about__values-heading">{{ section.settings.timeline_heading }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="about__timeline" data-about-reveal style="--milestone-count: {{ milestone_blocks.size }};">
+        {%- for block in milestone_blocks -%}
+          <div class="about__milestone" data-about-reveal-child {{ block.shopify_attributes }}>
+            <span class="about__milestone-year">{{ block.settings.year }}</span>
+            <p class="about__milestone-text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if gallery_blocks.size > 0 -%}
+      <div class="about__gallery-top">
+        {%- if section.settings.gallery_caption != blank -%}
+          <p class="about__values-caption">{{ section.settings.gallery_caption | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.gallery_heading != blank -%}
+          <h2 class="about__values-heading">{{ section.settings.gallery_heading }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="about__gallery" data-about-reveal>
+        {%- for block in gallery_blocks -%}
+          <button
+            type="button"
+            class="about__gallery-item"
+            data-about-reveal-child
+            data-about-gallery-trigger
+            {%- if block.settings.video != blank %}
+            data-video="true"
+            {%- endif %}
+            aria-label="{{ block.settings.caption | default: 'Open image' | escape }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="{{ block.settings.image.alt | default: block.settings.caption | escape }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div class="about__gallery-placeholder">
+                {{ 'image' | placeholder_svg_tag }}
+                <p>[PLACEHOLDER — add a photo or video]</p>
+              </div>
+            {%- endif -%}
+            {%- if block.settings.video != blank -%}
+              <span class="about__gallery-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            {%- endif -%}
+            {%- if block.settings.caption != blank -%}
+              <span class="about__gallery-caption">{{ block.settings.caption | escape }}</span>
+            {%- endif -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.cta_heading != blank or section.settings.cta_button_label != blank -%}
+      <div class="about__cta">
+        {%- if section.settings.cta_heading != blank -%}
+          <h2 class="about__cta-heading">{{ section.settings.cta_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.cta_text != blank -%}
+          <p class="about__cta-text">{{ section.settings.cta_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_button_label != blank -%}
+          <a href="{{ section.settings.cta_button_link | default: '#' }}" class="about__cta-btn">
+            {{ section.settings.cta_button_label | escape }}
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="about__lightbox" aria-hidden="true">
+      <div class="about__lightbox-inner">
+        <button type="button" class="about__lightbox-close" aria-label="Close">&times;</button>
+        <div class="about__lightbox-media"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.currentScript.closest('.about-{{ section.id }}') || document.querySelector('.about-{{ section.id }}');
+    if (!section) return;
+
+    /* Scroll reveal */
+    var revealGroups = section.querySelectorAll('[data-about-reveal]');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var target = entry.target;
+          target.classList.add('is-revealed');
+          var children = target.querySelectorAll('[data-about-reveal-child]');
+          children.forEach(function (child, index) {
+            setTimeout(function () {
+              child.classList.add('is-revealed');
+            }, index * 90);
+          });
+          observer.unobserve(target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+      revealGroups.forEach(function (group) {
+        observer.observe(group);
+      });
+    } else {
+      revealGroups.forEach(function (group) {
+        group.classList.add('is-revealed');
+        group.querySelectorAll('[data-about-reveal-child]').forEach(function (child) {
+          child.classList.add('is-revealed');
+        });
+      });
+    }
+
+    /* Animated stat counters */
+    var statValues = section.querySelectorAll('[data-about-stat-value]');
+    function animateStat(el) {
+      var raw = el.getAttribute('data-value') || '';
+      var match = raw.match(/[\d.,]+/);
+      if (!match) return;
+      var numeric = parseFloat(match[0].replace(/,/g, ''));
+      if (isNaN(numeric)) return;
+      var prefix = raw.slice(0, match.index);
+      var suffix = raw.slice(match.index + match[0].length);
+      var duration = 1200;
+      var start = null;
+      var decimals = match[0].indexOf('.') > -1 ? match[0].split('.')[1].length : 0;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = (numeric * eased).toFixed(decimals);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = raw;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    if (statValues.length && 'IntersectionObserver' in window) {
+      var statObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateStat(entry.target);
+          statObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.6 });
+      statValues.forEach(function (el) {
+        statObserver.observe(el);
+      });
+    }
+
+    /* Lightbox */
+    var lightbox = section.querySelector('.about__lightbox');
+    if (lightbox && lightbox.parentNode !== document.body) {
+      document.body.appendChild(lightbox);
+    }
+    var lightboxMedia = lightbox ? lightbox.querySelector('.about__lightbox-media') : null;
+    var lightboxClose = lightbox ? lightbox.querySelector('.about__lightbox-close') : null;
+
+    function openLightbox(trigger) {
+      if (!lightbox || !lightboxMedia) return;
+      var img = trigger.querySelector('img');
+      lightboxMedia.innerHTML = '';
+      if (img) {
+        var clone = document.createElement('img');
+        clone.src = img.src;
+        clone.alt = img.alt || '';
+        lightboxMedia.appendChild(clone);
+      }
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+    }
+
+    section.querySelectorAll('[data-about-gallery-trigger]').forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        openLightbox(trigger);
+      });
+    });
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightbox) {
+      lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) closeLightbox();
+      });
+    }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeLightbox();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "About story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Hero video (optional)",
+      "info": "If set, plays on silent loop over the image."
+    },
+    {
+      "type": "text",
+      "id": "hero_caption",
+      "label": "Small label",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "hero_heading",
+      "label": "Headline",
+      "default": "Started on a laptop. Built on the grid."
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Subheading",
+      "default": "Two friends, one obsession with vintage racewear, and a mission to bring it back."
+    },
+    {
+      "type": "header",
+      "content": "Founding story"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story photo"
+    },
+    {
+      "type": "text",
+      "id": "founded_year",
+      "label": "Founded year",
+      "default": "2024"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "How Overtake happened"
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "<p>We started Overtake in 2024 with one of my best friends, from a spare bedroom and a shared obsession with F1 and the golden era of racewear. We couldn't find vintage-style racing jackets that actually felt authentic, so we decided to make them ourselves.</p><p>What began as a couple of sample jackets shipped to friends has turned into thousands of orders across Europe and beyond. Same two founders, same obsession with getting every stitch right — just a lot more jackets out the door.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Values section labels"
+    },
+    {
+      "type": "text",
+      "id": "values_caption",
+      "label": "Small label",
+      "default": "WHAT WE STAND FOR"
+    },
+    {
+      "type": "text",
+      "id": "values_heading",
+      "label": "Heading",
+      "default": "The Overtake standard"
+    },
+    {
+      "type": "header",
+      "content": "Timeline section labels"
+    },
+    {
+      "type": "text",
+      "id": "timeline_caption",
+      "label": "Small label",
+      "default": "THE JOURNEY SO FAR"
+    },
+    {
+      "type": "text",
+      "id": "timeline_heading",
+      "label": "Heading",
+      "default": "From spare bedroom to the grid"
+    },
+    {
+      "type": "header",
+      "content": "Gallery section labels"
+    },
+    {
+      "type": "text",
+      "id": "gallery_caption",
+      "label": "Small label",
+      "default": "BEHIND THE SCENES"
+    },
+    {
+      "type": "text",
+      "id": "gallery_heading",
+      "label": "Heading",
+      "default": "A look behind the brand"
+    },
+    {
+      "type": "header",
+      "content": "Closing CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Ready to join the grid?"
+    },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "<p>Explore the full lineup of vintage racing jackets and find the team you ride for.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "Button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "2024"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Founded"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "check_mark", "label": "Check mark" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "star", "label": "Star" },
+            { "value": "leather", "label": "Leather" },
+            { "value": "lightning_bolt", "label": "Lightning bolt" },
+            { "value": "recycle", "label": "Recycle" }
+          ],
+          "default": "check_mark"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "[PLACEHOLDER — value]"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "[PLACEHOLDER — describe this value]"
+        }
+      ]
+    },
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year / label",
+          "default": "2024"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "[PLACEHOLDER — what happened]"
+        }
+      ]
+    },
+    {
+      "type": "gallery_item",
+      "name": "Gallery item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo / video thumbnail"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video (optional)",
+          "info": "If set, the tile shows a play icon. The image above is used as its thumbnail."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About story",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "2024", "label": "Founded" } },
+        { "type": "stat", "settings": { "value": "12,000+", "label": "Jackets shipped" } },
+        { "type": "stat", "settings": { "value": "4.8/5", "label": "Average rating" } },
+        { "type": "stat", "settings": { "value": "20+", "label": "Countries reached" } },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Authenticity first",
+            "text": "Every crest is embroidered, not printed, and every design is checked against the real thing."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "leather",
+            "heading": "Built to last",
+            "text": "Heavyweight vintage-style fabric that survives seasons, not just one wash."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "truck",
+            "heading": "Shipped with care",
+            "text": "Every order is packed like it's going to a friend, because a lot of the time it is."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "heading": "Run by fans",
+            "text": "We're customers first. If we wouldn't wear it, we don't sell it."
+          }
+        },
+        { "type": "milestone", "settings": { "year": "2024", "text": "[PLACEHOLDER — Overtake founded by two friends who couldn't find the jackets they wanted]" } },
+        { "type": "milestone", "settings": { "year": "2024", "text": "[PLACEHOLDER — first jacket designs shipped to early customers]" } },
+        { "type": "milestone", "settings": { "year": "2025", "text": "[PLACEHOLDER — crossed a major order milestone, expanded the lineup]" } },
+        { "type": "milestone", "settings": { "year": "2026", "text": "[PLACEHOLDER — shipping across Europe and beyond]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes photo]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes photo]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes photo]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes video]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes photo]" } },
+        { "type": "gallery_item", "settings": { "caption": "[PLACEHOLDER — behind the scenes photo]" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,414 @@
+{{ 'section-video-feature.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Mobile-only: tighten the gap from the section above (desktop untouched) */
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding {
+      padding-top: 16px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="video-feature page-width section-{{ section.id }}-padding{% if section.settings.media_position == 'left' %} video-feature--media-left{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="video-feature__media">
+      {%- if section.settings.video != null -%}
+        <video
+          class="video-feature__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          {% if section.settings.poster != blank %}
+            poster="{{ section.settings.poster | image_url: width: 1600 }}"
+          {% endif %}
+        >
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
+        </video>
+      {%- elsif section.settings.custom_video_url != blank -%}
+        <video
+          class="video-feature__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          {% if section.settings.poster != blank %}
+            poster="{{ section.settings.poster | image_url: width: 1600 }}"
+          {% endif %}
+        >
+          <source src="{{ section.settings.custom_video_url }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.fallback_video_asset != blank -%}
+        <video
+          class="video-feature__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          {% if section.settings.poster != blank %}
+            poster="{{ section.settings.poster | image_url: width: 1600 }}"
+          {% endif %}
+        >
+          <source src="{{ section.settings.fallback_video_asset | asset_url }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.poster != blank -%}
+        {{
+          section.settings.poster
+          | image_url: width: 1600
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 750px) 50vw, 100vw',
+            class: 'video-feature__image',
+            alt: section.settings.poster.alt | default: section.settings.heading
+        }}
+      {%- else -%}
+        <div class="video-feature__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg video-feature__placeholder' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="video-feature__content">
+      {%- if section.settings.caption != blank -%}
+        <p class="video-feature__caption caption-with-letter-spacing">
+          <span class="video-feature__caption-dot" aria-hidden="true"></span>{{ section.settings.caption | escape }}
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="video-feature__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="video-feature__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.stat_1_value != blank or section.settings.stat_2_value != blank or section.settings.stat_3_value != blank -%}
+        <div class="video-feature__stats">
+          {%- if section.settings.stat_1_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_1_value | escape }}">0</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_1_label | escape }}</p>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_2_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_2_value | escape }}">0</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_2_label | escape }}</p>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_3_value != blank -%}
+            <div class="video-feature__stat">
+              <p class="video-feature__stat-number" data-video-feature-stat-value data-value="{{ section.settings.stat_3_value | escape }}">0</p>
+              <p class="video-feature__stat-label">{{ section.settings.stat_3_label | escape }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- liquid
+        assign feature_blocks = section.blocks | where: 'type', 'feature'
+      -%}
+      {%- if feature_blocks.size > 0 -%}
+        <ul class="video-feature__list" role="list">
+          {%- for block in feature_blocks -%}
+            <li class="video-feature__list-item" {{ block.shopify_attributes }}>
+              <span class="video-feature__list-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="video-feature__button{% if section.settings.button_style_secondary %} video-feature__button--outline{% endif %}"
+        >
+          <span class="video-feature__button-stripe" aria-hidden="true"></span>
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.trust_line != blank -%}
+        <p class="video-feature__trust-line">{{ section.settings.trust_line | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.querySelector('.section-{{ section.id }}-padding');
+    if (!section) return;
+    var statValues = section.querySelectorAll('[data-video-feature-stat-value]');
+    if (!statValues.length) return;
+
+    function animateStat(el) {
+      var raw = el.getAttribute('data-value') || '';
+      var match = raw.match(/[\d.,]+/);
+      if (!match) return;
+      var numeric = parseFloat(match[0].replace(/,/g, ''));
+      if (isNaN(numeric)) return;
+      var prefix = raw.slice(0, match.index);
+      var suffix = raw.slice(match.index + match[0].length);
+      var duration = 1200;
+      var start = null;
+      var decimals = match[0].indexOf('.') > -1 ? match[0].split('.')[1].length : 0;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = (numeric * eased).toFixed(decimals);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = raw;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var statObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateStat(entry.target);
+          statObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.6 });
+      statValues.forEach(function (el) {
+        statObserver.observe(el);
+      });
+    } else {
+      statValues.forEach(function (el) {
+        el.textContent = el.getAttribute('data-value');
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Video feature",
+  "tag": "section",
+  "class": "section section--video-feature",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (upload here to override the default)",
+      "info": "If left empty, the bundled showcase video below is used."
+    },
+    {
+      "type": "text",
+      "id": "custom_video_url",
+      "label": "Video URL (advanced)",
+      "info": "Direct CDN URL of a video uploaded to Shopify Files. Used when no video is picked above."
+    },
+    {
+      "type": "text",
+      "id": "fallback_video_asset",
+      "label": "Default video filename (advanced)",
+      "default": "video-feature-showcase.mp4",
+      "info": "Filename of a video already uploaded to the theme's assets folder. Only used when no video is picked above and no video URL is set."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster",
+      "label": "Poster / fallback image"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Video position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Small label (optional)",
+      "default": "VINTAGE RACEWEAR"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built like the real thing."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Normal" },
+        { "value": "h1", "label": "Large" },
+        { "value": "h0", "label": "Extra large" }
+      ],
+      "default": "h0"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>No filters, no stock photos. Just the real weight of the fabric, every stitch on the crest, and the vintage wash, filmed up close before it ships to your door.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Stats row (optional)"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "12,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "happy customers"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "4.8/5"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "average rating"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 value",
+      "default": "€80+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "free shipping"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Shop vintage jackets"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Secondary style (outline)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "trust_line",
+      "label": "Trust line under button (optional)",
+      "default": "Free shipping over €80 · Easy 14-day returns"
+    },
+    {
+      "type": "header",
+      "content": "Color and padding"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Officially inspired team crests, stitched not printed"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video feature",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Officially inspired team crests, stitched not printed" } },
+        { "type": "feature", "settings": { "text": "Heavyweight vintage-style fabric, built to last" } },
+        { "type": "feature", "settings": { "text": "Fast shipping across Europe, get your order in 14 business days" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
