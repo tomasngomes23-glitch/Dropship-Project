@@ -614,10 +614,17 @@
       <div class="comparison__mobile-track">
         {%- for block in section.blocks -%}
           {%- if block.type == 'detail' -%}
+            {%- if block.settings.detail_image != blank -%}
+              {%- assign mobile_card_bg = block.settings.detail_image | image_url: width: 900 -%}
+              {%- assign mobile_card_position = 'center center' -%}
+            {%- else -%}
+              {%- assign mobile_card_bg = comparison_mobile_bg -%}
+              {%- assign mobile_card_position = block.settings.position_left | append: '% ' | append: block.settings.position_top | append: '%' -%}
+            {%- endif -%}
             <div
               class="comparison__mobile-card"
               data-card-index="{{ forloop.index0 }}"
-              style="background-image: url('{{ comparison_mobile_bg }}'); background-position: {{ block.settings.position_left }}% {{ block.settings.position_top }}%;"
+              style="background-image: url('{{ mobile_card_bg }}'); background-position: {{ mobile_card_position }};"
               {{ block.shopify_attributes }}
             >
               <div class="comparison__mobile-card-overlay">
