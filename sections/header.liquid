@@ -129,6 +129,13 @@
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+    {%- if section.settings.sticky_header_type == 'always' -%}
+      /* Force the sticky offset directly instead of relying on the
+         sticky-header custom element to add it via JS - guarantees the
+         header stays pinned even if that script fails to run. */
+      top: 0;
+      z-index: 4;
+    {%- endif -%}
   }
 
   @media screen and (min-width: 750px) {
