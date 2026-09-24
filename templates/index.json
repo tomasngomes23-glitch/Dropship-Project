@@ -154,7 +154,8 @@
             "position_top": 32,
             "position_left": 35,
             "heading": "Shell & OMP, stitched not stuck",
-            "text": "High-density embroidery on every patch, because iron-on logos peel off before turn one."
+            "text": "High-density embroidery on every patch, because iron-on logos peel off before turn one.",
+            "detail_image": "shopify://shop_images/Detail_1.png"
           }
         },
         "detail-2": {
@@ -163,7 +164,8 @@
             "position_top": 20,
             "position_left": 50,
             "heading": "Crests stitched, not printed",
-            "text": "Authentic embroidered logo detail with a premium finish that won't crack, fade, or peel like a cheap print."
+            "text": "Authentic embroidered logo detail with a premium finish that won't crack, fade, or peel like a cheap print.",
+            "detail_image": "shopify://shop_images/Detail_2.png"
           }
         },
         "detail-3": {
@@ -172,7 +174,8 @@
             "position_top": 44,
             "position_left": 83,
             "heading": "Straight off the '90s grid",
-            "text": "Vintage racing design inspired by the pit wall, minus the fuel spills and radio static."
+            "text": "Vintage racing design inspired by the pit wall, minus the fuel spills and radio static.",
+            "detail_image": "shopify://shop_images/Detail_3.png"
           }
         },
         "detail-4": {
@@ -181,7 +184,8 @@
             "position_top": 62,
             "position_left": 22,
             "heading": "Built to survive the season",
-            "text": "Durable, wind-resistant outer shell that shrugs off rain, wind, and your rival's trash talk."
+            "text": "Durable, wind-resistant outer shell that shrugs off rain, wind, and your rival's trash talk.",
+            "detail_image": "shopify://shop_images/detail_4.png"
           }
         },
         "detail-5": {
@@ -190,7 +194,8 @@
             "position_top": 78,
             "position_left": 50,
             "heading": "Soft inside, loud outside",
-            "text": "A cosy inner lining so comfortable you'll forget you're wearing a full sponsor board."
+            "text": "A cosy inner lining so comfortable you'll forget you're wearing a full sponsor board.",
+            "detail_image": "shopify://shop_images/detail_5.png"
           }
         },
         "detail-6": {
@@ -199,7 +204,8 @@
             "position_top": 90,
             "position_left": 78,
             "heading": "Locked-in bomber fit",
-            "text": "Ribbed cuffs and waistband keep the silhouette sharp, no baggy sleeves on this grid."
+            "text": "Ribbed cuffs and waistband keep the silhouette sharp, no baggy sleeves on this grid.",
+            "detail_image": "shopify://shop_images/ChatGPT_Image_Sep_24_2026_01_00_49_PM.png"
           }
         }
       },
