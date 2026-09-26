@@ -27,12 +27,14 @@
         "media-4": {
           "type": "media_item",
           "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/53d8572e0dc54609b94c5a4033d8a460/53d8572e0dc54609b94c5a4033d8a460.HD-1080p-4.8Mbps-95654515.mp4",
             "show_verified": true
           }
         },
         "media-5": {
           "type": "media_item",
           "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/5951d3e3388a43dbae916b5c30431bed/5951d3e3388a43dbae916b5c30431bed.HD-720p-1.6Mbps-95654514.mp4",
             "show_verified": true
           }
         },
@@ -53,7 +55,6 @@
       ],
       "settings": {
         "heading": "See it for yourself, no filters",
-        "heading_size": "h2",
         "subtext": "Real customers unboxing their Overtake jackets. Nothing retouched.",
         "color_scheme": "scheme-1",
         "padding_top": 44,

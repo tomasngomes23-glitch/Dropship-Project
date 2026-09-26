@@ -212,6 +212,12 @@
           "settings": {
             "color_scheme": "scheme-1"
           }
+        },
+        "welcome-popup": {
+          "type": "welcome-popup",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_26_09_2026_23_36_47.png"
+          }
         }
       },
       "logo": "shopify://shop_images/image.png",
