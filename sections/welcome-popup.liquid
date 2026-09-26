@@ -100,7 +100,7 @@
   }
 
   .welcome-popup__logo {
-    max-width: 220px;
+    max-width: 260px;
     margin-bottom: 0.5rem;
   }
 
@@ -108,11 +108,33 @@
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 12px;
+  }
+
+  .welcome-popup__logo--mobile {
+    display: none;
+  }
+
+  .welcome-popup__logo--desktop img {
+    /* The shop logo file is white text on a black plate; invert it so the
+       lettering reads black on this popup's white panel. */
+    filter: invert(1);
+    border-radius: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .welcome-popup__logo--desktop {
+      display: none;
+    }
+
+    .welcome-popup__logo--mobile {
+      display: block;
+    }
   }
 
   .welcome-popup__eyebrow {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 800;
     letter-spacing: 0.01em;
     text-transform: uppercase;
@@ -120,10 +142,11 @@
 
   .welcome-popup__heading {
     margin: 0;
-    font-size: clamp(2.6rem, 2rem + 2vw, 3.6rem);
+    font-size: clamp(3rem, 2.2rem + 2.6vw, 4.2rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.01em;
+    text-transform: uppercase;
   }
 
   .welcome-popup__subtext {
@@ -142,6 +165,11 @@
     border-radius: 8px;
   }
 
+  .welcome-popup__field .field__input::placeholder {
+    color: rgba(var(--color-foreground), 0.45);
+    opacity: 1;
+  }
+
   .welcome-popup__error {
     color: #d92133;
     font-size: 0.85rem;
@@ -152,7 +180,13 @@
     justify-content: center;
     background: #111;
     color: #fff;
+    border: none;
     border-radius: 8px;
+  }
+
+  .welcome-popup__submit:before,
+  .welcome-popup__submit:after {
+    display: none;
   }
 
   .welcome-popup__dismiss {
@@ -161,7 +195,7 @@
     padding: 0;
     margin-top: 0.25rem;
     font-size: 0.85rem;
-    text-decoration: underline;
+    text-decoration: none;
     color: rgba(var(--color-foreground), 0.55);
     cursor: pointer;
     text-align: left;
@@ -287,6 +321,20 @@
   {%- assign has_image = true -%}
 {%- endif -%}
 {%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
+{%- capture popup_brand_markup -%}
+  {%- if section.settings.logo_enable -%}
+    {%- if settings.logo != blank -%}
+      <div class="welcome-popup__logo welcome-popup__logo--desktop">
+        {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
+      </div>
+    {%- endif -%}
+    {%- if has_image -%}
+      <div class="welcome-popup__logo welcome-popup__logo--mobile">
+        {{ section.settings.image | image_url: width: 300 | image_tag: alt: shop.name }}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
 
 <welcome-popup-modal
   id="WelcomePopup-{{ section.id }}"
@@ -309,11 +357,7 @@
 
         {%- if form.posted_successfully? -%}
           <div class="welcome-popup__state welcome-popup__state--success">
-            {%- if section.settings.logo_enable and settings.logo != blank -%}
-              <div class="welcome-popup__logo">
-                {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
-              </div>
-            {%- endif -%}
+            {{ popup_brand_markup }}
             <h2 class="welcome-popup__heading">{{ section.settings.success_heading }}</h2>
             <p class="welcome-popup__success-text">{{ section.settings.success_text }}</p>
             <div class="welcome-popup__code-row">
@@ -329,11 +373,7 @@
         {%- endif -%}
 
         <div class="welcome-popup__state welcome-popup__state--default">
-          {%- if section.settings.logo_enable and settings.logo != blank -%}
-            <div class="welcome-popup__logo">
-              {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
-            </div>
-          {%- endif -%}
+          {{ popup_brand_markup }}
           <p class="welcome-popup__eyebrow">{{ section.settings.heading_line_1 }}</p>
           <h2 class="welcome-popup__heading">{{ section.settings.heading_line_2 }}</h2>
           {%- if section.settings.subtext != blank -%}
