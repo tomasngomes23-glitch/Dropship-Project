@@ -388,10 +388,14 @@
   }
 {%- endstyle -%}
 
-{%- assign has_image = false -%}
-{%- if section.settings.image != blank -%}
-  {%- assign has_image = true -%}
-{%- endif -%}
+{%- comment -%}
+  Shopify has repeatedly wiped this section's settings (including this
+  image) from settings_data.json when the theme gets published, so the
+  photo is hardcoded here as a fallback rather than relying solely on
+  the "image" setting, which keeps getting reset to blank.
+{%- endcomment -%}
+{%- assign popup_fallback_image_url = 'https://cdn.shopify.com/s/files/1/0827/2953/3763/files/ChatGPT_Image_26_09_2026_23_36_47.png' -%}
+{%- assign has_image = true -%}
 {%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
 {%- assign popup_tab_offer = section.settings.heading_line_2 | default: '10% Off' -%}
 {%- capture popup_brand_markup -%}
@@ -483,7 +487,18 @@
     </div>
     {%- if has_image -%}
       <div class="welcome-popup__panel welcome-popup__panel--image">
-        {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'welcome-popup__image', loading: 'lazy' }}
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'welcome-popup__image', loading: 'lazy' }}
+        {%- else -%}
+          <img
+            src="{{ popup_fallback_image_url }}&width=1200"
+            srcset="{{ popup_fallback_image_url }}&width=600 600w, {{ popup_fallback_image_url }}&width=1200 1200w, {{ popup_fallback_image_url }}&width=1800 1800w"
+            sizes="50vw"
+            alt=""
+            class="welcome-popup__image"
+            loading="lazy"
+          >
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
