@@ -13,6 +13,10 @@
     justify-content: center;
     padding: 1.5rem;
     pointer-events: none;
+    /* The .color-scheme-N classes set a global background-color rule in
+       theme.liquid, which would otherwise paint this full-viewport fixed
+       wrapper solid white the instant the page loads. */
+    background-color: transparent;
   }
 
   .welcome-popup__backdrop {
