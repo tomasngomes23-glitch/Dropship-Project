@@ -12,14 +12,7 @@
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .welcome-popup.is-open {
-    opacity: 1;
-    visibility: visible;
+    pointer-events: none;
   }
 
   .welcome-popup__backdrop {
@@ -29,6 +22,16 @@
     bottom: 0;
     left: 0;
     background: rgba(10, 10, 10, 0.72);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .welcome-popup.is-open .welcome-popup__backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .welcome-popup__dialog {
@@ -42,11 +45,17 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transform: scale(0.94);
-    transition: transform 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   }
 
   .welcome-popup.is-open .welcome-popup__dialog {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transform: scale(1);
   }
 
@@ -111,11 +120,6 @@
     border-radius: 12px;
   }
 
-  .welcome-popup__logo--mobile {
-    display: none;
-    max-width: 320px;
-  }
-
   .welcome-popup__logo--desktop {
     max-width: 200px;
   }
@@ -127,9 +131,18 @@
     border-radius: 0;
   }
 
-  @media screen and (max-width: 749px) {
-    .welcome-popup__logo--mobile {
-      display: block;
+  @media screen and (min-width: 750px) {
+    .welcome-popup__panel--form {
+      position: relative;
+      padding-top: 5rem;
+    }
+
+    .welcome-popup__logo--desktop {
+      position: absolute;
+      top: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 0;
     }
   }
 
@@ -327,6 +340,7 @@
     letter-spacing: 0.03em;
     border-radius: 999px;
     cursor: pointer;
+    pointer-events: auto;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
   }
 
@@ -371,17 +385,10 @@
 {%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
 {%- assign popup_tab_offer = section.settings.heading_line_2 | default: '10% Off' -%}
 {%- capture popup_brand_markup -%}
-  {%- if section.settings.logo_enable -%}
-    {%- if settings.logo != blank -%}
-      <div class="welcome-popup__logo welcome-popup__logo--desktop">
-        {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
-      </div>
-    {%- endif -%}
-    {%- if has_image -%}
-      <div class="welcome-popup__logo welcome-popup__logo--mobile">
-        {{ section.settings.image | image_url: width: 300 | image_tag: alt: shop.name }}
-      </div>
-    {%- endif -%}
+  {%- if section.settings.logo_enable and settings.logo != blank -%}
+    <div class="welcome-popup__logo welcome-popup__logo--desktop">
+      {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
+    </div>
   {%- endif -%}
 {%- endcapture -%}
 
