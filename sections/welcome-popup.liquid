@@ -491,8 +491,8 @@
           {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'welcome-popup__image', loading: 'lazy' }}
         {%- else -%}
           <img
-            src="{{ popup_fallback_image_url }}&width=1200"
-            srcset="{{ popup_fallback_image_url }}&width=600 600w, {{ popup_fallback_image_url }}&width=1200 1200w, {{ popup_fallback_image_url }}&width=1800 1800w"
+            src="{{ popup_fallback_image_url }}?width=1200"
+            srcset="{{ popup_fallback_image_url }}?width=600 600w, {{ popup_fallback_image_url }}?width=1200 1200w, {{ popup_fallback_image_url }}?width=1800 1800w"
             sizes="50vw"
             alt=""
             class="welcome-popup__image"
