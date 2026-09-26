@@ -26,7 +26,8 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "circle"
+            "swatch_shape": "circle",
+            "material_info_image": "shopify://shop_images/1790462812415-kfvbdlrfoe.png"
           }
         },
         "size_guide": {
