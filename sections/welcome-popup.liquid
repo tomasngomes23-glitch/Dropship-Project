@@ -236,6 +236,31 @@
     max-width: 480px;
   }
 
+  .welcome-popup__tab {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9998;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 0.9rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .welcome-popup.is-minimized .welcome-popup__tab {
+    display: block;
+  }
+
   @media screen and (max-width: 749px) {
     .welcome-popup__dialog {
       max-width: 400px;
@@ -270,6 +295,9 @@
   data-delay="{{ section.settings.delay_seconds | times: 1000 }}"
   data-reshow-days="{{ section.settings.reshow_days }}"
 >
+  <button type="button" class="welcome-popup__tab">
+    {{- section.settings.heading_line_2 | default: 'Offer' -}}
+  </button>
   <div class="welcome-popup__backdrop"></div>
   <div class="welcome-popup__dialog{% unless has_image %} welcome-popup__dialog--no-image{% endunless %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading_line_2 | default: 'Welcome offer' }}">
     <button type="button" class="welcome-popup__close" aria-label="{{ 'accessibility.close' | t }}">
@@ -359,18 +387,24 @@
 
     class WelcomePopupModal extends HTMLElement {
       connectedCallback() {
-        this.storageKey = 'overtakeWelcomePopupDismissedUntil';
+        // "minimized" (closed via the X or the backdrop - the customer might
+        // want it back, so a small tab stays on screen to reopen it) is
+        // separate from "dismissed" (closed via "No thanks..." - the
+        // customer explicitly declined, so it's gone entirely for a while).
+        this.stateKey = 'overtakeWelcomePopupState';
         this.submitFlagKey = 'overtakeWelcomePopupJustSubmitted:' + this.getAttribute('data-form-id');
         this.backdrop = this.querySelector('.welcome-popup__backdrop');
         this.closeButton = this.querySelector('.welcome-popup__close');
         this.dismissButton = this.querySelector('.welcome-popup__dismiss');
+        this.tabButton = this.querySelector('.welcome-popup__tab');
         this.copyButton = this.querySelector('.welcome-popup__copy');
         this.form = this.querySelector('.welcome-popup__form');
         this.hasSuccessMarkup = !!this.querySelector('.welcome-popup__state--success');
 
-        if (this.closeButton) this.closeButton.addEventListener('click', () => this.close());
-        if (this.dismissButton) this.dismissButton.addEventListener('click', () => this.close());
-        if (this.backdrop) this.backdrop.addEventListener('click', () => this.close());
+        if (this.closeButton) this.closeButton.addEventListener('click', () => this.minimize());
+        if (this.backdrop) this.backdrop.addEventListener('click', () => this.minimize());
+        if (this.dismissButton) this.dismissButton.addEventListener('click', () => this.dismiss());
+        if (this.tabButton) this.tabButton.addEventListener('click', () => this.reopen());
         if (this.form) {
           // Only THIS popup's own submission should force it open in the
           // success state - Shopify marks every 'customer' form on the page
@@ -398,7 +432,7 @@
         }
 
         document.addEventListener('keydown', (event) => {
-          if (event.key === 'Escape') this.close();
+          if (event.key === 'Escape') this.minimize();
         });
 
         var wasThisFormSubmitted = false;
@@ -413,12 +447,21 @@
           return;
         }
 
-        var dismissedUntil = 0;
+        // ?popup=1 in the URL always shows it, ignoring any saved state -
+        // handy for testing without clearing browser storage.
+        var forceShow = /[?&]popup=1(&|$)/.test(window.location.search);
+
+        var state = null;
         try {
-          dismissedUntil = parseInt(localStorage.getItem(this.storageKey) || '0', 10);
+          state = JSON.parse(localStorage.getItem(this.stateKey) || 'null');
         } catch (e) {}
 
-        if (dismissedUntil && Date.now() < dismissedUntil) return;
+        if (!forceShow && state && state.status === 'dismissed' && Date.now() < state.until) return;
+
+        if (!forceShow && state && state.status === 'minimized') {
+          this.classList.add('is-minimized');
+          return;
+        }
 
         var delay = parseInt(this.getAttribute('data-delay') || '0', 10);
         this.timer = setTimeout(() => this.openSmoothly(), delay);
@@ -434,18 +477,32 @@
       }
 
       open() {
+        this.classList.remove('is-minimized');
         this.classList.add('is-open');
         document.documentElement.style.overflow = 'hidden';
       }
 
-      close() {
+      reopen() {
+        this.openSmoothly();
+      }
+
+      minimize() {
         this.classList.remove('is-open');
+        this.classList.add('is-minimized');
+        document.documentElement.style.overflow = '';
+        try {
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'minimized' }));
+        } catch (e) {}
+      }
+
+      dismiss() {
+        this.classList.remove('is-open', 'is-minimized');
         document.documentElement.style.overflow = '';
 
         var reshowDays = parseFloat(this.getAttribute('data-reshow-days') || '14');
         var until = Date.now() + reshowDays * 24 * 60 * 60 * 1000;
         try {
-          localStorage.setItem(this.storageKey, String(until));
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'dismissed', until: until }));
         } catch (e) {}
       }
     }
