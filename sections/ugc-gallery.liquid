@@ -157,7 +157,7 @@
             {%- if block.type == 'media_item' -%}
               <div class="ugc-gallery__item" {% if dup == 1 %}{{ block.shopify_attributes }}{% endif %} {% if dup > 1 %}aria-hidden="true"{% endif %}>
                 {%- if block.settings.video != blank -%}
-                  <video muted loop playsinline autoplay
+                  <video class="ugc-gallery__video" muted loop playsinline preload="none"
                     {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 600 }}"{% endif %}
                   >
                     {%- for source in block.settings.video.sources -%}
@@ -165,7 +165,7 @@
                     {%- endfor -%}
                   </video>
                 {%- elsif block.settings.video_url != blank -%}
-                  <video muted loop playsinline autoplay
+                  <video class="ugc-gallery__video" muted loop playsinline preload="none"
                     {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 600 }}"{% endif %}
                   >
                     <source src="{{ block.settings.video_url }}" type="video/mp4">
@@ -199,6 +199,47 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var container = document.getElementById('ugc-gallery-{{ section.id }}');
+    if (!container || container.dataset.ugcObserved) return;
+    container.dataset.ugcObserved = 'true';
+
+    var videos = container.querySelectorAll('.ugc-gallery__video');
+    if (!videos.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      videos.forEach(function (video) {
+        video.play().catch(function () {});
+      });
+      return;
+    }
+
+    // Videos only load/play once they scroll near the viewport, and pause
+    // (freeing decode/network) once they scroll away - with several
+    // autoplaying videos duplicated for the infinite-scroll effect, playing
+    // them all at once from page load was heavy enough to make the whole
+    // page feel sluggish.
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          var video = entry.target;
+          if (entry.isIntersecting) {
+            video.play().catch(function () {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { root: null, rootMargin: '200px', threshold: 0.1 }
+    );
+
+    videos.forEach(function (video) {
+      observer.observe(video);
+    });
+  })();
+</script>
 
 {% schema %}
 {
