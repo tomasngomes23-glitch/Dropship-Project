@@ -82,8 +82,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 1.1rem;
-    padding: 3rem 2.75rem;
+    gap: 1.85rem;
+    padding: 3.5rem 3rem;
     overflow-y: auto;
   }
 
@@ -101,7 +101,7 @@
 
   .welcome-popup__logo {
     max-width: 260px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .welcome-popup__logo img {
@@ -158,7 +158,7 @@
 
   .welcome-popup__field {
     width: 100%;
-    margin: 0.5rem 0 0;
+    margin: 0;
   }
 
   .welcome-popup__field .field__input {
@@ -200,7 +200,7 @@
     background: none;
     border: none;
     padding: 0;
-    margin-top: 0.25rem;
+    margin-top: -0.5rem;
     font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;
@@ -291,7 +291,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.1rem;
+    gap: 1.6rem;
     width: 100%;
   }
 
@@ -314,22 +314,29 @@
   .welcome-popup__tab {
     display: none;
     position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 1.25rem;
+    bottom: 1.25rem;
     z-index: 9998;
     background: #111;
     color: #fff;
     border: none;
-    padding: 0.9rem 0.55rem;
-    font-size: 0.72rem;
+    padding: 0.9rem 1.5rem;
+    font-size: 0.85rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.03em;
+    border-radius: 999px;
     cursor: pointer;
-    writing-mode: vertical-rl;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  @media screen and (max-width: 749px) {
+    .welcome-popup__tab {
+      right: 1rem;
+      bottom: 1rem;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.75rem;
+    }
   }
 
   .welcome-popup.is-minimized .welcome-popup__tab {
@@ -362,6 +369,7 @@
   {%- assign has_image = true -%}
 {%- endif -%}
 {%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
+{%- assign popup_tab_offer = section.settings.heading_line_2 | default: '10% Off' -%}
 {%- capture popup_brand_markup -%}
   {%- if section.settings.logo_enable -%}
     {%- if settings.logo != blank -%}
@@ -385,7 +393,7 @@
   data-reshow-days="{{ section.settings.reshow_days }}"
 >
   <button type="button" class="welcome-popup__tab">
-    {{- section.settings.heading_line_2 | default: 'Offer' -}}
+    {{- 'Get ' | append: popup_tab_offer -}}
   </button>
   <div class="welcome-popup__backdrop"></div>
   <div class="welcome-popup__dialog{% unless has_image %} welcome-popup__dialog--no-image{% endunless %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading_line_2 | default: 'Welcome offer' }}">
