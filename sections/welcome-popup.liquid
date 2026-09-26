@@ -200,6 +200,22 @@
     display: flex;
   }
 
+  .welcome-popup__state--success {
+    display: none;
+  }
+
+  .welcome-popup.is-success .welcome-popup__state--success {
+    display: block;
+  }
+
+  .welcome-popup.is-success .welcome-popup__state--default {
+    display: none;
+  }
+
+  .welcome-popup__dialog--no-image {
+    max-width: 480px;
+  }
+
   @media screen and (max-width: 749px) {
     .welcome-popup__dialog {
       flex-direction: column-reverse;
@@ -223,22 +239,30 @@
   }
 {%- endstyle -%}
 
+{%- assign has_image = false -%}
+{%- if section.settings.image != blank -%}
+  {%- assign has_image = true -%}
+{%- endif -%}
+{%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
+
 <welcome-popup-modal
   id="WelcomePopup-{{ section.id }}"
   class="welcome-popup color-{{ section.settings.color_scheme }}"
+  data-form-id="WelcomePopupForm-{{ section.id }}"
   data-delay="{{ section.settings.delay_seconds | times: 1000 }}"
   data-reshow-days="{{ section.settings.reshow_days }}"
 >
   <div class="welcome-popup__backdrop"></div>
-  <div class="welcome-popup__dialog" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading_line_2 | default: 'Welcome offer' }}">
+  <div class="welcome-popup__dialog{% unless has_image %} welcome-popup__dialog--no-image{% endunless %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading_line_2 | default: 'Welcome offer' }}">
     <button type="button" class="welcome-popup__close" aria-label="{{ 'accessibility.close' | t }}">
       {{- 'icon-close.svg' | inline_asset_content -}}
     </button>
     <div class="welcome-popup__panel welcome-popup__panel--form">
-      {%- form 'customer', id: 'WelcomePopupForm', class: 'welcome-popup__form' -%}
+      {%- form 'customer', id: popup_form_id, class: 'welcome-popup__form' -%}
         <input type="hidden" name="contact[tags]" value="newsletter, welcome-popup">
+
         {%- if form.posted_successfully? -%}
-          <div class="welcome-popup__success">
+          <div class="welcome-popup__state welcome-popup__state--success">
             {%- if section.settings.logo_enable and settings.logo != blank -%}
               <div class="welcome-popup__logo">
                 {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
@@ -256,7 +280,9 @@
               {{- section.settings.button_shop_label -}}
             </a>
           </div>
-        {%- else -%}
+        {%- endif -%}
+
+        <div class="welcome-popup__state welcome-popup__state--default">
           {%- if section.settings.logo_enable and settings.logo != blank -%}
             <div class="welcome-popup__logo">
               {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
@@ -295,20 +321,17 @@
           <button type="submit" class="welcome-popup__submit button">
             {{- section.settings.button_label -}}
           </button>
-        {%- endif -%}
+          <button type="button" class="welcome-popup__dismiss">
+            {{- section.settings.dismiss_text -}}
+          </button>
+        </div>
       {%- endform -%}
-
-      {%- unless form.posted_successfully? -%}
-        <button type="button" class="welcome-popup__dismiss">
-          {{- section.settings.dismiss_text -}}
-        </button>
-      {%- endunless -%}
     </div>
-    <div class="welcome-popup__panel welcome-popup__panel--image">
-      {%- if section.settings.image != blank -%}
+    {%- if has_image -%}
+      <div class="welcome-popup__panel welcome-popup__panel--image">
         {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'welcome-popup__image', loading: 'lazy' }}
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
   </div>
 </welcome-popup-modal>
 
@@ -319,15 +342,28 @@
     class WelcomePopupModal extends HTMLElement {
       connectedCallback() {
         this.storageKey = 'overtakeWelcomePopupDismissedUntil';
+        this.submitFlagKey = 'overtakeWelcomePopupJustSubmitted:' + this.getAttribute('data-form-id');
         this.backdrop = this.querySelector('.welcome-popup__backdrop');
         this.closeButton = this.querySelector('.welcome-popup__close');
         this.dismissButton = this.querySelector('.welcome-popup__dismiss');
         this.copyButton = this.querySelector('.welcome-popup__copy');
-        this.postedSuccessfully = !!this.querySelector('.welcome-popup__success');
+        this.form = this.querySelector('.welcome-popup__form');
+        this.hasSuccessMarkup = !!this.querySelector('.welcome-popup__state--success');
 
         if (this.closeButton) this.closeButton.addEventListener('click', () => this.close());
         if (this.dismissButton) this.dismissButton.addEventListener('click', () => this.close());
         if (this.backdrop) this.backdrop.addEventListener('click', () => this.close());
+        if (this.form) {
+          // Only THIS popup's own submission should force it open in the
+          // success state - Shopify marks every 'customer' form on the page
+          // as "posted successfully" after any one of them (e.g. the footer
+          // newsletter) is submitted, so we tag our own submit explicitly.
+          this.form.addEventListener('submit', () => {
+            try {
+              sessionStorage.setItem(this.submitFlagKey, '1');
+            } catch (e) {}
+          });
+        }
         if (this.copyButton) {
           this.copyButton.addEventListener('click', () => {
             var code = this.copyButton.getAttribute('data-copy-code');
@@ -347,8 +383,15 @@
           if (event.key === 'Escape') this.close();
         });
 
-        if (this.postedSuccessfully) {
-          this.open();
+        var wasThisFormSubmitted = false;
+        try {
+          wasThisFormSubmitted = sessionStorage.getItem(this.submitFlagKey) === '1';
+          sessionStorage.removeItem(this.submitFlagKey);
+        } catch (e) {}
+
+        if (this.hasSuccessMarkup && wasThisFormSubmitted) {
+          this.classList.add('is-success');
+          this.openSmoothly();
           return;
         }
 
@@ -360,7 +403,16 @@
         if (dismissedUntil && Date.now() < dismissedUntil) return;
 
         var delay = parseInt(this.getAttribute('data-delay') || '0', 10);
-        this.timer = setTimeout(() => this.open(), delay);
+        this.timer = setTimeout(() => this.openSmoothly(), delay);
+      }
+
+      openSmoothly() {
+        // Wait a frame so the browser paints the closed (opacity: 0) state
+        // first - otherwise adding is-open in the same tick can skip the
+        // CSS transition and the popup just snaps into view instantly.
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => this.open());
+        });
       }
 
       open() {
