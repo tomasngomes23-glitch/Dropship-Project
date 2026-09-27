@@ -41,6 +41,7 @@
         "media-6": {
           "type": "media_item",
           "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/79b33650b2384f1bbac4b3ee61a4e701/79b33650b2384f1bbac4b3ee61a4e701.HD-720p-1.6Mbps-95711345.mp4",
             "show_verified": true
           }
         }
