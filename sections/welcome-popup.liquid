@@ -313,43 +313,14 @@
     transform: translateY(-1px);
   }
 
-  .welcome-popup__success .welcome-popup__heading {
-    font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3rem);
+  .welcome-popup.is-success .welcome-popup__heading {
+    font-size: clamp(2.4rem, 1.9rem + 2vw, 3.4rem);
   }
 
   .welcome-popup__success-text {
-    margin: 0.5rem 0 1rem;
+    margin: 0;
+    font-size: 1.05rem;
     color: rgba(var(--color-foreground), 0.7);
-  }
-
-  .welcome-popup__code-row {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    width: 100%;
-    margin-bottom: 1.25rem;
-  }
-
-  .welcome-popup__code {
-    flex: 1 1 auto;
-    border: 2px dashed rgba(var(--color-foreground), 0.35);
-    border-radius: 8px;
-    padding: 0.9rem 1rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-align: center;
-    font-size: 1.1rem;
-  }
-
-  .welcome-popup__copy {
-    flex: 0 0 auto;
-    padding: 0.9rem 1.1rem;
-    border-radius: 8px;
-    border: 2px solid rgba(var(--color-foreground), 0.35);
-    background: transparent;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
   }
 
   .welcome-popup__shop-link {
@@ -474,12 +445,6 @@
             {{ popup_brand_markup }}
             <h2 class="welcome-popup__heading">{{ section.settings.success_heading }}</h2>
             <p class="welcome-popup__success-text">{{ section.settings.success_text }}</p>
-            <div class="welcome-popup__code-row">
-              <span class="welcome-popup__code" id="WelcomePopupCode-{{ section.id }}">{{ section.settings.discount_code }}</span>
-              <button type="button" class="welcome-popup__copy" data-copy-code="{{ section.settings.discount_code }}">
-                {{- section.settings.copy_button_label -}}
-              </button>
-            </div>
             <a href="{{ routes.all_products_collection_url }}" class="welcome-popup__shop-link button">
               {{- section.settings.button_shop_label -}}
             </a>
@@ -762,7 +727,7 @@
       "type": "text",
       "id": "success_text",
       "label": "Success text",
-      "default": "Use this code at checkout for 10% off your first order."
+      "default": "Check your email for your discount code generated just for you!"
     },
     {
       "type": "text",
@@ -774,7 +739,7 @@
       "type": "text",
       "id": "button_shop_label",
       "label": "Shop button label",
-      "default": "Start Shopping"
+      "default": "Shop Now"
     },
     {
       "type": "header",
