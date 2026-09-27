@@ -55,6 +55,13 @@
           {% endif %}
           class="product-variant-id"
         >
+        {%- comment -%}
+          The "Buy Now" button below submits the form natively (the JS
+          handler ignores submitters named "checkout"), so Shopify's own
+          cart/add endpoint needs this to know to send the customer to
+          checkout afterwards instead of back to this page.
+        {%- endcomment -%}
+        <input type="hidden" name="return_to" value="/checkout">
 
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
