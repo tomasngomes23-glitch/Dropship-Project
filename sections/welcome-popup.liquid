@@ -572,10 +572,17 @@
           // success state - Shopify marks every 'customer' form on the page
           // as "posted successfully" after any one of them (e.g. the footer
           // newsletter) is submitted, so we tag our own submit explicitly.
-          this.form.addEventListener('submit', () => {
+          // The submission itself goes over fetch instead of a normal page
+          // navigation: letting the browser submit it normally sends the
+          // customer to this page's URL with the form's #id appended,
+          // which can land them scrolled down at the site footer - fetch
+          // keeps them exactly where they already were on the page.
+          this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
             try {
               sessionStorage.setItem(this.submitFlagKey, '1');
             } catch (e) {}
+            this.submitEmail();
           });
         }
         if (this.copyButton) {
@@ -618,6 +625,10 @@
           state = JSON.parse(localStorage.getItem(this.stateKey) || 'null');
         } catch (e) {}
 
+        // Once someone has actually subscribed, never show the sign-up box
+        // to them again - not even the reopen tab.
+        if (!forceShow && state && state.status === 'subscribed') return;
+
         if (!forceShow && state && state.status === 'dismissed' && Date.now() < state.until) return;
 
         if (!forceShow && state && state.status === 'minimized') {
@@ -627,6 +638,30 @@
 
         var delay = parseInt(this.getAttribute('data-delay') || '0', 10);
         this.timer = setTimeout(() => this.openSmoothly(), delay);
+      }
+
+      submitEmail() {
+        var form = this.form;
+        var actionUrl = form.getAttribute('action') || window.location.pathname;
+        var formData = new FormData(form);
+
+        fetch(actionUrl, { method: 'POST', body: formData })
+          .then(() => this.markSubscribed())
+          .catch(() => {
+            // Network hiccup - fall back to a real submission rather than
+            // silently doing nothing.
+            HTMLFormElement.prototype.submit.call(form);
+          });
+      }
+
+      markSubscribed() {
+        this.classList.add('is-success');
+        // Permanent, unlike "dismissed"/"minimized" - once someone has
+        // actually subscribed, the sign-up box should never come back for
+        // them, on this or any later visit.
+        try {
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'subscribed' }));
+        } catch (e) {}
       }
 
       openSmoothly() {
