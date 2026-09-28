@@ -542,6 +542,7 @@
     {%- endif -%}
   </div>
 </welcome-popup-modal>
+<iframe name="{{ popup_form_id }}-target" style="position: absolute; width: 0; height: 0; border: 0; opacity: 0;" aria-hidden="true" tabindex="-1"></iframe>
 
 <script>
   (function () {
@@ -572,18 +573,35 @@
           // success state - Shopify marks every 'customer' form on the page
           // as "posted successfully" after any one of them (e.g. the footer
           // newsletter) is submitted, so we tag our own submit explicitly.
-          // The submission itself goes over fetch instead of a normal page
-          // navigation: letting the browser submit it normally sends the
-          // customer to this page's URL with the form's #id appended,
-          // which can land them scrolled down at the site footer - fetch
-          // keeps them exactly where they already were on the page.
-          this.form.addEventListener('submit', (event) => {
-            event.preventDefault();
+          //
+          // The form still submits as a completely normal POST (Shopify's
+          // bot/spam protection can show a CAPTCHA if it looks like an
+          // automated request, e.g. one sent over fetch) - it's just
+          // targeted at a hidden iframe instead of the page itself, so the
+          // customer isn't sent anywhere: letting the browser submit it
+          // into the main window sends them to this page's URL with the
+          // form's #id appended, which can land them scrolled down at the
+          // site footer.
+          var targetName = this.getAttribute('data-form-id') + '-target';
+          this.form.setAttribute('target', targetName);
+          this.targetFrame = this.parentNode.querySelector('iframe[name="' + targetName + '"]');
+
+          this.form.addEventListener('submit', () => {
+            this.awaitingSubmit = true;
             try {
               sessionStorage.setItem(this.submitFlagKey, '1');
             } catch (e) {}
-            this.submitEmail();
           });
+
+          if (this.targetFrame) {
+            this.targetFrame.addEventListener('load', () => {
+              // The iframe also fires "load" once for its own initial blank
+              // page - only react once an actual submission triggered it.
+              if (!this.awaitingSubmit) return;
+              this.awaitingSubmit = false;
+              this.markSubscribed();
+            });
+          }
         }
         if (this.copyButton) {
           this.copyButton.addEventListener('click', () => {
@@ -638,20 +656,6 @@
 
         var delay = parseInt(this.getAttribute('data-delay') || '0', 10);
         this.timer = setTimeout(() => this.openSmoothly(), delay);
-      }
-
-      submitEmail() {
-        var form = this.form;
-        var actionUrl = form.getAttribute('action') || window.location.pathname;
-        var formData = new FormData(form);
-
-        fetch(actionUrl, { method: 'POST', body: formData })
-          .then(() => this.markSubscribed())
-          .catch(() => {
-            // Network hiccup - fall back to a real submission rather than
-            // silently doing nothing.
-            HTMLFormElement.prototype.submit.call(form);
-          });
       }
 
       markSubscribed() {
