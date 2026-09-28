@@ -669,16 +669,31 @@
           savedScrollY = sessionStorage.getItem(this.scrollKey);
           sessionStorage.removeItem(this.scrollKey);
         } catch (e) {}
+        if (savedScrollY === null) return;
+        var targetY = parseInt(savedScrollY, 10) || 0;
 
-        if (window.location.hash) {
-          try {
-            history.replaceState(null, document.title, window.location.pathname + window.location.search);
-          } catch (e) {}
-        }
+        try {
+          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        } catch (e) {}
 
-        if (savedScrollY !== null) {
-          window.scrollTo(0, parseInt(savedScrollY, 10) || 0);
-        }
+        var stripHashAndScroll = function () {
+          if (window.location.hash) {
+            try {
+              history.replaceState(null, document.title, window.location.pathname + window.location.search);
+            } catch (e) {}
+          }
+          window.scrollTo(0, targetY);
+        };
+
+        // The browser can (re-)apply its own scroll-to-#fragment behavior
+        // more than once - at parse time, again once the page and its
+        // images finish loading, sometimes again after late layout shifts
+        // - so re-assert the real position a few times instead of once.
+        stripHashAndScroll();
+        window.addEventListener('load', stripHashAndScroll);
+        setTimeout(stripHashAndScroll, 50);
+        setTimeout(stripHashAndScroll, 300);
+        setTimeout(stripHashAndScroll, 1000);
       }
 
       openSmoothly() {
