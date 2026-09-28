@@ -702,8 +702,14 @@
 
       minimize() {
         this.classList.remove('is-open');
-        this.classList.add('is-minimized');
         document.documentElement.style.overflow = '';
+
+        // Someone who already claimed the offer has no reason to see a
+        // "Get 10% Off" tab sitting in the corner afterwards - just close
+        // for good instead of minimizing to a reopen tab.
+        if (this.classList.contains('is-success')) return;
+
+        this.classList.add('is-minimized');
         try {
           localStorage.setItem(this.stateKey, JSON.stringify({ status: 'minimized' }));
         } catch (e) {}
