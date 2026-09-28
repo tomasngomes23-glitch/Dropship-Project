@@ -509,12 +509,12 @@
               {%- endif %}
             >
           </div>
-          {%- if form.errors -%}
-            <small class="welcome-popup__error" id="WelcomePopup-{{ section.id }}-error">
+          <small class="welcome-popup__error" id="WelcomePopup-{{ section.id }}-error" role="alert">
+            {%- if form.errors -%}
               {{- form.errors.translated_fields.email | capitalize }}
               {{ form.errors.messages.email -}}
-            </small>
-          {%- endif -%}
+            {%- endif -%}
+          </small>
           <button type="submit" class="welcome-popup__submit button">
             {{- section.settings.button_label -}}
           </button>
@@ -554,43 +554,32 @@
         // separate from "dismissed" (closed via "No thanks..." - the
         // customer explicitly declined, so it's gone entirely for a while).
         this.stateKey = 'overtakeWelcomePopupState';
-        this.submitFlagKey = 'overtakeWelcomePopupJustSubmitted:' + this.getAttribute('data-form-id');
-        this.scrollKey = 'overtakeWelcomePopupScrollY:' + this.getAttribute('data-form-id');
         this.backdrop = this.querySelector('.welcome-popup__backdrop');
         this.closeButton = this.querySelector('.welcome-popup__close');
         this.dismissButton = this.querySelector('.welcome-popup__dismiss');
         this.tabButton = this.querySelector('.welcome-popup__tab');
         this.copyButton = this.querySelector('.welcome-popup__copy');
         this.form = this.querySelector('.welcome-popup__form');
-        this.hasSuccessMarkup = !!this.querySelector('.welcome-popup__state--success');
 
         if (this.closeButton) this.closeButton.addEventListener('click', () => this.minimize());
         if (this.backdrop) this.backdrop.addEventListener('click', () => this.minimize());
         if (this.dismissButton) this.dismissButton.addEventListener('click', () => this.dismiss());
         if (this.tabButton) this.tabButton.addEventListener('click', () => this.reopen());
         if (this.form) {
-          // Only THIS popup's own submission should force it open in the
-          // success state - Shopify marks every 'customer' form on the page
-          // as "posted successfully" after any one of them (e.g. the footer
-          // newsletter) is submitted, so we tag our own submit explicitly.
-          //
-          // The form submits completely normally (a real full-page POST,
-          // exactly like Shopify's own footer newsletter) - anything
-          // fancier here (fetch, a hidden iframe target) either trips
-          // Shopify's bot/spam protection outright or gets broken by it:
-          // the CAPTCHA challenge page busts out of iframes on its own, so
-          // hiding the submission in one doesn't actually avoid it, it
-          // just makes it worse (a blank flash before the challenge takes
-          // over the whole tab anyway). The only real side effect of a
-          // normal submission is that Shopify's redirect lands back on
-          // this page with the form's #id in the URL, which can scroll the
-          // customer down to wherever that element sits - we just save the
-          // scroll position beforehand and restore it once the page reloads.
-          this.form.addEventListener('submit', () => {
-            try {
-              sessionStorage.setItem(this.submitFlagKey, '1');
-              sessionStorage.setItem(this.scrollKey, String(window.scrollY));
-            } catch (e) {}
+          // Shopify's "customer" contact-type form always posts to /contact,
+          // no matter what page it's embedded on - a normal submission
+          // genuinely navigates the customer away to that (mostly empty)
+          // page, which is why it kept landing near the footer no matter
+          // how the scroll position was patched up afterwards. Submitting
+          // over fetch instead avoids that navigation entirely, since the
+          // response is just read in the background - the customer's tab
+          // never goes anywhere. (An earlier attempt routed a fetch failure
+          // back into a real form.submit() as a "fallback", which is what
+          // exposed Shopify's CAPTCHA challenge page when it triggered -
+          // that's removed here; a failure now just shows an inline error.)
+          this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.submitEmail();
           });
         }
         if (this.copyButton) {
@@ -611,19 +600,6 @@
         document.addEventListener('keydown', (event) => {
           if (event.key === 'Escape') this.minimize();
         });
-
-        var wasThisFormSubmitted = false;
-        try {
-          wasThisFormSubmitted = sessionStorage.getItem(this.submitFlagKey) === '1';
-          sessionStorage.removeItem(this.submitFlagKey);
-        } catch (e) {}
-
-        if (this.hasSuccessMarkup && wasThisFormSubmitted) {
-          this.markSubscribed();
-          this.restoreScrollPosition();
-          this.openSmoothly();
-          return;
-        }
 
         // ?popup=1 in the URL always shows it, ignoring any saved state -
         // handy for testing without clearing browser storage.
@@ -659,41 +635,33 @@
         } catch (e) {}
       }
 
-      restoreScrollPosition() {
-        // Shopify redirects back to this page with the form's #id in the
-        // URL after a normal submission, which can leave the browser
-        // scrolled to wherever that element happens to sit - put the
-        // customer back exactly where they were beforehand instead.
-        var savedScrollY = null;
-        try {
-          savedScrollY = sessionStorage.getItem(this.scrollKey);
-          sessionStorage.removeItem(this.scrollKey);
-        } catch (e) {}
-        if (savedScrollY === null) return;
-        var targetY = parseInt(savedScrollY, 10) || 0;
+      submitEmail() {
+        var form = this.form;
+        var submitButton = form.querySelector('.welcome-popup__submit');
+        var actionUrl = form.getAttribute('action') || '/contact';
 
-        try {
-          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-        } catch (e) {}
+        if (submitButton) submitButton.disabled = true;
+        this.setError('');
 
-        var stripHashAndScroll = function () {
-          if (window.location.hash) {
-            try {
-              history.replaceState(null, document.title, window.location.pathname + window.location.search);
-            } catch (e) {}
-          }
-          window.scrollTo(0, targetY);
-        };
+        fetch(actionUrl, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+          .then(() => {
+            this.markSubscribed();
+          })
+          .catch(() => {
+            // A genuine network failure (offline, request blocked, etc.) -
+            // let them try again rather than silently doing nothing or
+            // falling back to a real page submission (which is what used
+            // to expose Shopify's CAPTCHA challenge page when it triggered).
+            if (submitButton) submitButton.disabled = false;
+            this.setError('Something went wrong - please try again.');
+          });
+      }
 
-        // The browser can (re-)apply its own scroll-to-#fragment behavior
-        // more than once - at parse time, again once the page and its
-        // images finish loading, sometimes again after late layout shifts
-        // - so re-assert the real position a few times instead of once.
-        stripHashAndScroll();
-        window.addEventListener('load', stripHashAndScroll);
-        setTimeout(stripHashAndScroll, 50);
-        setTimeout(stripHashAndScroll, 300);
-        setTimeout(stripHashAndScroll, 1000);
+      setError(message) {
+        if (!this.errorEl) {
+          this.errorEl = this.querySelector('.welcome-popup__error');
+        }
+        if (this.errorEl) this.errorEl.textContent = message;
       }
 
       openSmoothly() {
