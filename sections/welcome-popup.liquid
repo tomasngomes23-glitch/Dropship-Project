@@ -542,7 +542,6 @@
     {%- endif -%}
   </div>
 </welcome-popup-modal>
-<iframe name="{{ popup_form_id }}-target" style="position: absolute; width: 0; height: 0; border: 0; opacity: 0;" aria-hidden="true" tabindex="-1"></iframe>
 
 <script>
   (function () {
@@ -556,6 +555,7 @@
         // customer explicitly declined, so it's gone entirely for a while).
         this.stateKey = 'overtakeWelcomePopupState';
         this.submitFlagKey = 'overtakeWelcomePopupJustSubmitted:' + this.getAttribute('data-form-id');
+        this.scrollKey = 'overtakeWelcomePopupScrollY:' + this.getAttribute('data-form-id');
         this.backdrop = this.querySelector('.welcome-popup__backdrop');
         this.closeButton = this.querySelector('.welcome-popup__close');
         this.dismissButton = this.querySelector('.welcome-popup__dismiss');
@@ -574,34 +574,24 @@
           // as "posted successfully" after any one of them (e.g. the footer
           // newsletter) is submitted, so we tag our own submit explicitly.
           //
-          // The form still submits as a completely normal POST (Shopify's
-          // bot/spam protection can show a CAPTCHA if it looks like an
-          // automated request, e.g. one sent over fetch) - it's just
-          // targeted at a hidden iframe instead of the page itself, so the
-          // customer isn't sent anywhere: letting the browser submit it
-          // into the main window sends them to this page's URL with the
-          // form's #id appended, which can land them scrolled down at the
-          // site footer.
-          var targetName = this.getAttribute('data-form-id') + '-target';
-          this.form.setAttribute('target', targetName);
-          this.targetFrame = this.parentNode.querySelector('iframe[name="' + targetName + '"]');
-
+          // The form submits completely normally (a real full-page POST,
+          // exactly like Shopify's own footer newsletter) - anything
+          // fancier here (fetch, a hidden iframe target) either trips
+          // Shopify's bot/spam protection outright or gets broken by it:
+          // the CAPTCHA challenge page busts out of iframes on its own, so
+          // hiding the submission in one doesn't actually avoid it, it
+          // just makes it worse (a blank flash before the challenge takes
+          // over the whole tab anyway). The only real side effect of a
+          // normal submission is that Shopify's redirect lands back on
+          // this page with the form's #id in the URL, which can scroll the
+          // customer down to wherever that element sits - we just save the
+          // scroll position beforehand and restore it once the page reloads.
           this.form.addEventListener('submit', () => {
-            this.awaitingSubmit = true;
             try {
               sessionStorage.setItem(this.submitFlagKey, '1');
+              sessionStorage.setItem(this.scrollKey, String(window.scrollY));
             } catch (e) {}
           });
-
-          if (this.targetFrame) {
-            this.targetFrame.addEventListener('load', () => {
-              // The iframe also fires "load" once for its own initial blank
-              // page - only react once an actual submission triggered it.
-              if (!this.awaitingSubmit) return;
-              this.awaitingSubmit = false;
-              this.markSubscribed();
-            });
-          }
         }
         if (this.copyButton) {
           this.copyButton.addEventListener('click', () => {
@@ -629,7 +619,8 @@
         } catch (e) {}
 
         if (this.hasSuccessMarkup && wasThisFormSubmitted) {
-          this.classList.add('is-success');
+          this.markSubscribed();
+          this.restoreScrollPosition();
           this.openSmoothly();
           return;
         }
@@ -666,6 +657,28 @@
         try {
           localStorage.setItem(this.stateKey, JSON.stringify({ status: 'subscribed' }));
         } catch (e) {}
+      }
+
+      restoreScrollPosition() {
+        // Shopify redirects back to this page with the form's #id in the
+        // URL after a normal submission, which can leave the browser
+        // scrolled to wherever that element happens to sit - put the
+        // customer back exactly where they were beforehand instead.
+        var savedScrollY = null;
+        try {
+          savedScrollY = sessionStorage.getItem(this.scrollKey);
+          sessionStorage.removeItem(this.scrollKey);
+        } catch (e) {}
+
+        if (window.location.hash) {
+          try {
+            history.replaceState(null, document.title, window.location.pathname + window.location.search);
+          } catch (e) {}
+        }
+
+        if (savedScrollY !== null) {
+          window.scrollTo(0, parseInt(savedScrollY, 10) || 0);
+        }
       }
 
       openSmoothly() {
