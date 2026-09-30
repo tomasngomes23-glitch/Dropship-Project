@@ -98,7 +98,26 @@
     <label for="{{ input_id }}">
       {{ value -}}
       {%- if show_material_price and value == 'Cotton' -%}
-        <span class="variant-option__extra-price">+{{ 699 | money }}</span>
+        {%- liquid
+          assign material_index = option.position | minus: 1
+          assign base_price = nil
+          assign cotton_price = nil
+          for v in product.variants
+            assign v_material = v.options[material_index]
+            if v_material == 'Cotton' and cotton_price == nil
+              assign cotton_price = v.price
+            endif
+            if v_material == 'No Cotton' and base_price == nil
+              assign base_price = v.price
+            endif
+          endfor
+          if cotton_price and base_price
+            assign material_surcharge = cotton_price | minus: base_price
+          else
+            assign material_surcharge = 699
+          endif
+        -%}
+        <span class="variant-option__extra-price">+{{ material_surcharge | money }}</span>
       {%- endif -%}
       {{ label_unavailable }}
     </label>
