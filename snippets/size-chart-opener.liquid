@@ -1,0 +1,25 @@
+{% comment %}
+  Renders the Size Chart popup opener button.
+
+  Accepts:
+  - size_chart_block: {Object} the 'popup' type block whose settings drive the modal.
+  Usage:
+  {% render 'size-chart-opener', size_chart_block: size_chart_block %}
+{% endcomment %}
+<modal-opener
+  class="product-popup-modal__opener quick-add-hidden"
+  data-modal="#PopupModal-{{ size_chart_block.id }}"
+  {{ size_chart_block.shopify_attributes }}
+>
+  <button
+    id="ProductPopup-{{ size_chart_block.id }}"
+    class="product-popup-modal__button link"
+    type="button"
+    aria-haspopup="dialog"
+  >
+    <span class="svg-wrapper">
+      {{- 'icon-ruler.svg' | inline_asset_content -}}
+    </span>
+    {{ size_chart_block.settings.text | default: size_chart_block.settings.page.title | escape }}
+  </button>
+</modal-opener>

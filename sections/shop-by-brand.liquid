@@ -1,0 +1,236 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__subtext {
+    max-width: 52ch;
+    margin: 0.75rem auto 0;
+    opacity: 0.75;
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .shop-by-brand__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .shop-by-brand__grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 6px;
+    background: rgba(var(--color-foreground), 0.06);
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile:hover .shop-by-brand__tile-image {
+    transform: scale(1.06);
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
+    transition: background 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile:hover .shop-by-brand__tile-overlay {
+    background: linear-gradient(180deg, rgba(217, 33, 51, 0.15) 0%, rgba(0, 0, 0, 0.82) 100%);
+  }
+
+  #shopify-section-{{ section.id }} .shop-by-brand__tile-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="shop-by-brand__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="{{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtext != blank -%}
+        <p class="shop-by-brand__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="shop-by-brand__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign brand_collection = block.settings.collection
+          assign brand_image = block.settings.image
+          if brand_image == blank and brand_collection != blank
+            assign brand_image = brand_collection.featured_image | default: brand_collection.products.first.featured_media.preview_image
+          endif
+          assign brand_label = block.settings.label | default: brand_collection.title
+        -%}
+        <a
+          href="{{ brand_collection.url | default: '#' }}"
+          class="shop-by-brand__tile"
+          {{ block.shopify_attributes }}
+        >
+          {%- if brand_image != blank -%}
+            {{
+              brand_image
+              | image_url: width: 600
+              | image_tag:
+                class: 'shop-by-brand__tile-image',
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 20vw, (min-width: 750px) 33vw, 50vw',
+                widths: '150, 300, 450, 600'
+            }}
+          {%- endif -%}
+          <span class="shop-by-brand__tile-overlay"></span>
+          <span class="shop-by-brand__tile-label">{{ brand_label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Brand",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Brand"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h0", "label": "H0" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label (optional, defaults to collection title)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (optional, defaults to collection/product image)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Brand",
+      "blocks": [
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" }
+      ]
+    }
+  ]
+}
+{% endschema %}

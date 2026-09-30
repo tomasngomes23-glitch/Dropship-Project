@@ -1,0 +1,177 @@
+{
+  "sections": {
+    "about": {
+      "type": "about-story",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "2024",
+            "label": "Founded"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "12,000+",
+            "label": "Jackets shipped"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "4.8/5",
+            "label": "Average rating"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "20+",
+            "label": "Countries reached"
+          }
+        },
+        "value-1": {
+          "type": "value",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Authenticity first",
+            "text": "Every crest is embroidered, not printed, and every design is checked against the real thing before it goes into production."
+          }
+        },
+        "value-2": {
+          "type": "value",
+          "settings": {
+            "icon": "leather",
+            "heading": "Built to last",
+            "text": "Heavyweight vintage-style fabric that's meant to survive seasons of wear, not just one wash."
+          }
+        },
+        "value-3": {
+          "type": "value",
+          "settings": {
+            "icon": "truck",
+            "heading": "Shipped with care",
+            "text": "Every order is packed like it's going to a friend, because more often than not, it is."
+          }
+        },
+        "value-4": {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "heading": "Run by fans",
+            "text": "We're customers first. If we wouldn't wear it ourselves on race day, we don't sell it."
+          }
+        },
+        "milestone-1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "text": "Overtake is founded by two best friends who couldn't find vintage-style racing jackets that actually felt authentic, so they started making them."
+          }
+        },
+        "milestone-2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "text": "The first batch of jackets ships out to early customers, sourced and packed by hand from a spare bedroom."
+          }
+        },
+        "milestone-3": {
+          "type": "milestone",
+          "settings": {
+            "year": "2025",
+            "text": "Word spreads across the F1 community. Overtake crosses its first major order milestone and the lineup grows past the original teams."
+          }
+        },
+        "milestone-4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2026",
+            "text": "Now shipping across Europe and beyond, with new drops, new teams, and vintage designs added every season."
+          }
+        },
+        "gallery-1": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — the two of you, day one]"
+          }
+        },
+        "gallery-2": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — first jacket ever shipped]"
+          }
+        },
+        "gallery-3": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — behind the scenes / packing orders]"
+          }
+        },
+        "gallery-4": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — video walkthrough of the workshop]"
+          }
+        },
+        "gallery-5": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — a customer wearing their jacket]"
+          }
+        },
+        "gallery-6": {
+          "type": "gallery_item",
+          "settings": {
+            "caption": "[PLACEHOLDER — the team today]"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "stat-4",
+        "value-1",
+        "value-2",
+        "value-3",
+        "value-4",
+        "milestone-1",
+        "milestone-2",
+        "milestone-3",
+        "milestone-4",
+        "gallery-1",
+        "gallery-2",
+        "gallery-3",
+        "gallery-4",
+        "gallery-5",
+        "gallery-6"
+      ],
+      "settings": {
+        "hero_caption": "OUR STORY",
+        "hero_heading": "Started between two best friends. Built for the grid.",
+        "hero_subheading": "Overtake began in 2024 with one simple idea: vintage racing jackets that actually feel authentic. Here's how it happened.",
+        "founded_year": "2024",
+        "story_heading": "How Overtake happened",
+        "story_text": "<p>We started Overtake in 2024, the two of us, out of a shared obsession with F1 and the golden era of racewear. We kept looking for jackets that captured that vintage pit-lane feel and kept coming up empty, so we decided to make them ourselves.</p><p>What began as a handful of sample jackets shipped to friends has turned into thousands of orders across Europe and beyond. Same two founders, same obsession with getting every stitch, every crest, and every fit exactly right — just a lot more jackets out the door.</p>",
+        "values_caption": "WHAT WE STAND FOR",
+        "values_heading": "The Overtake standard",
+        "timeline_caption": "THE JOURNEY SO FAR",
+        "timeline_heading": "From spare bedroom to the grid",
+        "gallery_caption": "BEHIND THE SCENES",
+        "gallery_heading": "A look behind the brand",
+        "cta_heading": "Ready to join the grid?",
+        "cta_text": "<p>Explore the full lineup of vintage racing jackets and find the team you ride for.</p>",
+        "cta_button_label": "Shop the collection",
+        "cta_button_link": "shopify://collections/vintage-jackets",
+        "color_scheme": "scheme-1",
+        "padding_top": 44,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "about"
+  ]
+}
