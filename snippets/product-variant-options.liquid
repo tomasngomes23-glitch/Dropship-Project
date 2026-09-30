@@ -98,7 +98,7 @@
     <label for="{{ input_id }}">
       {{ value -}}
       {%- if show_material_price and value == 'Cotton' -%}
-        <span class="variant-option__extra-price">+6,99€</span>
+        <span class="variant-option__extra-price">+{{ 699 | money }}</span>
       {%- endif -%}
       {{ label_unavailable }}
     </label>
