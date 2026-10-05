@@ -1,0 +1,970 @@
+{%- if section.settings.enable_popup -%}
+{%- unless customer and section.settings.hide_for_logged_in -%}
+{%- style -%}
+  .welcome-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    pointer-events: none;
+    /* The .color-scheme-N classes set a global background-color rule in
+       theme.liquid, which would otherwise paint this full-viewport fixed
+       wrapper solid white the instant the page loads. */
+    background-color: transparent;
+  }
+
+  .welcome-popup__backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(10, 10, 10, 0.72);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .welcome-popup.is-open .welcome-popup__backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .welcome-popup__dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    max-width: 940px;
+    max-height: min(90vh, 680px);
+    background: rgb(var(--color-background));
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.94);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+
+  .welcome-popup.is-open .welcome-popup__dialog {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+
+  .welcome-popup__close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    z-index: 2;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .welcome-popup__close svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .welcome-popup__panel {
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+
+  .welcome-popup__panel--form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1.85rem;
+    padding: 3.5rem 3rem;
+    overflow-y: auto;
+  }
+
+  .welcome-popup__panel--image {
+    position: relative;
+    background: #111;
+  }
+
+  .welcome-popup__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .welcome-popup__logo {
+    max-width: 180px;
+    margin-bottom: 0.25rem;
+  }
+
+  .welcome-popup__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .welcome-popup__logo--desktop img {
+    /* The shop logo file is white text on a black plate; invert it so the
+       lettering reads black on this popup's white panel. */
+    filter: invert(1);
+    border-radius: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .welcome-popup__panel--form {
+      position: relative;
+      padding: 7rem 3.5rem 3.5rem;
+      gap: 2.1rem;
+    }
+
+    .welcome-popup__logo--desktop {
+      position: absolute;
+      top: 3.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 0;
+      max-width: 140px;
+    }
+
+    .welcome-popup__headline {
+      gap: 0.6em;
+    }
+
+    .welcome-popup__eyebrow,
+    .welcome-popup__heading {
+      font-size: clamp(3.6rem, 2.6rem + 4vw, 5.2rem);
+    }
+
+    .welcome-popup__subtext {
+      font-size: 1.5rem;
+    }
+
+    .welcome-popup__field .field__input {
+      padding-top: 1.6rem;
+      padding-bottom: 1.6rem;
+      font-size: 1.4rem;
+    }
+
+    .welcome-popup__field .field__input:focus,
+    .welcome-popup__field .field__input:not(:placeholder-shown),
+    .welcome-popup__field .field__input:-webkit-autofill {
+      padding: 1.6rem 1.8rem;
+    }
+
+    .welcome-popup__submit {
+      padding-top: 1.6rem;
+      padding-bottom: 1.6rem;
+      font-size: 1.4rem;
+    }
+
+    .welcome-popup__dismiss {
+      font-size: 1.15rem;
+    }
+  }
+
+  .welcome-popup__headline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.4em;
+    width: 100%;
+  }
+
+  .welcome-popup__eyebrow {
+    margin: 0;
+    font-size: clamp(1.7rem, 1.3rem + 2vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground));
+  }
+
+  .welcome-popup__heading {
+    margin: 0;
+    font-size: clamp(1.7rem, 1.3rem + 2vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .welcome-popup__subtext {
+    margin: 0;
+    font-size: 1rem;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .welcome-popup__field {
+    width: 100%;
+    margin: 0;
+  }
+
+  .welcome-popup__field .field__input {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Dawn reserves extra top padding once the placeholder disappears, to
+     make room for a floating label - but this field has no label, so
+     without this override the typed text jumps down as soon as you
+     start typing. */
+  .welcome-popup__field .field__input:focus,
+  .welcome-popup__field .field__input:not(:placeholder-shown),
+  .welcome-popup__field .field__input:-webkit-autofill {
+    padding: 1.5rem;
+    margin: 0;
+  }
+
+  .welcome-popup__field .field__input::placeholder {
+    color: rgba(var(--color-foreground), 0.45);
+    opacity: 1;
+  }
+
+  .welcome-popup__error {
+    color: #d92133;
+    font-size: 0.85rem;
+  }
+
+  .welcome-popup__submit {
+    width: 100%;
+    justify-content: center;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .welcome-popup__submit:before,
+  .welcome-popup__submit:after {
+    display: none;
+  }
+
+  .welcome-popup__submit:hover {
+    background: #2e2e2e;
+    transform: translateY(-1px);
+  }
+
+  .welcome-popup__dismiss {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: -0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #767676;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.2s ease;
+  }
+
+  .welcome-popup__dismiss:hover {
+    color: #4a4a4a;
+  }
+
+  .welcome-popup__close,
+  .welcome-popup__copy,
+  .welcome-popup__tab {
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .welcome-popup__close:hover {
+    background: #fff;
+    transform: scale(1.06);
+  }
+
+  .welcome-popup__copy:hover {
+    background: rgba(var(--color-foreground), 0.06);
+    border-color: rgba(var(--color-foreground), 0.55);
+  }
+
+  .welcome-popup__tab:hover {
+    background: #2e2e2e;
+  }
+
+  .welcome-popup.is-success .welcome-popup__heading {
+    font-size: clamp(2.4rem, 1.9rem + 2vw, 3.4rem);
+  }
+
+  .welcome-popup__success-text {
+    margin: 0;
+    font-size: 1.15rem;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .welcome-popup__code {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.3rem 1.4rem;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    border-radius: 10px;
+    background: rgba(var(--color-foreground), 0.03);
+    text-align: left;
+  }
+
+  .welcome-popup__code-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .welcome-popup__code-value {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .welcome-popup__code-desc {
+    font-size: 0.95rem;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .welcome-popup__copy {
+    flex-shrink: 0;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    cursor: pointer;
+    position: relative;
+  }
+
+  .welcome-popup__copy .icon {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .welcome-popup__copy.is-copied .icon {
+    visibility: hidden;
+  }
+
+  .welcome-popup__copy.is-copied:after {
+    content: '\2713';
+    position: absolute;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .welcome-popup__shop-link {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .welcome-popup__shop-link:before,
+  .welcome-popup__shop-link:after {
+    display: none;
+  }
+
+  .welcome-popup__shop-link:hover {
+    background: #2e2e2e;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.45);
+  }
+
+  .welcome-popup__state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+    width: 100%;
+  }
+
+  .welcome-popup__state--success {
+    display: none;
+    gap: 2rem;
+  }
+
+  .welcome-popup.is-success .welcome-popup__state--success {
+    display: flex;
+  }
+
+  .welcome-popup.is-success .welcome-popup__state--default {
+    display: none;
+  }
+
+  .welcome-popup__dialog--no-image {
+    max-width: 480px;
+  }
+
+  .welcome-popup__tab {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9998;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 1.2rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    pointer-events: auto;
+    writing-mode: vertical-rl;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media screen and (max-width: 749px) {
+    .welcome-popup__tab {
+      padding: 1rem 0.7rem;
+      font-size: 0.82rem;
+    }
+  }
+
+  .welcome-popup.is-minimized .welcome-popup__tab {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .welcome-popup__dialog {
+      max-width: 400px;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .welcome-popup__panel--image {
+      display: none;
+    }
+
+    .welcome-popup__panel--form {
+      padding: 2.75rem 2rem 2.25rem;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .welcome-popup.is-success .welcome-popup__logo--desktop {
+      max-width: 190px;
+      top: 5rem;
+    }
+
+    .welcome-popup__state--success {
+      gap: 2.4rem;
+    }
+
+    .welcome-popup__success-text {
+      font-size: 1.35rem;
+    }
+
+    .welcome-popup__code-value {
+      font-size: 1.75rem;
+    }
+
+    .welcome-popup__code-desc {
+      font-size: 1.05rem;
+    }
+
+    .welcome-popup__shop-link {
+      padding-top: 1.6rem;
+      padding-bottom: 1.6rem;
+      font-size: 1.4rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  Shopify has repeatedly wiped this section's settings (including this
+  image) from settings_data.json when the theme gets published, so the
+  photo is hardcoded here as a fallback rather than relying solely on
+  the "image" setting, which keeps getting reset to blank.
+{%- endcomment -%}
+{%- assign popup_fallback_image_url = 'https://cdn.shopify.com/s/files/1/0827/2953/3763/files/ChatGPT_Image_26_09_2026_23_36_47.png' -%}
+{%- assign has_image = true -%}
+{%- assign popup_form_id = 'WelcomePopupForm-' | append: section.id -%}
+{%- assign popup_tab_offer = section.settings.heading_line_2 | default: '10% Off' -%}
+{%- capture popup_brand_markup -%}
+  {%- if section.settings.logo_enable and settings.logo != blank -%}
+    <div class="welcome-popup__logo welcome-popup__logo--desktop">
+      {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+<welcome-popup-modal
+  id="WelcomePopup-{{ section.id }}"
+  class="welcome-popup color-{{ section.settings.color_scheme }}"
+  data-form-id="WelcomePopupForm-{{ section.id }}"
+  data-delay="{{ section.settings.delay_seconds | times: 1000 }}"
+  data-reshow-days="{{ section.settings.reshow_days }}"
+>
+  <button type="button" class="welcome-popup__tab">
+    {{- 'Get ' | append: popup_tab_offer -}}
+  </button>
+  <div class="welcome-popup__backdrop"></div>
+  <div class="welcome-popup__dialog{% unless has_image %} welcome-popup__dialog--no-image{% endunless %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading_line_2 | default: 'Welcome offer' }}">
+    <button type="button" class="welcome-popup__close" aria-label="{{ 'accessibility.close' | t }}">
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+    <div class="welcome-popup__panel welcome-popup__panel--form">
+      {%- form 'customer', id: popup_form_id, class: 'welcome-popup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter, welcome-popup">
+
+        {%- if form.posted_successfully? -%}
+          <div class="welcome-popup__state welcome-popup__state--success">
+            {{ popup_brand_markup }}
+            <h2 class="welcome-popup__heading">{{ section.settings.success_heading }}</h2>
+            <p class="welcome-popup__success-text">{{ section.settings.success_text }}</p>
+            {%- if section.settings.discount_code != blank -%}
+              <div class="welcome-popup__code">
+                <div class="welcome-popup__code-text">
+                  <span class="welcome-popup__code-value">{{ section.settings.discount_code }}</span>
+                  <span class="welcome-popup__code-desc">{{ section.settings.discount_description }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="welcome-popup__copy"
+                  data-copy-code="{{ section.settings.discount_code }}"
+                  aria-label="{{ section.settings.copy_button_label }}"
+                >
+                  {{- 'icon-copy.svg' | inline_asset_content -}}
+                </button>
+              </div>
+            {%- endif -%}
+            <a href="{{ routes.all_products_collection_url }}" class="welcome-popup__shop-link button">
+              {{- section.settings.button_shop_label -}}
+            </a>
+          </div>
+        {%- endif -%}
+
+        <div class="welcome-popup__state welcome-popup__state--default">
+          {{ popup_brand_markup }}
+          <div class="welcome-popup__headline">
+            <p class="welcome-popup__eyebrow">{{ section.settings.heading_line_1 }}</p>
+            <h2 class="welcome-popup__heading">{{ section.settings.heading_line_2 }}</h2>
+          </div>
+          {%- if section.settings.subtext != blank -%}
+            <p class="welcome-popup__subtext">{{ section.settings.subtext }}</p>
+          {%- endif -%}
+          <div class="field welcome-popup__field">
+            <input
+              type="email"
+              name="contact[email]"
+              class="field__input"
+              value="{{ form.email }}"
+              placeholder="Email"
+              aria-label="Email"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              required
+              {%- if form.errors %}
+                autofocus
+                aria-invalid="true"
+                aria-describedby="WelcomePopup-{{ section.id }}-error"
+              {%- endif %}
+            >
+          </div>
+          <small class="welcome-popup__error" id="WelcomePopup-{{ section.id }}-error" role="alert">
+            {%- if form.errors -%}
+              {{- form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email -}}
+            {%- endif -%}
+          </small>
+          <button type="submit" class="welcome-popup__submit button">
+            {{- section.settings.button_label -}}
+          </button>
+          <button type="button" class="welcome-popup__dismiss">
+            {{- section.settings.dismiss_text -}}
+          </button>
+        </div>
+      {%- endform -%}
+    </div>
+    {%- if has_image -%}
+      <div class="welcome-popup__panel welcome-popup__panel--image">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'welcome-popup__image', loading: 'lazy' }}
+        {%- else -%}
+          <img
+            src="{{ popup_fallback_image_url }}?width=1200"
+            srcset="{{ popup_fallback_image_url }}?width=600 600w, {{ popup_fallback_image_url }}?width=1200 1200w, {{ popup_fallback_image_url }}?width=1800 1800w"
+            sizes="50vw"
+            alt=""
+            class="welcome-popup__image"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</welcome-popup-modal>
+
+<script>
+  (function () {
+    if (customElements.get('welcome-popup-modal')) return;
+
+    class WelcomePopupModal extends HTMLElement {
+      connectedCallback() {
+        // "minimized" (closed via the X or the backdrop - the customer might
+        // want it back, so a small tab stays on screen to reopen it) is
+        // separate from "dismissed" (closed via "No thanks..." - the
+        // customer explicitly declined, so it's gone entirely for a while).
+        this.stateKey = 'overtakeWelcomePopupState';
+        this.submitFlagKey = 'overtakeWelcomePopupJustSubmitted:' + this.getAttribute('data-form-id');
+        this.scrollKey = 'overtakeWelcomePopupScrollY:' + this.getAttribute('data-form-id');
+        this.backdrop = this.querySelector('.welcome-popup__backdrop');
+        this.closeButton = this.querySelector('.welcome-popup__close');
+        this.dismissButton = this.querySelector('.welcome-popup__dismiss');
+        this.tabButton = this.querySelector('.welcome-popup__tab');
+        this.copyButton = this.querySelector('.welcome-popup__copy');
+        this.form = this.querySelector('.welcome-popup__form');
+        this.hasSuccessMarkup = !!this.querySelector('.welcome-popup__state--success');
+
+        if (this.closeButton) this.closeButton.addEventListener('click', () => this.minimize());
+        if (this.backdrop) this.backdrop.addEventListener('click', () => this.minimize());
+        if (this.dismissButton) this.dismissButton.addEventListener('click', () => this.dismiss());
+        if (this.tabButton) this.tabButton.addEventListener('click', () => this.reopen());
+        if (this.form) {
+          // Let the form submit completely normally. Fetch was tried here
+          // to dodge the navigation Shopify's "customer" contact-type form
+          // always makes to /contact, but it backfires the moment Shopify's
+          // bot protection decides to challenge the submission: that
+          // challenge is an interactive page (a checkbox to click) which
+          // can only ever be shown and solved through a real page
+          // navigation - a background fetch can't display it or let the
+          // customer answer it, so it would either silently fail or lie
+          // about success. A normal submission handles both cases
+          // correctly: the common case redirects straight back with the
+          // success screen, and a challenged one shows the checkbox first,
+          // then redirects back with the success screen once it's solved.
+          // Only THIS popup's own submission should force it open in the
+          // success state on the next load - Shopify marks every
+          // 'customer' form on the page as "posted successfully" after any
+          // one of them (e.g. the footer newsletter) is submitted, so we
+          // tag our own submit explicitly.
+          this.form.addEventListener('submit', () => {
+            try {
+              sessionStorage.setItem(this.submitFlagKey, '1');
+              sessionStorage.setItem(this.scrollKey, String(window.scrollY));
+            } catch (e) {}
+          });
+        }
+        if (this.copyButton) {
+          this.copyButton.addEventListener('click', () => {
+            var code = this.copyButton.getAttribute('data-copy-code');
+            if (navigator.clipboard && code) {
+              navigator.clipboard.writeText(code).then(() => {
+                this.copyButton.classList.add('is-copied');
+                clearTimeout(this.copyButtonTimer);
+                this.copyButtonTimer = setTimeout(() => {
+                  this.copyButton.classList.remove('is-copied');
+                }, 1800);
+              });
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') this.minimize();
+        });
+
+        var wasThisFormSubmitted = false;
+        try {
+          wasThisFormSubmitted = sessionStorage.getItem(this.submitFlagKey) === '1';
+          sessionStorage.removeItem(this.submitFlagKey);
+        } catch (e) {}
+
+        if (this.hasSuccessMarkup && wasThisFormSubmitted) {
+          this.markSubscribed();
+          this.restoreScrollPosition();
+          this.openSmoothly();
+          return;
+        }
+
+        // ?popup=1 in the URL always shows it, ignoring any saved state -
+        // handy for testing without clearing browser storage.
+        var forceShow = /[?&]popup=1(&|$)/.test(window.location.search);
+
+        var state = null;
+        try {
+          state = JSON.parse(localStorage.getItem(this.stateKey) || 'null');
+        } catch (e) {}
+
+        // Once someone has actually subscribed, never show the sign-up box
+        // to them again - not even the reopen tab.
+        if (!forceShow && state && state.status === 'subscribed') return;
+
+        if (!forceShow && state && state.status === 'dismissed' && Date.now() < state.until) return;
+
+        if (!forceShow && state && state.status === 'minimized') {
+          this.classList.add('is-minimized');
+          return;
+        }
+
+        var delay = parseInt(this.getAttribute('data-delay') || '0', 10);
+        this.timer = setTimeout(() => this.openSmoothly(), delay);
+      }
+
+      markSubscribed() {
+        this.classList.add('is-success');
+        // Permanent, unlike "dismissed"/"minimized" - once someone has
+        // actually subscribed, the sign-up box should never come back for
+        // them, on this or any later visit.
+        try {
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'subscribed' }));
+        } catch (e) {}
+      }
+
+      restoreScrollPosition() {
+        // On the common (non-challenged) path, Shopify's redirect back
+        // lands on this same page with the form's #id in the URL, which
+        // can leave the browser scrolled to wherever that element sits -
+        // put the customer back exactly where they were beforehand.
+        var savedScrollY = null;
+        try {
+          savedScrollY = sessionStorage.getItem(this.scrollKey);
+          sessionStorage.removeItem(this.scrollKey);
+        } catch (e) {}
+        if (savedScrollY === null) return;
+        var targetY = parseInt(savedScrollY, 10) || 0;
+
+        try {
+          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        } catch (e) {}
+
+        var stripHashAndScroll = function () {
+          if (window.location.hash) {
+            try {
+              history.replaceState(null, document.title, window.location.pathname + window.location.search);
+            } catch (e) {}
+          }
+          window.scrollTo(0, targetY);
+        };
+
+        // The browser can (re-)apply its own scroll-to-#fragment behavior
+        // more than once - at parse time, again once the page and its
+        // images finish loading - so re-assert the real position a few
+        // times instead of once.
+        stripHashAndScroll();
+        window.addEventListener('load', stripHashAndScroll);
+        setTimeout(stripHashAndScroll, 50);
+        setTimeout(stripHashAndScroll, 300);
+        setTimeout(stripHashAndScroll, 1000);
+      }
+
+      openSmoothly() {
+        // Wait a frame so the browser paints the closed (opacity: 0) state
+        // first - otherwise adding is-open in the same tick can skip the
+        // CSS transition and the popup just snaps into view instantly.
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => this.open());
+        });
+      }
+
+      open() {
+        this.classList.remove('is-minimized');
+        this.classList.add('is-open');
+        document.documentElement.style.overflow = 'hidden';
+      }
+
+      reopen() {
+        this.openSmoothly();
+      }
+
+      minimize() {
+        this.classList.remove('is-open');
+        document.documentElement.style.overflow = '';
+
+        // Someone who already claimed the offer has no reason to see a
+        // "Get 10% Off" tab sitting in the corner afterwards - just close
+        // for good instead of minimizing to a reopen tab.
+        if (this.classList.contains('is-success')) return;
+
+        this.classList.add('is-minimized');
+        try {
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'minimized' }));
+        } catch (e) {}
+      }
+
+      dismiss() {
+        this.classList.remove('is-open', 'is-minimized');
+        document.documentElement.style.overflow = '';
+
+        var reshowDays = parseFloat(this.getAttribute('data-reshow-days') || '14');
+        var until = Date.now() + reshowDays * 24 * 60 * 60 * 1000;
+        try {
+          localStorage.setItem(this.stateKey, JSON.stringify({ status: 'dismissed', until: until }));
+        } catch (e) {}
+      }
+    }
+
+    customElements.define('welcome-popup-modal', WelcomePopupModal);
+  })();
+</script>
+{%- endunless -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Welcome popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable welcome popup",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_for_logged_in",
+      "label": "Hide for logged-in customers",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo"
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_enable",
+      "label": "Show logo",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "YOU'VE GOT"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "10% OFF"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext (optional)",
+      "default": "Sign up and we'll send your discount code."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Claim Discount"
+    },
+    {
+      "type": "text",
+      "id": "dismiss_text",
+      "label": "Dismiss link text",
+      "default": "No thanks, I'd rather pay full price."
+    },
+    {
+      "type": "header",
+      "content": "After sign-up"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount code to show",
+      "default": "WELCOME10",
+      "info": "Must match a discount code that already exists in Shopify > Discounts."
+    },
+    {
+      "type": "text",
+      "id": "discount_description",
+      "label": "Discount code description",
+      "default": "10% discount on the entire order"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Success heading",
+      "default": "You're in!"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success text",
+      "default": "Check your email for your discount code generated just for you!"
+    },
+    {
+      "type": "text",
+      "id": "copy_button_label",
+      "label": "Copy button label",
+      "default": "Copy code"
+    },
+    {
+      "type": "text",
+      "id": "button_shop_label",
+      "label": "Shop button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "range",
+      "id": "delay_seconds",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "label": "Delay before showing",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "reshow_days",
+      "min": 1,
+      "max": 90,
+      "step": 1,
+      "unit": "d",
+      "label": "Days before showing again after dismissed",
+      "default": 14
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}
