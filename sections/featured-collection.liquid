@@ -148,10 +148,10 @@
   }
 
   #collection-{{ section.id }} .slider-button {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid rgba(var(--color-foreground), 0.2);
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
   }
 
   #collection-{{ section.id }} .slider-button .icon {
@@ -159,7 +159,7 @@
   }
 
   #collection-{{ section.id }} .slider-button:not([disabled]):hover {
-    border-color: rgba(var(--color-foreground), 0.5);
+    opacity: 0.6;
   }
 
   #collection-{{ section.id }} .card__badge .badge {
