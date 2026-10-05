@@ -315,6 +315,67 @@
     color: rgba(var(--color-foreground), 0.7);
   }
 
+  .welcome-popup__code {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    border-radius: 8px;
+    background: rgba(var(--color-foreground), 0.03);
+    text-align: left;
+  }
+
+  .welcome-popup__code-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .welcome-popup__code-value {
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  .welcome-popup__code-desc {
+    font-size: 0.85rem;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .welcome-popup__copy {
+    flex-shrink: 0;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    cursor: pointer;
+    position: relative;
+  }
+
+  .welcome-popup__copy .icon {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .welcome-popup__copy.is-copied .icon {
+    visibility: hidden;
+  }
+
+  .welcome-popup__copy.is-copied:after {
+    content: '\2713';
+    position: absolute;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
   .welcome-popup__shop-link {
     width: 100%;
     justify-content: center;
@@ -475,6 +536,22 @@
             {{ popup_brand_markup }}
             <h2 class="welcome-popup__heading">{{ section.settings.success_heading }}</h2>
             <p class="welcome-popup__success-text">{{ section.settings.success_text }}</p>
+            {%- if section.settings.discount_code != blank -%}
+              <div class="welcome-popup__code">
+                <div class="welcome-popup__code-text">
+                  <span class="welcome-popup__code-value">{{ section.settings.discount_code }}</span>
+                  <span class="welcome-popup__code-desc">{{ section.settings.discount_description }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="welcome-popup__copy"
+                  data-copy-code="{{ section.settings.discount_code }}"
+                  aria-label="{{ section.settings.copy_button_label }}"
+                >
+                  {{- 'icon-copy.svg' | inline_asset_content -}}
+                </button>
+              </div>
+            {%- endif -%}
             <a href="{{ routes.all_products_collection_url }}" class="welcome-popup__shop-link button">
               {{- section.settings.button_shop_label -}}
             </a>
@@ -596,12 +673,12 @@
         if (this.copyButton) {
           this.copyButton.addEventListener('click', () => {
             var code = this.copyButton.getAttribute('data-copy-code');
-            var original = this.copyButton.textContent;
             if (navigator.clipboard && code) {
               navigator.clipboard.writeText(code).then(() => {
-                this.copyButton.textContent = 'Copied!';
-                setTimeout(() => {
-                  this.copyButton.textContent = original;
+                this.copyButton.classList.add('is-copied');
+                clearTimeout(this.copyButtonTimer);
+                this.copyButtonTimer = setTimeout(() => {
+                  this.copyButton.classList.remove('is-copied');
                 }, 1800);
               });
             }
@@ -819,6 +896,12 @@
       "label": "Discount code to show",
       "default": "WELCOME10",
       "info": "Must match a discount code that already exists in Shopify > Discounts."
+    },
+    {
+      "type": "text",
+      "id": "discount_description",
+      "label": "Discount code description",
+      "default": "10% discount on the entire order"
     },
     {
       "type": "text",
